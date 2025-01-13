@@ -13,3 +13,7 @@ You can also use Tool Library to update the existing plugins.
 This will generate the entities, messages, optionsets in their corresponding folders and DatabaseContext.
 
 NOTE in theory, you could add your authentication profile to PAC using your connection string and then use the command lines found in the generated code. If you do try this, please update this ReadMe.md with your findings.
+
+## Troubleshooting
+
+If you encounter a user authentication error and the authentication hasn't changed and your VPN is connected, try restarting the XrmToolbox application. I find this happens often but restarting always fixes the issue.
