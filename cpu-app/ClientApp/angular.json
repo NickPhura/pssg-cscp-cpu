@@ -64,6 +64,9 @@
           "configurations": {
             "production": {
               "browserTarget": "cpu-public-app:build:production"
+            },
+              "development":{
+                "proxyConfig": "proxy.config.json"
             }
           }
         },

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+//using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -296,18 +296,18 @@ namespace Gov.Cscp.Victims.Public
                     .CreateLogger();
             }
 
-            if (CurrentEnvironment.IsDevelopment())
-            {
+            //if (CurrentEnvironment.IsDevelopment())
+            //{
                 
-              app.UseSpa(spa =>
-              {
-                  // To learn more about options for serving an Angular SPA from ASP.NET Core, see https://go.microsoft.com/fwlink/?linkid=864501
-                  spa.Options.SourcePath = "ClientApp";
+            //  app.UseSpa(spa =>
+            //  {
+            //      // To learn more about options for serving an Angular SPA from ASP.NET Core, see https://go.microsoft.com/fwlink/?linkid=864501
+            //      spa.Options.SourcePath = "ClientApp";
 
-                  spa.UseAngularCliServer(npmScript: "start");
-                  spa.Options.StartupTimeout = TimeSpan.FromSeconds(200);                  
-              });
-            }
+            //      spa.UseAngularCliServer(npmScript: "start");
+            //      spa.Options.StartupTimeout = TimeSpan.FromSeconds(200);                  
+            //  });
+            //}
         }
     }
 }
