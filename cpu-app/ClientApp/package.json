@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --source-map --host 0.0.0.0",
+    "start": "ng serve --source-map --host 0.0.0.0 --proxy-config proxy.config.json",
     "build": "ng build --extract-css --base-href /coastcontracts/ --deploy-url /coastcontracts/",
     "builduat": "ng build --extract-css --base-href /uat/coastcontracts/ --deploy-url /uat/coastcontracts/",
     "buildprod": "ng build --extract-css --base-href /coastcontracts/ --deploy-url /coastcontracts/",
