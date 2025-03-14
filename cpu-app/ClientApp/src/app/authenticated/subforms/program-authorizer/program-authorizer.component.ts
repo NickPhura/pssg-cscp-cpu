@@ -22,7 +22,7 @@ export class ProgramAuthorizerComponent implements OnInit {
   @Input() isDisabled: boolean = false;
   @Input() formType: string;
   @Output() signatureChange = new EventEmitter<iSignature>();
-  @ViewChild(SignaturePad) signaturePad: SignaturePad;
+  @ViewChild(SignaturePad, {static:false}) signaturePad: SignaturePad;
 
   public signatureImage: any;
   wasSigned: boolean = false;

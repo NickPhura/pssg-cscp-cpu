@@ -24,7 +24,7 @@ interface FileBundle {
   styleUrls: ['./sign-contract.component.scss']
 })
 export class SignContractComponent implements OnInit, OnDestroy {
-  @ViewChild('files')
+  @ViewChild('files', {static: false})
   myInputVariable: ElementRef;
 
   saving: boolean = false;

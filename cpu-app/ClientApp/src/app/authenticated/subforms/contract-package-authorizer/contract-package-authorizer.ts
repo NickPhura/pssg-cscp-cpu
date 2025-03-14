@@ -16,7 +16,7 @@ export class ContractPackageAuthorizerComponent implements OnInit {
   @Input() signature: iSignature;
   @Input() isDisabled: boolean = false;
   @Output() signatureChange = new EventEmitter<iSignature>();
-  @ViewChild(SignaturePad) signaturePad: SignaturePad;
+  @ViewChild(SignaturePad, {static:false}) signaturePad: SignaturePad;
 
   public signatureImage: any;
   wasSigned: boolean = false;

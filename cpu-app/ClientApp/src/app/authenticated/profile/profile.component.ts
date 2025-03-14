@@ -20,8 +20,8 @@ import { Roles } from '../../core/models/user-settings.interface';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  @ViewChild(PersonPickerComponent) contractorContactComp: PersonPickerComponent;
-  @ViewChild(PersonPickerComponent) boardContactComp: PersonPickerComponent;
+  @ViewChild(PersonPickerComponent, {static:false}) contractorContactComp: PersonPickerComponent;
+  @ViewChild(PersonPickerComponent, {static : false}) boardContactComp: PersonPickerComponent;
   trans: Transmogrifier;
   saving: boolean = false;
   private stateSubscription: Subscription;

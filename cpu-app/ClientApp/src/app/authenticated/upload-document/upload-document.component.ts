@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./upload-document.component.scss']
 })
 export class UploadDocumentComponent implements OnInit, OnDestroy {
-  @ViewChild('files')
+  @ViewChild('files', { static: false })
   myInputVariable: ElementRef;
 
   saving: boolean = false;
