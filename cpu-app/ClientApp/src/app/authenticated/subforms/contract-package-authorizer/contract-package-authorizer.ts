@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Person } from '../../../core/models/person.class';
-import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { SignaturePad } from 'angular2-signaturepad';
 import { StateService } from '../../../core/services/state.service';
 import { iPerson } from '../../../core/models/person.interface';
 import * as _ from 'lodash';
