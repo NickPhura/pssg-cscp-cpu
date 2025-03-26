@@ -3,7 +3,7 @@ import { Address } from '../../../core/models/address.class';
 import { TransmogrifierCAPApplication } from '../../../core/models/transmogrifier-cap-application.class';
 import * as _ from 'lodash';
 import { AddPersonDialog } from '../../dialogs/add-person/add-person.dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { StateService } from '../../../core/services/state.service';
 import { FormHelper } from '../../../core/form-helper';
 
