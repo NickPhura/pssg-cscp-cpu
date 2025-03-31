@@ -170,4 +170,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  getExcell(programName: string){
+    if(this.didLoadStats){
+      this.dataCollection.filter(x=> x.program_name == programName)
+      {
+
+      }
+    }
+    
+  }
 }

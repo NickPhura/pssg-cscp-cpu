@@ -1,7 +1,8 @@
-import { iDynamicsMonthlyStatisticsQuestions, iDynamicsMonthlyStatisticsQuestionsQuestion, iDynamicsMonthlyStatisticsQuestionsMcQuestion, iDynamicsMonthlyStatisticsChildQuestion } from "./dynamics-blob";
+import { iDynamicsMonthlyStatisticsQuestions, iDynamicsMonthlyStatisticsQuestionsQuestion, iDynamicsMonthlyStatisticsQuestionsMcQuestion, iDynamicsMonthlyStatisticsChildQuestion, iDynamicsMonthlyStatisticsAnswers, iDynamicsMonthlyStatisticsCategory, iDynamicsMonthlyStatisticsAnswersAnswer } from "./dynamics-blob";
 import { iQuestion, iMultipleChoice } from "./status-report-question.interface"
 import { iQuestionCollection } from "./question-collection.interface";
 import { iDynamicsPostStatusReport } from "./dynamics-post";
+import * as _ from 'lodash';
 import { iContract } from "./contract.interface";
 import { months } from "../constants/month-codes";
 import { boolOptionSet } from "../constants/bool-optionset-values";
@@ -19,6 +20,7 @@ export class TransmogrifierStatusReport {
   public contractNumber: string;
   public reportingPeriod: string;
   public statusReportQuestions: iQuestionCollection[] = []; // this is a collection of objects
+  public DataCollectionid: string;
 
   constructor(g: iDynamicsMonthlyStatisticsQuestions) {
     this.userId = g.Userbceid;// this is the user's bceid
@@ -30,15 +32,20 @@ export class TransmogrifierStatusReport {
     this.programName = g.Program.vsd_name;
     this.contractNumber = g.Contract.vsd_name;
     this.contractedHours = g.Program.vsd_cpu_numberofhours;
+    this.DataCollectionid = g.DataCollectionid;
 
     this.buildStatusReport(g);
   }
   private buildStatusReport(g: iDynamicsMonthlyStatisticsQuestions): void {
+    debugger
     g.CategoryCollection.sort(function (a, b) {
       return a.vsd_categoryorder - b.vsd_categoryorder;
     });
+
+    let answersCollection = _.groupBy(g.AnswerCollection, '_vsd_categoryid_value');
     // for every category of questions collect the matching items
     for (let category of g.CategoryCollection) {
+      //var categoryAnswer
       const q: iQuestionCollection = {
         name: category.vsd_name,
         questions: g.QuestionCollection
@@ -54,14 +61,25 @@ export class TransmogrifierStatusReport {
               categoryID: d._vsd_categoryid_value,
               multiChoiceAnswers: this.getMultipleChoice(d.vsd_cpustatisticsmasterdataid, g.MultipleChoiceCollection),
               isChildQuestionExplanationRequired: false,
-              number: d.vsd_number || null,
-              numberMask: d.vsd_number ? d.vsd_number.toString() : null,
-              boolean: d.vsd_yesno === boolOptionSet.isTrue ? true : d.vsd_yesno === boolOptionSet.isFalse ? false : null,
-              string: d.vsd_textanswer || null,
               tooltip: d.vsd_tooltip || null,
+            }
+            if(d.vsd_name == "If actual hours were less than contracted hours for some other reason, please explain"){
+              debugger
             }
             // instantiate the correct property with the freshest null value
             q[type] = null;
+
+            if(g.AnswerCollection){
+              var answer =  this.getQuestionAnswers(d.vsd_questionorder, answersCollection[d._vsd_categoryid_value]);
+              if(answer){
+              q.number= answer.vsd_number || null;
+              q.numberMask =  answer.vsd_number ? answer.vsd_number.toString() : null,
+              q.boolean= answer.vsd_yesno === boolOptionSet.isTrue ? true : answer.vsd_yesno === boolOptionSet.isFalse ? false : null;
+              q.string= answer.vsd_textanswer || null; 
+              }
+            }
+
+
             // return the object
             return q;
           })
@@ -82,8 +100,21 @@ export class TransmogrifierStatusReport {
             isChildQuestionExplanationRequired: false,
             tooltip: d.vsd_tooltip || null,
           }
+          if(d.vsd_name == "If actual hours were less than contracted hours for some other reason, please explain"){
+            debugger
+          }
           // instantiate the correct property with the freshest null value
           q[type] = null;
+
+          if(g.AnswerCollection){
+            var answer =  this.getQuestionAnswers(d.vsd_questionorder, answersCollection[d._vsd_categoryid_value]);
+            if(answer){
+            q.number= answer.vsd_number || null;
+            q.numberMask =  answer.vsd_number ? answer.vsd_number.toString() : null,
+            q.boolean= answer.vsd_yesno === boolOptionSet.isTrue ? true : answer.vsd_yesno === boolOptionSet.isFalse ? false : null;
+            q.string= answer.vsd_textanswer || null; 
+            }
+          }
           // return the object
           return q;
         });
@@ -91,10 +122,12 @@ export class TransmogrifierStatusReport {
       q.questions = q.questions.concat(childQuestions).sort(function (a, b) {
         return a.questionNumber > b.questionNumber ? 1 : -1;
       });
-
       // push the status report questions
       this.statusReportQuestions.push(q);
     }
+  }
+  private getQuestionAnswers(order: number, answerCollection: iDynamicsMonthlyStatisticsAnswersAnswer[]):iDynamicsMonthlyStatisticsAnswersAnswer {
+   return answerCollection.find(a=> a.vsd_questionorder == order);
   }
 
   private findParentId(question_id: string, childQuestions: iDynamicsMonthlyStatisticsChildQuestion[]) {

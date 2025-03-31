@@ -31,6 +31,26 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 string endpointUrl = "tasks(" + taskId + ")/Microsoft.Dynamics.CRM.vsd_GetCPUMonthlyStatisticsQuestions";
 
                 HttpClientResult result = await _dynamicsResultService.Post(endpointUrl, requestJson);
+                var contractValue = result.result["Contract"]["vsd_contractid"];
+                var programValue = result.result["Program"]["vsd_programid"];
+                var reportingPeriodValue = result.result["ReportingPeriod"];
+
+                string endpointUrl1 = "vsd_datacollections?$select=vsd_datacollectionid&$filter=(_vsd_contract_value eq " + contractValue + ") and (_vsd_program_value eq " + programValue + ") and (vsd_reportingperiod eq " + reportingPeriodValue +")";
+
+                HttpClientResult result2 = await _dynamicsResultService.Get(endpointUrl1);
+                
+
+                if(result2.result["value"].HasValues)
+                {
+                    var dataCollectionId = result2.result["value"]?.Last()["vsd_datacollectionid"];
+                    string requestJson2 = "{\"UserBCeID\":\"" + userBceid + "\",\"BusinessBCeID\":\"" + businessBceid + "\"}";
+                    string endpointUrl2 = "vsd_datacollections(" + dataCollectionId + ")/Microsoft.Dynamics.CRM.vsd_GetCPUMonthlyStatisticsAnswers";
+
+                    HttpClientResult result3 = await _dynamicsResultService.Post(endpointUrl2, requestJson2);
+
+                    result.result.Add("AnswerCollection", result3.result["AnswerCollection"]);
+                }
+
 
                 return StatusCode((int)result.statusCode, result.result.ToString());
             }
@@ -93,7 +113,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
                     _logger.Error(new Exception(messages), $"API call to 'AnswerQuestions' made with invalid model state. Error is:\n{messages}\nSource = CPU");
                     return BadRequest(ModelState);
                 }
-
+                model.StatusCode = 100000004;
                 string endpointUrl = "tasks(" + taskId + ")/Microsoft.Dynamics.CRM.vsd_SetCPUMonthlyStatisticsAnswers";
                 string modelString = System.Text.Json.JsonSerializer.Serialize(model);
                 modelString = Helpers.Helpers.updateFortunecookieBindNull(modelString);

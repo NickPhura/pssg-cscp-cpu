@@ -26,6 +26,12 @@ export class StatusReportService {
       catchError(this.handleError)
     );
   }
+  saveStatusReportAnswers(taskId: string, answers: iDynamicsPostStatusReport): Observable<any> {
+    return this.http.post<any>(`${this.apiPath}/${taskId}`, answers, { headers: this.headers }).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
   setStatusReportAnswers(taskId: string, answers: iDynamicsPostStatusReport): Observable<any> {
     return this.http.post<any>(`${this.apiPath}/${taskId}`, answers, { headers: this.headers }).pipe(
       retry(3),
@@ -40,6 +46,12 @@ export class StatusReportService {
   }
   getMonthlyStats(organizationId: string, userId: string, contractId: string) {
     return this.http.get<iDynamicsMonthlyStatisticsQuestions>(`${this.apiPath}/monthly_stats/${organizationId}/${userId}/${contractId}`, { headers: this.headers }).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+  getMonthlyProgramExcellReport(organizationId: string, userId: string, contractId: string, program: string) {
+    return this.http.get<iDynamicsMonthlyStatisticsQuestions>(`${this.apiPath}/monthly_excell_report/${organizationId}/${userId}/${contractId}/${program}`, { headers: this.headers }).pipe(
       retry(3),
       catchError(this.handleError)
     );
