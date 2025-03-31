@@ -30,7 +30,6 @@
     "@bcgov/bc-sans": "^1.0.1",
     "@fortawesome/fontawesome-free": "5.9.0",
     "@nguniversal/express-engine": "^9.1.1",
-    "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
     "angular2-signaturepad": "^2.11.1",
     "bootstrap": "^4.3.1",
     "handlebars": "^4.7.7",
