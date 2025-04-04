@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ContractPackageAuthorizerComponent } from './contract-package-authorizer';
 
 
@@ -7,7 +7,7 @@ describe('ContractPackageAuthorizerComponent', () => {
   let component: ContractPackageAuthorizerComponent;
   let fixture: ComponentFixture<ContractPackageAuthorizerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ContractPackageAuthorizerComponent ]
     })

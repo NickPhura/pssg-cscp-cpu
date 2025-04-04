@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PersonPickerComponent } from './person-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ describe('PersonPickerComponent', () => {
   let component: PersonPickerComponent;
   let fixture: ComponentFixture<PersonPickerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PersonPickerComponent],
       imports: [FormsModule, ReactiveFormsModule]
