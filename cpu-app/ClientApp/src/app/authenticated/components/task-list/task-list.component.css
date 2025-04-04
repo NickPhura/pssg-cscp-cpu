@@ -37,3 +37,14 @@
 .task-list-container {
     position: relative;
 }
+
+.dropdown-menu :hover{
+    cursor: pointer;
+}
+
+.dropdown-item:active,
+.dropdown-item:focus {
+    color: inherit !important;
+    background-color: inherit !important;
+    text-decoration: none !important;
+}
