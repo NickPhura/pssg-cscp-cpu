@@ -125,7 +125,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
           let program = this.completedStats.ProgramCollection.find(p => p.vsd_programid == data._vsd_program_value);
           data.program_name = program && program.vsd_name ? program.vsd_name : "";
         }
-        console.log(this.dataCollection);
+        //console.log(this.dataCollection);
       }
     });
   }
