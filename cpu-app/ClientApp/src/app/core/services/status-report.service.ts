@@ -44,6 +44,12 @@ export class StatusReportService {
       catchError(this.handleError)
     );
   }
+  exportMonthlyReport(contractId: string, programId: string, contractNumber: string, programName: string){
+     return this.http.get(`${this.apiPath}/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`, { responseType: 'blob' }).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
 
   get headers(): HttpHeaders {
     return new HttpHeaders({ 'Content-Type': 'application/json' });
