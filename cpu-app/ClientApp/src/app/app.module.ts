@@ -52,7 +52,7 @@ import { LoginPageComponent } from './login/login.component';
 import { MessageWriteComponent } from './authenticated/subforms/message-write/message-write.component';
 import { NgxMaskModule } from 'ngx-mask'
 import { NewUserNewOrganizationComponent } from './authenticated/new-user-new-organization/new-user-new-organization.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { AppendixADialog } from './authenticated/dialogs/appendix-a/appendix-a.dialog';
 import { PhonePipe } from './core/pipes/phone.pipe';
 import { AddPersonDialog } from './authenticated/dialogs/add-person/add-person.dialog';
@@ -64,7 +64,7 @@ import { UppercaseDirective } from './core/directives/uppercase.directive';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToolTipTriggerComponent } from './shared/tool-tip/tool-tip.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 import { ProgramSurplusComponent } from './authenticated/program-surplus/program-surplus.component';
 import { SurplusReportComponent } from './authenticated/surplus-report/surplus-report.component';
 import { CAPApplicationComponent } from './authenticated/cap-application/cap-application.component';
@@ -73,7 +73,7 @@ import { ApplicantInformationComponent } from './authenticated/subforms/applican
 import { CAPProgramComponent } from './authenticated/subforms/cap-program/cap-program.component';
 import { CAPGuidelinesDialog } from './authenticated/dialogs/cap-guidelines/cap-guidelines.dialog';
 import { ProgramEgilibilityDialog } from './authenticated/dialogs/program-egilibility/program-egilibility.dialog';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 
 @NgModule({
   declarations: [

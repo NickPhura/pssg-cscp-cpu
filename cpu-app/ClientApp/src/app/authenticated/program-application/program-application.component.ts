@@ -16,7 +16,7 @@ import { Hours } from '../../core/models/hours.class';
 import { ContactInformation } from '../../core/models/contact-information.class';
 import { AdministrativeInformation } from '../../core/models/administrative-information.class';
 import { ProgramApplication } from '../../core/models/program-application.class';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AddPersonDialog } from '../dialogs/add-person/add-person.dialog';
 
 const PAGES = {

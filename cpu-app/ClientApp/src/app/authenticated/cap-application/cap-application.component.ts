@@ -6,7 +6,7 @@ import { TransmogrifierProgramApplication } from '../../core/models/transmogrifi
 import { iStepperElement, IconStepperService } from '../../shared/icon-stepper/icon-stepper.service';
 import { FormHelper } from '../../core/form-helper';
 import * as _ from 'lodash';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AddPersonDialog } from '../dialogs/add-person/add-person.dialog';
 import { CAPApplicationService } from '../../core/services/cap-application.service';
 import { TransmogrifierCAPApplication } from '../../core/models/transmogrifier-cap-application.class';

@@ -12,7 +12,7 @@ import { iHours } from '../../../core/models/hours.interface';
 import { perTypeDict } from '../../../core/constants/per-type';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AddPersonDialog } from '../../dialogs/add-person/add-person.dialog';
 import { ProgramApplicationComponent } from '../../program-application/program-application.component';
 import { Address } from '../../../core/models/address.class';
