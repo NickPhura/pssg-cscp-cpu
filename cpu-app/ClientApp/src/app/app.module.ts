@@ -138,12 +138,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     UploadDocumentComponent,
     UppercaseDirective,
   ],
-  entryComponents: [
-    AddPersonDialog,
-    AppendixADialog,
-    CAPGuidelinesDialog,
-    ProgramEgilibilityDialog,
-  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -166,8 +160,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     TooltipModule,
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
