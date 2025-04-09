@@ -29,7 +29,7 @@
     "@angular/router": "14.3.0",
     "@bcgov/bc-sans": "^1.0.1",
     "@fortawesome/fontawesome-free": "5.9.0",
-    "@nguniversal/express-engine": "^13.0.0",
+    "@nguniversal/express-engine": "^14.0.0",
     "@almothafar/angular-signature-pad": "^4.0.1",
     "bootstrap": "^4.3.1",
     "handlebars": "^4.7.7",
