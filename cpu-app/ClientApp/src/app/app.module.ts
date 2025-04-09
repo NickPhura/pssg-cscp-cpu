@@ -39,7 +39,7 @@ import { RevenueSourceTableComponent } from './authenticated/subforms/revenue-so
 import { ReviewApplicationComponent } from './authenticated/subforms/review-application/review-application.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
-import {Angular2SignaturepadModule as SignaturePadModule } from 'angular2-signaturepad';
+import { AngularSignaturePadModule as SignaturePadModule } from '@almothafar/angular-signature-pad';
 import { StatusReportComponent } from './authenticated/status-report/status-report.component';
 import { TaskListComponent } from './authenticated/components/task-list/task-list.component';
 import { TestComponent } from './test/test.component';
