@@ -30,7 +30,7 @@
     "@bcgov/bc-sans": "^1.0.1",
     "@fortawesome/fontawesome-free": "5.9.0",
     "@nguniversal/express-engine": "^14.0.0",
-    "@almothafar/angular-signature-pad": "^4.0.1",
+    "@almothafar/angular-signature-pad": "^5.0.0",
     "bootstrap": "^4.3.1",
     "handlebars": "^4.7.7",
     "lodash": "^4.17.21",
