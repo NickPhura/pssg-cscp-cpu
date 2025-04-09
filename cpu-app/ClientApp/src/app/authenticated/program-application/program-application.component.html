@@ -91,9 +91,9 @@
               <app-cg-liability [(cgLiability)]="trans.cglInsurance" [isDisabled]="isCompleted"></app-cg-liability>
             </div>
             <div *ngIf="item.discriminator === discriminators[3]">
-              <span *ngFor="let program of trans.programApplications">
+              <span *ngFor="let program of trans.programApplications; let i = index">
                 <span *ngIf="program.programId===item.object.data['programId']">
-                  <app-program [(programApplication)]="program" [isDisabled]="isCompleted"></app-program>
+                  <app-program [(programApplication)]="trans.programApplications[i]" [isDisabled]="isCompleted"></app-program>
                 </span>
               </span>
             </div>

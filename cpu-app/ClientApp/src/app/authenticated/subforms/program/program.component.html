@@ -111,7 +111,7 @@
     </h2>
     <div *ngFor="let hours of programApplication.operationHours; let i=index">
       <ng-container *ngIf="hours.isActive">
-        <app-hours [isDisabled]="isDisabled" [(hours)]="hours"></app-hours>
+        <app-hours [isDisabled]="isDisabled" [(hours)]="programApplication.operationHours[i]"></app-hours>
         <div class="retain-height" *ngIf="!isDisabled">
           <a (click)="removeOperationHours(i)" class="align-right btn btn-sm btn-outline-danger text-danger mt-1 mb-2">Remove</a>
         </div>
@@ -128,7 +128,7 @@
     <h2 class="blue-header">Program On-call / Stand-by Hours of Operation</h2>
     <div *ngFor="let hours of programApplication.standbyHours; let i=index">
       <ng-container *ngIf="hours.isActive">
-        <app-hours [isDisabled]="isDisabled" [(hours)]="hours"></app-hours>
+        <app-hours [isDisabled]="isDisabled" [(hours)]="programApplication.standbyHours[i]"></app-hours>
         <div class="retain-height" *ngIf="!isDisabled">
           <a (click)="removeStandbyHours(i)" class="align-right btn btn-sm btn-outline-danger text-danger mt-1 mb-2">Remove</a>
         </div>

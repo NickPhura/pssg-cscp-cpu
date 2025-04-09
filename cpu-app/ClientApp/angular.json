@@ -51,6 +51,8 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
+              "baseHref": "/coastcontracts/",
+              "deployUrl": "/coastcontracts/",
               "vendorChunk": false,
               "buildOptimizer": true,
               "fileReplacements": [
@@ -59,9 +61,10 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
-            }
+            },
+            "development": {}
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -72,10 +75,13 @@
             "production": {
               "browserTarget": "cpu-public-app:build:production"
             },
-              "development":{
-                "proxyConfig": "proxy.config.json"
+            "development":{
+              "proxyConfig": "proxy.config.json",
+              "sourceMap": true,
+              "host": "0.0.0.0"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -128,7 +134,8 @@
           "options": {
             "protractorConfig": "./protractor.conf.js",
             "devServerTarget": "cpu-public-app:serve"
-          }
+          },
+          "configurations": {}
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",

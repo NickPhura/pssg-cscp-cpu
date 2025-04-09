@@ -38,7 +38,7 @@
 </div>
 <div *ngIf="transmogrifierProgramApplication.administrativeInformation.staffUnionized" class="form-group">
   <label for="staffUnion">Which union?</label>
-  <input [disabled]="isDisabled" #staffUnion="ngModel" [(ngModel)]="transmogrifierProgramApplication.administrativeInformation.staffUnion" type="text" class="form-control" id="staffUnion" name="staffUnion" #staffUnion="ngModel" placeholder="i.e. CUPE">
+  <input [disabled]="isDisabled" #staffUnion="ngModel" [(ngModel)]="transmogrifierProgramApplication.administrativeInformation.staffUnion" type="text" class="form-control" id="staffUnion" name="staffUnion" placeholder="i.e. CUPE">
   <div class="valid-feedback" [hidden]="showValidFeedback(staffUnion)" style="display: inherit">
     Ok
   </div>

@@ -55,10 +55,10 @@
           </table>
         </div>
       </div>
-      <div *ngFor="let programBudget of trans.programBudgets">
+      <div *ngFor="let programBudget of trans.programBudgets; let i = index">
         <span *ngIf="programBudget.programId===currentStepperElement.discriminator">
           <h2>{{programBudget.name}}</h2>
-          <app-program-budget [(programBudget)]="programBudget" [(currentStepperElement)]="currentStepperElement" [isDisabled]="isCompleted">
+          <app-program-budget [(programBudget)]="trans.programBudgets[i]" [(currentStepperElement)]="currentStepperElement" [isDisabled]="isCompleted">
           </app-program-budget>
         </span>
       </div>
