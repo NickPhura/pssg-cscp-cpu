@@ -52,7 +52,6 @@
               "aot": true,
               "extractLicenses": true,
               "baseHref": "/coastcontracts/",
-              "deployUrl": "/coastcontracts/",
               "vendorChunk": false,
               "buildOptimizer": true,
               "fileReplacements": [
