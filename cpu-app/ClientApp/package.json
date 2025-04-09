@@ -36,7 +36,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.46",
-    "ngx-bootstrap": "^3.0.0",
+    "ngx-bootstrap": "^6.2.0",
     "ngx-mask": "^11.1.5",
     "node-sass": "^4.14.0",
     "rxjs": "^6.6.7",
