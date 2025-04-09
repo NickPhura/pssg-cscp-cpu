@@ -29,7 +29,7 @@
     "@angular/router": "12.2.17",
     "@bcgov/bc-sans": "^1.0.1",
     "@fortawesome/fontawesome-free": "5.9.0",
-    "@nguniversal/express-engine": "^11.2.1",
+    "@nguniversal/express-engine": "^12.1.3",
     "angular2-signaturepad": "^2.11.1",
     "bootstrap": "^4.3.1",
     "handlebars": "^4.7.7",
@@ -63,7 +63,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.3",
-    "typescript": "~4.3.5",
+    "typescript": "~4.4.0",
     "webpack": "^5.99.5"
   }
 }
