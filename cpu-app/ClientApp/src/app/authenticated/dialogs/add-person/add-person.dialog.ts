@@ -1,5 +1,5 @@
 import { Component, Inject, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { iPerson } from '../../../core/models/person.interface';
 import { iProgramApplication } from '../../../core/models/program-application.interface';
 import { nameAssemble } from '../../../core/constants/name-assemble';

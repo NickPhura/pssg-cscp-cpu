@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CgLiabilityComponent } from './cg-liability.component';
 
@@ -6,7 +6,7 @@ describe('CgLiabilityComponent', () => {
   let component: CgLiabilityComponent;
   let fixture: ComponentFixture<CgLiabilityComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CgLiabilityComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProgramAuthorizerComponent } from './program-authorizer.component';
 
@@ -6,7 +6,7 @@ describe('ProgramAuthorizerComponent', () => {
   let component: ProgramAuthorizerComponent;
   let fixture: ComponentFixture<ProgramAuthorizerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ProgramAuthorizerComponent ]
     })

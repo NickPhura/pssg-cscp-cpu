@@ -19,6 +19,14 @@
     "module": "es2015",
     "baseUrl": "./"
   },
+
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "allowedCommonJsDependencies": [
+      "angular2-signaturepad"
+    ]
+  },
+  
   "exclude": [
     "node_modules"
   ]

@@ -9,7 +9,7 @@ import { iPerson } from "./person.interface";
 import { iProgramApplication } from "./program-application.interface";
 import { iSignature } from '../../authenticated/subforms/program-authorizer/program-authorizer.component';
 import { makeViewTimeString } from './converters/hours-to-dynamics';
-import { ngDevModeResetPerfCounters } from '@angular/core/src/render3/ng_dev_mode';
+//import { ngDevModeResetPerfCounters } from '@angular/core/src/render3/ng_dev_mode';
 import { boolOptionSet } from '../constants/bool-optionset-values';
 import { perTypeDict } from '../constants/per-type';
 import { Person } from './person.class';

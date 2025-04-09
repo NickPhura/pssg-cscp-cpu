@@ -39,7 +39,7 @@ import { RevenueSourceTableComponent } from './authenticated/subforms/revenue-so
 import { ReviewApplicationComponent } from './authenticated/subforms/review-application/review-application.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
-import { SignaturePadModule } from 'angular2-signaturepad';
+import {Angular2SignaturepadModule as SignaturePadModule } from 'angular2-signaturepad';
 import { StatusReportComponent } from './authenticated/status-report/status-report.component';
 import { TaskListComponent } from './authenticated/components/task-list/task-list.component';
 import { TestComponent } from './test/test.component';
@@ -63,7 +63,8 @@ import { CompletedStatusReportComponent } from './authenticated/status-report/co
 import { UppercaseDirective } from './core/directives/uppercase.directive';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToolTipTriggerComponent } from './shared/tool-tip/tool-tip.component';
-import { MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProgramSurplusComponent } from './authenticated/program-surplus/program-surplus.component';
 import { SurplusReportComponent } from './authenticated/surplus-report/surplus-report.component';
 import { CAPApplicationComponent } from './authenticated/cap-application/cap-application.component';
