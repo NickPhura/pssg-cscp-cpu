@@ -68,11 +68,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cpu-public-app:build"
+            "buildTarget": "cpu-public-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cpu-public-app:build:production"
+              "buildTarget": "cpu-public-app:build:production"
             },
             "development":{
               "proxyConfig": "proxy.config.json",
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cpu-public-app:build"
+            "buildTarget": "cpu-public-app:build"
           }
         },
         "test": {
