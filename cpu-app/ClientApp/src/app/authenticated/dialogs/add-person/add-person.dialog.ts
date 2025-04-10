@@ -1,7 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { iPerson } from '../../../core/models/person.interface';
-import { iProgramApplication } from '../../../core/models/program-application.interface';
 import { nameAssemble } from '../../../core/constants/name-assemble';
 import * as _ from 'lodash'
 import { Person } from '../../../core/models/person.class';

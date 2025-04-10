@@ -10,13 +10,12 @@ import { convertProgramApplicationToDynamics } from '../../core/models/converter
 import { FormHelper } from '../../core/form-helper';
 import { iDynamicsPostScheduleF } from '../../core/models/dynamics-post';
 import * as _ from 'lodash';
-import { BehaviorSubject } from 'rxjs';
 import { Address } from '../../core/models/address.class';
 import { Hours } from '../../core/models/hours.class';
 import { ContactInformation } from '../../core/models/contact-information.class';
 import { AdministrativeInformation } from '../../core/models/administrative-information.class';
 import { ProgramApplication } from '../../core/models/program-application.class';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddPersonDialog } from '../dialogs/add-person/add-person.dialog';
 
 const PAGES = {

@@ -50,9 +50,9 @@ import { ProgramContactComponent } from './authenticated/program-contact/program
 import { UploadDocumentComponent } from './authenticated/upload-document/upload-document.component';
 import { LoginPageComponent } from './login/login.component';
 import { MessageWriteComponent } from './authenticated/subforms/message-write/message-write.component';
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { NewUserNewOrganizationComponent } from './authenticated/new-user-new-organization/new-user-new-organization.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppendixADialog } from './authenticated/dialogs/appendix-a/appendix-a.dialog';
 import { PhonePipe } from './core/pipes/phone.pipe';
 import { AddPersonDialog } from './authenticated/dialogs/add-person/add-person.dialog';
@@ -64,7 +64,7 @@ import { UppercaseDirective } from './core/directives/uppercase.directive';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToolTipTriggerComponent } from './shared/tool-tip/tool-tip.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProgramSurplusComponent } from './authenticated/program-surplus/program-surplus.component';
 import { SurplusReportComponent } from './authenticated/surplus-report/surplus-report.component';
 import { CAPApplicationComponent } from './authenticated/cap-application/cap-application.component';
@@ -73,7 +73,7 @@ import { ApplicantInformationComponent } from './authenticated/subforms/applican
 import { CAPProgramComponent } from './authenticated/subforms/cap-program/cap-program.component';
 import { CAPGuidelinesDialog } from './authenticated/dialogs/cap-guidelines/cap-guidelines.dialog';
 import { ProgramEgilibilityDialog } from './authenticated/dialogs/program-egilibility/program-egilibility.dialog';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -153,14 +153,19 @@ import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@ang
     SharedModule,
     SignaturePadModule,
     TooltipModule.forRoot(),
-    NgxMaskModule.forRoot(),
+    NgxMaskDirective, 
+    NgxMaskPipe,
   ],
   exports: [
     MatToolbarModule,
     MatTooltipModule,
     TooltipModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    provideNgxMask()
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
