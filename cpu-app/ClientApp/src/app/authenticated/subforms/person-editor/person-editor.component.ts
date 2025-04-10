@@ -4,9 +4,10 @@ import { FormHelper } from '../../../core/form-helper';
 import { EMAIL, PHONE_NUMBER, LETTERS_SPACES, NAME_REGEX } from '../../../core/constants/regex.constants';
 
 @Component({
-  selector: 'app-person-editor',
-  templateUrl: './person-editor.component.html',
-  styleUrls: ['./person-editor.component.css']
+    selector: 'app-person-editor',
+    templateUrl: './person-editor.component.html',
+    styleUrls: ['./person-editor.component.css'],
+    standalone: false
 })
 export class PersonEditorComponent implements OnInit {
   @Input() person: iPerson;

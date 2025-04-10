@@ -19,9 +19,10 @@ import { Subscription } from 'rxjs';
 import { Address } from '../../core/models/address.class';
 
 @Component({
-  selector: 'app-program-contact',
-  templateUrl: './program-contact.component.html',
-  styleUrls: ['./program-contact.component.css']
+    selector: 'app-program-contact',
+    templateUrl: './program-contact.component.html',
+    styleUrls: ['./program-contact.component.css'],
+    standalone: false
 })
 export class ProgramContactComponent implements OnInit, OnDestroy {
   programApplication: iProgramApplication;

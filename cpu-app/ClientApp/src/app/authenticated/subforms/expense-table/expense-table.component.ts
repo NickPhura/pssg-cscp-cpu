@@ -9,9 +9,10 @@ export interface iExpenseTableMeta {
   vscpApprovedAmount: number;
 }
 @Component({
-  selector: 'app-expense-table',
-  templateUrl: './expense-table.component.html',
-  styleUrls: ['./expense-table.component.css']
+    selector: 'app-expense-table',
+    templateUrl: './expense-table.component.html',
+    styleUrls: ['./expense-table.component.css'],
+    standalone: false
 })
 export class ExpenseTableComponent implements OnInit {
   @Input() defaultExpenseItems: iExpenseItem[] = [];

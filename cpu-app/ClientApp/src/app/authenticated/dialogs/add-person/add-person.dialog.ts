@@ -15,7 +15,8 @@ import { iAddress } from '../../../core/models/address.interface';
 @Component({
     selector: 'add-person.dialog',
     templateUrl: 'add-person.dialog.html',
-    styleUrls: ['./add-person.dialog.scss']
+    styleUrls: ['./add-person.dialog.scss'],
+    standalone: false
 })
 export class AddPersonDialog {
     agencyAddress: iAddress;

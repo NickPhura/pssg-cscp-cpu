@@ -8,9 +8,10 @@ import { iPerson } from '../../../core/models/person.interface';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-program-contact-information',
-  templateUrl: './program-contact-information.component.html',
-  styleUrls: ['./program-contact-information.component.css']
+    selector: 'app-program-contact-information',
+    templateUrl: './program-contact-information.component.html',
+    styleUrls: ['./program-contact-information.component.css'],
+    standalone: false
 })
 export class ProgramContactInformationComponent implements OnInit, OnDestroy {
   @Input() contactInformation: iContactInformation;

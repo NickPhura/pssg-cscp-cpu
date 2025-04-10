@@ -7,9 +7,10 @@ import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '
 import { Roles } from '../../core/models/user-settings.interface';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css'],
+    standalone: false
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   data: any;

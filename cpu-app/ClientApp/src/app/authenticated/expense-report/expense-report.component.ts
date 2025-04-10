@@ -16,9 +16,10 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-expense-report',
-  templateUrl: './expense-report.component.html',
-  styleUrls: ['./expense-report.component.css']
+    selector: 'app-expense-report',
+    templateUrl: './expense-report.component.html',
+    styleUrls: ['./expense-report.component.css'],
+    standalone: false
 })
 export class ExpenseReportComponent implements OnInit, OnDestroy {
   stepperElements: iStepperElement[];

@@ -22,7 +22,8 @@ import { iContract } from '../../core/models/contract.interface';
 @Component({
     selector: 'app-cap-application',
     templateUrl: './cap-application.component.html',
-    styleUrls: ['./cap-application.component.scss']
+    styleUrls: ['./cap-application.component.scss'],
+    standalone: false
 })
 export class CAPApplicationComponent implements OnInit {
     trans: TransmogrifierCAPApplication;

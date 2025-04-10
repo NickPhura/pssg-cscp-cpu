@@ -18,9 +18,10 @@ import { Subscription } from 'rxjs';
 import { Address } from '../../core/models/address.class';
 
 @Component({
-  selector: 'app-personnel',
-  templateUrl: './personnel.component.html',
-  styleUrls: ['./personnel.component.css']
+    selector: 'app-personnel',
+    templateUrl: './personnel.component.html',
+    styleUrls: ['./personnel.component.css'],
+    standalone: false
 })
 export class PersonnelComponent implements OnInit, OnDestroy {
   reload = false;

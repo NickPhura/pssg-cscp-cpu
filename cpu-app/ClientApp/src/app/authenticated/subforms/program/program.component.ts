@@ -18,9 +18,10 @@ import { ProgramApplicationComponent } from '../../program-application/program-a
 import { Address } from '../../../core/models/address.class';
 
 @Component({
-  selector: 'app-program',
-  templateUrl: './program.component.html',
-  styleUrls: ['./program.component.scss']
+    selector: 'app-program',
+    templateUrl: './program.component.html',
+    styleUrls: ['./program.component.scss'],
+    standalone: false
 })
 export class ProgramComponent implements OnInit, OnDestroy {
   @Input() programApplication: iProgramApplication;

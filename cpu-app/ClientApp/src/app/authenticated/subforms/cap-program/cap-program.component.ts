@@ -11,7 +11,8 @@ import { AddPersonDialog } from '../../dialogs/add-person/add-person.dialog';
 @Component({
     selector: 'app-cap-program',
     templateUrl: './cap-program.component.html',
-    styleUrls: ['./cap-program.component.scss']
+    styleUrls: ['./cap-program.component.scss'],
+    standalone: false
 })
 export class CAPProgramComponent implements OnInit, OnDestroy {
     @Input() program: iCAPProgram;

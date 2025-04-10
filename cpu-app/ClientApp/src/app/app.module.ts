@@ -153,7 +153,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SignaturePadModule,
     TooltipModule.forRoot(),
     NgxMaskDirective,
-    NgxMaskPipe], providers: [
+    NgxMaskPipe
+  ], 
+  providers: [
     provideNgxMask(),
     provideHttpClient(withInterceptorsFromDi())
   ],

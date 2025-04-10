@@ -5,9 +5,10 @@ import { iDynamicsDocument } from '../core/models/dynamics-blob';
 import { FileService } from '../core/services/file.service';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+    selector: 'app-test',
+    templateUrl: './test.component.html',
+    styleUrls: ['./test.component.css'],
+    standalone: false
 })
 export class TestComponent implements OnInit {
   constructor(private fileService: FileService) { }

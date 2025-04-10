@@ -8,16 +8,17 @@ import { FormHelper } from '../../../core/form-helper';
 import { iAddress } from '../../../core/models/address.interface';
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AddressComponent),
-      multi: true,
-    }
-  ]
+    selector: 'app-address',
+    templateUrl: './address.component.html',
+    styleUrls: ['./address.component.css'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => AddressComponent),
+            multi: true,
+        }
+    ],
+    standalone: false
 })
 export class AddressComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() required: boolean = false;

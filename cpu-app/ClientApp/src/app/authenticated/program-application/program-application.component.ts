@@ -28,9 +28,10 @@ const PAGES = {
 };
 
 @Component({
-  selector: 'app-program-application',
-  templateUrl: './program-application.component.html',
-  styleUrls: ['./program-application.component.css']
+    selector: 'app-program-application',
+    templateUrl: './program-application.component.html',
+    styleUrls: ['./program-application.component.css'],
+    standalone: false
 })
 export class ProgramApplicationComponent implements OnInit {
   data: any;

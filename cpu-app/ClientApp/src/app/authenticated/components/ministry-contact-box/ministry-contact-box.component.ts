@@ -5,9 +5,10 @@ import { Transmogrifier } from '../../../core/models/transmogrifier.class';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-ministry-contact-box',
-  templateUrl: './ministry-contact-box.component.html',
-  styleUrls: ['./ministry-contact-box.component.css']
+    selector: 'app-ministry-contact-box',
+    templateUrl: './ministry-contact-box.component.html',
+    styleUrls: ['./ministry-contact-box.component.css'],
+    standalone: false
 })
 export class MinistryContactBoxComponent implements OnInit, OnDestroy {
   trans: Transmogrifier;

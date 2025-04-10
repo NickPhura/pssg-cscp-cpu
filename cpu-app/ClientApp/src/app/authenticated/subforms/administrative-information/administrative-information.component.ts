@@ -4,9 +4,10 @@ import { TransmogrifierProgramApplication } from '../../../core/models/transmogr
 import { FormHelper } from '../../../core/form-helper';
 
 @Component({
-  selector: 'app-administrative-information',
-  templateUrl: './administrative-information.component.html',
-  styleUrls: ['./administrative-information.component.css']
+    selector: 'app-administrative-information',
+    templateUrl: './administrative-information.component.html',
+    styleUrls: ['./administrative-information.component.css'],
+    standalone: false
 })
 export class AdministrativeInformationComponent implements OnInit {
   @Input() transmogrifierProgramApplication: TransmogrifierProgramApplication;

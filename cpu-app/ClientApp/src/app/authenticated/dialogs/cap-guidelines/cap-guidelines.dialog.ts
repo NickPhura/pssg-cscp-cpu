@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
     selector: 'cap-guidelines.dialog',
     templateUrl: 'cap-guidelines.dialog.html',
+    standalone: false
 })
 export class CAPGuidelinesDialog {
     constructor(public dialogRef: MatDialogRef<CAPGuidelinesDialog>,

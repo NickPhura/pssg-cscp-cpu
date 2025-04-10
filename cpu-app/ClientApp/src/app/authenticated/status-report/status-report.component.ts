@@ -14,9 +14,10 @@ import * as _ from 'lodash';
 import { Transmogrifier } from '../../core/models/transmogrifier.class';
 
 @Component({
-  selector: 'app-status-report',
-  templateUrl: './status-report.component.html',
-  styleUrls: ['./status-report.component.css']
+    selector: 'app-status-report',
+    templateUrl: './status-report.component.html',
+    styleUrls: ['./status-report.component.css'],
+    standalone: false
 })
 export class StatusReportComponent implements OnInit, OnDestroy {
   data: any;

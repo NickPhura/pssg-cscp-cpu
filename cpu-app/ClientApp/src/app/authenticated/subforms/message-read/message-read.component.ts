@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { StateService } from '../../../core/services/state.service';
 
 @Component({
-  selector: 'message-read-card',
-  templateUrl: './message-read.component.html',
-  styleUrls: ['./message-read.component.css']
+    selector: 'message-read-card',
+    templateUrl: './message-read.component.html',
+    styleUrls: ['./message-read.component.css'],
+    standalone: false
 })
 export class MessageReadComponent implements OnInit {
   @Input() message: iMessage;

@@ -8,9 +8,10 @@ import { iSignature } from '../program-authorizer/program-authorizer.component';
 
 
 @Component({
-  selector: 'app-contract-package-authorizer',
-  templateUrl: './contract-package-authorizer.html',
-  styleUrls: ['./contract-package-authorizer.scss']
+    selector: 'app-contract-package-authorizer',
+    templateUrl: './contract-package-authorizer.html',
+    styleUrls: ['./contract-package-authorizer.scss'],
+    standalone: false
 })
 export class ContractPackageAuthorizerComponent implements OnInit {
   @Input() signature: iSignature;

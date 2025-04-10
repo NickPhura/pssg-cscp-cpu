@@ -13,7 +13,8 @@ import { iSurplusItem } from "../../core/models/surplus-item.interface";
 @Component({
     selector: 'app-program-surplus',
     templateUrl: './program-surplus.component.html',
-    styleUrls: ['./program-surplus.component.scss']
+    styleUrls: ['./program-surplus.component.scss'],
+    standalone: false
 })
 export class ProgramSurplusComponent implements OnInit {
     data: any;
