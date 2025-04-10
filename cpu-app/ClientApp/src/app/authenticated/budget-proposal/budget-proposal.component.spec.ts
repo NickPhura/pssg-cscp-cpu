@@ -1,9 +1,10 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { BehaviorSubject } from "rxjs";
 import { StateService } from "../../core/services/state.service";
 import { BudgetProposalComponent } from "./budget-proposal.component";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 describe("BudgetProposalComponent", () => {
   let component: BudgetProposalComponent;
@@ -21,12 +22,14 @@ describe("BudgetProposalComponent", () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      declarations: [BudgetProposalComponent],
-      providers: [
+    declarations: [BudgetProposalComponent],
+    imports: [RouterTestingModule],
+    providers: [
         { provide: StateService, useValue: stateServiceStub },
-      ]
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {

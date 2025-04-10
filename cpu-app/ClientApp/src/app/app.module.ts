@@ -14,7 +14,7 @@ import { ExpenseReportComponent } from './authenticated/expense-report/expense-r
 import { ExpenseTableComponent } from './authenticated/subforms/expense-table/expense-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HoursComponent } from './authenticated/subforms/hours/hours.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MinistryContactBoxComponent } from './authenticated/components/ministry-contact-box/ministry-contact-box.component';
 import { NgModule } from '@angular/core';
@@ -75,7 +75,7 @@ import { CAPGuidelinesDialog } from './authenticated/dialogs/cap-guidelines/cap-
 import { ProgramEgilibilityDialog } from './authenticated/dialogs/program-egilibility/program-egilibility.dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AddPersonDialog,
     Address2Component,
@@ -143,7 +143,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     MatDialogModule,
     MatToolbarModule,
     MatTooltipModule,
@@ -153,16 +152,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SharedModule,
     SignaturePadModule,
     TooltipModule.forRoot(),
-    NgxMaskDirective, 
-    NgxMaskPipe,
+    NgxMaskDirective,
+    NgxMaskPipe], providers: [
+    provideNgxMask(),
+    provideHttpClient(withInterceptorsFromDi())
   ],
   exports: [
     MatToolbarModule,
     MatTooltipModule,
     TooltipModule,
-  ],
-  providers: [
-    provideNgxMask()
   ],
   bootstrap: [
     AppComponent
