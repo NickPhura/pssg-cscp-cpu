@@ -166,15 +166,15 @@
               </h2>
               <p>(Please explain any variance in the comment section below.) Program Managers must be contacted if program is unstaffed for 30 days or more.</p>
               <div class="mb-3">
-                <label for="salariesBenefitsDescription" class="form-label">Salaries and Benefits</label>
+                <label for="salariesBenefitsDescription" class="form-label fw-normal">Salaries and Benefits</label>
                 <textarea [disabled]="isCompleted" [(ngModel)]="trans.expenseReport.salariesBenefitsDescription" name="salariesBenefitsDescription" id="salariesBenefitsDescription" cols="30" rows="5" class="form-control" placeholder="Comments here..."></textarea>
               </div>
               <div class="mb-3">
-                <label for="programDeliveryDescription" class="form-label">Program Delivery Costs</label>
+                <label for="programDeliveryDescription" class="form-label fw-normal">Program Delivery Costs</label>
                 <textarea [disabled]="isCompleted" [(ngModel)]="trans.expenseReport.programDeliveryDescription" name="programDeliveryDescription" id="programDeliveryDescription" cols="30" rows="5" class="form-control" placeholder="Comments here..."></textarea>
               </div>
               <div class="mb-3">
-                <label for="administrationDescription" class="form-label">Administration Costs</label>
+                <label for="administrationDescription" class="form-label fw-normal">Administration Costs</label>
                 <textarea [disabled]="isCompleted" [(ngModel)]="trans.expenseReport.administrationDescription" name="administrationDescription" id="administrationDescription" cols="30" rows="5" class="form-control" placeholder="Comments here..."></textarea>
               </div>
             </div>
@@ -275,7 +275,7 @@
               </h2>
               <p>(Please explain any variance in the comment section below.) Program Managers must be contacted if program is unstaffed for 30 days or more.</p>
               <div class="mb-3" *ngFor="let item of trans.expenseReport.programExpenseLineItems">
-                <label class="form-label">{{item.label}}</label>
+                <label class="form-label fw-normal">{{item.label}}</label>
                 <textarea [disabled]="isCompleted" [(ngModel)]="item.description" id="{{item.label}}_description" cols="30" rows="5" class="form-control" placeholder="Comments here..."></textarea>
               </div>
             </div>
@@ -283,7 +283,7 @@
             <div *ngIf="item.discriminator === discriminators[2]">
               <div class="form-check">
                 <input [disabled]="isCompleted" [(ngModel)]="trans.expenseReport.executiveReview" type="checkbox" class="form-check-input" id="executiveCheck">
-                <label for="executiveCheck" class="form-check-label form-label">This report has been reviewed by executive-level management</label>
+                <label for="executiveCheck" class="form-check-label form-label fw-normal">This report has been reviewed by executive-level management</label>
               </div>
               <h2 class="blue-header mt-4">Contact for program expense report</h2>
               <app-person-card [person]="currentUser"></app-person-card>

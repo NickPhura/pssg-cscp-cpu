@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md">
       <div class="mb-3">
-        <label for="emailAddress" class="form-label">Email</label>
+        <label for="emailAddress" class="form-label fw-normal">Email</label>
         <input [disabled]="isDisabled" type="text" class="form-control" id="emailAddress" name="emailAddress" [(ngModel)]="contactInformation.emailAddress" #emailAddress="ngModel" (input)="formHelper.trimInput($event.target)" [pattern]="emailRegex" required>
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(emailAddress)">
           Ok
@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-md">
       <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <label for="phoneNumber" class="form-label fw-normal">Phone Number</label>
         <input [disabled]="isDisabled" type="text" mask='(000) 000 0000' class="form-control" id="phoneNumber" name="phoneNumber" [(ngModel)]="contactInformation.phoneNumber" #phoneNumber="ngModel" [pattern]="phoneRegex" required>
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(phoneNumber)">
           Ok
@@ -28,7 +28,7 @@
     </div>
     <div class="col-md">
       <div class="mb-3">
-        <label for="faxNumber" class="form-label">Fax Number (Optional)</label>
+        <label for="faxNumber" class="form-label fw-normal">Fax Number (Optional)</label>
         <input [disabled]="isDisabled" type="text" mask='(000) 000 0000' class="form-control" id="faxNumber" name="faxNumber" [(ngModel)]="contactInformation.faxNumber" #faxNumber="ngModel" [pattern]="phoneRegex">
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(faxNumber)">
           Ok

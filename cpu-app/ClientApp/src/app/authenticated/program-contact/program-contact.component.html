@@ -16,11 +16,11 @@
         </div>
         <h2 class="blue-header">Main Program Information</h2>
         <div class="mb-3">
-          <label for="serviceArea" class="form-label">Assignment Area</label>
+          <label for="serviceArea" class="form-label fw-normal">Assignment Area</label>
           <input class="form-control" type="text" [ngModel]="programApplication.assignmentArea" id="serviceArea" name="serviceArea" disabled>
         </div>
         <div class="mb-3">
-          <label for="programLocation" class="form-label">Program Location</label>
+          <label for="programLocation" class="form-label fw-normal">Program Location</label>
           <input class="form-control" type="text" [ngModel]="programApplication.programLocation" id="programLocation" name="programLocation" disabled>
         </div>
 
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-md">
             <div class="mb-3">
-              <label for="emailAddress" class="form-label">Email</label>
+              <label for="emailAddress" class="form-label fw-normal">Email</label>
               <input type="text" class="form-control" id="emailAddress" name="emailAddress" [(ngModel)]="programApplication.emailAddress" #emailAddress="ngModel" (input)="formHelper.trimInput($event.target)" [pattern]="emailRegex">
               <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(emailAddress)">
                 Ok
@@ -42,7 +42,7 @@
         <div class="row">
           <div class="col-md">
             <div class="mb-3">
-              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <label for="phoneNumber" class="form-label fw-normal">Phone Number</label>
               <input type="text" mask='(000) 000 0000' class="form-control" id="phoneNumber" name="phoneNumber" [(ngModel)]="programApplication.phoneNumber" #phoneNumber="ngModel" [pattern]="phoneRegex">
               <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(phoneNumber)">
                 Ok
@@ -54,7 +54,7 @@
           </div>
           <div class="col-md">
             <div class="mb-3">
-              <label for="faxNumber" class="form-label">Fax Number (Optional)</label>
+              <label for="faxNumber" class="form-label fw-normal">Fax Number (Optional)</label>
               <input type="text" mask='(000) 000 0000' class="form-control" id="faxNumber" name="faxNumber" [(ngModel)]="programApplication.faxNumber" #faxNumber="ngModel" [pattern]="phoneRegex">
               <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(faxNumber)">
                 Ok
@@ -69,7 +69,7 @@
         <div>
           <div class="form-check">
             <input [(ngModel)]="programApplication.isTransitionHouse" class="form-check-input" type="checkbox" id="isTransitionHouse" name="isTransitionHouse">
-            <label class="form-check-label form-label" for="isTransitionHouse">
+            <label class="form-check-label form-label fw-normal" for="isTransitionHouse">
               Is this Program location a transition house or safe home?
             </label>
           </div>
@@ -79,7 +79,7 @@
         <h2 class="blue-header mt-4">Mailing Address</h2>
         <div class="form-check">
           <input [(ngModel)]="programApplication.mailingAddressSameAsMainAddress" class="form-check-input" type="checkbox" id="mailingAddressSameAsMainAddress" name="mailingAddressSameAsMainAddress" (change)="setMailingAddressSameAsMainAddress()">
-          <label class="form-check-label form-label" for="mailingAddressSameAsMainAddress">
+          <label class="form-check-label form-label fw-normal" for="mailingAddressSameAsMainAddress">
             Please select this check box if mailing address is the same as Primary Program Contact Address
           </label>
         </div>

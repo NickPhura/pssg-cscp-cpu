@@ -3,7 +3,7 @@
 <div *ngFor="let term of terms; let i=index" class="mb-3">
   <div class="form-check">
     <input [disabled]="isDisabled" class="form-check-input" type="checkbox" (input)="onInput()" name="term_{{i}}" id="term_{{i}}" [(ngModel)]="term[1]">
-    <label class="form-check-label form-label" for="term_{{i}}">
+    <label class="form-check-label form-label fw-normal" for="term_{{i}}">
       {{term[0]}}
     </label>
   </div>
@@ -14,8 +14,8 @@
     <div class="card-body">
       <h5 class="card-title">Please add your signature here with you finger or other pointing device.</h5>
     </div>
-    <div class="mx-auto bg-light mb-2 signature-pad" style="width:600px;height:200px;border:1px solid #666;">
-      <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"></signature-pad>
+    <div class="mx-auto bg-light mb-2">
+        <signature-pad [options]="signaturePadOptions" (drawStart)="drawStart()"></signature-pad>
     </div>
     <div class="card-footer">
       <button *ngIf="!isDisabled" class="btn btn-secondary" (click)="clearSignature()">Clear</button>

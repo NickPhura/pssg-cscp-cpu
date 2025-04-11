@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md">
             <div class="mb-3">
-                <label for="orgName" class="form-label">Legal Name of Organization</label>
+                <label for="orgName" class="form-label fw-normal">Legal Name of Organization</label>
                 <input [value]="trans.organizationName" type="text" class="form-control" id="orgName" name="orgName" disabled>
             </div>
         </div>
@@ -19,7 +19,7 @@
     <!-- insert new checkboxes for VS-4037 -->
 
     <div>
-        <label class="form-label">
+        <label class="form-label fw-normal">
             <strong>
                 Are you applying for Social Services Group Liability Program (SSGLP) insurance coverage for the next fiscal year?
             </strong>
@@ -27,11 +27,11 @@
         <div class="mb-3">
             <div class="form-check form-check-inline">
                 <input [disabled]="isCompleted" [(ngModel)]="trans.applyingForInsurance" class="form-check-input" type="radio" name="applyingForInsurance" id="applyingForInsurance1" [value]="true">
-                <label class="form-check-label form-label" for="applyingForInsurance1">Yes</label>
+                <label class="form-check-label form-label fw-normal" for="applyingForInsurance1">Yes</label>
             </div>
             <div class="form-check form-check-inline">
                 <input [disabled]="isCompleted" [(ngModel)]="trans.applyingForInsurance" class="form-check-input" type="radio" name="applyingForInsurance" id="applyingForInsurance2" [value]="false">
-                <label class="form-check-label form-label" for="applyingForInsurance2">No</label>
+                <label class="form-check-label form-label fw-normal" for="applyingForInsurance2">No</label>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
         <div class="col-md">
             <div class="mb-3">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="trans.letterOfReference" name="letterOfReference" id="letterOfReference" [checked]="trans.letterOfReference" />
-                <label for="letterOfReference" class="form-check-label" class="form-label">Have you included a letter of reference from one of your referral sources?</label>
+                <label for="letterOfReference" class="form-check-label" class="form-label fw-normal">Have you included a letter of reference from one of your referral sources?</label>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         <div class="col-md">
             <div class="mb-3">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="trans.criminalRecordChecks" name="criminalRecordChecks" id="criminalRecordChecks" [checked]="trans.criminalRecordChecks" />
-                <label for="criminalRecordChecks" class="form-check-label" class="form-label">Are criminal record checks done on all facilitators and mentors?</label>
+                <label for="criminalRecordChecks" class="form-check-label" class="form-label fw-normal">Are criminal record checks done on all facilitators and mentors?</label>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
         <div class="col-md">
             <div class="mb-3">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="trans.establishedConfidentialityGuidelines" name="establishedConfidentialityGuidelines" id="establishedConfidentialityGuidelines" [checked]="trans.establishedConfidentialityGuidelines" />
-                <label for="establishedConfidentialityGuidelines" class="form-check-label" class="form-label">Does the program comply with established confidentiality guidelines?</label>
+                <label for="establishedConfidentialityGuidelines" class="form-check-label" class="form-label fw-normal">Does the program comply with established confidentiality guidelines?</label>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
         <div class="col-md">
             <div class="mb-3">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="trans.complaintProcessForParticipant" name="complaintProcessForParticipant" id="complaintProcessForParticipant" [checked]="trans.complaintProcessForParticipant" />
-                <label for="complaintProcessForParticipant" class="form-check-label" class="form-label">Is there a complaints/feedback process available to all participants?</label>
+                <label for="complaintProcessForParticipant" class="form-check-label" class="form-label fw-normal">Is there a complaints/feedback process available to all participants?</label>
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
         <div class="col-md">
             <div class="mb-3">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="trans.collaborationWithKeyStakeholders" name="collaborationWithKeyStakeholders" id="collaborationWithKeyStakeholders" [checked]="trans.collaborationWithKeyStakeholders" />
-                <label for="collaborationWithKeyStakeholders" class="form-check-label" class="form-label">Is your program collaborating with key stakeholder groups (e.g., victim services, youth services, etc.)?</label>
+                <label for="collaborationWithKeyStakeholders" class="form-check-label" class="form-label fw-normal">Is your program collaborating with key stakeholder groups (e.g., victim services, youth services, etc.)?</label>
             </div>
         </div>
     </div>
