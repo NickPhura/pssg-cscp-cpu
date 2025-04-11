@@ -61,7 +61,7 @@
     <div class="row form-inline">
       <div class="mb-3 col-md-6">
         <label for="open" class="form-label">Open</label>
-        <input [disabled]="isDisabled" [(ngModel)]="hours.openMask" type="text" mask="00 : 00" class="form-control ml-2 time-input" id="open_{{uuid}}" placeholder="00 : 00" [pattern]="timeRegex" (input)="formHelper.maskToTime($event.target, hours, 'open')">
+        <input [disabled]="isDisabled" [(ngModel)]="hours.openMask" type="text" mask="00 : 00" class="form-control ms-2 time-input" id="open_{{uuid}}" placeholder="00 : 00" [pattern]="timeRegex" (input)="formHelper.maskToTime($event.target, hours, 'open')">
         <select [disabled]="isDisabled" [(ngModel)]="hours.isAMOpen" class="form-control">
           <option [ngValue]="true">AM</option>
           <option [ngValue]="false">PM</option>
@@ -73,7 +73,7 @@
       </div>
       <div class="mb-3 col-md-6">
         <label for="closed" class="form-label">Closed</label>
-        <input [disabled]="isDisabled" [(ngModel)]="hours.closedMask" type="text" mask="00 : 00" class="form-control ml-2 time-input" id="closed{{uuid}}" placeholder="00 : 00" [pattern]="timeRegex" (input)="formHelper.maskToTime($event.target, hours, 'closed')">
+        <input [disabled]="isDisabled" [(ngModel)]="hours.closedMask" type="text" mask="00 : 00" class="form-control ms-2 time-input" id="closed{{uuid}}" placeholder="00 : 00" [pattern]="timeRegex" (input)="formHelper.maskToTime($event.target, hours, 'closed')">
         <select [disabled]="isDisabled" [(ngModel)]="hours.isAMClosed" class="form-control">
           <option [ngValue]="true">AM</option>
           <option [ngValue]="false">PM</option>
