@@ -1,5 +1,5 @@
-<div class="form-group">
-  <label for="personPicker{{idNum}}">{{title}}</label>
+<div class="mb-3">
+  <label for="personPicker{{idNum}}" class="form-label">{{title}}</label>
   <select [disabled]="isDisabled" [(ngModel)]="personId" (change)="onChange()" class="form-control" name="personPicker{{idNum}}" id="personPicker{{idNum}}">
     <option [value]="null">--</option>
     <option *ngFor="let p of trans.persons" [ngValue]="p.personId">{{nameAssemble(p.firstName,p.middleName,p.lastName)}}<span *ngIf="p.title"> - {{p.title}}</span></option>

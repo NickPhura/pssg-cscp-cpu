@@ -8,7 +8,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h4 class="h4">Contract: {{contract.contractNumber}}</h4>
         <div class="btn-group ml-auto">
-          <button (click)="toggleDropdown()" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button (click)="toggleDropdown()" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Export Data
           </button>
           <div class="dropdown-menu" [class.show]="isDropdownOpen">
@@ -21,25 +21,25 @@
         </div>
       </div>
       <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
+        <li>
           <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs.tasksDue)" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs.tasksDue">{{tabs.tasksDue}}{{contract.tasks.length ? ' ('+contract.tasks.length+')':''}}</a>
         </li>
-        <li class="nav-item">
+        <li>
           <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs.tasksCompleted)" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs.tasksCompleted">{{tabs.tasksCompleted}}{{contract.completedTasks.length ? ' ('+contract.completedTasks.length+')':''}}</a>
         </li>
 
-        <li class="nav-item">
+        <li>
           <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs.completedStats); getCompletedMonthlyStats(contract.contractId)" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs.completedStats">{{tabs.completedStats}}</a>
         </li>
 
-        <li class="nav-item">
+        <li>
           <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs.editProgramInformation)" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs.editProgramInformation">{{tabs.editProgramInformation}}</a>
         </li>
-        <li class="nav-item">
+        <li>
           <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs.yourDocuments); getContractDocuments(contract.contractId)" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs.yourDocuments">{{tabs.yourDocuments}}</a>
         </li>
         <!-- Messages won't be included until after initial release. So Hide unused tab for now. -->
-        <!-- <li class="nav-item">
+        <!-- <li>
         <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs[3])" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs[3]">Messages</a>
       </li> -->
       </ul>

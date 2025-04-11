@@ -1,7 +1,7 @@
 <div id="notificationBanner">
   <span *ngFor="let notification of currentNotifications" [@fadeAnimation]="'in'">
     <div *ngIf="notification.type===levels[0]" class="alert alert-danger alert-dismissible mb-1" role="alert">
-      <i class="fas fa-exclamation-circle mr-2"></i><strong>{{notification.message}}</strong>
+      <i class="fas fa-exclamation-circle me-2"></i><strong>{{notification.message}}</strong>
       <button (click)="close(notification)" type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">
           <i class="fas fa-times"></i>
@@ -10,7 +10,7 @@
     </div>
 
     <div *ngIf="notification.type===levels[1]" class="alert alert-warning alert-dismissible mb-1" role="alert">
-      <i class="fas fa-exclamation-triangle mr-2"></i>
+      <i class="fas fa-exclamation-triangle me-2"></i>
       <strong>{{notification.message}}</strong>
       <button (click)="close(notification)" type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">
@@ -20,7 +20,7 @@
     </div>
 
     <div *ngIf="notification.type===levels[2]" class="alert alert-success alert-dismissible mb-1" role="alert">
-      <i class="fas fa-check-circle mr-2"></i>
+      <i class="fas fa-check-circle me-2"></i>
       <strong>{{notification.message}}</strong>
       <button (click)="close(notification)" type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">

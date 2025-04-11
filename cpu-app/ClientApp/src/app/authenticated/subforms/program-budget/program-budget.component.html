@@ -3,7 +3,7 @@
 <app-expense-table style="display: none;" [(defaultExpenseItems)]="programBudget.programDeliveryCosts" [(expenseItems)]="programBudget.programDeliveryOtherExpenses" [otherDescription]="'Other program-related expenses. Please include expenses one per line.'" (meta)="collectMeta( $event, sections[1])" [type]="'hidden_pdc'"></app-expense-table>
 <app-expense-table style="display: none;" [(defaultExpenseItems)]="programBudget.administrationCosts" [(expenseItems)]="programBudget.administrationOtherExpenses" [otherDescription]="'Other administration expenses.'" (meta)="collectMeta( $event, sections[2])" [type]="'hidden_ac'"></app-expense-table>
 <ul class="nav nav-pills mb-2">
-  <li *ngFor="let tab of tabs" class="nav-item">
+  <li *ngFor="let tab of tabs">
     <a class="nav-link nav-tab" [class.active]="tab===programBudget.currentTab" (click)="setCurrentTab(tab)">{{tab}}</a>
   </li>
 </ul>

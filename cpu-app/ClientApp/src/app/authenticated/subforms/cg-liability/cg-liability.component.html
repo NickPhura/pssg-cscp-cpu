@@ -24,17 +24,17 @@
 <p>
   Please refer to <strong> <a (click)="showAppendixADialog()" class="appendix-link">Appendix A - The Social Services Group Liability (SSGLP)</a></strong> of the program application form. The Appendix provides general information on the Province’s Social Services Group Liability Program (SSGLP).
 </p>
-<div class="form-group">
+<div class="mb-3">
   Please choose from ONE of the following options:
   <div class="form-check form-check-inline">
     <input [disabled]="isDisabled" [(ngModel)]="cgLiability" (change)="onChanges()" class="form-check-input" type="radio" name="cglOption1" id="cglOption1" value="Agency Carries own CGL coverage" required>
-    <label class="form-check-label" for="cglOption1">
+    <label class="form-check-label form-label" for="cglOption1">
       <strong> Option A: </strong> Your agency carries its own Commercial General Liability (CGL) coverage (as described above) that covers the programs and services you are applying to provide.
     </label>
   </div>
   <div class="form-check form-check-inline">
     <input [disabled]="isDisabled" [(ngModel)]="cgLiability" (change)="onChanges()" class="form-check-input" type="radio" name="cglOption2" id="cglOption2" value="Agency requesting Province's The Social Services Group Liability (SSGLP) enrolment" required>
-    <label class="form-check-label" for="cglOption2">
+    <label class="form-check-label form-label" for="cglOption2">
       <strong> Option B: </strong> Your agency is requesting enrolment in the Province’s Social Services Group Liability Program (SSGLP).
     </label>
   </div>

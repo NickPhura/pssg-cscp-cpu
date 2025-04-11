@@ -1,8 +1,8 @@
 <div *ngIf="hours" class="card">
   <div class="card-body">
-    <div class="form-row">
+    <div class="row">
       <div class="col">
-        <label for="monday_{{uuid}}">
+        <label for="monday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="monday_{{uuid}}" id="monday_{{uuid}}" [(ngModel)]="hours.monday">
           <small>
             Monday
@@ -10,7 +10,7 @@
         </label>
       </div>
       <div class="col">
-        <label for="tuesday_{{uuid}}">
+        <label for="tuesday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="tuesday_{{uuid}}" id="tuesday_{{uuid}}" [(ngModel)]="hours.tuesday">
           <small>
             Tuesday
@@ -18,7 +18,7 @@
         </label>
       </div>
       <div class="col">
-        <label for="wednesday_{{uuid}}">
+        <label for="wednesday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="wednesday_{{uuid}}" id="wednesday_{{uuid}}" [(ngModel)]="hours.wednesday">
           <small>
             Wednesday
@@ -26,7 +26,7 @@
         </label>
       </div>
       <div class="col">
-        <label for="thursday_{{uuid}}">
+        <label for="thursday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="thursday_{{uuid}}" id="thursday_{{uuid}}" [(ngModel)]="hours.thursday">
           <small>
             Thursday
@@ -34,7 +34,7 @@
         </label>
       </div>
       <div class="col">
-        <label for="friday_{{uuid}}">
+        <label for="friday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="friday_{{uuid}}" id="friday_{{uuid}}" [(ngModel)]="hours.friday">
           <small>
             Friday
@@ -42,7 +42,7 @@
         </label>
       </div>
       <div class="col">
-        <label for="saturday_{{uuid}}">
+        <label for="saturday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="saturday_{{uuid}}" id="saturday_{{uuid}}" [(ngModel)]="hours.saturday">
           <small>
             Saturday
@@ -50,7 +50,7 @@
         </label>
       </div>
       <div class="col">
-        <label for="sunday_{{uuid}}">
+        <label for="sunday_{{uuid}}" class="form-label">
           <input [disabled]="isDisabled" type="checkbox" name="sunday_{{uuid}}" id="sunday_{{uuid}}" [(ngModel)]="hours.sunday">
           <small>
             Sunday
@@ -58,9 +58,9 @@
         </label>
       </div>
     </div>
-    <div class="form-row form-inline">
-      <div class="form-group col-md-6">
-        <label for="open">Open</label>
+    <div class="row form-inline">
+      <div class="mb-3 col-md-6">
+        <label for="open" class="form-label">Open</label>
         <input [disabled]="isDisabled" [(ngModel)]="hours.openMask" type="text" mask="00 : 00" class="form-control ml-2 time-input" id="open_{{uuid}}" placeholder="00 : 00" [pattern]="timeRegex" (input)="formHelper.maskToTime($event.target, hours, 'open')">
         <select [disabled]="isDisabled" [(ngModel)]="hours.isAMOpen" class="form-control">
           <option [ngValue]="true">AM</option>
@@ -71,8 +71,8 @@
         </div>
 
       </div>
-      <div class="form-group col-md-6">
-        <label for="closed">Closed</label>
+      <div class="mb-3 col-md-6">
+        <label for="closed" class="form-label">Closed</label>
         <input [disabled]="isDisabled" [(ngModel)]="hours.closedMask" type="text" mask="00 : 00" class="form-control ml-2 time-input" id="closed{{uuid}}" placeholder="00 : 00" [pattern]="timeRegex" (input)="formHelper.maskToTime($event.target, hours, 'closed')">
         <select [disabled]="isDisabled" [(ngModel)]="hours.isAMClosed" class="form-control">
           <option [ngValue]="true">AM</option>

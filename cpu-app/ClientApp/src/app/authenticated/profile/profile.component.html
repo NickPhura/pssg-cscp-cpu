@@ -20,7 +20,7 @@
       <h2 class="blue-header mt-4">Mailing Address</h2>
       <div class="form-check">
         <input [disabled]="userRole === Roles.ProgramStaff" [(ngModel)]="trans.contactInformation.mailingAddressSameAsMainAddress" class="form-check-input" type="checkbox" id="mailingAddressSameAsMainAddress" name="mailingAddressSameAsMainAddress" (change)="setMailingAddressSameAsMainAddress()">
-        <label class="form-check-label" for="mailingAddressSameAsMainAddress">
+        <label class="form-check-label form-label" for="mailingAddressSameAsMainAddress">
           Please select this check box if mailing address is the same as Primary Program Contact Address
         </label>
       </div>
@@ -34,7 +34,7 @@
 
       <div class="form-check mt-4">
         <input [disabled]="userRole === Roles.ProgramStaff" [(ngModel)]="trans.contactInformation.hasBoardContact" type="checkbox" id="hasBoardOfDirectors" name="hasBoardOfDirectors" class="form-check-input">
-        <label for="hasBoardOfDirectors">
+        <label for="hasBoardOfDirectors" class="form-label">
           Please select this check box if your organization has a Board of Directors.
         </label>
       </div>

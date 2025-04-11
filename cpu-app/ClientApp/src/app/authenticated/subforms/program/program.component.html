@@ -1,33 +1,33 @@
 <form name="form" (input)="onInput()" novalidate>
 
   <ul class="nav nav-pills mb-2">
-    <li *ngFor="let tab of tabs" class="nav-item">
+    <li *ngFor="let tab of tabs">
       <a class="nav-link nav-tab" [class.active]="tab===programApplication.currentTab" (click)="setCurrentTab(tab)">{{tab}}</a>
     </li>
   </ul>
 
   <div *ngIf="programApplication.currentTab===tabs[0]">
     <h2 class="blue-header">Main Program Information</h2>
-    <div class="form-group">
-      <label for="serviceArea">Assignment Area</label>
+    <div class="mb-3">
+      <label for="serviceArea" class="form-label">Assignment Area</label>
       <input [disabled]="isDisabled" class="form-control" type="text" [ngModel]="programApplication.assignmentArea" id="serviceArea" name="serviceArea" disabled>
     </div>
-    <div class="form-group">
-      <label for="programLocation">Program Location</label>
+    <div class="mb-3">
+      <label for="programLocation" class="form-label">Program Location</label>
       <input [disabled]="isDisabled" class="form-control" type="text" [ngModel]="programApplication.programLocation" id="programLocation" name="programLocation" disabled>
     </div>
-    <div class="form-group flex-container" *ngIf="programApplication.serviceAreas && programApplication.serviceAreas.length > 0">
+    <div class="mb-3 flex-container" *ngIf="programApplication.serviceAreas && programApplication.serviceAreas.length > 0">
       <div *ngFor="let seviceArea of programApplication.serviceAreas; let i=index" class="col-md-6">
-        <label for="serviceArea{{i}}">Service Area {{i+1}}</label>
+        <label for="serviceArea{{i}}" class="form-label">Service Area {{i+1}}</label>
         <input [disabled]="isDisabled" class="form-control" type="text" [ngModel]="seviceArea" id="serviceArea{{i}}" name="serviceArea{{i}}" disabled>
       </div>
     </div>
-    <div class="form-group">
-      <label for="estimatedContractValue">Estimated Contract Value</label>
+    <div class="mb-3">
+      <label for="estimatedContractValue" class="form-label">Estimated Contract Value</label>
       <input [disabled]="isDisabled" class="form-control" type="text" prefix="$" mask="separator.2" thousandSeparator="," [(ngModel)]="programApplication.estimatedContractValueMask" id="estimatedContractValue" name="estimatedContractValue" disabled [validation]="false">
     </div>
-    <div class="form-group">
-      <label for="numberOfHours">Contracted Service Hours per Week</label>
+    <div class="mb-3">
+      <label for="numberOfHours" class="form-label">Contracted Service Hours per Week</label>
       <input [disabled]="isDisabled" [(ngModel)]="programApplication.numberOfHours" suffix=" Hours" mask="9999" type="text" id="numberOfHours" name="numberOfHours" class="form-control" disabled [validation]="false">
     </div>
 
@@ -35,7 +35,7 @@
     <app-primary-contact-info [isDisabled]="isDisabled" [(contactInformation)]="programApplication"></app-primary-contact-info>
     <div class="form-check">
       <input [(ngModel)]="programApplication.isTransitionHouse" class="form-check-input" type="checkbox" id="isTransitionHouse" name="isTransitionHouse">
-      <label class="form-check-label" for="isTransitionHouse">
+      <label class="form-check-label form-label" for="isTransitionHouse">
         Is this Program location a transition house or safe home?
       </label>
     </div>
@@ -46,7 +46,7 @@
     <h2 class="blue-header">Mailing Address</h2>
     <div class="form-check">
       <input [disabled]="isDisabled" [(ngModel)]="programApplication.mailingAddressSameAsMainAddress" class="form-check-input" type="checkbox" id="mailingAddressSameAsMainAddress" name="mailingAddressSameAsMainAddress" (change)="setMailingAddressSameAsMainAddress()">
-      <label class="form-check-label" for="mailingAddressSameAsMainAddress">
+      <label class="form-check-label form-label" for="mailingAddressSameAsMainAddress">
         Please select this check box if mailing address is the same as Primary Program Contact Address
       </label>
     </div>
@@ -64,7 +64,7 @@
     <h2 class="blue-header mt-2">Sub-contracted Staff</h2>
     <div class="form-check">
       <input [disabled]="isDisabled" [(ngModel)]="programApplication.hasSubContractedStaff" class="form-check-input" type="checkbox" id="hasSubContractedStaff" name="hasSubContractedStaff" (change)="hasSubContractedStaffChange()">
-      <label class="form-check-label" for="hasSubContractedStaff">
+      <label class="form-check-label form-label" for="hasSubContractedStaff">
         Select if this program employs sub-contractors
       </label>
     </div>
@@ -78,7 +78,7 @@
         <h2 class="blue-header mt-2">For Police-Based Victim Service program only</h2>
         <div class="form-check">
           <input [disabled]="isDisabled" [(ngModel)]="programApplication.hasPoliceContact" class="form-check-input" type="checkbox" id="hasPoliceContact" name="hasPoliceContact">
-          <label class="form-check-label" for="hasPoliceContact">
+          <label class="form-check-label form-label" for="hasPoliceContact">
             Select if your Police Based Victim Services Program has a police contact
           </label>
         </div>
@@ -91,12 +91,12 @@
       <div *ngIf="programApplication.hasPoliceContact" class="shared-cost-contact-div">
         <div class="form-check">
           <input [disabled]="isDisabled" [(ngModel)]="programApplication.hasSharedCostContact" class="form-check-input" type="checkbox" id="hasSharedCostContactCheckbox" name="hasSharedCostContactCheckbox">
-          <label class="form-check-label" for="hasSharedCostContactCheckbox">
+          <label class="form-check-label form-label" for="hasSharedCostContactCheckbox">
             Please select the check box to complete your cost share contact information with local Government:
           </label>
         </div>
         <div *ngIf="programApplication.hasSharedCostContact">
-          <label for="governmentFunder">Name of Government Funder / Agency</label>
+          <label for="governmentFunder" class="form-label">Name of Government Funder / Agency</label>
           <input [disabled]="isDisabled" type="text" class="form-control" id="governmentFunder" name="governmentFunder" [(ngModel)]="programApplication.governmentFunder" #governmentFunder="ngModel">
           <app-person-editor [isDisabled]="isDisabled" [(person)]="programApplication.sharedCostContact" [isPoliceContact]="true" [idNum]="2" (setAddress)="setAddressSameAsAgency($event)" (clearAddress)="clearAddress($event)"></app-person-editor>
         </div>
@@ -118,7 +118,7 @@
       </ng-container>
     </div>
     <div>
-      <div class="form-row">
+      <div class="row">
         <div class="col-md-12">
           <button *ngIf="!isDisabled" class="btn btn-info mb-4 mt-2 align-right" (click)="addOperationHours()">Add Operation Hours</button>
         </div>
@@ -135,7 +135,7 @@
       </ng-container>
     </div>
     <div>
-      <div class="form-row">
+      <div class="row">
         <div class="col-md-12">
           <button *ngIf="!isDisabled" class="btn btn-info mb-4 mt-2 align-right" (click)="addStandbyHours()">Add On-call/Stand-by Hours</button>
         </div>
