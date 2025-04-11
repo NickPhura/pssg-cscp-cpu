@@ -16,8 +16,8 @@
     "e2e": "ng e2e"
   },
   "engines": {
-    "node": ">=18.20.0",
-    "npm": ">=10.5.0"
+    "node": ">=20.19.0",
+    "npm": ">=10.8.2"
   },
   "dependencies": {
     "@almothafar/angular-signature-pad": "^6.0.0",
