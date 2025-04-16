@@ -6,20 +6,6 @@
   <div class="card mb-2" [class.dark-overlay]="downloadingDocument">
     <div class="card-header">
       <h4 class="h4">Contract: {{contract.contractNumber}}</h4>
-
-      <span class="btn-group my-10">
-        <button (click)="getExcell(prgramName)" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Export to excell
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
-      </span>
-
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
           <a class="nav-link nav-tab-table" (click)="setCurrentTab(tabs.tasksDue)" [class.is-disabled]="downloadingDocument" [class.active]="currentTab===tabs.tasksDue">{{tabs.tasksDue}}{{contract.tasks.length ? ' ('+contract.tasks.length+')':''}}</a>

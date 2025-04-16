@@ -1,20 +1,17 @@
 # Create build image layer
 FROM node:8.9.4 AS build
 
-WORKDIR /path/to/angular/project
+COPY ./cpu-app/ClientApp ./cpu-app/ClientApp
 
-COPY . .
+WORKDIR /cpu-app/ClientApp
 
 RUN npm install
-RUN npm run build -- --base-href /coastcontracts --configuration production
+RUN npm run build -- --base-href /coastcontracts --prod
 
 # Create runtime image layer, copy build image contents into this image
 FROM caddy:alpine AS final
-
-COPY ./Caddyfile /etc/caddy/Caddyfile
-COPY --from=build /dist/ /site
-
+COPY ./cpu-app/ClientApp/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /cpu-app/ClientApp/dist/ /site
 ENV BASE_URL=
 ENV API_URL=
-
 EXPOSE 2015

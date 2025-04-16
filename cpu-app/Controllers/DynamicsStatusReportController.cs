@@ -113,7 +113,6 @@ namespace Gov.Cscp.Victims.Public.Controllers
                     _logger.Error(new Exception(messages), $"API call to 'AnswerQuestions' made with invalid model state. Error is:\n{messages}\nSource = CPU");
                     return BadRequest(ModelState);
                 }
-                model.StatusCode = 100000004;
                 string endpointUrl = "tasks(" + taskId + ")/Microsoft.Dynamics.CRM.vsd_SetCPUMonthlyStatisticsAnswers";
                 string modelString = System.Text.Json.JsonSerializer.Serialize(model);
                 modelString = Helpers.Helpers.updateFortunecookieBindNull(modelString);
