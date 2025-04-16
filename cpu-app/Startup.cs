@@ -15,11 +15,12 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 //using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
-using NWebsec.AspNetCore.Mvc;
-using NWebsec.AspNetCore.Mvc.Csp;
+// using NWebsec.AspNetCore.Mvc;
+// using NWebsec.AspNetCore.Mvc.Csp;
+using NetEscapades.AspNetCore.SecurityHeaders;
 using Serilog;
 using Serilog.Exceptions;
 using System;
@@ -67,6 +68,8 @@ namespace Gov.Cscp.Victims.Public
                 logging.CombineLogs = true;
             });
 
+
+            // app.UseNoCacheHttpHeaders(); // also from NWebsec
             
             // for security reasons, the following headers are set.
             services.AddMvc(opts =>
@@ -78,15 +81,15 @@ namespace Gov.Cscp.Victims.Public
                  .Build();
                 opts.Filters.Add(new AuthorizeFilter(policy));
 
-                opts.Filters.Add(typeof(NoCacheHttpHeadersAttribute));
-                opts.Filters.Add(new XRobotsTagAttribute() { NoIndex = true, NoFollow = true });
-                opts.Filters.Add(typeof(XContentTypeOptionsAttribute));
-                opts.Filters.Add(typeof(XDownloadOptionsAttribute));
-                opts.Filters.Add(typeof(XFrameOptionsAttribute));
-                opts.Filters.Add(typeof(XXssProtectionAttribute));
+                // opts.Filters.Add(typeof(NoCacheHttpHeadersAttribute));
+                // opts.Filters.Add(new XRobotsTagAttribute() { NoIndex = true, NoFollow = true });
+                // opts.Filters.Add(typeof(XContentTypeOptionsAttribute));
+                // opts.Filters.Add(typeof(XDownloadOptionsAttribute));
+                // opts.Filters.Add(typeof(XFrameOptionsAttribute));
+                // opts.Filters.Add(typeof(XXssProtectionAttribute));
                 //CSPReportOnly
-                opts.Filters.Add(typeof(CspReportOnlyAttribute));
-                opts.Filters.Add(new CspScriptSrcReportOnlyAttribute { None = true });
+                // opts.Filters.Add(typeof(CspReportOnlyAttribute));
+                // opts.Filters.Add(new CspScriptSrcReportOnlyAttribute { None = true });
 
                 if (CurrentEnvironment.IsDevelopment())
                 {
@@ -94,7 +97,7 @@ namespace Gov.Cscp.Victims.Public
                 }
 
             })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            // .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddNewtonsoftJson(
                 opts =>
                 {
@@ -143,10 +146,9 @@ namespace Gov.Cscp.Victims.Public
             });
 
             // health checks
-            services.AddHealthChecks(checks =>
-            {
-                checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")));
-            });            
+            services
+                .AddHealthChecks()
+                .AddCheck("HTTP Endpoint", () => HealthCheckResult.Healthy("Ok"));
 
             services.AddSession(x =>
             {
@@ -180,35 +182,57 @@ namespace Gov.Cscp.Victims.Public
                 await next();
             });
 
-            app.UseXContentTypeOptions();
-            app.UseReferrerPolicy(opts => opts.NoReferrer());
-            app.UseXXssProtection(options => options.EnabledWithBlockMode());
-            app.UseXfo(options => options.Deny());
+            // app.UseXContentTypeOptions();
+            // app.UseReferrerPolicy(opts => opts.NoReferrer());
+            // app.UseXXssProtection(options => options.EnabledWithBlockMode());
+            // app.UseXfo(options => options.Deny());
 
-            if (!env.IsDevelopment())  // when running locally we can't have a strict CSP
+            // app.UseSecurityHeaders(policies =>
+            // {
+            //     policies.AddDefaultSecurityHeaders();
+            // });
+
+            // When running locally we can't have a strict CSP
+            if (env.IsDevelopment())
             {
                 // Content-Security-Policy header
-                app.UseCsp(opts =>
+                app.UseSecurityHeaders(policies =>
                 {
-                    opts
-                        .BlockAllMixedContent()
-                        .StyleSources(s => s.Self().UnsafeInline().CustomSources("https://use.fontawesome.com",
-                        "https://stackpath.bootstrapcdn.com",
-                        "https://fonts.googleapis.com"))
-                        .FontSources(s => s.Self().CustomSources("https://use.fontawesome.com", "https://fonts.gstatic.com"))
-                        .FormActions(s => s.Self())
-                        .FrameAncestors(s => s.Self())
-                        .ImageSources(s => s.Self().CustomSources("data:"))
-                        .DefaultSources(s => s.Self())
-                        .ObjectSources(s => s.Self().CustomSources("data:"))
-                        .FrameSources(s => s.Self().CustomSources("data:"))
-                        .ScriptSources(s => s.Self().CustomSources("https://apis.google.com",
-                        "https://maxcdn.bootstrapcdn.com",
-                        "https://cdnjs.cloudflare.com",
-                        "https://code.jquery.com",
-                        "https://stackpath.bootstrapcdn.com",
-                        "https://fonts.googleapis.com"));
+                    policies.AddDefaultSecurityHeaders();
 
+                    policies.AddContentSecurityPolicy(builder =>
+                    {
+                        builder.AddBlockAllMixedContent();
+
+                        builder
+                            .AddStyleSrc()
+                            .Self()
+                            .UnsafeInline()
+                            .From("https://use.fontawesome.com")
+                            .From("https://stackpath.bootstrapcdn.com")
+                            .From("https://fonts.googleapis.com");
+
+                        builder
+                            .AddFontSrc()
+                            .Self()
+                            .From("https://use.fontawesome.com")
+                            .From("https://fonts.gstatic.com");
+
+                        builder.AddFormAction().Self();
+                        builder.AddFrameAncestors().Self();
+
+                        builder.AddImgSrc().Self().From("data:");
+                        builder.AddObjectSrc().None();
+                        builder
+                            .AddScriptSrc()
+                            .Self()
+                            .From("https://apis.google.com")
+                            .From("https://maxcdn.bootstrapcdn.com")
+                            .From("https://cdnjs.cloudflare.com")
+                            .From("https://code.jquery.com")
+                            .From("https://stackpath.bootstrapcdn.com")
+                            .From("https://fonts.googleapis.com");
+                    });
                 });
             }
 
@@ -230,7 +254,7 @@ namespace Gov.Cscp.Victims.Public
               app.UseSpaStaticFiles(staticFileOptions);
             }
 
-            app.UseNoCacheHttpHeaders();
+            // app.UseNoCacheHttpHeaders();
             // IMPORTANT: This session call MUST go before UseMvc()
             app.UseSession();
             app.UseAuthentication();
@@ -241,6 +265,9 @@ namespace Gov.Cscp.Victims.Public
                 Secure = CookieSecurePolicy.Always,
                 MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None
             });
+
+            // Note: UseHealthChecks() should be registered before UseMvc()
+            app.UseHealthChecks("/hc");
 
             app.UseHttpLogging(); 
             app.UseMvc(routes =>
