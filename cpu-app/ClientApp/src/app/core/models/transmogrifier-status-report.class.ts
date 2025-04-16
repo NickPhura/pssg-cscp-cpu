@@ -37,7 +37,6 @@ export class TransmogrifierStatusReport {
     this.buildStatusReport(g);
   }
   private buildStatusReport(g: iDynamicsMonthlyStatisticsQuestions): void {
-    debugger
     g.CategoryCollection.sort(function (a, b) {
       return a.vsd_categoryorder - b.vsd_categoryorder;
     });
@@ -62,9 +61,6 @@ export class TransmogrifierStatusReport {
               multiChoiceAnswers: this.getMultipleChoice(d.vsd_cpustatisticsmasterdataid, g.MultipleChoiceCollection),
               isChildQuestionExplanationRequired: false,
               tooltip: d.vsd_tooltip || null,
-            }
-            if(d.vsd_name == "If actual hours were less than contracted hours for some other reason, please explain"){
-              debugger
             }
             // instantiate the correct property with the freshest null value
             q[type] = null;
@@ -99,9 +95,6 @@ export class TransmogrifierStatusReport {
             parent_id: d._vsd_parentid_value,
             isChildQuestionExplanationRequired: false,
             tooltip: d.vsd_tooltip || null,
-          }
-          if(d.vsd_name == "If actual hours were less than contracted hours for some other reason, please explain"){
-            debugger
           }
           // instantiate the correct property with the freshest null value
           q[type] = null;

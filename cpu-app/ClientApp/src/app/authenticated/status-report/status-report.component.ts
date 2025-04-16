@@ -27,6 +27,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
   stepperIndex: number = 0;
   saving: boolean = false;
   didload: boolean = false;
+  partialSaveStatusCode: number = 100000004;
 
   public formHelper = new FormHelper();
   constructor(
@@ -130,6 +131,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
       });
         this.saving = true;
         const statusReport: iDynamicsPostStatusReport = convertStatusReportToDynamics(this.trans);
+        statusReport.StatusCode = this.partialSaveStatusCode;
         this.statusReportService.setStatusReportAnswers(this.trans.taskId, statusReport)
           .subscribe(
             r => {
