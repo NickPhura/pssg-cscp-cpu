@@ -10,7 +10,6 @@ import { convertProgramApplicationToDynamics } from '../../core/models/converter
 import { FormHelper } from '../../core/form-helper';
 import { iDynamicsPostScheduleF } from '../../core/models/dynamics-post';
 import * as _ from 'lodash';
-import { BehaviorSubject } from 'rxjs';
 import { Address } from '../../core/models/address.class';
 import { Hours } from '../../core/models/hours.class';
 import { ContactInformation } from '../../core/models/contact-information.class';
@@ -29,9 +28,10 @@ const PAGES = {
 };
 
 @Component({
-  selector: 'app-program-application',
-  templateUrl: './program-application.component.html',
-  styleUrls: ['./program-application.component.css']
+    selector: 'app-program-application',
+    templateUrl: './program-application.component.html',
+    styleUrls: ['./program-application.component.css'],
+    standalone: false
 })
 export class ProgramApplicationComponent implements OnInit {
   data: any;

@@ -23,9 +23,10 @@ enum StatusReasons {
 }
 
 @Component({
-  selector: 'app-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+    selector: 'app-task-list',
+    templateUrl: './task-list.component.html',
+    styleUrls: ['./task-list.component.css'],
+    standalone: false
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   @Input() contract: iContract;

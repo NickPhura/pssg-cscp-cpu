@@ -7,9 +7,10 @@ import { Person } from '../../../core/models/person.class';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-person-picker',
-  templateUrl: './person-picker.component.html',
-  styleUrls: ['./person-picker.component.scss']
+    selector: 'app-person-picker',
+    templateUrl: './person-picker.component.html',
+    styleUrls: ['./person-picker.component.scss'],
+    standalone: false
 })
 export class PersonPickerComponent implements OnInit, OnDestroy {
   @Input() title = 'Select Person';

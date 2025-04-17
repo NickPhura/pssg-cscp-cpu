@@ -4,9 +4,10 @@ import { EMAIL, PHONE_NUMBER } from '../../../core/constants/regex.constants';
 import { FormHelper } from '../../../core/form-helper';
 
 @Component({
-  selector: 'app-primary-contact-info',
-  templateUrl: './primary-contact-info.component.html',
-  styleUrls: ['./primary-contact-info.component.css']
+    selector: 'app-primary-contact-info',
+    templateUrl: './primary-contact-info.component.html',
+    styleUrls: ['./primary-contact-info.component.css'],
+    standalone: false
 })
 export class PrimaryContactInfoComponent implements OnInit {
   @Input() contactInformation: iContactInformation;

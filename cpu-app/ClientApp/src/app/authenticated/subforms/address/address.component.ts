@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef, OnDestroy, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, Validators, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
 import { iCountry, COUNTRIES_ADDRESS_2 } from '../../../core/constants/country-list';
@@ -8,16 +8,17 @@ import { FormHelper } from '../../../core/form-helper';
 import { iAddress } from '../../../core/models/address.interface';
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AddressComponent),
-      multi: true,
-    }
-  ]
+    selector: 'app-address',
+    templateUrl: './address.component.html',
+    styleUrls: ['./address.component.css'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => AddressComponent),
+            multi: true,
+        }
+    ],
+    standalone: false
 })
 export class AddressComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() required: boolean = false;
@@ -26,7 +27,7 @@ export class AddressComponent implements ControlValueAccessor, OnInit, OnDestroy
   private _onTouched = () => { };
   private onDestroy$: Subject<void> = new Subject();
 
-  public internalFormGroup: FormGroup;
+  public internalFormGroup: UntypedFormGroup;
 
   country: iCountry;
   postalCodeRegex: RegExp;
@@ -63,20 +64,20 @@ export class AddressComponent implements ControlValueAccessor, OnInit, OnDestroy
 
   buildForm() {
     if (this.required) {
-      this.internalFormGroup = new FormGroup({
-        'line1': new FormControl('', [Validators.required, Validators.pattern(this.hasCharactersRegex)]),
-        'line2': new FormControl(''),
-        'city': new FormControl('', [Validators.required, Validators.pattern(this.hasCharactersRegex)]),
-        'province': new FormControl('British Columbia', [Validators.required, Validators.pattern(this.hasCharactersRegex)]),
-        'postalCode': new FormControl('', [Validators.required, Validators.pattern(this.postalCodeRegex), Validators.pattern(this.hasCharactersRegex)]),
+      this.internalFormGroup = new UntypedFormGroup({
+        'line1': new UntypedFormControl('', [Validators.required, Validators.pattern(this.hasCharactersRegex)]),
+        'line2': new UntypedFormControl(''),
+        'city': new UntypedFormControl('', [Validators.required, Validators.pattern(this.hasCharactersRegex)]),
+        'province': new UntypedFormControl('British Columbia', [Validators.required, Validators.pattern(this.hasCharactersRegex)]),
+        'postalCode': new UntypedFormControl('', [Validators.required, Validators.pattern(this.postalCodeRegex), Validators.pattern(this.hasCharactersRegex)]),
       });
     } else {
-      this.internalFormGroup = new FormGroup({
-        'line1': new FormControl(''),
-        'line2': new FormControl(''),
-        'city': new FormControl(''),
-        'province': new FormControl('British Columbia'),
-        'postalCode': new FormControl('', Validators.pattern(this.postalCodeRegex)),
+      this.internalFormGroup = new UntypedFormGroup({
+        'line1': new UntypedFormControl(''),
+        'line2': new UntypedFormControl(''),
+        'city': new UntypedFormControl(''),
+        'province': new UntypedFormControl('British Columbia'),
+        'postalCode': new UntypedFormControl('', Validators.pattern(this.postalCodeRegex)),
       });
     }
   }

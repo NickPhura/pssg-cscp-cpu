@@ -5,9 +5,10 @@ import { SalaryAndBenefits } from '../../../core/models/salary-and-benefits.clas
 import { FormHelper } from '../../../core/form-helper';
 
 @Component({
-  selector: 'app-personnel-expense-table',
-  templateUrl: './personnel-expense-table.component.html',
-  styleUrls: ['./personnel-expense-table.component.css']
+    selector: 'app-personnel-expense-table',
+    templateUrl: './personnel-expense-table.component.html',
+    styleUrls: ['./personnel-expense-table.component.css'],
+    standalone: false
 })
 export class PersonnelExpenseTableComponent implements OnInit {
   @Input() salariesAndBenefits: iSalaryAndBenefits[] = [];

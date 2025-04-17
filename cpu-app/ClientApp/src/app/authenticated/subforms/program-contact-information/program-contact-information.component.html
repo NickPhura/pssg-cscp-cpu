@@ -5,7 +5,7 @@
 <app-person-picker [title]="'Executive Contact'" [(person)]="contactInformation.executiveContact"></app-person-picker>
 <div class="form-check mt-2">
   <input [(ngModel)]="hasBoardOfDirectors" (change)="cleanBoardContact()" type="checkbox" id="hasBoardOfDirectors" name="hasBoardOfDirectors" class="form-check-input">
-  <label for="hasBoardOfDirectors">
+  <label for="hasBoardOfDirectors" class="form-label fw-normal">
     Please select this check box if your organization has a Board of Directors.
   </label>
 </div>

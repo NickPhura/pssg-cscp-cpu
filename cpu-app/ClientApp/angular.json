@@ -29,12 +29,19 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/bootstrap-theme/scss/bootstrap-theme.scss",
               "node_modules/@bcgov/bc-sans/css/BCSans.css",
+              "node_modules/@bcgov/bootstrap-v5-theme/css/bootstrap-theme.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -44,6 +51,7 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
+              "baseHref": "/coastcontracts/",
               "vendorChunk": false,
               "buildOptimizer": true,
               "fileReplacements": [
@@ -52,27 +60,31 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cpu-public-app:build"
+            "buildTarget": "cpu-public-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cpu-public-app:build:production"
+              "buildTarget": "cpu-public-app:build:production"
             },
-              "development":{
-                "proxyConfig": "proxy.config.json"
+            "development":{
+              "proxyConfig": "proxy.config.json",
+              "host": "0.0.0.0"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cpu-public-app:build"
+            "buildTarget": "cpu-public-app:build"
           }
         },
         "test": {
@@ -86,25 +98,13 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/bootstrap-theme/scss/bootstrap-theme.scss",
               "node_modules/@bcgov/bc-sans/css/BCSans.css",
+              "node_modules/@bcgov/bootstrap-v5-theme/css/bootstrap-theme.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
             "assets": [
               "src/assets"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
             ]
           }
         }
@@ -120,23 +120,12 @@
           "options": {
             "protractorConfig": "./protractor.conf.js",
             "devServerTarget": "cpu-public-app:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
+          },
+          "configurations": {}
         }
       }
     }
   },
-  "defaultProject": "cpu-public-app",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

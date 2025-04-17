@@ -10,7 +10,8 @@ import { FormHelper } from '../../../core/form-helper';
 @Component({
     selector: 'app-applicant-information',
     templateUrl: './applicant-information.component.html',
-    styleUrls: ['./applicant-information.component.scss']
+    styleUrls: ['./applicant-information.component.scss'],
+    standalone: false
 })
 export class ApplicantInformationComponent {
     @Input() trans: TransmogrifierCAPApplication;

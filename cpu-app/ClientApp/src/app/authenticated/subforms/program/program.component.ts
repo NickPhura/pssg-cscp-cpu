@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormHelper } from '../../../core/form-helper';
 import { Hours } from '../../../core/models/hours.class';
@@ -18,9 +18,10 @@ import { ProgramApplicationComponent } from '../../program-application/program-a
 import { Address } from '../../../core/models/address.class';
 
 @Component({
-  selector: 'app-program',
-  templateUrl: './program.component.html',
-  styleUrls: ['./program.component.scss']
+    selector: 'app-program',
+    templateUrl: './program.component.html',
+    styleUrls: ['./program.component.scss'],
+    standalone: false
 })
 export class ProgramComponent implements OnInit, OnDestroy {
   @Input() programApplication: iProgramApplication;
@@ -41,12 +42,12 @@ export class ProgramComponent implements OnInit, OnDestroy {
   subContractedPersonsObj: any = { persons: [], removedPersons: [] };
   private stateSubscription: Subscription;
 
-  public programFormGroup: FormGroup;
+  public programFormGroup: UntypedFormGroup;
 
   constructor(
     private stateService: StateService,
     public dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.tabs = ['Program Information', 'Program Hours of Operations'];
     this.emailRegex = EMAIL;
@@ -81,7 +82,7 @@ export class ProgramComponent implements OnInit, OnDestroy {
     }
 
     this.programFormGroup = this.fb.group({
-      'scheduledHours': new FormControl({ disabled: this.isDisabled, value: this.programApplication.scheduledHours }, Validators.min(this.programApplication.numberOfHours))
+      'scheduledHours': new UntypedFormControl({ disabled: this.isDisabled, value: this.programApplication.scheduledHours }, Validators.min(this.programApplication.numberOfHours))
     });
   }
 

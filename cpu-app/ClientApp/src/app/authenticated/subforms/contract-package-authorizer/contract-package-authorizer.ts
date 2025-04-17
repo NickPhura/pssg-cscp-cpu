@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Person } from '../../../core/models/person.class';
-import { SignaturePad } from 'angular2-signaturepad';
+import { SignaturePadComponent } from '@almothafar/angular-signature-pad';
 import { StateService } from '../../../core/services/state.service';
 import { iPerson } from '../../../core/models/person.interface';
 import * as _ from 'lodash';
@@ -8,15 +8,16 @@ import { iSignature } from '../program-authorizer/program-authorizer.component';
 
 
 @Component({
-  selector: 'app-contract-package-authorizer',
-  templateUrl: './contract-package-authorizer.html',
-  styleUrls: ['./contract-package-authorizer.scss']
+    selector: 'app-contract-package-authorizer',
+    templateUrl: './contract-package-authorizer.html',
+    styleUrls: ['./contract-package-authorizer.scss'],
+    standalone: false
 })
 export class ContractPackageAuthorizerComponent implements OnInit {
   @Input() signature: iSignature;
   @Input() isDisabled: boolean = false;
   @Output() signatureChange = new EventEmitter<iSignature>();
-  @ViewChild(SignaturePad, {static:false}) signaturePad: SignaturePad;
+  @ViewChild(SignaturePadComponent, {static:false}) signaturePad: SignaturePadComponent;
 
   public signatureImage: any;
   wasSigned: boolean = false;
@@ -57,28 +58,37 @@ export class ContractPackageAuthorizerComponent implements OnInit {
     'canvasWidth': 600,
     'canvasHeight': 200,
   };
+
   clearSignature() {
     this.wasSigned = false;
-    this.signatureData = null;
+    // this.signatureData = null;
     this.signaturePad.clear();
+    this.signaturePad.set('minWidth', 0.3);
+    this.signaturePad.set('maxWidth', 2.5);
+    this.signaturePad.set('canvasWidth', 600);
+    this.signaturePad.set('canvasHeight', 200);
     this.signature.signature = null;
     this.signature.signatureDate = null;
   }
 
   acceptSignature() {
     if (this.wasSigned) {
-      var resizedCanvas = document.createElement("canvas");
-      var resizedContext = resizedCanvas.getContext("2d");
+      const canvas = this.signaturePad.getCanvas();
+  
+      const resizedCanvas = document.createElement("canvas");
       resizedCanvas.height = this.CRM_HEIGHT;
       resizedCanvas.width = this.CRM_WIDTH;
-      var canvas = document.querySelectorAll(".signature-pad > signature-pad > canvas")[0] as CanvasImageSource;
+  
+      const resizedContext = resizedCanvas.getContext("2d");
       resizedContext.drawImage(canvas, 0, 0, this.CRM_WIDTH, this.CRM_HEIGHT);
-      let signatureData = resizedCanvas.toDataURL();;
-      
+  
+      const signatureData = resizedCanvas.toDataURL();
+  
       this.signature.signature = signatureData;
       this.signature.signatureDate = new Date();
     }
   }
+
   drawStart() {
     this.wasSigned = true;
   }

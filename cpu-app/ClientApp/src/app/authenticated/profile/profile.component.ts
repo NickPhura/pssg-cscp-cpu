@@ -15,9 +15,10 @@ import { PersonPickerComponent } from '../subforms/person-picker/person-picker.c
 import { Roles } from '../../core/models/user-settings.interface';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css'],
+    standalone: false
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild(PersonPickerComponent, {static:false}) contractorContactComp: PersonPickerComponent;

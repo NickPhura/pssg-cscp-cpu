@@ -6,9 +6,10 @@ import { POSTAL_CODE } from '../../../core/constants/regex.constants';
 import { iAddress } from '../../../core/models/address.interface';
 
 @Component({
-  selector: 'app-address2',
-  templateUrl: './address2.component.html',
-  styleUrls: ['./address2.component.css']
+    selector: 'app-address2',
+    templateUrl: './address2.component.html',
+    styleUrls: ['./address2.component.css'],
+    standalone: false
 })
 export class Address2Component implements OnInit {
 

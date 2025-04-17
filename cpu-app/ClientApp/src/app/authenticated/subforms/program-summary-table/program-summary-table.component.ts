@@ -4,9 +4,10 @@ import { iProgramApplication } from '../../../core/models/program-application.in
 import { iHours } from '../../../core/models/hours.interface';
 
 @Component({
-  selector: 'app-program-summary-table',
-  templateUrl: './program-summary-table.component.html',
-  styleUrls: ['./program-summary-table.component.css']
+    selector: 'app-program-summary-table',
+    templateUrl: './program-summary-table.component.html',
+    styleUrls: ['./program-summary-table.component.css'],
+    standalone: false
 })
 export class ProgramSummaryTableComponent implements OnInit {
   @Input() pa: iProgramApplication;

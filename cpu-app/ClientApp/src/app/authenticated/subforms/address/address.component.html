@@ -1,8 +1,8 @@
 <fieldset [formGroup]="internalFormGroup">
-  <div class="form-row">
+  <div class="row">
     <div class="col-md">
-      <div class="form-group">
-        <label for="line1" [class.required]="required">Address Line 1</label>
+      <div class="mb-3">
+        <label for="line1" [class.required]="required" class="form-label fw-normal">Address Line 1</label>
         <input type="text" class="form-control required" id="line1" name="line1" formControlName="line1" [required]="formHelper.isRequired(line1,required)">
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(line1)" style="display: inherit">
           Ok
@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="col-md">
-      <div class="form-group">
-        <label for="line2">Address Line 2</label>
+      <div class="mb-3">
+        <label for="line2" class="form-label fw-normal">Address Line 2</label>
         <input type="text" class="form-control" id="line2" name="line2" formControlName="line2">
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(line2)" style="display: inherit">
           Ok
@@ -25,10 +25,10 @@
       </div>
     </div>
   </div>
-  <div class="form-row">
+  <div class="row">
     <div class="col-md">
-      <div class="form-group">
-        <label for="city" [class.required]="required">City</label>
+      <div class="mb-3">
+        <label for="city" [class.required]="required" class="form-label fw-normal">City</label>
         <input type="text" class="form-control" id="city" name="city" formControlName="city" [required]="formHelper.isRequired(city, required)">
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(city)" style="display: inherit">
           Ok
@@ -39,8 +39,8 @@
       </div>
     </div>
     <div class="col-md">
-      <div class="form-group">
-        <label for="province" [class.required]="required">Province</label>
+      <div class="mb-3">
+        <label for="province" [class.required]="required" class="form-label fw-normal">Province</label>
         <select class="form-control" [class.required]="required" name="province" id="province" formControlName="province" [required]="formHelper.isRequired(province, required)">
           <option *ngFor="let area of country.areas" [value]="area">{{area}}</option>
         </select>
@@ -54,10 +54,10 @@
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="row">
     <div class="col-md">
-      <div class="form-group">
-        <label for="postalCode" [class.required]="required">Postal Code</label>
+      <div class="mb-3">
+        <label for="postalCode" [class.required]="required" class="form-label fw-normal">Postal Code</label>
         <input type="text" uppercase class="form-control" id="postalCode" name="postalCode" formControlName="postalCode" [required]="formHelper.isRequired(postalCode, required)">
         <div class="valid-feedback" [hidden]="formHelper.showValidFeedback(postalCode)" style="display: inherit">
           Ok

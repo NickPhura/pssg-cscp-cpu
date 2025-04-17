@@ -5,9 +5,10 @@ import { iRevenueSource } from '../../../core/models/revenue-source.interface';
 import { FormHelper } from '../../../core/form-helper';
 
 @Component({
-  selector: 'app-revenue-source-table',
-  templateUrl: './revenue-source-table.component.html',
-  styleUrls: ['./revenue-source-table.component.css']
+    selector: 'app-revenue-source-table',
+    templateUrl: './revenue-source-table.component.html',
+    styleUrls: ['./revenue-source-table.component.css'],
+    standalone: false
 })
 export class RevenueSourceTableComponent implements OnInit {
   @Input() revenueSources: iRevenueSource[] = [];

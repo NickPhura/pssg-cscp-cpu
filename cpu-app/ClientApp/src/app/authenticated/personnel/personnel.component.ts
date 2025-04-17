@@ -12,15 +12,16 @@ import { iStepperElement, IconStepperService } from '../../shared/icon-stepper/i
 import { nameAssemble } from '../../core/constants/name-assemble';
 import { convertPersonnelToDynamics } from '../../core/models/converters/personnel-to-dynamics';
 import { FormHelper } from '../../core/form-helper';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { Address } from '../../core/models/address.class';
 
 @Component({
-  selector: 'app-personnel',
-  templateUrl: './personnel.component.html',
-  styleUrls: ['./personnel.component.css']
+    selector: 'app-personnel',
+    templateUrl: './personnel.component.html',
+    styleUrls: ['./personnel.component.css'],
+    standalone: false
 })
 export class PersonnelComponent implements OnInit, OnDestroy {
   reload = false;
@@ -31,7 +32,7 @@ export class PersonnelComponent implements OnInit, OnDestroy {
   saving: boolean = false;
   public nameAssemble = nameAssemble;
   public formHelper = new FormHelper();
-  personForm: FormGroup;
+  personForm: UntypedFormGroup;
   didLoad: boolean = false;
   private stateSubscription: Subscription;
   missingFields: string[] = [];

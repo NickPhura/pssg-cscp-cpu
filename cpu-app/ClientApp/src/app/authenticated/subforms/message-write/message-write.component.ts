@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { StateService } from '../../../core/services/state.service';
 
 @Component({
-  selector: 'message-write-card',
-  templateUrl: './message-write.component.html',
-  styleUrls: ['./message-write.component.css']
+    selector: 'message-write-card',
+    templateUrl: './message-write.component.html',
+    styleUrls: ['./message-write.component.css'],
+    standalone: false
 })
 export class MessageWriteComponent implements OnInit {
   @Input() message: iMessage;

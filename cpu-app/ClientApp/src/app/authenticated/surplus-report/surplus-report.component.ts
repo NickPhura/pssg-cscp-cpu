@@ -13,7 +13,8 @@ import { iSurplusItem } from "../../core/models/surplus-item.interface";
 @Component({
     selector: 'app-surplus-report',
     templateUrl: './surplus-report.component.html',
-    styleUrls: ['./surplus-report.component.scss']
+    styleUrls: ['./surplus-report.component.scss'],
+    standalone: false
 })
 export class SurplusReportComponent implements OnInit {
     data: any;

@@ -1,10 +1,8 @@
-{
-  "context": [
-    "/api"
-  ],
-  "target": "https://localhost:56218",
-  "secure": false,
-  "headers": {
-    "Connection": "Keep-Alive"
+[
+  {
+    "context": ["/api"],
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "error"
   }
-}
+]

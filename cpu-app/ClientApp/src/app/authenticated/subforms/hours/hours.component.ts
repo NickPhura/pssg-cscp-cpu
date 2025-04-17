@@ -5,9 +5,10 @@ import { TIME } from '../../../core/constants/regex.constants';
 import { FormHelper } from '../../../core/form-helper';
 
 @Component({
-  selector: 'app-hours',
-  templateUrl: './hours.component.html',
-  styleUrls: ['./hours.component.css']
+    selector: 'app-hours',
+    templateUrl: './hours.component.html',
+    styleUrls: ['./hours.component.css'],
+    standalone: false
 })
 export class HoursComponent implements OnInit {
   @Input() hours: iHours;

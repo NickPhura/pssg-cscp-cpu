@@ -287,7 +287,7 @@ export class Transmogrifier {
           line2: b.ExecutiveContact.address1_line2 || null,
           postalCode: b.ExecutiveContact.address1_postalcode || null,
           province: b.ExecutiveContact.address1_stateorprovince || null,
-        } || null
+        }
       };
 
     // if there is a contact bound to this organization
@@ -307,7 +307,7 @@ export class Transmogrifier {
           line2: b.BoardContact.address1_line2 || null,
           postalCode: b.BoardContact.address1_postalcode || null,
           province: b.BoardContact.address1_stateorprovince || null,
-        } || null
+        }
       };
       // save that this exists
       ci.hasBoardContact = true;

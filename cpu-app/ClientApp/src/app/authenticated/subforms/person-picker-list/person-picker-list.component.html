@@ -6,8 +6,8 @@
     </span>
   </li>
 </ul>
-<div *ngIf="personsList" class="form-group">
-  <label for="personPickerList">{{label}}</label>
+<div *ngIf="personsList" class="mb-3">
+  <label for="personPickerList" class="form-label fw-normal">{{label}}</label>
   <select [disabled]="isDisabled" class="form-control" name="personPickerList" id="personPickerList" (change)="addPerson(selectedPerson)" [(ngModel)]="selectedPerson">
     <option [value]="null">--</option>
     <option *ngFor="let person of personsList" [value]="person.personId">

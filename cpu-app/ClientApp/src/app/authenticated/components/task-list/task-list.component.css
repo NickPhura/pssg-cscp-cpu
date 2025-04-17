@@ -48,3 +48,15 @@
     background-color: inherit !important;
     text-decoration: none !important;
 }
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
+    min-width: 200px;
+    max-width: 90vw;
+    overflow-wrap: break-word;
+}

@@ -3,9 +3,10 @@ import { TransmogrifierProgramApplication } from '../../../core/models/transmogr
 import { iProgramApplication } from '../../../core/models/program-application.interface';
 
 @Component({
-  selector: 'app-review-application',
-  templateUrl: './review-application.component.html',
-  styleUrls: ['./review-application.component.css']
+    selector: 'app-review-application',
+    templateUrl: './review-application.component.html',
+    styleUrls: ['./review-application.component.css'],
+    standalone: false
 })
 export class ReviewApplicationComponent implements OnInit {
   @Input() trans: TransmogrifierProgramApplication;
