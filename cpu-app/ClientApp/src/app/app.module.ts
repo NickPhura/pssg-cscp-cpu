@@ -14,7 +14,7 @@ import { ExpenseReportComponent } from './authenticated/expense-report/expense-r
 import { ExpenseTableComponent } from './authenticated/subforms/expense-table/expense-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HoursComponent } from './authenticated/subforms/hours/hours.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MinistryContactBoxComponent } from './authenticated/components/ministry-contact-box/ministry-contact-box.component';
 import { NgModule } from '@angular/core';
@@ -39,7 +39,7 @@ import { RevenueSourceTableComponent } from './authenticated/subforms/revenue-so
 import { ReviewApplicationComponent } from './authenticated/subforms/review-application/review-application.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
-import { SignaturePadModule } from 'angular2-signaturepad';
+import { AngularSignaturePadModule as SignaturePadModule } from '@almothafar/angular-signature-pad';
 import { StatusReportComponent } from './authenticated/status-report/status-report.component';
 import { TaskListComponent } from './authenticated/components/task-list/task-list.component';
 import { TestComponent } from './test/test.component';
@@ -50,7 +50,7 @@ import { ProgramContactComponent } from './authenticated/program-contact/program
 import { UploadDocumentComponent } from './authenticated/upload-document/upload-document.component';
 import { LoginPageComponent } from './login/login.component';
 import { MessageWriteComponent } from './authenticated/subforms/message-write/message-write.component';
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { NewUserNewOrganizationComponent } from './authenticated/new-user-new-organization/new-user-new-organization.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppendixADialog } from './authenticated/dialogs/appendix-a/appendix-a.dialog';
@@ -63,7 +63,8 @@ import { CompletedStatusReportComponent } from './authenticated/status-report/co
 import { UppercaseDirective } from './core/directives/uppercase.directive';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToolTipTriggerComponent } from './shared/tool-tip/tool-tip.component';
-import { MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProgramSurplusComponent } from './authenticated/program-surplus/program-surplus.component';
 import { SurplusReportComponent } from './authenticated/surplus-report/surplus-report.component';
 import { CAPApplicationComponent } from './authenticated/cap-application/cap-application.component';
@@ -74,7 +75,7 @@ import { CAPGuidelinesDialog } from './authenticated/dialogs/cap-guidelines/cap-
 import { ProgramEgilibilityDialog } from './authenticated/dialogs/program-egilibility/program-egilibility.dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AddPersonDialog,
     Address2Component,
@@ -137,18 +138,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     UploadDocumentComponent,
     UppercaseDirective,
   ],
-  entryComponents: [
-    AddPersonDialog,
-    AppendixADialog,
-    CAPGuidelinesDialog,
-    ProgramEgilibilityDialog,
-  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     MatDialogModule,
     MatToolbarModule,
     MatTooltipModule,
@@ -158,15 +152,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SharedModule,
     SignaturePadModule,
     TooltipModule.forRoot(),
-    NgxMaskModule.forRoot(),
+    NgxMaskDirective,
+    NgxMaskPipe
+  ], 
+  providers: [
+    provideNgxMask(),
+    provideHttpClient(withInterceptorsFromDi())
   ],
   exports: [
     MatToolbarModule,
     MatTooltipModule,
     TooltipModule,
   ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

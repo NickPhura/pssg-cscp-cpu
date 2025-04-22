@@ -6,7 +6,7 @@ import { TransmogrifierProgramApplication } from '../../core/models/transmogrifi
 import { iStepperElement, IconStepperService } from '../../shared/icon-stepper/icon-stepper.service';
 import { FormHelper } from '../../core/form-helper';
 import * as _ from 'lodash';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddPersonDialog } from '../dialogs/add-person/add-person.dialog';
 import { CAPApplicationService } from '../../core/services/cap-application.service';
 import { TransmogrifierCAPApplication } from '../../core/models/transmogrifier-cap-application.class';
@@ -22,7 +22,8 @@ import { iContract } from '../../core/models/contract.interface';
 @Component({
     selector: 'app-cap-application',
     templateUrl: './cap-application.component.html',
-    styleUrls: ['./cap-application.component.scss']
+    styleUrls: ['./cap-application.component.scss'],
+    standalone: false
 })
 export class CAPApplicationComponent implements OnInit {
     trans: TransmogrifierCAPApplication;

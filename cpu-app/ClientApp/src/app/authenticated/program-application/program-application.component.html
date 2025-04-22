@@ -19,7 +19,7 @@
         <div style="max-height: 90%;">
           <app-icon-stepper></app-icon-stepper>
         </div>
-        <button class="btn btn-primary mt-2 mr-2" *ngIf="!isCompleted && !programError" [class.is-disabled]="saving || trans.signature.signatureDate || programError" (click)="save(true, true)">Save and Exit</button>
+        <button class="btn btn-primary mt-2 me-2" *ngIf="!isCompleted && !programError" [class.is-disabled]="saving || trans.signature.signatureDate || programError" (click)="save(true, true)">Save and Exit</button>
         <button class="btn btn-primary mt-2" *ngIf="!isCompleted && !programError" [class.is-disabled]="saving || programError" (click)="save()">Save</button>
         <button class="btn btn-primary mt-2" *ngIf="isCompleted || programError" (click)="exit()">Exit</button>
       </section>
@@ -36,18 +36,18 @@
               <h2 class="blue-header">
                 Organization Legal Name
               </h2>
-              <div class="form-row">
+              <div class="row">
                 <div class="col-md">
-                  <div class="form-group">
-                    <label for="orgName">Legal Name of Organization</label>
+                  <div class="mb-3">
+                    <label for="orgName" class="form-label fw-normal">Legal Name of Organization</label>
                     <input [value]="trans.organizationName" type="text" class="form-control" id="orgName" name="orgName" disabled>
                   </div>
                 </div>
               </div>
-              <div class="form-row">
+              <div class="row">
                 <div class="col-md">
-                  <div class="form-group">
-                    <label for="city">Contract Number</label>
+                  <div class="mb-3">
+                    <label for="city" class="form-label fw-normal">Contract Number</label>
                     <input [value]="trans.contractNumber" type="text" class="form-control" id="contractNumber" name="contractNumber" disabled>
                   </div>
                 </div>
@@ -59,7 +59,7 @@
               <h2 class="blue-header mt-4">Mailing Address</h2>
               <div class="form-check">
                 <input [disabled]="isCompleted" [(ngModel)]="trans.contactInformation.mailingAddressSameAsMainAddress" class="form-check-input" type="checkbox" id="mailingAddressSameAsMainAddress" name="mailingAddressSameAsMainAddress" (change)="setMailingAddressSameAsMainAddress()">
-                <label class="form-check-label" for="mailingAddressSameAsMainAddress">
+                <label class="form-check-label form-label fw-normal" for="mailingAddressSameAsMainAddress">
                   Please select this check box if mailing address is the same as Primary Organization Contact Address
                 </label>
               </div>
@@ -72,7 +72,7 @@
 
               <div class="form-check mt-4">
                 <input [disabled]="isCompleted" [(ngModel)]="trans.contactInformation.hasBoardContact" type="checkbox" id="hasBoardOfDirectors" name="hasBoardOfDirectors" class="form-check-input">
-                <label for="hasBoardOfDirectors">
+                <label for="hasBoardOfDirectors" class="form-label fw-normal">
                   Please select this check box if your organization has a Board of Directors.
                 </label>
               </div>
@@ -91,9 +91,9 @@
               <app-cg-liability [(cgLiability)]="trans.cglInsurance" [isDisabled]="isCompleted"></app-cg-liability>
             </div>
             <div *ngIf="item.discriminator === discriminators[3]">
-              <span *ngFor="let program of trans.programApplications">
+              <span *ngFor="let program of trans.programApplications; let i = index">
                 <span *ngIf="program.programId===item.object.data['programId']">
-                  <app-program [(programApplication)]="program" [isDisabled]="isCompleted"></app-program>
+                  <app-program [(programApplication)]="trans.programApplications[i]" [isDisabled]="isCompleted"></app-program>
                 </span>
               </span>
             </div>

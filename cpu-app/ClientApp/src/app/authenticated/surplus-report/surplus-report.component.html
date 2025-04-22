@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary mt-2 mr-2" *ngIf="!isCompleted" [class.is-disabled]="saving" (click)="save(true)">Save and Exit</button>
+                <button class="btn btn-primary mt-2 me-2" *ngIf="!isCompleted" [class.is-disabled]="saving" (click)="save(true)">Save and Exit</button>
                 <button class="btn btn-primary mt-2" *ngIf="!isCompleted" [class.is-disabled]="saving" (click)="save()">Save</button>
                 <button class="btn btn-primary mt-2" *ngIf="isCompleted" (click)="exit()">Exit</button>
             </section>

@@ -1,3 +1,4 @@
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Gov.Cscp.Victims.Public.Models
             get { return "#Microsoft.Dynamics.CRM.vsd_datacollectionlineitem"; }
         }
         public string vsd_name { get; set; }
+        public string _vsd_questionid_value { set; get; }
         public string vsd_questioncategory { get; set; }
         public double? vsd_number { get; set; }
         public int vsd_questiontype1 { get; set; }
@@ -53,6 +55,18 @@ namespace Gov.Cscp.Victims.Public.Models
             set { _vsd_CategoryIdfortunecookiebind = value; }
         }
 
+        public string GetAnswer()
+        {
+            if (vsd_yesno != null)
+            {
+                return vsd_yesno == 100000001 ? "true" : "false";
+            }
+            if (!vsd_textanswer.IsNullOrEmpty())
+            {
+                return vsd_textanswer;
+            }
+            return vsd_number.ToString();
+        }
 
     }
 }

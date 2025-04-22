@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-cover-letter',
-  templateUrl: './cover-letter.component.html',
-  styleUrls: ['./cover-letter.component.css']
+    selector: 'app-cover-letter',
+    templateUrl: './cover-letter.component.html',
+    styleUrls: ['./cover-letter.component.css'],
+    standalone: false
 })
 export class CoverLetterComponent implements OnInit {
 

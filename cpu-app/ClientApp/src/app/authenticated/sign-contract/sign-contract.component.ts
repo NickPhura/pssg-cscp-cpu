@@ -19,12 +19,13 @@ interface FileBundle {
   fileData: string[];
 }
 @Component({
-  selector: 'app-sign-contract',
-  templateUrl: './sign-contract.component.html',
-  styleUrls: ['./sign-contract.component.scss']
+    selector: 'app-sign-contract',
+    templateUrl: './sign-contract.component.html',
+    styleUrls: ['./sign-contract.component.scss'],
+    standalone: false
 })
 export class SignContractComponent implements OnInit, OnDestroy {
-  @ViewChild('files')
+  @ViewChild('files', {static: false})
   myInputVariable: ElementRef;
 
   saving: boolean = false;

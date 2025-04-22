@@ -9,9 +9,10 @@ import { NewUserService } from '../../core/services/new-user.service';
 import { NotificationQueueService } from '../../core/services/notification-queue.service';
 
 @Component({
-  selector: 'app-new-user',
-  templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.css']
+    selector: 'app-new-user',
+    templateUrl: './new-user.component.html',
+    styleUrls: ['./new-user.component.css'],
+    standalone: false
 })
 export class NewUserComponent implements OnInit {
 

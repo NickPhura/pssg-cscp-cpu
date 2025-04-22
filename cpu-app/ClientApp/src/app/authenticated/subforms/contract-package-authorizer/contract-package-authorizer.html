@@ -6,18 +6,18 @@
     </div>
     <div class="card mt-2" *ngIf="signature.signer">
         <div class="card-body">
-            <h5 class="card-title">Please add your signature here with you finger or other pointing device.</h5>
+            <h5 class="card-title">Please add your signature here with you finger or other pointing device 2222.</h5>
         </div>
-        <div class="mx-auto bg-light mb-2 signature-pad" style="width:600px;height:200px;border:1px solid #666;">
-            <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"></signature-pad>
+        <div class="mx-auto bg-light mb-2">
+            <signature-pad [options]="signaturePadOptions" (drawStart)="drawStart()"></signature-pad>
         </div>
         <div class="card-footer">
-            <button *ngIf="!isDisabled" class="btn btn-secondary" (click)="clearSignature()">Clear</button>
+            <button *ngIf="!isDisabled" class="btn btn-secondary me-2" (click)="clearSignature()">Clear</button>
             <span *ngIf="!signature.signatureDate">
                 <button class="btn btn-primary float-right" (click)="acceptSignature()">Sign</button>
             </span>
             <span *ngIf="signature.signatureDate">
-                <button class="btn btn-outline-success mr-2 float-right" disabled>
+                <button class="btn btn-outline-success me-2 float-right" disabled>
                     Signed on {{signature.signatureDate|date}}
                 </button>
             </span>

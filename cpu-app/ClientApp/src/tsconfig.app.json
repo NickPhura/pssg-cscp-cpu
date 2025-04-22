@@ -3,8 +3,9 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2015",
+    // NICK TODO: enable strictTemplates?
+    // "strictTemplates": true,
     "baseUrl": "",
-    "target": "es5",
     "types": []
   },
   "include": [

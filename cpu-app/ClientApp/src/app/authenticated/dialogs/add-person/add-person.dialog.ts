@@ -1,7 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { iPerson } from '../../../core/models/person.interface';
-import { iProgramApplication } from '../../../core/models/program-application.interface';
 import { nameAssemble } from '../../../core/constants/name-assemble';
 import * as _ from 'lodash'
 import { Person } from '../../../core/models/person.class';
@@ -16,7 +15,8 @@ import { iAddress } from '../../../core/models/address.interface';
 @Component({
     selector: 'add-person.dialog',
     templateUrl: 'add-person.dialog.html',
-    styleUrls: ['./add-person.dialog.scss']
+    styleUrls: ['./add-person.dialog.scss'],
+    standalone: false
 })
 export class AddPersonDialog {
     agencyAddress: iAddress;

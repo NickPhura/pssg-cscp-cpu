@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppendixADialog } from '../../dialogs/appendix-a/appendix-a.dialog';
 
 @Component({
-  selector: 'app-cg-liability',
-  templateUrl: './cg-liability.component.html',
-  styleUrls: ['./cg-liability.component.css']
+    selector: 'app-cg-liability',
+    templateUrl: './cg-liability.component.html',
+    styleUrls: ['./cg-liability.component.css'],
+    standalone: false
 })
 export class CgLiabilityComponent implements OnInit {
   @Input() cgLiability: string;

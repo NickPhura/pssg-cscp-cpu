@@ -5,9 +5,10 @@ import { iContactInformation } from '../../../core/models/contact-information.in
 
 
 @Component({
-  selector: 'app-contact-information2',
-  templateUrl: './contact-information2.component.html',
-  styleUrls: ['./contact-information2.component.css']
+    selector: 'app-contact-information2',
+    templateUrl: './contact-information2.component.html',
+    styleUrls: ['./contact-information2.component.css'],
+    standalone: false
 })
 export class ContactInformation2Component implements OnInit {
   @Input() contactInformation: iContactInformation;

@@ -13,25 +13,25 @@
           <hr />
           <!-- Some missing fields on the component for this, commenting this out so the solution can build. -->
           <!-- <p class="card-text">
-            <label for="yourName" [class.required]="required">Your Name</label>
+            <label for="yourName" [class.required]="required" class="form-label fw-normal">Your Name</label>
             <input type="text" class="form-control required" id="yourName" name="yourName" formControlName="yourName" [required]="formHelper.isRequired(yourName,required)" width="100">
 
-            <label for="contactNumber" [class.required]="required">Contact Number</label>
+            <label for="contactNumber" [class.required]="required" class="form-label fw-normal">Contact Number</label>
             <input type="text" class="form-control required" id="contactNumber" name="contactNumber" formControlName="contactNumber" [required]="formHelper.isRequired(contactNumber,required)" width="100">
 
-            <label for="program" [class.required]="required">Program</label>
+            <label for="program" [class.required]="required" class="form-label fw-normal">Program</label>
             <input type="text" class="form-control required" id="program" name="program" formControlName="program" [required]="formHelper.isRequired(program,required)" width="100">
 
-            <label for="location" [class.required]="required">Location</label>
+            <label for="location" [class.required]="required" class="form-label fw-normal">Location</label>
             <input type="text" class="form-control required" id="location" name="location" formControlName="location" [required]="formHelper.isRequired(location,required)" width="100">
 
-            <label for="message" [class.required]="required">Message</label>
+            <label for="message" [class.required]="required" class="form-label fw-normal">Message</label>
             <textarea class="form-control" id="message" rows="3" placeholder="Type here&hellip;"></textarea>
           </p> -->
         </div>
         <div class="card-body" style="text-align:right">
             <!-- <button (click)="save()" [class.is-disabled]="saving" class="btn btn-primary">Send</button> -->
-            <button class="btn btn-primary ml-2" (click)="onExit()">Exit</button>
+            <button class="btn btn-primary ms-2" (click)="onExit()">Exit</button>
         </div>
       </td>
     </tr>

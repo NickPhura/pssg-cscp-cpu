@@ -5,9 +5,10 @@ import { StateService } from '../../../core/services/state.service';
 import { Transmogrifier } from '../../../core/models/transmogrifier.class';
 import { Subscription } from 'rxjs';
 @Component({
-  selector: 'app-person-picker-list',
-  templateUrl: './person-picker-list.component.html',
-  styleUrls: ['./person-picker-list.component.scss']
+    selector: 'app-person-picker-list',
+    templateUrl: './person-picker-list.component.html',
+    styleUrls: ['./person-picker-list.component.scss'],
+    standalone: false
 })
 export class PersonPickerListComponent implements OnInit, OnDestroy {
   @Input() label = "Select all people who apply."

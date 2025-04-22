@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ContactInformation } from '../../../core/models/contact-information.class';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { StateService } from '../../../core/services/state.service';
 import { Transmogrifier } from '../../../core/models/transmogrifier.class';
 import { iContactInformation } from '../../../core/models/contact-information.interface';
@@ -8,9 +8,10 @@ import { iPerson } from '../../../core/models/person.interface';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-program-contact-information',
-  templateUrl: './program-contact-information.component.html',
-  styleUrls: ['./program-contact-information.component.css']
+    selector: 'app-program-contact-information',
+    templateUrl: './program-contact-information.component.html',
+    styleUrls: ['./program-contact-information.component.css'],
+    standalone: false
 })
 export class ProgramContactInformationComponent implements OnInit, OnDestroy {
   @Input() contactInformation: iContactInformation;
@@ -18,7 +19,7 @@ export class ProgramContactInformationComponent implements OnInit, OnDestroy {
   @Input() required = true;
   @Input() title = 'Primary Program Contact Information';
 
-  contactInformationForm: FormGroup;
+  contactInformationForm: UntypedFormGroup;
   persons: iPerson[] = [];
   hasBoardOfDirectors: boolean = false;
   private stateSubscription: Subscription;
@@ -32,8 +33,8 @@ export class ProgramContactInformationComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.hasBoardOfDirectors = this.contactInformation.boardContact ? true : false;
-    this.contactInformationForm = new FormGroup({
-      'contactInformation': new FormControl('', Validators.required)
+    this.contactInformationForm = new UntypedFormGroup({
+      'contactInformation': new UntypedFormControl('', Validators.required)
     });
     this.stateSubscription = this.stateService.main.subscribe((m: Transmogrifier) => {
       this.contactInformationForm.controls['contactInformation'].setValue(m.contactInformation);

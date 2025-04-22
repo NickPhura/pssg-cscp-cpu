@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { FormHelper } from '../../../core/form-helper';
 import { iCAPProgram } from '../../../core/models/cap-program.interface';
@@ -11,7 +11,8 @@ import { AddPersonDialog } from '../../dialogs/add-person/add-person.dialog';
 @Component({
     selector: 'app-cap-program',
     templateUrl: './cap-program.component.html',
-    styleUrls: ['./cap-program.component.scss']
+    styleUrls: ['./cap-program.component.scss'],
+    standalone: false
 })
 export class CAPProgramComponent implements OnInit, OnDestroy {
     @Input() program: iCAPProgram;

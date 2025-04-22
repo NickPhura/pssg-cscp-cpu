@@ -23,9 +23,10 @@ enum StatusReasons {
 }
 
 @Component({
-  selector: 'app-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+    selector: 'app-task-list',
+    templateUrl: './task-list.component.html',
+    styleUrls: ['./task-list.component.css'],
+    standalone: false
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   @Input() contract: iContract;
@@ -42,7 +43,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
   completedStats: iDynamicsMonthlyStatistics;
   dataCollection: iDynamicsDataCollection[] = [];
 
-
   didLoadDocuments: boolean = false;
   documentCollection: iDynamicsDocument[] = [];
   private stateSubscription: Subscription;
@@ -58,6 +58,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   userRole = Roles.ProgramStaff
   Roles = Roles;
+
+  isDropdownOpen = false;
 
   constructor(private stateService: StateService,
     private statusReportService: StatusReportService,
@@ -82,7 +84,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.userRole = userSettings.userRole;
     this.stateSubscription = this.stateService.main.subscribe((m: Transmogrifier) => {
       this.trans = m;
-
       this.organizationId = this.stateService.main.getValue().organizationId;
       this.userId = this.stateService.main.getValue().userId;
     });
@@ -125,7 +126,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
           let program = this.completedStats.ProgramCollection.find(p => p.vsd_programid == data._vsd_program_value);
           data.program_name = program && program.vsd_name ? program.vsd_name : "";
         }
-        // console.log(this.dataCollection);
+        //console.log(this.dataCollection);
       }
     });
   }
@@ -168,6 +169,30 @@ export class TaskListComponent implements OnInit, OnDestroy {
         else {
           this.documentCollection = d.DocumentCollection.filter(d => d.filename.indexOf(".pdf") > 0);;
         }
+      });
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  exportMonthlyStats(programId: string, contractId: string, programName: string, contractNumber: string){
+    this.statusReportService.exportMonthlyReport(contractId, programId, contractNumber, programName).subscribe(response => {
+      if(response==null){
+        this.notificationQueueService.addNotification('There are no submitted reports for ' + programName +' to export.', 'danger');
+      }
+      else{
+        const blob = new Blob([response], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = programName + '(' + contractNumber + ') Monthly Statistics.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        this.notificationQueueService.addNotification('Exporting monthly statisics file for ' + programName +'.', 'success');
+      }
       });
   }
 }

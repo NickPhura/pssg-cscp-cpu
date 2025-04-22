@@ -1,5 +1,5 @@
 # Create build image layer
-FROM node:8.9.4 AS build
+FROM node:20 AS build
 
 COPY ./cpu-app/ClientApp ./cpu-app/ClientApp
 

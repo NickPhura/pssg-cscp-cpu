@@ -6,9 +6,10 @@ import { UserDataService } from '../../core/services/user-data.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   title: string = 'Victim Services Community Programs Unit';

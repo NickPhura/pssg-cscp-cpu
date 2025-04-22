@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NotificationQueueService } from '../services/notification-queue.service';
 import { StateService } from '../services/state.service';
@@ -7,7 +7,7 @@ import { StateService } from '../services/state.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationGuard implements CanActivate {
+export class AuthenticationGuard  {
   constructor(
     private notificationQueueService: NotificationQueueService,
     private stateService: StateService,

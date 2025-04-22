@@ -6,9 +6,10 @@ import { UserSettings } from '../core/models/user-settings.class';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+    selector: 'app-landing-page',
+    templateUrl: './landing-page.component.html',
+    styleUrls: ['./landing-page.component.css'],
+    standalone: false
 })
 export class LandingPageComponent implements OnInit {
   window = window;

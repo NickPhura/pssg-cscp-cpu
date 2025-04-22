@@ -3,14 +3,15 @@ import { Address } from '../../../core/models/address.class';
 import { TransmogrifierCAPApplication } from '../../../core/models/transmogrifier-cap-application.class';
 import * as _ from 'lodash';
 import { AddPersonDialog } from '../../dialogs/add-person/add-person.dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { StateService } from '../../../core/services/state.service';
 import { FormHelper } from '../../../core/form-helper';
 
 @Component({
     selector: 'app-applicant-information',
     templateUrl: './applicant-information.component.html',
-    styleUrls: ['./applicant-information.component.scss']
+    styleUrls: ['./applicant-information.component.scss'],
+    standalone: false
 })
 export class ApplicantInformationComponent {
     @Input() trans: TransmogrifierCAPApplication;

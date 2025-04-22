@@ -13,7 +13,8 @@ import { iAnswerCollection } from '../../core/models/answer-collection.interface
 @Component({
     selector: 'app-completed-status-report',
     templateUrl: './completed-status-report.component.html',
-    styleUrls: ['./completed-status-report.component.scss']
+    styleUrls: ['./completed-status-report.component.scss'],
+    standalone: false
 })
 export class CompletedStatusReportComponent implements OnInit, OnDestroy {
     data: any;

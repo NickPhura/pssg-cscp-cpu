@@ -1,16 +1,35 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { BehaviorSubject } from "rxjs";
+import { StateService } from "../../core/services/state.service";
+import { BudgetProposalComponent } from "./budget-proposal.component";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
-import { BudgetProposalComponent } from './budget-proposal.component';
-
-describe('BudgetProposalComponent', () => {
+describe("BudgetProposalComponent", () => {
   let component: BudgetProposalComponent;
   let fixture: ComponentFixture<BudgetProposalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
+    const stateServiceStub = {
+      main: new BehaviorSubject({
+        persons: [
+          // You can add test persons here, for example:
+          { personId: 1, firstName: "John", middleName: "A.", lastName: "Doe" },
+          { personId: 2, firstName: "Jane", middleName: "", lastName: "Smith" },
+        ],
+      }),
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ BudgetProposalComponent ]
-    })
-    .compileComponents();
+    declarations: [BudgetProposalComponent],
+    imports: [RouterTestingModule],
+    providers: [
+        { provide: StateService, useValue: stateServiceStub },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +38,7 @@ describe('BudgetProposalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

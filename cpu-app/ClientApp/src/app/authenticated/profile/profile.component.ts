@@ -15,13 +15,14 @@ import { PersonPickerComponent } from '../subforms/person-picker/person-picker.c
 import { Roles } from '../../core/models/user-settings.interface';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css'],
+    standalone: false
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  @ViewChild(PersonPickerComponent) contractorContactComp: PersonPickerComponent;
-  @ViewChild(PersonPickerComponent) boardContactComp: PersonPickerComponent;
+  @ViewChild(PersonPickerComponent, {static:false}) contractorContactComp: PersonPickerComponent;
+  @ViewChild(PersonPickerComponent, {static : false}) boardContactComp: PersonPickerComponent;
   trans: Transmogrifier;
   saving: boolean = false;
   private stateSubscription: Subscription;

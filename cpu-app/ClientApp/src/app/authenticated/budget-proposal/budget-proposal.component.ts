@@ -19,9 +19,10 @@ import { Subscription } from 'rxjs';
 import { VSCP_APPROVED_SOURCE_NAME } from '../../core/models/revenue-source.interface';
 
 @Component({
-  selector: 'app-budget-proposal',
-  templateUrl: './budget-proposal.component.html',
-  styleUrls: ['./budget-proposal.component.css']
+    selector: 'app-budget-proposal',
+    templateUrl: './budget-proposal.component.html',
+    styleUrls: ['./budget-proposal.component.css'],
+    standalone: false
 })
 export class BudgetProposalComponent implements OnInit, OnDestroy {
   currentStepperElement: iStepperElement;

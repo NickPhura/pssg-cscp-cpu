@@ -7,9 +7,10 @@ import { Subscription } from 'rxjs';
 import { Roles } from '../../../core/models/user-settings.interface';
 
 @Component({
-  selector: 'app-organization-profile-box',
-  templateUrl: './organization-profile-box.component.html',
-  styleUrls: ['./organization-profile-box.component.scss']
+    selector: 'app-organization-profile-box',
+    templateUrl: './organization-profile-box.component.html',
+    styleUrls: ['./organization-profile-box.component.scss'],
+    standalone: false
 })
 export class OrganizationProfileBoxComponent implements OnInit, OnDestroy {
   @Input() type: string;

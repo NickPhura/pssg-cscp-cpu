@@ -6,18 +6,18 @@
     "removeComments": true,
     "declaration": false,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2022",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2020",
       "dom"
     ],
-    "module": "es2015",
-    "baseUrl": "./"
+    "module": "esnext",
+    "baseUrl": "./",
+    "useDefineForClassFields": false
   },
   "exclude": [
     "node_modules"

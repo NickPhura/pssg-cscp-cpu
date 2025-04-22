@@ -6,8 +6,9 @@ import { NotificationQueueService } from '../core/services/notification-queue.se
 import { UserSettings } from '../core/models/user-settings.class';
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './login.component.html'
+    selector: 'app-landing-page',
+    templateUrl: './login.component.html',
+    standalone: false
 })
 export class LoginPageComponent implements OnInit {
   loading: boolean = true;

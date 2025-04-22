@@ -7,9 +7,10 @@ import { RevenueSource } from '../../../core/models/revenue-source.class';
 import { VSCP_APPROVED_SOURCE_NAME } from '../../../core/models/revenue-source.interface';
 
 @Component({
-  selector: 'app-program-budget',
-  templateUrl: './program-budget.component.html',
-  styleUrls: ['./program-budget.component.css']
+    selector: 'app-program-budget',
+    templateUrl: './program-budget.component.html',
+    styleUrls: ['./program-budget.component.css'],
+    standalone: false
 })
 export class ProgramBudgetComponent implements OnInit {
   @Input() programBudget: iProgramBudget;

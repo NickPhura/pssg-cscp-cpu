@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 using Serilog;
 using System;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Manager.Contract;
+using System.Web;
 
 namespace Gov.Cscp.Victims.Public.Controllers
 {
@@ -126,6 +134,73 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 return BadRequest();
             }
             finally { }
+        }
+
+        [HttpGet("export_monthly_report/{contractId}/{programId}/{contractNumber}/{programName}")]
+        public async Task<IActionResult> ExportMonthlyReport(string contractId, string programId, string contractNumber, string programName)
+        {
+            try
+            {
+                string endpointUrl = "vsd_datacollections?$select=vsd_datacollectionid,vsd_reportingperiod&$filter=(_vsd_contract_value eq " + contractId + ") and (_vsd_program_value eq " + programId + " and statuscode ne 100000004)";
+
+                HttpClientResult result = await _dynamicsResultService.Get(endpointUrl);
+
+                if (result.result["value"].Count() == 0)
+                {
+                    return NoContent();
+                }
+
+                var reports = result.result["value"]
+                .OrderBy(item => item["vsd_reportingperiod"].ToObject<int>() >= (int)MonthEnum.April && item["vsd_reportingperiod"].ToObject<int>() <= (int)MonthEnum.December ? 0 : 1)
+                .ThenBy(item => item["vsd_reportingperiod"].ToObject<int>())
+                .Select(item => new { collectionId = item["vsd_datacollectionid"].ToString(), reportingPeriodId = item["vsd_reportingperiod"].ToObject<int>() })
+                .ToArray();
+
+
+                string endpointUrl2 = "vsd_datacollectionlineitems?$select=vsd_yesno, vsd_textanswer, vsd_number, vsd_name, _vsd_questionid_value&$filter=(_vsd_datacollectionid_value eq " + string.Join(" or _vsd_datacollectionid_value eq ", reports.Select(d => d.collectionId)) + ")";
+                HttpClientResult result2 = await _dynamicsResultService.Get(endpointUrl2);
+
+                var reportCVSHeaders = "," + string.Join(",", reports.Select(d => (MonthEnum)d.reportingPeriodId));
+
+
+                return ConvertJsonToCsvAsync(result2.result, reportCVSHeaders, programName, contractNumber);
+
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, $"Unexpected error while getting monthly stats info 'vsd_GetCPUMonthlyStatistics'. Contract id = {contractId}. Source = CPU");
+                return BadRequest();
+            }
+            finally { }
+        }
+
+        private IActionResult ConvertJsonToCsvAsync(JObject answerCollection, string reportCVSHeaders, string programName, string contractName)
+        {
+            var exportDataList = JsonConvert.DeserializeObject<List<DynamicsDataCollectionLineItemPost>>(answerCollection["value"].ToString());
+            var groupedQuestions = exportDataList.GroupBy(d => d._vsd_questionid_value);
+
+            StringBuilder csvData = new StringBuilder();
+            csvData.AppendLine("Contract Number: " + contractName);
+            csvData.AppendLine("Program Name: " + programName);
+            csvData.AppendLine(reportCVSHeaders);
+
+            var cvsRow = "\"";
+            foreach (var question in groupedQuestions)
+            {
+                cvsRow = cvsRow + question.First().vsd_name + "\",";
+                foreach (var answer in question)
+                {
+
+                    cvsRow = cvsRow + answer.GetAnswer() + ",";
+                }
+                csvData.AppendLine(cvsRow);
+                cvsRow = "\"";
+            }
+
+            byte[] fileBytes = Encoding.UTF8.GetBytes(csvData.ToString());
+            var stream = new MemoryStream(fileBytes);
+
+            return File(stream, "text/csv", ".csv");
         }
     }
 }

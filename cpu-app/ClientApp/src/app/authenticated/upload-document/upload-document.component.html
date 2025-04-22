@@ -54,7 +54,7 @@
 
           <input #files id="files" type="file" style="display: none" (change)="onFilesAdded($event.target.files)" multiple>
           <button type="button" class="btn btn-warning" (click)="fakeBrowseClick()" [class.is-disabled]="downloadingDocument">Add File</button>
-          <button class="btn btn-warning ml-2" [class.is-disabled]="documentsToAdd.length == 0 || saving || downloadingDocument" (click)="upload()">Upload Files</button>
+          <button class="btn btn-warning ms-2" [class.is-disabled]="documentsToAdd.length == 0 || saving || downloadingDocument" (click)="upload()">Upload Files</button>
         </div>
       </div>
 

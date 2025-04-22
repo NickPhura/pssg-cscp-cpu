@@ -11,12 +11,13 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'app-upload-document',
-  templateUrl: './upload-document.component.html',
-  styleUrls: ['./upload-document.component.scss']
+    selector: 'app-upload-document',
+    templateUrl: './upload-document.component.html',
+    styleUrls: ['./upload-document.component.scss'],
+    standalone: false
 })
 export class UploadDocumentComponent implements OnInit, OnDestroy {
-  @ViewChild('files')
+  @ViewChild('files', { static: false })
   myInputVariable: ElementRef;
 
   saving: boolean = false;
