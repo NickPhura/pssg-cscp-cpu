@@ -44,8 +44,8 @@ export class StatusReportService {
       catchError(this.handleError)
     );
   }
-  getMonthlyProgramExcellReport(organizationId: string, userId: string, contractId: string, program: string) {
-    return this.http.get<iDynamicsMonthlyStatisticsQuestions>(`${this.apiPath}/monthly_excell_report/${organizationId}/${userId}/${contractId}/${program}`, { headers: this.headers }).pipe(
+  exportMonthlyReport(contractId: string, programId: string, contractNumber: string, programName: string){
+    return this.http.get(`${this.apiPath}/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`, { responseType: 'blob' }).pipe(
       retry(3),
       catchError(this.handleError)
     );
