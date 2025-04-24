@@ -28,6 +28,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
   stepperIndex: number = 0;
   saving: boolean = false;
   didload: boolean = false;
+  partialSaveStatusCode: number = 100000004;
 
   public formHelper = new FormHelper();
   constructor(
@@ -123,6 +124,41 @@ export class StatusReportComponent implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+  save() {
+    try {
+      this.stepperElements.forEach(s => {
+        this.stepperService.setStepperElementProperty(s.id, "formState", "untouched");
+      });
+        this.saving = true;
+        const statusReport: iDynamicsPostStatusReport = convertStatusReportToDynamics(this.trans);
+        statusReport.StatusCode = this.partialSaveStatusCode;
+        this.statusReportService.setStatusReportAnswers(this.trans.taskId, statusReport)
+          .subscribe(
+            r => {
+              if (r.IsSuccess) {
+                this.saving = false;
+                this.notificationQueueService.addNotification(`You have successfully saved ${this.trans.reportingPeriod} statistics.`, 'success');
+                this.stateService.refresh();
+                this.router.navigate(['/authenticated/dashboard']);
+              }
+              else {
+                this.saving = false;
+                this.notificationQueueService.addNotification('Monthly statistics could not be saved. If this problem is persisting please contact your ministry representative.', 'danger');
+              }
+            },
+            err => {
+              console.log(err);
+              this.saving = false;
+              this.notificationQueueService.addNotification('Monthly statistics could not be saved. If this problem is persisting please contact your ministry representative.', 'danger');
+            }
+          );
+      }
+    catch (err) {
+      console.log(err);
+      this.notificationQueueService.addNotification('The monthly statistics could not be saved. If this problem is persisting please contact your ministry representative.', 'danger');
+      this.saving = false;
+    }
   }
   submit() {
     try {

@@ -86,6 +86,7 @@
     <div class="col-md-8">
       <span><button *ngIf="stepperIndex > 0" class="btn btn-primary mt-2 previous-button" (click)="setPreviousStepper()">Previous</button></span>
       <span><button *ngIf="stepperIndex < stepperElements.length - 1" class="btn btn-primary mt-2 next-button" (click)="setNextStepper()">Continue</button></span>
+      <span><button class="btn btn-primary mt-2" [class.is-disabled]="saving" (click)="save()">Save</button></span>
       <span><button *ngIf="stepperIndex == stepperElements.length -1" class="btn btn-primary mt-2 submit-button" [class.is-disabled]="saving" (click)="submit()">Submit</button></span>
     </div>
   </div>

@@ -37,6 +37,7 @@ export function convertStatusReportToDynamics(trans: TransmogrifierStatusReport)
   return {
     BusinessBCeID: trans.organizationId,
     UserBCeID: trans.userId,
+    DataCollectionid: trans.DataCollectionid,
     // ReportingPeriod: monthDict[trans.reportingPeriod] || 0,
     // get rid of any answers are missing a value. Otherwise dynamics 204's.
     AnswerCollection: answers,//.filter(v => v.vsd_yesno || v.vsd_textanswer || v.vsd_number)

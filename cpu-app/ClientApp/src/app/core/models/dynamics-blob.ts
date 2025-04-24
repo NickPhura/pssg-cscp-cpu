@@ -474,9 +474,11 @@ export interface iDynamicsMonthlyStatisticsQuestions {
   Program?: iDynamicsMonthlyStatisticsQuestionsProgram;
   ProgramTypeCollection?: iDynamicsMonthlyStatisticsProgramType[];
   QuestionCollection?: iDynamicsMonthlyStatisticsQuestionsQuestion[];
+  AnswerCollection?: iDynamicsMonthlyStatisticsAnswersAnswer[];
   ReportingPeriod?: number;
   Result: string;
   Userbceid?: string;
+  DataCollectionid?: string;
 }
 export interface iDynamicsMonthlyStatisticsQuestionsOrganization {
   accountid?: string;
@@ -515,6 +517,7 @@ export interface iDynamicsMonthlyStatisticsAnswersAnswer {
 }
 
 export interface iDynamicsMonthlyStatisticsQuestionsQuestion {
+  categoryID: string;
   _vsd_categoryid_value?: string;
   _vsd_cpuprogramtype_value?: string;
   vsd_cpustatisticsmasterdataid?: string;
