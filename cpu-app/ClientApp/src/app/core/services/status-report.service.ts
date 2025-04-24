@@ -45,7 +45,7 @@ export class StatusReportService {
     );
   }
   exportMonthlyReport(contractId: string, programId: string, contractNumber: string, programName: string){
-     return this.http.get(`${this.apiPath}/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`, { responseType: 'blob' }).pipe(
+    return this.http.get(`${this.apiPath}/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`, { responseType: 'blob' }).pipe(
       retry(3),
       catchError(this.handleError)
     );

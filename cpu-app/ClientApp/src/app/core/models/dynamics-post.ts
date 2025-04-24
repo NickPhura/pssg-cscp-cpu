@@ -19,6 +19,8 @@ export interface iDynamicsPostUsers { //maps to OrganizationPost
 export interface iDynamicsPostStatusReport { //maps to MonthlyStatisticsAnswers
   BusinessBCeID: string;
   UserBCeID: string;
+  DataCollectionid?: string;
+  StatusCode?: number;
   AnswerCollection: iDynamicsAnswer[];
 }
 export interface iDynamicsPostFile { //maps to FilePost
