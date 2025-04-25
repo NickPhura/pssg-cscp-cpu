@@ -41,6 +41,7 @@ jobs:
         with:
           build-args: |
             BUILD_ID="${{ env.BUILD_ID }}"
+            BASE_HREF_BUILD="${{ vars.BASE_HREF_BUILD }}"
           cache-from: |
             ${{ env.IMAGE_REGISTRY }}/${{ env.APP_NAME }}-${{ env.IMAGE_NAME }}
           file: ${{ env.CPU_UI_DOCKERFILE_PATH }}
