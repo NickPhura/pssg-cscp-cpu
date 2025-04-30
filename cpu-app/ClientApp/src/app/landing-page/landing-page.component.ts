@@ -65,8 +65,8 @@ export class LandingPageComponent implements OnInit {
       this.stateService.login();
     }
     else {
-      console.log("YY: login: ", this.apiUrl.concat('coastcontracts/login'));
-      this.window.location.href = this.apiUrl.concat('coastcontracts/login');
+      console.log("YY: login: ", this.apiUrl.concat('login'));
+      this.window.location.href = this.apiUrl.concat('login');
     }
   }
   logout() {
