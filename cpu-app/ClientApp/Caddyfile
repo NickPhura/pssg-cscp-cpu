@@ -34,17 +34,24 @@
 		Referrer-Policy "same-origin"
 	}
 
-	respond /health 200
-
 	# Handle API requests via Openshift route
 	@api1 path /coastcontracts/api /coastcontracts/api/*
 	handle @api1 {
-		reverse_proxy {$API_URL}
+		header {
+			X-Caddy-Debug "api /coastcontracts/api"
+		}
+		reverse_proxy {$API_URL} {
+			header_up Host {upstream_hostport}
+			header_up X-Forwarded-Host {host}
+		}
 	}
 
 	# Handle API requests via [dev.|test.]justice.gov.bc.ca routes
 	@api2 path /api /api/*
 	handle @api2 {
+		header {
+			X-Caddy-Debug "api /api"
+		}
 		reverse_proxy {$API_URL} {
 			header_up Host {upstream_hostport}
 			header_up X-Forwarded-Host {host}
@@ -53,11 +60,17 @@
 
 	# Handle APP requests via Openshift route
 	handle_path /coastcontracts* {
+		header {
+			X-Caddy-Debug "app /coastcontracts"
+		}
 		try_files {path} {path}/ /index.html
 	}
 
 	# Handle APP requests via [dev.|test.]justice.gov.bc.ca routes
 	handle {
+		header {
+			X-Caddy-Debug "app /"
+		}
 		try_files {path} {path}/ /index.html
 	}
 }
