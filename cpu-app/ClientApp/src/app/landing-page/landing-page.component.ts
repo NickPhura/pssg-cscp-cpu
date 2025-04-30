@@ -60,11 +60,12 @@ export class LandingPageComponent implements OnInit {
   }
 
   login() {
+    console.log('WW: Landing Page - login');
     if (window.location.href.includes("localhost")) {
       this.stateService.login();
     }
     else {
-      console.log("YY: login", this.apiUrl.concat('login'));
+      console.log("YY: login: ", this.apiUrl.concat('login'));
       this.window.location.href = this.apiUrl.concat('login');
     }
   }
