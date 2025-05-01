@@ -38,10 +38,11 @@
 	@api1 path /coastcontracts/api /coastcontracts/api/*
 	handle @api1 {
 		reverse_proxy {$API_URL} {
-      header_up X-Test "hello-from-caddy 1"
-      header_up smgov_userguid {http.request.header.smgov_userguid}
-      header_up smgov_useridentifier {http.request.header.smgov_useridentifier}
-      header_up smgov_businessguid {http.request.header.smgov_businessguid}
+			header_up X-Test "hello-from-caddy 1"
+			header_up Smgov_userguid {http.request.header.Smgov_userguid}
+			header_up smgov_useridentifier {http.request.header.smgov_useridentifier}
+			header_up Smgov_businessguid {http.request.header.smgov_businessguid}
+      header_up smgov_businesslegalname {http.request.header.Smgov_businesslegalname}
 		}
 	}
 
@@ -49,9 +50,11 @@
 	@api2 path /api /api/*
 	handle @api2 {
 		reverse_proxy {$API_URL} {
-      header_up X-Test "hello-from-caddy 1"
-      header_up smgov_userguid {http.request.header.smgov_userguid}
-      header_up smgov_businessguid {http.request.header.smgov_businessguid}
+			header_up X-Test "hello-from-caddy 1"
+			header_up Smgov_userguid {http.request.header.Smgov_userguid}
+			header_up smgov_useridentifier {http.request.header.smgov_useridentifier}
+			header_up Smgov_businessguid {http.request.header.smgov_businessguid}
+			header_up smgov_businesslegalname {http.request.header.Smgov_businesslegalname}
 		}
 	}
 
