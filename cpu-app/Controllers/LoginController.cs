@@ -44,17 +44,13 @@ namespace Gov.Cscp.Victims.Public.Controllers
         [Authorize]
         public ActionResult Login(string path)
         {
-            Console.WriteLine("LoginController.Login()");
-            logger.LogInformation("LoginController.Login()");
             string basePath = string.IsNullOrEmpty(_configuration["BASE_PATH"]) ? "/" : _configuration["BASE_PATH"];
             // we want to redirect to the dashboard if the user is a returning user.
 
-            Console.WriteLine($"LoginController.Login() 2 {basePath + "/" + dashboard}");
-            logger.LogInformation($"LoginController.Login() 2 {basePath + "/" + dashboard}");
-            // get UserSettings from the session
-            string temp = _httpContextAccessor.HttpContext.Session.GetString("UserSettings");
-            string dashboard = "authenticated/dashboard";
-            return Redirect(basePath + "/" + dashboard);
+            Console.WriteLine($"RR: LoginController.Login() {basePath + "/authenticated/dashboard"}");
+            logger.LogInformation($"RR: LoginController.Login() {basePath + "/authenticated/dashboard"}");
+
+            return Redirect(basePath + "/authenticated/dashboard");
         }
 
         // /// <summary>

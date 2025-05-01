@@ -34,14 +34,19 @@
 		Referrer-Policy "strict-origin-when-cross-origin"
 	}
 
+	@hasSMGOVHeader header SMGOV_USERGUID *
+	handle @hasSMGOVHeader {
+		reverse_proxy {$API_URL}/login
+	}
+
 	# Handle API requests via Openshift route
-	@api1 path /coastcontracts/login /coastcontracts/login/* /coastcontracts/api /coastcontracts/api/*
+	@api1 path /coastcontracts/api /coastcontracts/api/*
 	handle @api1 {
 		reverse_proxy {$API_URL}
 	}
 
 	# Handle API requests via [dev.|test.]justice.gov.bc.ca routes
-	@api2 path /login /login/* /api /api/*
+	@api2 path /api /api/*
 	handle @api2 {
 		reverse_proxy {$API_URL}
 	}

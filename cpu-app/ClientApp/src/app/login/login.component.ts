@@ -6,7 +6,7 @@ import { NotificationQueueService } from '../core/services/notification-queue.se
 import { UserSettings } from '../core/models/user-settings.class';
 
 @Component({
-    selector: 'app-landing-page',
+    selector: 'app-login-page',
     templateUrl: './login.component.html',
     standalone: false
 })
