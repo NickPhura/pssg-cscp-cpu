@@ -50,7 +50,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
             Console.WriteLine($"RR: LoginController.Login() {basePath + "/authenticated/dashboard"}");
             logger.LogInformation($"RR: LoginController.Login() {basePath + "/authenticated/dashboard"}");
 
-            return Redirect(basePath + "/authenticated/dashboard");
+            return Redirect("https://dev.justice.gov.bc.ca/coastcontracts/authenticated/dashboard");
         }
 
         // /// <summary>
