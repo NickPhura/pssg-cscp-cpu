@@ -24,11 +24,14 @@ export class LandingPageComponent implements OnInit {
     private stateService: StateService) {
 
     this.userData.checkIfLoggedIn().subscribe((isLoggedIn) => {
+      console.log('YY: isLoggedIn', isLoggedIn);
       if (isLoggedIn) {
         this.userData.getCurrentUser().subscribe((userSettings: UserSettings) => {
+          console.log('YY: userSettings', userSettings);
           // console.log("returned user info:");
           // console.log(userSettings);
           if (userSettings && userSettings.userAuthenticated) {
+            console.log('YY: userSettings exists');
             // console.log("setting user data as logged in");
             this.stateService.loggedIn.next(true);
             this.stateService.userSettings.next(userSettings);
@@ -38,11 +41,13 @@ export class LandingPageComponent implements OnInit {
             this.stateService.getUserName();
           }
           else {
+            console.log('YY: userSettings does not exist');
             this.stateService.loggedIn.next(false);
           }
         });
       }
     }, (err) => {
+      console.log('YY: checkIfLoggedIn error', err);
       console.log(err);
     });
 
@@ -55,14 +60,17 @@ export class LandingPageComponent implements OnInit {
   }
 
   login() {
+    console.log('WW: Landing Page - login');
     if (window.location.href.includes("localhost")) {
       this.stateService.login();
     }
     else {
+      console.log("YY: login: ", this.apiUrl.concat('login'));
       this.window.location.href = this.apiUrl.concat('login');
     }
   }
   logout() {
+    console.log("YY: logout");
     this.stateService.logout();
   }
 }

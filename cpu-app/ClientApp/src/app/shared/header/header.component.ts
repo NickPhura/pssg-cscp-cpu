@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
     this.stateService.loading.subscribe(l => this.loading = l);
   }
   login() {
+    console.log('PP: Header - login');
     if (window.location.href.includes("localhost")) {
       this.stateService.login();
     }

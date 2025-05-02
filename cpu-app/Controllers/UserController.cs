@@ -35,6 +35,10 @@ namespace Gov.Cscp.Victims.Public.Controllers
             Configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _logger = Log.Logger;
+            Console.WriteLine("UserController.UserController()");
+            _logger.Information("UserController.UserController()");
+            Console.WriteLine($"UserController.UserController() 2 {configuration}");
+            _logger.Information($"UserController.UserController() 2 {configuration}");
         }
 
         protected ClaimsPrincipal CurrentUser => _httpContextAccessor.HttpContext.User;
@@ -43,6 +47,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
         [AllowAnonymous]
         public virtual IActionResult GetIsLoggedIn()
         {
+            Console.WriteLine("UserController.GetIsLoggedIn()");
             try
             {
                 string storedSettingsString = _httpContextAccessor.HttpContext.Session.GetString("UserSettings");
@@ -67,6 +72,8 @@ namespace Gov.Cscp.Victims.Public.Controllers
         [HttpGet("current")]
         public virtual IActionResult UsersCurrentGet()
         {
+            Console.WriteLine("UserController.UsersCurrentGet()");
+            _logger.Information("UserController.UsersCurrentGet()");
             // Console.WriteLine("UsersCurrentGet()");
             try
             {
@@ -104,6 +111,8 @@ namespace Gov.Cscp.Victims.Public.Controllers
         [HttpGet("GetLogoutUrl")]
         public virtual IActionResult GetLogoutUrl()
         {
+            Console.WriteLine("UserController.GetLogoutUrl()");
+            _logger.Information("UserController.GetLogoutUrl()");
             //This is called to perform logout function. We should wipe the session settings and cookie info too.
             try
             {

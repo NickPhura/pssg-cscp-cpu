@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace Gov.Cscp.Victims.Public.Controllers
 {
@@ -16,6 +17,9 @@ namespace Gov.Cscp.Victims.Public.Controllers
 
         public ConfigurationController(ILogger<ConfigurationController> logger, IConfiguration configuration)
         {
+            Console.WriteLine("ConfigurationController.ConfigurationController() 1");
+            logger.LogInformation("ConfigurationController.ConfigurationController() 2");
+
             this.logger = logger;
             this.configuration = configuration;
         }
@@ -24,8 +28,16 @@ namespace Gov.Cscp.Victims.Public.Controllers
         [HttpGet]
         public IActionResult GetConfiguration()
         {
+            Console.WriteLine("ConfigurationController.GetConfiguration() 1");
+            logger.LogInformation("ConfigurationController.GetConfiguration() 2");
+
             try
             {
+
+                Console.WriteLine("--------------------------------------------------------------------");
+                Console.WriteLine(JsonConvert.SerializeObject(configuration, Formatting.Indented));
+                Console.WriteLine("--------------------------------------------------------------------");
+
                 var config = new Configuration
                 {
                     OutageMessage = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_MESSAGE"),
@@ -36,7 +48,8 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 if (string.IsNullOrEmpty(config.OutageMessage) || string.IsNullOrEmpty(config.OutageStartDate) || string.IsNullOrEmpty(config.OutageEndDate))
                 {
                     return Ok();
-                };
+                }
+                ;
 
                 return Ok(config);
             }

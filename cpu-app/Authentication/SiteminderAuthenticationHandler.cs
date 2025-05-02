@@ -240,12 +240,14 @@ namespace Gov.Cscp.Victims.Public.Authentication
             _splunkLogger = Log.Logger;
         }
 
+
         /// <summary>
         /// Process Authentication Request
         /// </summary>
         /// <returns></returns>
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
+            Console.WriteLine("ZZ: 1");
             //         // get siteminder headers
             _logger.LogDebug("Parsing the HTTP headers for SiteMinder authentication credential");
             _logger.LogInformation("Test information");
@@ -260,6 +262,12 @@ namespace Gov.Cscp.Victims.Public.Authentication
             {
                 ClaimsPrincipal principal;
                 HttpContext context = Request.HttpContext;
+
+                foreach (var header in context.Request.Headers)
+                {
+                    Console.WriteLine($"ZZ: 1.5 {header.Key}: {header.Value}");
+                }
+
                 IWebHostEnvironment hostingEnv = (IWebHostEnvironment)context.RequestServices.GetService(typeof(IWebHostEnvironment));
 
                 UserSettings userSettings = new UserSettings();
@@ -276,6 +284,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                 string url = context.Request.GetDisplayUrl().ToLower();
                 if (url.Contains(".js"))
                 {
+                    Console.WriteLine("ZZ: 2");
                     _splunkLogger.Error(new Exception("url contains .js"), "Unexpected error while in siteminder auth handler - url contains .js - returning NoResult(). Source = CPU");
                     return AuthenticateResult.NoResult();
                 }
@@ -286,13 +295,15 @@ namespace Gov.Cscp.Victims.Public.Authentication
                 // **************************************************
                 try
                 {
+                    Console.WriteLine("ZZ: 3");
                     _logger.LogInformation("Checking user session");
                     userSettings = UserSettings.ReadUserSettings(context);
                     _logger.LogDebug("UserSettings found: " + userSettings.GetJson());
-                    // Console.WriteLine("UserSettings found: " + userSettings.GetJson());
+                    Console.WriteLine("ZZ: 3.5: " + userSettings.GetJson());
                 }
                 catch
                 {
+                    Console.WriteLine("ZZ: 4");
                     //do nothing
                     // Console.WriteLine("No UserSettings found");
                     _logger.LogDebug("No UserSettings found");
@@ -303,24 +314,28 @@ namespace Gov.Cscp.Victims.Public.Authentication
                         (userSettings.UserAuthenticated && !string.IsNullOrEmpty(userId) &&
                          !string.IsNullOrEmpty(userSettings.UserId) && userSettings.UserId == userId))
                 {
+                    Console.WriteLine("ZZ: 5");
                     _logger.LogDebug("User already authenticated with active session: " + userSettings.UserId);
                     // Console.WriteLine("User already authenticated with active session: " + userSettings.GetJson());
                     principal = userSettings.AuthenticatedUser.ToClaimsPrincipal(options.Scheme, userSettings.UserType);
                     return AuthenticateResult.Success(new AuthenticationTicket(principal, null, Options.Scheme));
                 }
-
                 string smgov_userdisplayname = context.Request.Headers["smgov_userdisplayname"];
+                Console.WriteLine($"ZZ: 6: {smgov_userdisplayname}");
                 if (!string.IsNullOrEmpty(smgov_userdisplayname))
                 {
+                    Console.WriteLine("ZZ: 7");
                     userSettings.UserDisplayName = smgov_userdisplayname;
                 }
 
                 string smgov_businesslegalname = context.Request.Headers["smgov_businesslegalname"];
+                Console.WriteLine($"ZZ: 8: {smgov_businesslegalname}");
                 if (!string.IsNullOrEmpty(smgov_businesslegalname))
                 {
+                    Console.WriteLine("ZZ: 8.5");
                     userSettings.BusinessLegalName = smgov_businesslegalname;
                 }
-
+                Console.WriteLine($"ZZ: 9: {userId}");
                 // **************************************************
                 // Authenticate based on SiteMinder Headers
                 // **************************************************
@@ -328,12 +343,14 @@ namespace Gov.Cscp.Victims.Public.Authentication
                 // TODO userId is always null
                 if (string.IsNullOrEmpty(userId))
                 {
+                    Console.WriteLine("ZZ: 10");
                     _logger.LogDebug("Getting user data from headers");
                     // Console.WriteLine("Getting user data from headers");
 
                     userId = context.Request.Headers[options.SiteMinderUserNameKey];
                     if (string.IsNullOrEmpty(userId))
                     {
+                        Console.WriteLine("ZZ: 11");
                         userId = context.Request.Headers[options.SiteMinderUniversalIdKey];
                     }
 
@@ -347,25 +364,30 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     // **************************************************
                     if (string.IsNullOrEmpty(userId))
                     {
+                        Console.WriteLine("ZZ: 12");
                         _logger.LogDebug(options.MissingSiteMinderUserIdError);
                         return AuthenticateResult.Fail(options.MissingSiteMinderGuidError);
                     }
 
                     if (string.IsNullOrEmpty(siteMinderGuid))
                     {
+                        Console.WriteLine("ZZ: 13");
                         _logger.LogDebug(options.MissingSiteMinderGuidError);
                         return AuthenticateResult.Fail(options.MissingSiteMinderGuidError);
                     }
                     if (string.IsNullOrEmpty(siteMinderUserType))
                     {
+                        Console.WriteLine("ZZ: 14");
                         _logger.LogDebug(options.MissingSiteMinderUserTypeError);
                         return AuthenticateResult.Fail(options.MissingSiteMinderUserTypeError);
                     }
                 }
                 else // DEV user, setup a fake session and SiteMinder headers.
                 {
+                    Console.WriteLine("ZZ: 15");
                     if (isDeveloperLogin && _dynamicsResultService != null)
                     {
+                        Console.WriteLine("ZZ: 16");
                         _logger.LogError("Generating a Development user");
                         userSettings.BusinessLegalName = devCompanyId + " BusinessProfileName";
                         userSettings.UserDisplayName = userId + " BCeIDContactType";
@@ -376,6 +398,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                     else if (isBCSCDeveloperLogin)
                     {
+                        Console.WriteLine("ZZ: 17");
                         _logger.LogError("Generating a Development BC Services user");
                         userSettings.BusinessLegalName = null;
                         userSettings.UserDisplayName = userId + " Associate";
@@ -387,6 +410,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
 
                 if (_dynamicsResultService != null)
                 {
+                    Console.WriteLine("ZZ: 18");
                     // Console.WriteLine("We're \"Logged in\", businessBCeID: " + siteMinderBusinessGuid + ", UserBCeID: " + siteMinderGuid);
                     _logger.LogDebug("We're \"Logged in\", businessBCeID: " + siteMinderBusinessGuid + ", UserBCeID: " + siteMinderGuid);
 
@@ -422,6 +446,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
 
                     if (resultResult.Contains(NEW_USER))
                     {
+                        Console.WriteLine("ZZ: 19");
                         // Console.WriteLine("New User Registration");
 
                         userSettings.IsNewUserRegistration = true;
@@ -432,6 +457,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                     else if (resultResult.Contains(NEW_USER_AND_NEW_ORGANIZATION))
                     {
+                        Console.WriteLine("ZZ: 20");
                         // Console.WriteLine("New User and New Organization Registration");
 
                         userSettings.IsNewUserRegistration = false;
@@ -442,6 +468,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                     else if (resultResult.Contains(CONTACT_NOT_APPROVED))
                     {
+                        Console.WriteLine("ZZ: 21");
                         //error state - should hopefully never happen
                         // Console.WriteLine("Error, contact already exists but is not approved");
 
@@ -452,6 +479,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                     else if (resultResult.Contains(NO_ROLES_ASSIGNED))
                     {
+                        Console.WriteLine("ZZ: 22");
                         // Console.WriteLine("New User and New Organization Registration");
 
                         userSettings.NoRolesAssigned = true;
@@ -461,6 +489,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                     else if (resultResult.Contains(CONTACT_NOT_CPU))
                     {
+                        Console.WriteLine("ZZ: 23");
                         //error state - should hopefully never happen
                         // Console.WriteLine("Error, contact does not belong to CPU...");
 
@@ -471,6 +500,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                     else
                     {
+                        Console.WriteLine("ZZ: 24");
                         //TODO - should verify we did in fact get a success response
 
                         // Console.WriteLine("Found User Data");
@@ -485,6 +515,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     }
                 }
                 else {
+                    Console.WriteLine("ZZ: 25");
                     // Console.WriteLine("No DynamicsResultService configured.");
                     _splunkLogger.Error(new Exception("No DynamicsResultService configured."), "Unexpected error while in siteminder auth handler - No DynamicsResultService configured. Source = CPU");
                     return AuthenticateResult.Fail("No DynamicsResultService configured");
@@ -492,6 +523,7 @@ namespace Gov.Cscp.Victims.Public.Authentication
             }
             catch (Exception exception)
             {
+                Console.WriteLine("ZZ: 26");
                 _splunkLogger.Error(exception, "Unexpected error while in siteminder auth handler. Source = CPU");
                 _logger.LogError(exception.Message);
                 Console.WriteLine("Hit exception in siteminder auth handler.");

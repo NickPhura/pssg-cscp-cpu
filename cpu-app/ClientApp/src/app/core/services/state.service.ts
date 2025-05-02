@@ -42,6 +42,7 @@ export class StateService {
   ) { }
 
   login() {
+    console.log('GG: State service - login');
     let userId = "";// = 'FB55AB99F20E471186B8143B3F21F6E7';
     let orgId = "";// = 'E4637B1557A6457891D7549067B20635';
 
