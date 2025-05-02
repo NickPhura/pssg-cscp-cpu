@@ -34,10 +34,11 @@
 		Referrer-Policy "strict-origin-when-cross-origin"
 	}
 
-
+  # Handle Siteminder response, intercept if auth headers are present and redirect to the API login route
 	@hasSMGOVHeader header SMGOV_USERGUID *
 	handle @hasSMGOVHeader {
-		reverse_proxy {$API_URL}/login
+    rewrite * /login{query}
+		reverse_proxy {$API_URL}
 	}
 
 	# Handle API requests via Openshift route
