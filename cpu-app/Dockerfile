@@ -21,6 +21,7 @@ RUN npm run build -- --output-path=dist
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
 
 ARG BUILD_ID
+ARG BUILD_VERSION
 
 WORKDIR /src
 
@@ -38,7 +39,19 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
 WORKDIR /app
 
+# Accept build-time arguments
+ARG BUILD_ID
+ARG BUILD_VERSION
+
+# Export to environment variables
+ENV BUILD_ID=${BUILD_ID}
+ENV BUILD_VERSION=${BUILD_VERSION}
+
+
 COPY --from=dotnet-build /app/publish ./
+
+# Inject version info
+RUN echo "${BUILD_ID}" > /app/build_id.txt && echo "${BUILD_VERSION}" > /app/version.txt
 
 EXPOSE 8080
 
