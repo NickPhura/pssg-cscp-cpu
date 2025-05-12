@@ -1,5 +1,5 @@
-.previous-button, .next-button {
-    margin-right: 10px;
+.previous-button, .next-button, .exit-button {
+    margin-right: 10px !important;
 }
 
 .number-input {
