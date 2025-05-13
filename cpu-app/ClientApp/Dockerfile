@@ -6,7 +6,7 @@ COPY ./cpu-app/ClientApp ./cpu-app/ClientApp
 WORKDIR /cpu-app/ClientApp
 
 RUN npm install
-RUN npm run build -- --base-href /coastcontracts --prod
+RUN npm run build
 
 # Create runtime image layer, copy build image contents into this image
 FROM caddy:alpine AS final

@@ -1,31 +1,60 @@
-ARG BUILD_ID
+# ======================
+# Angular  Build Stage
+# ======================
+FROM node:20 AS angular-build
 
-# Retrieve and set base image layer
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 ARG BUILD_ID
 ARG BUILD_VERSION
+
 WORKDIR /app
 
-# Create build image for runtime
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-COPY . .
+COPY ./cpu-app/ClientApp/ ./cpu-app/ClientApp/
 
-# Restore as distinct layers
-RUN dotnet restore ./cpu-app/
-RUN dotnet build "cpu-app/cpu-app.csproj" -c Release -o /app/build
+WORKDIR /app/cpu-app/ClientApp
 
-# Create publish image layer
-FROM build AS publish
+RUN npm install
+RUN npm run build -- --output-path=dist
+
+# ======================
+# .NET Build Stage
+# ======================
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
+
 ARG BUILD_ID
+ARG BUILD_VERSION
+
+WORKDIR /src
+
 COPY . .
 
-# Build and publish a release
-RUN dotnet publish ./cpu-app -c Release -o /app/publish
+# Copy angular dist into the dotnet app
+COPY --from=angular-build /app/cpu-app/ClientApp/dist/ ./cpu-app/wwwroot/
 
-# Build runtime image
-FROM base AS final
+RUN dotnet publish cpu-app/cpu-app.csproj -c Release -o /app/publish
+
+# ======================
+# Runtime Image
+# ======================
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# Accept build-time arguments
+ARG BUILD_ID
+ARG BUILD_VERSION
+
+# Export to environment variables
+ENV BUILD_ID=${BUILD_ID}
+ENV BUILD_VERSION=${BUILD_VERSION}
+
+
+COPY --from=dotnet-build /app/publish ./
+
+# Inject version info
+RUN echo "${BUILD_ID}" > /app/build_id.txt && echo "${BUILD_VERSION}" > /app/version.txt
+
 EXPOSE 8080
+
 ENV ASPNETCORE_URLS=http://*:8080
+
 ENTRYPOINT ["dotnet", "cpu-app.dll"]
