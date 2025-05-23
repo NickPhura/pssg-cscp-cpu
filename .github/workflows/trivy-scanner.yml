@@ -27,20 +27,7 @@ jobs:
           echo "$(pwd)/bin" >> $GITHUB_PATH
 
 
-      - name: Trivy FS scan - frontend (Angular)
-        continue-on-error: true
-        run: |
-          trivy fs cpu-app/ClientApp \
-            --scanners vuln,secret \
-            --severity HIGH,CRITICAL \
-            --ignore-unfixed \
-            --exit-code 1 \
-            --timeout 10m \
-            --format sarif \
-            --output trivy-frontend.sarif    
-
-
-      - name: Trivy FS scan - backend (.NET Web API)
+      - name: Trivy FS scan
         continue-on-error: true
         run: |
           trivy fs cpu-app/ \
@@ -50,7 +37,8 @@ jobs:
             --exit-code 1 \
             --timeout 10m \
             --format sarif \
-            --output trivy-backend.sarif
+            --output trivy-cpu-scan.sarif
+
 
       - name: Trivy config scan - frontend & Backend Dockerfile
         continue-on-error: true
@@ -61,14 +49,8 @@ jobs:
             --format table
 
 
-      - name: Upload frontend scan results
+      - name: Upload scan results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: trivy-frontend.sarif
-          category: trivy-frontend
-
-      - name: Upload backend scan results
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: trivy-backend.sarif
-          category: trivy-backend
+          sarif_file: trivy-cpu-scan.sarif
+          category: trivy-scan-results
