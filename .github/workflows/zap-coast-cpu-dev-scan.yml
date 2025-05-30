@@ -5,7 +5,7 @@ on:
 
 jobs:
   zap-coast-cpu-dev-full-scan:
-    name: ZAP coast restitution dev Full Scan
+    name: ZAP coast cpu dev Full Scan
     runs-on: [self-hosted, linux]
     timeout-minutes: 45
 
