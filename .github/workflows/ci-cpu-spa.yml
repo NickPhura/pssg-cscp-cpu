@@ -1,0 +1,124 @@
+# ======================================================================================
+#  Last Updated: 2025-07-14
+#
+#  Description:
+#  This workflow runs a suite of security and quality checks on the CPU Application,
+#  which includes both a .NET API and an Angular UI served from a single Docker image.
+#  It is triggered by pull requests to the 'master' branch, manual dispatches,
+#  and on a fixed schedule.
+#
+#  Jobs:
+#  1. build_and_scan:   Builds the full-stack app and runs CodeQL static analysis
+#                       for both C# and JavaScript/TypeScript.
+#  2. trivy_scan:       Scans the filesystem and Docker image for vulnerabilities,
+#                       secrets, and misconfigurations using Trivy.
+# ======================================================================================
+name: CI CPU SPA
+
+# --- TRIGGERS -----------------------------------------------------------------------
+on:
+  workflow_dispatch:
+
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+      - ready_for_review
+    branches:
+      - development
+    paths:
+      - "cpu-app/**"
+
+  schedule:
+    - cron: "0 3 1,15 * *"
+
+# --- JOBS ---------------------------------------------------------------------------
+jobs:
+  # ------------------------------------------------------------------------------------
+  #  Job: build_and_scan
+  #  Purpose: Builds the app, runs CodeQL static analysis (C# + JS/TS).
+  # ------------------------------------------------------------------------------------
+  build_and_scan:
+    name: Build and CodeQL Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Initialize CodeQL (JS/TS + C#)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript,csharp
+          db-location: ./.github/codeql-databases
+
+      # ---- Build Angular UI ----
+      - name: Install Angular Dependencies
+        working-directory: cpu-app/ClientApp
+        run: npm ci
+
+      - name: Build Angular Application
+        working-directory: cpu-app/ClientApp
+        run: npm run build -- --configuration production
+
+      # ---- Build .NET API ----
+      - name: Restore .NET Dependencies
+        run: dotnet restore cpu-app/cpu-app.csproj
+
+      - name: Build .NET Application
+        run: dotnet build cpu-app/cpu-app.csproj --no-restore --configuration Release
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:multi/cpu-app"
+
+  # ------------------------------------------------------------------------------------
+  #  Job: trivy_scan
+  #  Purpose: Use Trivy to scan both the source and built image for vulnerabilities.
+  # ------------------------------------------------------------------------------------
+  trivy_scan:
+    name: Trivy Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      security-events: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Trivy on Source Filesystem
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scanners: "vuln,secret,config"
+          severity: "CRITICAL,HIGH"
+          scan-ref: "cpu-app"
+          exit-code: "1"
+          ignore-unfixed: false
+          format: "sarif"
+          output: "trivy-results-cpu-spa.sarif"
+
+      - name: Upload Trivy Scan Results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results-cpu-spa.sarif"

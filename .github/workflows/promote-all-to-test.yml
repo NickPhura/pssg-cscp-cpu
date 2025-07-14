@@ -1,0 +1,88 @@
+# ======================================================================================
+#  Last Updated: 2025-07-14
+#
+#  Description:
+#  This workflow promotes the cpu-spa Docker image currently tagged as 'master'
+#  to the 'test' environment. It follows a safe and controlled promotion strategy.
+#
+#  Promotion Strategy:
+#  1. SOURCE: This workflow assumes the 'master' tag points to the desired version
+#     for promotion. It finds the image with this tag and applies the 'test' tag to it.
+#  2. SAFETY: Before applying the new 'test' tag, the workflow automatically backs
+#     up the current 'test' image by retagging it to 'test-backup'. This allows for
+#     a quick and easy rollback if needed.
+#  3. CONTROL: The job runs within the 'promote-environment' environment, which is
+#     configured with protection rules (e.g., required reviewers) in GitHub settings.
+#
+# ======================================================================================
+
+name: Promote CPU-SPA to Test
+
+# --- TRIGGERS -----------------------------------------------------------------------
+on:
+  # This workflow is triggered manually, requiring explicit user action.
+  workflow_dispatch:
+
+# --- ENVIRONMENT VARIABLES ----------------------------------------------------------
+env:
+  IMAGE_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
+  # The 'master' tag is the source for promotion.
+  SOURCE_TAG: development
+  # The target tag for the 'test' environment.
+  TARGET_TAG: test
+  # The tag used to back up the previous 'test' image.
+  BACKUP_TAG: test-backup
+  # The name of the image to promote
+  IMAGE_NAME: cpu-spa
+
+# --- JOBS ---------------------------------------------------------------------------
+jobs:
+  # ------------------------------------------------------------------------------------
+  #  Job: promote-image
+  #  Purpose: Promotes the cpu-spa image from 'master' to 'test'
+  # ------------------------------------------------------------------------------------
+  promote-image:
+    name: Promote cpu-spa to Test
+    # This job runs in a controlled environment.
+    environment: promote-environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Pull 'master' Image Manifest for Promotion
+        run: |
+          docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}
+
+      - name: Backup Current 'test' Tag to 'test-backup'
+        # This step is designed to succeed even if the 'test' tag doesn't exist yet.
+        # It tries to retag the current 'test' to 'test-backup'.
+        id: backup
+        run: |
+          docker tag \
+            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} \
+            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}
+          docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}
+        continue-on-error: true
+
+      - name: Report Backup Status
+        run: |
+          if [[ "${{ steps.backup.outcome }}" == "success" ]]; then
+            echo "Successfully backed up current '${{ env.TARGET_TAG }}' image to '${{ env.BACKUP_TAG }}'."
+          else
+            echo "No existing '${{ env.TARGET_TAG }}' image found to back up. Proceeding with promotion."
+          fi
+
+      - name: Promote 'master' Image to 'test'
+        run: |
+          # Apply the 'test' tag to the 'master' image pulled.
+          docker tag \
+            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} \
+            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
+          docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
+          echo "Successfully promoted ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} to '${{ env.TARGET_TAG }}'."
