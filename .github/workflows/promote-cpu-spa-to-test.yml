@@ -1,0 +1,111 @@
+# ======================================================================================
+#  Last Updated: 2025-07-14
+#
+#  Description:
+#  This workflow promotes the cpu-spa Docker image currently tagged as 'development'
+#  to the 'test' environment. It follows a safe and controlled promotion strategy.
+#
+#  Promotion Strategy:
+#  1. SOURCE: This workflow assumes the 'development' tag points to the desired version
+#     for promotion. It finds the image with this tag and applies the 'test' tag to it.
+#  2. SAFETY: Before applying the new 'test' tag, the workflow automatically backs
+#     up the current 'test' image by retagging it to 'test-backup'. This allows for
+#     a quick and easy rollback if needed.
+#  3. CONTROL: The job runs within the 'promote-environment' environment, which is
+#     configured with protection rules (e.g., required reviewers) in GitHub settings.
+#
+# ======================================================================================
+
+name: Promote CPU-SPA to Test
+
+# --- TRIGGERS -----------------------------------------------------------------------
+on:
+  # This workflow is triggered manually, requiring explicit user action.
+  workflow_dispatch:
+    inputs:
+      source_tag:
+        description: 'Source tag to promote (e.g., dev, or a specific version tag)'
+        required: false
+        default: 'development'
+
+# --- ENVIRONMENT VARIABLES ----------------------------------------------------------
+env:
+  IMAGE_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
+  # The source tag for promotion, taken from user input.
+  SOURCE_TAG: ${{ github.event.inputs.source_tag }}
+  # The target tag for the 'test' environment.
+  TARGET_TAG: 'test'
+  # The tag used to back up the previous 'test' image.
+  BACKUP_TAG: 'test-backup'
+  # The name of the image to promote.
+  IMAGE_NAME: 'cpu-spa'
+
+# --- JOBS ---------------------------------------------------------------------------
+jobs:
+  # ------------------------------------------------------------------------------------
+  #  Job: promote-image
+  #  Purpose: Promotes the cpu-spa image from the source tag to 'test'.
+  # ------------------------------------------------------------------------------------
+  promote-image:
+    name: Promote cpu-spa to Test
+    # This job runs in a controlled environment with protection rules.
+    environment: promote-environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Pull Source Image for Promotion
+        run: |
+          docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}
+
+      - name: Backup Current 'test' Image (if it exists)
+        run: |
+          # Check if the 'test' tag exists before attempting a backup.
+          if docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} > /dev/null 2>&1; then
+            echo "Existing '${{ env.TARGET_TAG }}' image found. Backing it up to '${{ env.BACKUP_TAG }}'..."
+            
+            # Pull the current 'test' image to tag it locally.
+            docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
+            
+            # Tag and push the backup.
+            docker tag ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}
+            
+            if docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}; then
+              echo "Successfully backed up current '${{ env.TARGET_TAG }}' image."
+            else
+              echo "::error::Failed to push backup image to '${{ env.BACKUP_TAG }}'. Halting promotion."
+              exit 1
+            fi
+          else
+            echo "No existing '${{ env.TARGET_TAG }}' image found. Skipping backup."
+          fi
+
+      - name: Promote Source Image to 'test'
+        run: |
+          echo "Promoting '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}'..."
+          docker tag ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
+          docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
+          echo "Successfully promoted ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} to '${{ env.TARGET_TAG }}'."
+
+      - name: Validate Promoted Image Digest Matches Source
+        run: |
+          echo "Validating promotion by comparing image digests..."
+          # Fetch digests using docker manifest inspect and jq.
+          SOURCE_DIGEST=$(docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} | jq -r '.Descriptor.digest')
+          TEST_DIGEST=$(docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} | jq -r '.Descriptor.digest')
+          
+          echo "Source Digest ('${{ env.SOURCE_TAG }}'): $SOURCE_DIGEST"
+          echo "Test Digest   ('${{ env.TARGET_TAG }}'): $TEST_DIGEST"
+          
+          if [[ -z "$SOURCE_DIGEST" || "$SOURCE_DIGEST" != "$TEST_DIGEST" ]]; then
+            echo "::error::Digest mismatch! The promoted image does not match the source. Promotion failed validation."
+            exit 1
+          else
+            echo "Image digest validation successful."
+          fi
