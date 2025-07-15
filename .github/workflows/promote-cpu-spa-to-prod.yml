@@ -7,7 +7,7 @@
 #
 # ======================================================================================
 
-name: Promote CPU-SPA to Test
+name: Promote CPU-SPA to Prod
 
 # --- TRIGGERS -----------------------------------------------------------------------
 on:
@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:
       source_tag:
-        description: 'The source tag to promote (e.g., dev, or a specific version tag)'
+        description: 'The source tag to promote (e.g., test, or a specific version tag)'
         required: false
-        default: 'development'
+        default: 'test'
 
 # --- ENVIRONMENT VARIABLES (Preserving original structure) -------------------------
 env:
@@ -27,10 +27,10 @@ env:
   NAMESPACE: ${{ secrets.OCP4_NAMESPACE }}
   # The source tag for promotion, from user input.
   SOURCE_TAG: ${{ github.event.inputs.source_tag }}
-  # The target tag for the 'test' environment.
-  TARGET_TAG: 'test'
-  # The tag used to back up the previous 'test' image.
-  BACKUP_TAG: 'test-backup'
+  # The target tag for the 'prod' environment.
+  TARGET_TAG: 'prod'
+  # The tag used to back up the previous 'prod' image.
+  BACKUP_TAG: 'prod-backup'
   # The name of the image to promote.
   IMAGE_NAME: 'cpu-spa'
 
@@ -61,12 +61,12 @@ jobs:
           oc login --token="${{ secrets.DOCKER_PASSWORD }}" --server="${{ secrets.OPENSHIFT_SERVER }}"
 
       # ------------------------------------------------------------------------------------
-      #  Step 3: Backup Current 'test' Image
-      #  Purpose: Before promoting, we tag the current 'test' as 'test-backup'.
+      #  Step 3: Backup Current 'prod' Image
+      #  Purpose: Before promoting, we tag the current 'prod' as 'prod-backup'.
       # ------------------------------------------------------------------------------------
-      - name: Backup Current 'test' Image
+      - name: Backup Current 'prod' Image
         run: |
-          # This check prevents an error if the 'test' tag doesn't exist yet
+          # This check prevents an error if the 'prod' tag doesn't exist yet
           if oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} -n ${{ env.NAMESPACE }} &>/dev/null; then
             echo "Backing up current '${{ env.TARGET_TAG }}' image to '${{ env.BACKUP_TAG }}'..."
             oc tag ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}
@@ -77,10 +77,10 @@ jobs:
 
       # ------------------------------------------------------------------------------------
       #  Step 4: Promote by Tagging
-      #  Purpose: This is the core promotion step. It points the 'test' tag to the
+      #  Purpose: This is the core promotion step. It points the 'prod' tag to the
       #           same image digest as the source tag.
       # ------------------------------------------------------------------------------------
-      - name: Promote Source Image to 'test'
+      - name: Promote Source Image to 'prod'
         run: |
           echo "Promoting '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}' using 'oc tag'..."
           oc tag ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
@@ -96,17 +96,17 @@ jobs:
           sleep 5 # Giving the ImageStream a moment to update
 
           SOURCE_SHA=$(oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} -n ${{ env.NAMESPACE }} -o jsonpath='{.image.dockerImageReference}' | sed 's/.*@//')
-          TEST_SHA=$(oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} -n ${{ env.NAMESPACE }} -o jsonpath='{.image.dockerImageReference}' | sed 's/.*@//')
+          PROD_SHA=$(oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} -n ${{ env.NAMESPACE }} -o jsonpath='{.image.dockerImageReference}' | sed 's/.*@//')
 
           echo "Source Digest: $SOURCE_SHA"
-          echo "Test Digest:   $TEST_SHA"
+          echo "Prod Digest:   $PROD_SHA"
 
           if [[ -z "$SOURCE_SHA" ]]; then
             echo "::error::Could not find source digest for tag '${{ env.SOURCE_TAG }}'."
             exit 1
           fi
 
-          if [[ "$SOURCE_SHA" == "$TEST_SHA" ]]; then
+          if [[ "$SOURCE_SHA" == "$PROD_SHA" ]]; then
             echo "Validation successful! Digests match perfectly."
           else
             echo "::error::Image digests do not match after promotion."
