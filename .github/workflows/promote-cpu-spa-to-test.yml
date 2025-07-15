@@ -2,17 +2,8 @@
 #  Last Updated: 2025-07-15
 #
 #  Description:
-#  This workflow promotes the cpu-spa Docker image from a source tag (e.g., 'development')
-#  to the 'test' environment. It follows a safe, idempotent, and controlled promotion strategy.
-#
-#  Promotion Strategy:
-#  1. SOURCE: Assumes the source tag points to the desired version for promotion.
-#  2. SAFETY: Before promotion, it automatically backs up the current 'test' image by
-#     retagging it to 'test-backup'. This allows for a quick rollback if needed.
-#  3. CONTROL: Runs within a protected 'promote-environment', enabling rules like
-#     required reviewers in GitHub settings.
-#  4. VALIDATION: After promotion, it verifies that the new 'test' image's digest
-#     matches the source image's digest, ensuring the promotion was successful.
+#  Promotes an image by re-tagging it within the OpenShift ImageStream.
+#  This in-cluster promotion guarantees image digest is preserved.
 #
 # ======================================================================================
 
@@ -28,10 +19,13 @@ on:
         required: false
         default: 'development'
 
-# --- ENVIRONMENT VARIABLES ----------------------------------------------------------
+# --- ENVIRONMENT VARIABLES (Preserving original structure) -------------------------
 env:
+  # NOTE: IMAGE_REGISTRY is preserved for consistency but is not used by 'oc' commands.
   IMAGE_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
-  # The source tag for promotion, taken from user input.
+  # The OpenShift Namespace where the ImageStream is located.
+  NAMESPACE: ${{ secrets.OCP4_NAMESPACE }}
+  # The source tag for promotion, from user input.
   SOURCE_TAG: ${{ github.event.inputs.source_tag }}
   # The target tag for the 'test' environment.
   TARGET_TAG: 'test'
@@ -42,10 +36,6 @@ env:
 
 # --- JOBS ---------------------------------------------------------------------------
 jobs:
-  # ------------------------------------------------------------------------------------
-  #  Job: promote-image
-  #  Purpose: Promotes the cpu-spa image from the source tag to 'test'.
-  # ------------------------------------------------------------------------------------
   promote-image:
     name: Promote cpu-spa to Test
     # This job runs in a controlled environment with protection rules.
@@ -53,77 +43,72 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install skopeo
+      # ------------------------------------------------------------------------------------
+      #  Step 1: Install oc CLI
+      #  Purpose: Use the native OpenShift CLI for reliable in-cluster operations.
+      # ------------------------------------------------------------------------------------
+      - name: Install OpenShift CLI
         run: |
-          # Installing skopeo, for inspecting and copying container images directly from registries.
-          # jq is pre-installed on GitHub runners, but including as safety.
-          sudo apt-get update -y && sudo apt-get install -y skopeo jq
+          curl -LO "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz"
+          tar -xzf openshift-client-linux.tar.gz
+          sudo mv oc /usr/local/bin/
 
-      - name: Backup Current 'test' Image (if it exists)
+      # ------------------------------------------------------------------------------------
+      #  Step 2: Login to OpenShift
+      # ------------------------------------------------------------------------------------
+      - name: Login to OpenShift
         run: |
-          # This check safely determines if a backup is needed without causing an error.
-          if skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" > /dev/null 2>&1; then
-            echo "Existing '${{ env.TARGET_TAG }}' image found. Backing it up to '${{ env.BACKUP_TAG }}'..."
-            
-            # Copy the current 'test' image to backup using skopeo to preserve digest.
-            if skopeo copy \
-              --src-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
-              --dest-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
-              "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" \
-              "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}"; then
-              echo "Successfully backed up current '${{ env.TARGET_TAG }}' image."
-            else
-              echo "::error::Failed to backup image to '${{ env.BACKUP_TAG }}'. Halting promotion."
-              exit 1
-            fi
+          oc login --token="${{ secrets.DOCKER_PASSWORD }}" --server="${{ secrets.OPENSHIFT_SERVER }}"
+
+      # ------------------------------------------------------------------------------------
+      #  Step 3: Backup Current 'test' Image
+      #  Purpose: Before promoting, we tag the current 'test' as 'test-backup'.
+      # ------------------------------------------------------------------------------------
+      - name: Backup Current 'test' Image
+        run: |
+          # This check prevents an error if the 'test' tag doesn't exist yet
+          if oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} -n ${{ env.NAMESPACE }} &>/dev/null; then
+            echo "Backing up current '${{ env.TARGET_TAG }}' image to '${{ env.BACKUP_TAG }}'..."
+            oc tag ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}
+            echo "Backup successful."
           else
-            echo "No existing '${{ env.TARGET_TAG }}' image found. Skipping backup."
+            echo "No existing '${{ env.TARGET_TAG }}' tag found. Skipping backup."
           fi
 
+      # ------------------------------------------------------------------------------------
+      #  Step 4: Promote by Tagging
+      #  Purpose: This is the core promotion step. It points the 'test' tag to the
+      #           same image digest as the source tag.
+      # ------------------------------------------------------------------------------------
       - name: Promote Source Image to 'test'
         run: |
-          echo "Promoting '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}' using skopeo copy to preserve digest..."
-          
-          # Use skopeo copy to preserve the exact same digest
-          if skopeo copy \
-            --src-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
-            --dest-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
-            "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" \
-            "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}"; then
-            echo "Successfully promoted ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} to '${{ env.TARGET_TAG }}'."
-          else
-            echo "::error::Failed to promote image from '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}'."
+          echo "Promoting '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}' using 'oc tag'..."
+          oc tag ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
+          echo "Promotion successful."
+
+      # ------------------------------------------------------------------------------------
+      #  Step 5: Validate Promotion by Comparing Image Digests
+      #  Purpose: Verify that the digests now match perfectly, which 'oc tag' guarantees.
+      # ------------------------------------------------------------------------------------
+      - name: Validate Promotion by Comparing Image Digests
+        run: |
+          echo "Validating promotion..."
+          sleep 5 # Give the ImageStream a moment to update
+
+          SOURCE_SHA=$(oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} -n ${{ env.NAMESPACE }} -o jsonpath='{.image.dockerImageReference}' | sed 's/.*@//')
+          TEST_SHA=$(oc get imagestreamtag ${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} -n ${{ env.NAMESPACE }} -o jsonpath='{.image.dockerImageReference}' | sed 's/.*@//')
+
+          echo "Source Digest: $SOURCE_SHA"
+          echo "Test Digest:   $TEST_SHA"
+
+          if [[ -z "$SOURCE_SHA" ]]; then
+            echo "::error::Could not find source digest for tag '${{ env.SOURCE_TAG }}'."
             exit 1
           fi
 
-      - name: Validate Promotion by Comparing Image Digests
-        run: |
-          echo "Validating promotion by comparing image digests..."
-          sleep 5 # Wait for registry consistency
-          
-          SOURCE_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" | jq -r '.Digest')
-          TEST_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" | jq -r '.Digest')
-          
-          echo "Source digest: $SOURCE_DIGEST"
-          echo "Test digest:   $TEST_DIGEST"
-          
-          [[ -z "$SOURCE_DIGEST" ]] && { echo "::error::Could not get source digest for '${{ env.SOURCE_TAG }}'."; exit 1; }
-          [[ -z "$TEST_DIGEST" ]] && { echo "::error::Could not get test digest for '${{ env.TARGET_TAG }}'."; exit 1; }
-          [[ "$SOURCE_DIGEST" != "$TEST_DIGEST" ]] && { echo "::error::Image digests do not match after promotion."; exit 1; }
-          
-          echo "Promotion validated: Image digests match!"
-
-      - name: Validate Promotion by Comparing Git Commit Labels
-        run: |
-          echo "Validating promotion by comparing git commit labels..."
-          
-          SOURCE_COMMIT=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" | jq -r '.Labels["org.opencontainers.image.revision"] // empty')
-          TEST_COMMIT=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" | jq -r '.Labels["org.opencontainers.image.revision"] // empty')
-
-          echo "Source commit: $SOURCE_COMMIT"
-          echo "Test commit:   $TEST_COMMIT"
-
-          [[ -z "$SOURCE_COMMIT" ]] && { echo "::error::Missing git commit label for source tag '${{ env.SOURCE_TAG }}'."; exit 1; }
-          [[ "$SOURCE_COMMIT" != "$TEST_COMMIT" ]] && { echo "::error::Git commit SHAs do not match."; exit 1; }
-          
-          echo "Git commit SHAs match!"
+          if [[ "$SOURCE_SHA" == "$TEST_SHA" ]]; then
+            echo "Validation successful! Digests match perfectly."
+          else
+            echo "::error::Image digests do not match after promotion."
+            exit 1
+          fi
