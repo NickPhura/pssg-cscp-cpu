@@ -14,7 +14,7 @@
 #         docker run --rm -it -p 8080:8080 cpu-app:local                                         #
 #                                                                                                #
 #    3. Verify security (inside the running container):                                          #
-#         docker exec -it <container_id_or_name> sh                                              #
+#         docker exec -it <container_id_or_name> bash                                            #
 #         whoami        # should print 'appuser'                                                 #
 #         touch /app/testfile  # should succeed                                                  #
 #                                                                                                #
@@ -25,6 +25,10 @@
 #    - All files in /app are owned by appuser:appgroup                                           #
 #    - Never run as root in production!                                                          #
 #                                                                                                #
+#  How to see build info inside the running container:                                           #
+#    docker exec -it <container_id_or_name> bash                                                 #
+#    printenv BUILD_IMAGE_NAME                                                                   #
+#    printenv BUILD_VERSION                                                                      #
 ##################################################################################################
 
 
@@ -33,7 +37,7 @@
 # ======================
 FROM node:20 AS angular-build
 
-ARG BUILD_ID
+ARG BUILD_IMAGE_NAME
 ARG BUILD_VERSION
 
 WORKDIR /app
@@ -50,7 +54,7 @@ RUN npm run build -- --output-path=dist
 # ======================
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
 
-ARG BUILD_ID
+ARG BUILD_IMAGE_NAME
 ARG BUILD_VERSION
 
 WORKDIR /src
@@ -76,6 +80,12 @@ WORKDIR /app
 #   - Only switch to appuser AFTER all files are in place          #
 ####################################################################
 
+# Update all system packages for latest security patches and clean up
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # 1. Create non-root user and group
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 
@@ -86,14 +96,13 @@ COPY --from=dotnet-build /app/publish ./
 RUN chown -R appuser:appgroup /app
 
 # 4. Accept build-time arguments and set environment variables
-ARG BUILD_ID
+ARG BUILD_IMAGE_NAME
 ARG BUILD_VERSION
-ENV BUILD_ID=${BUILD_ID}
+ENV BUILD_IMAGE_NAME=${BUILD_IMAGE_NAME}
 ENV BUILD_VERSION=${BUILD_VERSION}
 
-# 5. Inject version info as appuser-owned files
+# 5. Switch to non-root user for runtime
 USER appuser
-RUN echo "${BUILD_ID}" > /app/build_id.txt && echo "${BUILD_VERSION}" > /app/version.txt
 
 EXPOSE 8080
 
