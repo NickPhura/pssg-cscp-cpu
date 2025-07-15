@@ -47,7 +47,7 @@ COPY ./cpu-app/ClientApp/ ./cpu-app/ClientApp/
 WORKDIR /app/cpu-app/ClientApp
 
 RUN npm install
-RUN npm run build -- --output-path=dist
+RUN npm run build -- --configuration production
 
 # ======================
 # .NET Build Stage
