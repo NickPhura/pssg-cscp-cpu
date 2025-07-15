@@ -71,20 +71,14 @@ RUN dotnet publish cpu-app/cpu-app.csproj -c Release -o /app/publish
 # ======================
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
+# Update all system packages for latest security patches FIRST.
+# This ensures OS-level vulnerabilities are fixed.
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
-
-####################################################################
-# Security Best Practice:                                          #
-#   - Create non-root user and group (appuser:appgroup)            #
-#   - all app files/folders are owned by appuser                   #
-#   - Only switch to appuser AFTER all files are in place          #
-####################################################################
-
-# Update all system packages for latest security patches and clean up
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
 
 # 1. Create non-root user and group
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
