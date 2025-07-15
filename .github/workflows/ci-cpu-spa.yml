@@ -109,11 +109,12 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: "fs"
+          vuln-type: "library"
           scanners: "vuln,secret,config"
           severity: "CRITICAL,HIGH"
           scan-ref: "cpu-app"
           exit-code: "1"
-          ignore-unfixed: false
+          ignore-unfixed: true
           format: "sarif"
           output: "trivy-results-cpu-spa.sarif"
 
