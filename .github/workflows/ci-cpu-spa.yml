@@ -105,7 +105,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Run Trivy on Source Filesystem
+      # STEP 1: Run Trivy and print a summary table to the log for easy debugging.
+      # This step will NOT fail the job, it's for reporting only.
+      - name: Run Trivy and Print Vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          vuln-type: "library"
+          scanners: "vuln"
+          scan-ref: "cpu-app"
+          format: "table"
+          severity: "CRITICAL,HIGH"
+          exit-code: "0" # Do not fail the build on this step
+
+      # STEP 2: Run the main Trivy scan to generate the SARIF report and fail the build if needed.
+      # This is the step that actually enforces the security gate.
+      - name: Run Trivy for SARIF Report and Security Gate
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: "fs"
@@ -113,7 +128,7 @@ jobs:
           scanners: "vuln,secret,config"
           severity: "CRITICAL,HIGH"
           scan-ref: "cpu-app"
-          exit-code: "1"
+          exit-code: "1" # This WILL fail the build if vulnerabilities are found
           ignore-unfixed: true
           format: "sarif"
           output: "trivy-results-cpu-spa.sarif"
