@@ -100,6 +100,9 @@ jobs:
           # jq is pre-installed on GitHub runners, but including as safety.
           sudo apt-get update -y && sudo apt-get install -y skopeo jq
 
+      - name: Wait for registry consistency
+        run: sleep 10
+
       - name: Validate Promoted Image Digest Matches Source
         run: |
           echo "Validating promotion by comparing image digests..."
