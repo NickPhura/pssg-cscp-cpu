@@ -105,33 +105,40 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # STEP 1: Run Trivy and print a summary table to the log for easy debugging.
-      # This step will NOT fail the job, it's for reporting only.
-      - name: Run Trivy and Print Vulnerabilities
+      # STEP 1: Print a summary of LIBRARY VULNERABILITIES
+      - name: Run Trivy and Print Library Vulnerabilities
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: "fs"
-          vuln-type: "library"
-          scanners: "vuln"
-          scan-ref: "cpu-app"
-          format: "table"
-          severity: "CRITICAL,HIGH"
-          exit-code: "0" # Do not fail the build on this step
+          scan-type: 'fs'
+          scan-ref: 'cpu-app'
+          scanners: 'vuln'
+          vuln-type: 'library'
+          format: 'table'
+          exit-code: '0' # Don't fail the build, just report
 
-      # STEP 2: Run the main Trivy scan to generate the SARIF report and fail the build if needed.
-      # This is the step that actually enforces the security gate.
+      # STEP 2: Print a summary of SECRETS and MISCONFIGURATIONS
+      - name: Run Trivy and Print Secrets and Misconfigurations
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: 'cpu-app'
+          scanners: 'secret,config'
+          format: 'table'
+          exit-code: '0' # Don't fail the build, just report
+
+      # STEP 3: Run the main scan for the official report and to enforce the security gate
       - name: Run Trivy for SARIF Report and Security Gate
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: "fs"
-          vuln-type: "library"
-          scanners: "vuln,secret,config"
-          severity: "CRITICAL,HIGH"
-          scan-ref: "cpu-app"
-          exit-code: "1" # This WILL fail the build if vulnerabilities are found
+          scan-type: 'fs'
+          scan-ref: 'cpu-app'
+          scanners: 'vuln,secret,config'
+          vuln-type: 'library'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1' # This WILL fail if issues are found
           ignore-unfixed: true
-          format: "sarif"
-          output: "trivy-results-cpu-spa.sarif"
+          format: 'sarif'
+          output: 'trivy-results-cpu-spa.sarif'
 
       - name: Upload Trivy Scan Results
         uses: github/codeql-action/upload-sarif@v3
