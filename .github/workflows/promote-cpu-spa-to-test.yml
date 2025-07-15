@@ -1,5 +1,5 @@
 # ======================================================================================
-#  Last Updated: 2025-07-14
+#  Last Updated: 2025-07-15
 #
 #  Description:
 #  This workflow promotes the cpu-spa Docker image from a source tag (e.g., 'development')
@@ -53,34 +53,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Login to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.IMAGE_REGISTRY }}
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Pull Source Image for Promotion
+      - name: Install skopeo
         run: |
-          echo "Pulling source image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}"
-          docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}
+          # Installing skopeo, for inspecting and copying container images directly from registries.
+          # jq is pre-installed on GitHub runners, but including as safety.
+          sudo apt-get update -y && sudo apt-get install -y skopeo jq
 
       - name: Backup Current 'test' Image (if it exists)
         run: |
           # This check safely determines if a backup is needed without causing an error.
-          if docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} > /dev/null 2>&1; then
+          if skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" > /dev/null 2>&1; then
             echo "Existing '${{ env.TARGET_TAG }}' image found. Backing it up to '${{ env.BACKUP_TAG }}'..."
             
-            # Pull the current 'test' image.
-            docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
-            
-            # Tag and push the backup.
-            docker tag ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}
-            
-            if docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}; then
+            # Copy the current 'test' image to backup using skopeo to preserve digest.
+            if skopeo copy \
+              --src-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
+              --dest-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
+              "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" \
+              "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }}"; then
               echo "Successfully backed up current '${{ env.TARGET_TAG }}' image."
             else
-              echo "::error::Failed to push backup image to '${{ env.BACKUP_TAG }}'. Halting promotion."
+              echo "::error::Failed to backup image to '${{ env.BACKUP_TAG }}'. Halting promotion."
               exit 1
             fi
           else
@@ -89,29 +82,48 @@ jobs:
 
       - name: Promote Source Image to 'test'
         run: |
-          echo "Promoting '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}'..."
-          docker tag ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
-          docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
-          echo "Successfully promoted ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} to '${{ env.TARGET_TAG }}'."
+          echo "Promoting '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}' using skopeo copy to preserve digest..."
+          
+          # Use skopeo copy to preserve the exact same digest
+          if skopeo copy \
+            --src-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
+            --dest-creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" \
+            "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" \
+            "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}"; then
+            echo "Successfully promoted ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} to '${{ env.TARGET_TAG }}'."
+          else
+            echo "::error::Failed to promote image from '${{ env.SOURCE_TAG }}' to '${{ env.TARGET_TAG }}'."
+            exit 1
+          fi
 
-      - name: Install skopeo
+      - name: Validate Promotion by Comparing Image Digests
         run: |
-          # Installing skopeo, for inspecting container images directly from registries.
-          # jq is pre-installed on GitHub runners, but including as safety.
-          sudo apt-get update -y && sudo apt-get install -y skopeo jq
+          echo "Validating promotion by comparing image digests..."
+          sleep 5 # Wait for registry consistency
+          
+          SOURCE_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" | jq -r '.Digest')
+          TEST_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" | jq -r '.Digest')
+          
+          echo "Source digest: $SOURCE_DIGEST"
+          echo "Test digest:   $TEST_DIGEST"
+          
+          [[ -z "$SOURCE_DIGEST" ]] && { echo "::error::Could not get source digest for '${{ env.SOURCE_TAG }}'."; exit 1; }
+          [[ -z "$TEST_DIGEST" ]] && { echo "::error::Could not get test digest for '${{ env.TARGET_TAG }}'."; exit 1; }
+          [[ "$SOURCE_DIGEST" != "$TEST_DIGEST" ]] && { echo "::error::Image digests do not match after promotion."; exit 1; }
+          
+          echo "Promotion validated: Image digests match!"
 
       - name: Validate Promotion by Comparing Git Commit Labels
         run: |
           echo "Validating promotion by comparing git commit labels..."
-          sleep 5 # Wait for registry consistency
           
-          # Use secrets directly. This is the correct way.
           SOURCE_COMMIT=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" | jq -r '.Labels["org.opencontainers.image.revision"] // empty')
           TEST_COMMIT=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" | jq -r '.Labels["org.opencontainers.image.revision"] // empty')
 
-          echo "Source: $SOURCE_COMMIT"
-          echo "Test:   $TEST_COMMIT"
+          echo "Source commit: $SOURCE_COMMIT"
+          echo "Test commit:   $TEST_COMMIT"
 
           [[ -z "$SOURCE_COMMIT" ]] && { echo "::error::Missing git commit label for source tag '${{ env.SOURCE_TAG }}'."; exit 1; }
           [[ "$SOURCE_COMMIT" != "$TEST_COMMIT" ]] && { echo "::error::Git commit SHAs do not match."; exit 1; }
-          echo "Git commit SHAs match."
+          
+          echo "Git commit SHAs match!"
