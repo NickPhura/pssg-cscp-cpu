@@ -2,17 +2,17 @@
 #  Last Updated: 2025-07-14
 #
 #  Description:
-#  This workflow promotes the cpu-spa Docker image currently tagged as 'development'
-#  to the 'test' environment. It follows a safe and controlled promotion strategy.
+#  This workflow promotes the cpu-spa Docker image from a source tag (e.g., 'development')
+#  to the 'test' environment. It follows a safe, idempotent, and controlled promotion strategy.
 #
 #  Promotion Strategy:
-#  1. SOURCE: This workflow assumes the 'development' tag points to the desired version
-#     for promotion. It finds the image with this tag and applies the 'test' tag to it.
-#  2. SAFETY: Before applying the new 'test' tag, the workflow automatically backs
-#     up the current 'test' image by retagging it to 'test-backup'. This allows for
-#     a quick and easy rollback if needed.
-#  3. CONTROL: The job runs within the 'promote-environment' environment, which is
-#     configured with protection rules (e.g., required reviewers) in GitHub settings.
+#  1. SOURCE: Assumes the source tag points to the desired version for promotion.
+#  2. SAFETY: Before promotion, it automatically backs up the current 'test' image by
+#     retagging it to 'test-backup'. This allows for a quick rollback if needed.
+#  3. CONTROL: Runs within a protected 'promote-environment', enabling rules like
+#     required reviewers in GitHub settings.
+#  4. VALIDATION: After promotion, it verifies that the new 'test' image's digest
+#     matches the source image's digest, ensuring the promotion was successful.
 #
 # ======================================================================================
 
@@ -24,7 +24,7 @@ on:
   workflow_dispatch:
     inputs:
       source_tag:
-        description: 'Source tag to promote (e.g., dev, or a specific version tag)'
+        description: 'The source tag to promote (e.g., dev, or a specific version tag)'
         required: false
         default: 'development'
 
@@ -62,15 +62,16 @@ jobs:
 
       - name: Pull Source Image for Promotion
         run: |
+          echo "Pulling source image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}"
           docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}
 
       - name: Backup Current 'test' Image (if it exists)
         run: |
-          # Check if the 'test' tag exists before attempting a backup.
+          # This check safely determines if a backup is needed without causing an error.
           if docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} > /dev/null 2>&1; then
             echo "Existing '${{ env.TARGET_TAG }}' image found. Backing it up to '${{ env.BACKUP_TAG }}'..."
             
-            # Pull the current 'test' image to tag it locally.
+            # Pull the current 'test' image.
             docker pull ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
             
             # Tag and push the backup.
@@ -93,12 +94,18 @@ jobs:
           docker push ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}
           echo "Successfully promoted ${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} to '${{ env.TARGET_TAG }}'."
 
+      - name: Install skopeo
+        run: |
+          # Install skopeo, for inspecting container images directly from registries.
+          # jq is pre-installed on GitHub runners, but including as safety.
+          sudo apt-get update -y && sudo apt-get install -y skopeo jq
+
       - name: Validate Promoted Image Digest Matches Source
         run: |
           echo "Validating promotion by comparing image digests..."
-          # Fetch digests using docker manifest inspect and jq.
-          SOURCE_DIGEST=$(docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} | jq -r '.Descriptor.digest')
-          TEST_DIGEST=$(docker manifest inspect ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} | jq -r '.Descriptor.digest')
+          # skopeo provides the most reliable digest from the registry's perspective.
+          SOURCE_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} | jq -r .Digest)
+          TEST_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} | jq -r .Digest)
           
           echo "Source Digest ('${{ env.SOURCE_TAG }}'): $SOURCE_DIGEST"
           echo "Test Digest   ('${{ env.TARGET_TAG }}'): $TEST_DIGEST"
@@ -107,5 +114,5 @@ jobs:
             echo "::error::Digest mismatch! The promoted image does not match the source. Promotion failed validation."
             exit 1
           else
-            echo "Image digest validation successful."
+            echo "Image digest validation successful. The correct image has been promoted."
           fi
