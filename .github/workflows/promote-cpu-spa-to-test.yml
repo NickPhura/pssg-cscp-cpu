@@ -96,26 +96,22 @@ jobs:
 
       - name: Install skopeo
         run: |
-          # Install skopeo, for inspecting container images directly from registries.
+          # Installing skopeo, for inspecting container images directly from registries.
           # jq is pre-installed on GitHub runners, but including as safety.
           sudo apt-get update -y && sudo apt-get install -y skopeo jq
 
-      - name: Wait for registry consistency
-        run: sleep 10
-
-      - name: Validate Promoted Image Digest Matches Source
+      - name: Validate Promotion by Comparing Git Commit Labels
         run: |
-          echo "Validating promotion by comparing image digests..."
-          # skopeo provides the most reliable digest from the registry's perspective.
-          SOURCE_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }} | jq -r .Digest)
-          TEST_DIGEST=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }} | jq -r .Digest)
+          echo "Validating promotion by comparing git commit labels..."
+          sleep 5 # Wait for registry consistency
           
-          echo "Source Digest ('${{ env.SOURCE_TAG }}'): $SOURCE_DIGEST"
-          echo "Test Digest   ('${{ env.TARGET_TAG }}'): $TEST_DIGEST"
-          
-          if [[ -z "$SOURCE_DIGEST" || "$SOURCE_DIGEST" != "$TEST_DIGEST" ]]; then
-            echo "::error::Digest mismatch! The promoted image does not match the source. Promotion failed validation."
-            exit 1
-          else
-            echo "Image digest validation successful. The correct image has been promoted."
-          fi
+          # Use secrets directly. This is the correct way.
+          SOURCE_COMMIT=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG }}" | jq -r '.Labels["org.opencontainers.image.revision"] // empty')
+          TEST_COMMIT=$(skopeo inspect --creds "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}" "docker://${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TARGET_TAG }}" | jq -r '.Labels["org.opencontainers.image.revision"] // empty')
+
+          echo "Source: $SOURCE_COMMIT"
+          echo "Test:   $TEST_COMMIT"
+
+          [[ -z "$SOURCE_COMMIT" ]] && { echo "::error::Missing git commit label for source tag '${{ env.SOURCE_TAG }}'."; exit 1; }
+          [[ "$SOURCE_COMMIT" != "$TEST_COMMIT" ]] && { echo "::error::Git commit SHAs do not match."; exit 1; }
+          echo "Git commit SHAs match."
