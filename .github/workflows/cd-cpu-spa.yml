@@ -96,6 +96,7 @@ jobs:
       contents: read
       packages: write
       id-token: write # Required for environment protection
+      security-events: write
     uses: ./.github/workflows/build-template.yml
     with:
       EVENT_NAME: ${{ github.event_name }}
