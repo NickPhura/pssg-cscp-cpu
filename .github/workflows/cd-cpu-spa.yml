@@ -14,7 +14,7 @@
 #  Enhancements:
 #  - In the future, the CD workflow should be triggered via 'workflow_run' (workflow call)
 #    when the CI workflow completes successfully, rather than directly on push. This ensures
-#    CD only runs after CI has verified post-merge code. 
+#    CD only runs after CI has verified post-merge code.
 # ======================================================================================
 
 name: CD CPU SPA
@@ -53,7 +53,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Required to inspect commit history
+          fetch-depth: 0 # Required to inspect commit history
 
       - name: Validate Manual Trigger Branch
         if: github.event_name == 'workflow_dispatch'
@@ -107,10 +107,10 @@ jobs:
       IMAGE_CONTEXT: ./
       IMAGE_FILE: ./cpu-app/Dockerfile
       IMAGE_NAME: cpu-spa
-      REGISTRY: ${{ vars.DOCKER_REGISTRY }}
+      REGISTRY: ${{ vars.OCP4_REGISTRY }}
       BRANCH: ${{ github.ref_name }}
       # Use the output from pr job
       COMMIT_SHA: ${{ needs.prepare-build-params.outputs.short_sha }}
     secrets:
-      REGISTRY_USER: ${{ secrets.DOCKER_USERNAME }}
-      REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      REGISTRY_USER: ${{ secrets.OCP4_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.OCP4_PASSWORD }}

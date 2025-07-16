@@ -15,29 +15,29 @@ on:
   workflow_dispatch:
     inputs:
       source_tag:
-        description: 'The source tag to promote (e.g., test, or a specific version tag)'
+        description: "The source tag to promote (e.g., test, or a specific version tag)"
         required: false
-        default: 'test'
+        default: "test"
 
 # --- ENVIRONMENT VARIABLES (Preserving original structure) -------------------------
 env:
   # NOTE: IMAGE_REGISTRY is preserved for consistency but is not used by 'oc' commands.
-  IMAGE_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
+  IMAGE_REGISTRY: ${{ vars.OCP4_REGISTRY }}
   # The OpenShift Namespace where the ImageStream is located.
   NAMESPACE: ${{ secrets.OCP4_NAMESPACE }}
   # The source tag for promotion, from user input.
   SOURCE_TAG: ${{ github.event.inputs.source_tag }}
   # The target tag for the 'prod' environment.
-  TARGET_TAG: 'prod'
+  TARGET_TAG: "prod"
   # The tag used to back up the previous 'prod' image.
-  BACKUP_TAG: 'prod-backup'
+  BACKUP_TAG: "prod-backup"
   # The name of the image to promote.
-  IMAGE_NAME: 'cpu-spa'
+  IMAGE_NAME: "cpu-spa"
 
 # --- JOBS ---------------------------------------------------------------------------
 jobs:
   promote-image:
-    name: Promote cpu-spa to Test
+    name: Promote cpu-spa to Prod
     # This job runs in a controlled environment with protection rules.
     environment: promote-environment
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
       # ------------------------------------------------------------------------------------
       - name: Login to OpenShift
         run: |
-          oc login --token="${{ secrets.DOCKER_PASSWORD }}" --server="${{ secrets.OPENSHIFT_SERVER }}"
+          oc login --token="${{ secrets.OCP4_PASSWORD }}" --server="${{ secrets.OPENSHIFT_SERVER }}"
 
       # ------------------------------------------------------------------------------------
       #  Step 3: Backup Current 'prod' Image
