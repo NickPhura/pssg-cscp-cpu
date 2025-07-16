@@ -11,6 +11,10 @@
 #  2. Automatic (`push`): Triggers automatically on merge commits to the 'development'
 #     branch for paths under 'cpu-app/'.
 #
+#  Enhancements:
+#  - In the future, the CD workflow should be triggered via 'workflow_run' (workflow call)
+#    when the CI workflow completes successfully, rather than directly on push. This ensures
+#    CD only runs after CI has verified post-merge code. 
 # ======================================================================================
 
 name: CD CPU SPA
