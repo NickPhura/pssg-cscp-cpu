@@ -52,7 +52,7 @@ jobs:
   build_and_scan:
     name: Build and CodeQL Scan
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     permissions:
       security-events: write
       actions: read
