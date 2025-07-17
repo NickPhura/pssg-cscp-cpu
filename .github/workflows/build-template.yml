@@ -113,6 +113,7 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          no-cache: true
 
       # STEP: Print a summary of vulnerabilities in the built image (does not fail build)
       - name: Trivy Image Scan (Table Summary)

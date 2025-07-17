@@ -83,6 +83,10 @@ RUN apt-get update && \
 
 WORKDIR /app
 
+# Debug/Fail Fast: See if args are really set!
+RUN echo "BUILD_IMAGE_NAME='$BUILD_IMAGE_NAME'" && if [ -z "$BUILD_IMAGE_NAME" ]; then echo "BUILD_IMAGE_NAME is empty!"; exit 1; fi
+RUN echo "BUILD_VERSION='$BUILD_VERSION'" && if [ -z "$BUILD_VERSION" ]; then echo "BUILD_VERSION is empty!"; exit 1; fi
+
 # 1. Create non-root user and group
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 
