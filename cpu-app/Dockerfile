@@ -71,6 +71,9 @@ RUN dotnet publish cpu-app/cpu-app.csproj -c Release -o /app/publish
 # ======================
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
+ARG BUILD_IMAGE_NAME
+ARG BUILD_VERSION
+
 # Update all system packages for latest security patches FIRST.
 # This ensures OS-level vulnerabilities are fixed.
 RUN apt-get update && \
@@ -90,8 +93,6 @@ COPY --from=dotnet-build /app/publish ./
 RUN chown -R appuser:appgroup /app
 
 # 4. Accept build-time arguments and set environment variables
-ARG BUILD_IMAGE_NAME
-ARG BUILD_VERSION
 ENV BUILD_IMAGE_NAME=${BUILD_IMAGE_NAME}
 ENV BUILD_VERSION=${BUILD_VERSION}
 
