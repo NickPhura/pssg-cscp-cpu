@@ -118,22 +118,22 @@ jobs:
       - name: Run Trivy and Print Library Vulnerabilities
         uses: aquasecurity/trivy-action@0.32.0
         with:
-          scan-type: 'fs'
-          scan-ref: 'cpu-app'
-          scanners: 'vuln'
-          vuln-type: 'library'
-          format: 'table'
-          exit-code: '0' # Don't fail the build, just report
+          scan-type: "fs"
+          scan-ref: "cpu-app"
+          scanners: "vuln"
+          vuln-type: "library"
+          format: "table"
+          exit-code: "0" # Don't fail the build, just report
 
       # STEP 2: Print a summary of SECRETS and MISCONFIGURATIONS
       - name: Run Trivy and Print Secrets and Misconfigurations
         uses: aquasecurity/trivy-action@0.32.0
         with:
-          scan-type: 'fs'
-          scan-ref: 'cpu-app'
-          scanners: 'secret,misconfig'
-          format: 'table'
-          exit-code: '0' # Don't fail the build, just report
+          scan-type: "fs"
+          scan-ref: "cpu-app"
+          scanners: "secret,misconfig"
+          format: "table"
+          exit-code: "0" # Don't fail the build, just report
 
       # STEP 3: Run the main scan for the official report and to enforce the security gate
       # NOTE: Misconfiguration (config SCA) filtering by severity is NOT supported in the Trivy GitHub Action as of July 2025.
@@ -141,15 +141,16 @@ jobs:
       - name: Run Trivy for SARIF Report and Security Gate
         uses: aquasecurity/trivy-action@0.32.0
         with:
-          scan-type: 'fs'
-          scan-ref: 'cpu-app'
-          scanners: 'vuln,secret'
-          vuln-type: 'library'
-          severity: "CRITICAL,HIGH"        # only applies to vuln scanner
-          exit-code: '1'                   # Will fail CI if CRITICAL or HIGH vulns or secrets are found
+          scan-type: "fs"
+          scan-ref: "cpu-app"
+          scanners: "vuln,secret"
+          vuln-type: "library"
+          severity: "CRITICAL,HIGH" # only applies to vuln scanner
+          exit-code: "1" # Will fail CI if CRITICAL or HIGH vulns or secrets are found
           ignore-unfixed: true
-          format: 'sarif'
-          output: 'trivy-results-cpu-spa.sarif'
+          format: "sarif"
+          output: "trivy-results-cpu-spa.sarif"
+          limit-severities-for-sarif: true
 
       - name: Upload Trivy Scan Results
         uses: github/codeql-action/upload-sarif@v3
