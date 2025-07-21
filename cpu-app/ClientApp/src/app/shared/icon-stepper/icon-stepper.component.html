@@ -1,5 +1,5 @@
 <ul *ngIf="stepperElements && currentStepperElement" class="list-group">
-  <li *ngFor="let item of stepperElements" class="stepper-item list-group-item d-flex justify-content-between align-items-center" [class.active]="item.id === currentStepperElement.id" (click)="onNavigate(item.id)">
+  <li *ngFor="let item of stepperElements" class="stepper-item list-group-item d-flex justify-content-between align-items-center" [class.active]="item.id === currentStepperElement.id" style="cursor: default;">
     <span>
       {{item.itemName}}<br>
       <small [class]="levels[item.formState][1] + ' ' + levels[item.formState][3]">
