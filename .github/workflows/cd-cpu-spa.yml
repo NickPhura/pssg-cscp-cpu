@@ -6,40 +6,34 @@
 #  It orchestrates the build and deployment process for the API and UI services.
 #
 #  Triggers:
-#  1. Manual (`workflow_dispatch`): Allows for manual deployments to the 'development'
-#     branch. Requires a 7-character commit SHA and manual approval.
-#  2. Automatic (`push`): Triggers automatically on merge commits to the 'development'
-#     branch for paths under 'cpu-app/'.
-#
-#  Enhancements:
-#  - In the future, the CD workflow should be triggered via 'workflow_run' (workflow call)
-#    when the CI workflow completes successfully, rather than directly on push. This ensures
-#    CD only runs after CI has verified post-merge code.
+#  1. Automatic (`workflow_run`): Triggers automatically after the 'CI CPU SPA'
+#     workflow completes successfully on the 'development' branch.
+#  2. Manual (`workflow_dispatch`): Allows for manual deployments to the 'development'
+#     branch. Requires a 7-character commit SHA.
 #
 #  Git Event Payload testing:
 #      - name: Dump push event
 #        run: cat $GITHUB_EVENT_PATH
+#
+#  act workflow_dispatch -W .github/workflows/cd-cpu-spa.yml --dryrun --env GITHUB_REPOSITORY="bcgov/pssg-cscp-cpu" --bind
 # ======================================================================================
 
 name: CD CPU SPA
 
 # --- TRIGGERS -----------------------------------------------------------------------
 on:
+  # Triggers this workflow after the CI workflow completes on the development branch
+  workflow_run:
+    workflows: ["CI CPU SPA"]
+    types:
+      - completed
+
+  # manual trigger
   workflow_dispatch:
     inputs:
       short_merge_commit_sha:
         description: "Short (7 char) merge commit SHA"
         required: true
-      branch:
-        description: "Branch to deploy"
-        required: true
-        default: development
-
-  push:
-    branches:
-      - development
-    paths:
-      - "cpu-app/**"
 
 # --- JOBS ---------------------------------------------------------------------------
 jobs:
@@ -51,41 +45,22 @@ jobs:
   # ------------------------------------------------------------------------------------
   prepare-build-params:
     runs-on: ubuntu-latest
+    # This job will only run if the triggering CI workflow was successful
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     outputs:
-      short_sha: ${{ steps.determine-sha-from-push.outputs.short_sha || steps.validate-manual-sha.outputs.short_sha }}
+      short_sha: ${{ steps.determine-sha-from-workflow-run.outputs.short_sha || steps.validate-manual-sha.outputs.short_sha }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Required to inspect commit history
-
-      - name: Validate Manual Trigger Branch
-        if: github.event_name == 'workflow_dispatch'
+      # This step handles the automated trigger from the CI workflow
+      - name: Extract Commit SHA from CI Workflow
+        id: determine-sha-from-workflow-run
+        if: github.event_name == 'workflow_run'
         run: |
-          if [[ "${GITHUB_REF_NAME}" != "development" ]]; then
-            echo "Error: Manual deployment can only be run on the 'development' branch."
-            exit 1
-          fi
+          # The workflow_run event provides the exact commit SHA from the completed CI run.
+          COMMIT_SHA="${{ github.event.workflow_run.head_sha }}"
+          echo "Triggering commit from CI workflow: $COMMIT_SHA"
+          echo "short_sha=$(echo $COMMIT_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
 
-      - name: Dump push event
-        run: cat $GITHUB_EVENT_PATH
-
-      - name: Extract Merge Commit from Push Event
-        id: determine-sha-from-push
-        if: github.event_name == 'push'
-        run: |
-          # This command finds the first commit with 2 parents.
-          MERGE_SHA=$(jq -r '.commits[] | select(.parents | length > 1) | .id' "$GITHUB_EVENT_PATH" | head -n 1)
-
-          # Fail if no merge commit was found.
-          if [[ -z "$MERGE_SHA" ]]; then
-            echo "::error::No merge commit found in this push. This workflow only runs on merge commits to 'development'."
-            exit 1
-          fi
-
-          echo "Found merge commit: $MERGE_SHA"
-          echo "short_sha=$(echo $MERGE_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
-
+      # This step handles the manual trigger
       - name: Validate Manual Trigger SHA
         id: validate-manual-sha
         if: github.event_name == 'workflow_dispatch'
