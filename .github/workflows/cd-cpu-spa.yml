@@ -15,6 +15,10 @@
 #  - In the future, the CD workflow should be triggered via 'workflow_run' (workflow call)
 #    when the CI workflow completes successfully, rather than directly on push. This ensures
 #    CD only runs after CI has verified post-merge code.
+#
+#  Git Event Payload testing:
+#      - name: Dump push event
+#        run: cat $GITHUB_EVENT_PATH
 # ======================================================================================
 
 name: CD CPU SPA
@@ -62,6 +66,9 @@ jobs:
             echo "Error: Manual deployment can only be run on the 'development' branch."
             exit 1
           fi
+
+      - name: Dump push event
+        run: cat $GITHUB_EVENT_PATH
 
       - name: Extract Merge Commit from Push Event
         id: determine-sha-from-push
