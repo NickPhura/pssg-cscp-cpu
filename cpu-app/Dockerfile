@@ -1,34 +1,43 @@
+
 ##################################################################################################
-#               CPU App Multi-Stage Dockerfile (Angular + .NET)                                  #
-#                                                                                                #
-#  Context:                                                                                      #
-#    - Build context must be the repo root: bcgov/pssg-cscp-cpu                                  #
-#    - This Dockerfile is located at: cpu-app/Dockerfile                                         #
-#                                                                                                #
-#  How to Build and Run Locally:                                                                 #
-#    1. Build the image (from repo root):                                                        #
-#         cd bcgov/pssg-cscp-cpu                                                                 #
-#         docker build -t cpu-app:local -f cpu-app/Dockerfile .                                  #
-#                                                                                                #
-#    2. Run the container:                                                                       #
-#         docker run --rm -it -p 8080:8080 cpu-app:local                                         #
-#                                                                                                #
-#    3. Verify security (inside the running container):                                          #
-#         docker exec -it <container_id_or_name> bash                                            #
-#         whoami        # should print 'appuser'                                                 #
-#         touch /app/testfile  # should succeed                                                  #
-#                                                                                                #
-#  Security & Best Practice Highlights:                                                          #
-#    - Multi-stage build for Angular frontend & .NET backend                                     #
-#    - All build steps run as root (default)                                                     #
-#    - Runtime container runs as non-root user (appuser)                                         #
-#    - All files in /app are owned by appuser:appgroup                                           #
-#    - Never run as root in production!                                                          #
-#                                                                                                #
-#  How to see build info inside the running container:                                           #
-#    docker exec -it <container_id_or_name> bash                                                 #
-#    printenv BUILD_IMAGE_NAME                                                                   #
-#    printenv BUILD_VERSION                                                                      #
+#                                                                                                 #
+#   CPU-SPA: ASP.NET Core + Angular Single Page Application (SPA)                                 #
+#                                                                                                 #
+#   LOCAL BUILD & RUN INSTRUCTIONS                                                                #
+#   --------------------------------------------------------------------------------------------  #
+#   1. Build the Docker image:                                                                    #
+#        docker build \                                                                           #
+#          -t cpu-spa:local \                                                                     #
+#          -f cpu-app/Dockerfile \                                                                #
+#          --build-arg BUILD_IMAGE_NAME=cpu-spa \                                                 #
+#          --build-arg BUILD_VERSION=local-dev \                                                  #
+#          .                                                                                      #
+#                                                                                                 #
+#   2. Run the container:                                                                         #
+#        docker run --rm -it -p 8080:8080 cpu-spa:local                                           #
+#                                                                                                 #
+#   3. Inspect the running container (in another terminal):                                       #
+#        docker exec -it <container_id_or_name> bash                                              #
+#        whoami            # should print 'appuser'                                               #
+#        touch /app/testfile  # should succeed                                                    #
+#        printenv BUILD_IMAGE_NAME                                                                #
+#        printenv BUILD_VERSION                                                                   #
+#                                                                                                 #
+#   ARCHITECTURE & BUILD OVERVIEW                                                                 #
+#   --------------------------------------------------------------------------------------------  #
+#   - Multi-stage build: Angular frontend (cpu-app/ClientApp) & .NET backend (cpu-app)            #
+#   - Angular is built in its own stage, output is copied to .NET app's wwwroot                   #
+#   - .NET app serves the Angular SPA as static files                                             #
+#   - Runtime container runs as non-root user (appuser) for security                              #
+#   - All files in /app are owned by appuser:appgroup                                             #
+#   - Build metadata (BUILD_IMAGE_NAME, BUILD_VERSION) available as env vars                      #
+#                                                                                                 #
+#   TECHNOLOGIES                                                                                  #
+#   --------------------------------------------------------------------------------------------  #
+#   - Backend: ASP.NET Core (.NET 8)                                                              #
+#   - Frontend: Angular (in cpu-app/ClientApp)                                                    #
+#   - Build: Docker builds both, .NET app serves Angular SPA                                      #
+#                                                                                                 #
 ##################################################################################################
 
 
