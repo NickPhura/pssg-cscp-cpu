@@ -44,7 +44,8 @@
 # ======================
 # Angular  Build Stage
 # ======================
-FROM node:20 AS angular-build
+FROM node:22-alpine AS angular-build 
+# upgraded from 20
 
 ARG BUILD_IMAGE_NAME
 ARG BUILD_VERSION
