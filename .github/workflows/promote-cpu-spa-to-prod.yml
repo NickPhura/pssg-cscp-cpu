@@ -24,8 +24,8 @@ env:
   IMAGE_REGISTRY: ${{ vars.OCP4_REGISTRY }}
   NAMESPACE: ${{ secrets.OCP4_NAMESPACE }}
   SOURCE_TAG: ${{ github.event.inputs.source_tag }}
-  TARGET_TAG: "test"
-  BACKUP_TAG: "test-backup"
+  TARGET_TAG: "prod"
+  BACKUP_TAG: "prod-backup"
 
 # --- JOBS ---------------------------------------------------------------------------
 jobs:
@@ -68,7 +68,7 @@ jobs:
         if: steps.get_target_digest.outputs.target_digest != ''
         run: |
           echo "Backing up current '${{ env.TARGET_TAG }}' image to '${{ env.BACKUP_TAG }}' by digest..."
-          oc tag ${{ env.IMAGE_NAME }}@${{ steps.get_target_digest.outputs.target_digest }} ${{ env.IMAGE_NAME }}@${{ steps.get_target_digest.outputs.target_digest }}:${{ env.BACKUP_TAG }} --reference
+          oc tag ${{ env.IMAGE_NAME }}@${{ steps.get_target_digest.outputs.target_digest }} ${{ env.IMAGE_NAME }}:${{ env.BACKUP_TAG }} --reference
           echo "Backup successful."
           
       - name: Promote source to target (by digest)
