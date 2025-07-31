@@ -2,3 +2,5 @@
 cpu-app/cpu-app\.sln\.DotSettings
 */bin/**
 */obj/**
+.env
+podman-compose.yml
