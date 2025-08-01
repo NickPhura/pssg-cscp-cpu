@@ -12,6 +12,7 @@ import { FormHelper } from '../../core/form-helper';
 import { iQuestion } from '../../core/models/status-report-question.interface';
 import * as _ from 'lodash';
 import { Transmogrifier } from '../../core/models/transmogrifier.class';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-status-report',
@@ -29,6 +30,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
   saving: boolean = false;
   didload: boolean = false;
   partialSaveStatusCode: number = 100000004;
+  isProduction = environment.production;
 
   public formHelper = new FormHelper();
   constructor(
