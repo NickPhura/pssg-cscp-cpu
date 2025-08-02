@@ -32,8 +32,8 @@ on:
   workflow_dispatch:
     inputs:
       short_merge_commit_sha:
-        description: "Short (7 char) merge commit SHA"
-        required: true
+        description: "Optional: Short merge commit SHA"
+        required: false
 
 # --- JOBS ---------------------------------------------------------------------------
 jobs:
@@ -61,12 +61,14 @@ jobs:
           echo "short_sha=$(echo $COMMIT_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
 
       # This step handles the manual trigger
-      - name: Validate Manual Trigger SHA
+      - name: Validate Manual Trigger SHA or Use 'manual'
         id: validate-manual-sha
         if: github.event_name == 'workflow_dispatch'
         run: |
           SHORT_SHA="${{ github.event.inputs.short_merge_commit_sha }}"
-          if [[ ! "$SHORT_SHA" =~ ^[a-fA-F0-9]{7}$ ]]; then
+          if [[ -z "$SHORT_SHA" ]]; then
+            SHORT_SHA="manual"
+          elif [[ ! "$SHORT_SHA" =~ ^[a-fA-F0-9]{7}$ ]]; then
             echo "::error::SHA must be exactly 7 hexadecimal characters. Received: '$SHORT_SHA'"
             exit 1
           fi
