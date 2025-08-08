@@ -30,13 +30,16 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 {
                     OutageMessage = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_MESSAGE"),
                     OutageStartDate = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_STARTDATE"),
-                    OutageEndDate = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_ENDDATE")
+                    OutageEndDate = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_ENDDATE"),
+                    //check if it is prod env
+                    IsProdCpu  = !string.IsNullOrEmpty(configuration.GetValue<string>("PROD_CPU_PORT"))
                 };
 
                 if (string.IsNullOrEmpty(config.OutageMessage) || string.IsNullOrEmpty(config.OutageStartDate) || string.IsNullOrEmpty(config.OutageEndDate))
                 {
-                    return Ok();
-                };
+                    return Ok(new { config.IsProdCpu });
+                }
+                ;
 
                 return Ok(config);
             }
@@ -54,4 +57,5 @@ public class Configuration
     public string OutageMessage { get; set; }
     public string OutageStartDate { get; set; }
     public string OutageEndDate { get; set; }
+    public bool IsProdCpu { get; set; }
 };
