@@ -49,7 +49,7 @@ on:
 jobs:
   # ------------------------------------------------------------------------------------
   #  Job: build_and_scan
-  #  Purpose: Builds the app, runs CodeQL static analysis (C# + JS/TS).
+  #  Purpose: Builds the app, runs CodeQL static analysis (C# + JS/TS) and SonarCloud scan
   # ------------------------------------------------------------------------------------
   build_and_scan:
     name: Build and CodeQL Scan
@@ -104,6 +104,12 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:javascript-typescript"
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   # ------------------------------------------------------------------------------------
   #  Job: trivy_scan
