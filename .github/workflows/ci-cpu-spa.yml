@@ -52,7 +52,7 @@ jobs:
   #  Purpose: Builds the app, runs CodeQL static analysis (C# + JS/TS) and SonarCloud scan
   # ------------------------------------------------------------------------------------
   build_and_scan:
-    name: Build and CodeQL Scan
+    name: Build, CodeQL and SonarCloud Scan
     runs-on: ubuntu-latest
     timeout-minutes: 40
     permissions:
@@ -106,7 +106,12 @@ jobs:
           category: "/language:javascript-typescript"
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=pssg-cscp-cpu
+            -Dsonar.organization=bcgov-sonarcloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
