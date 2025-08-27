@@ -110,7 +110,7 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=pssg-cscp-cpu
+            -Dsonar.projectKey=bcgov_pssg-cscp-cpu
             -Dsonar.organization=bcgov-sonarcloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
