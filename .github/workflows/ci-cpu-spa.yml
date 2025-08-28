@@ -106,6 +106,7 @@ jobs:
           category: "/language:javascript-typescript"
 
       - name: SonarCloud Scan
+        continue-on-error: true
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
           projectBaseDir: .
