@@ -86,7 +86,15 @@ jobs:
 
       - name: Build Angular Application
         working-directory: cpu-app/ClientApp
-        run: npm run build -- --configuration production
+        run: npm run build
+
+      # Copy Angular build artifacts to .NET wwwroot directory
+      # This is required for SPA (Single Page Application) architecture where
+      # the .NET backend serves the Angular frontend as static files
+      - name: Copy Angular Build to .NET wwwroot
+        run: |
+          mkdir -p cpu-app/wwwroot
+          cp -r cpu-app/ClientApp/dist/* cpu-app/wwwroot/
 
       # ---- Build .NET API ----
       - name: Restore .NET Dependencies

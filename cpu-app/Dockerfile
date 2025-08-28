@@ -44,16 +44,16 @@
 # ======================
 # Angular  Build Stage
 # ======================
-FROM node:22-alpine AS angular-build 
-# upgraded from 20
+FROM node:20-alpine AS angular-build 
+# as per package.json
 
 ARG BUILD_IMAGE_NAME
 ARG BUILD_VERSION
 
 WORKDIR /app
 
-# Copying package files first for better caching
-COPY ./cpu-app/ClientApp/package*.json ./cpu-app/ClientApp/
+# Copying source files
+COPY ./cpu-app/ClientApp/ ./cpu-app/ClientApp/
 WORKDIR /app/cpu-app/ClientApp
 
 # Installing dependencies with npm ci for faster, deterministic builds instead of  RUN npm install
@@ -61,9 +61,6 @@ RUN npm ci
 
 # Adding Node.js memory optimization for large Angular builds
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-
-# Copying source files after dependencies
-COPY ./cpu-app/ClientApp/ ./cpu-app/ClientApp/
 
 # Build Angular app
 RUN npm run build
