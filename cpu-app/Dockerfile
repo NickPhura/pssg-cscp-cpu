@@ -81,6 +81,7 @@ ARG BUILD_VERSION
 WORKDIR /src
 
 COPY . .
+# Restore .NET dependencies
 RUN dotnet restore cpu-app/cpu-app.csproj
 
 # Copy angular dist into the dotnet app
