@@ -52,12 +52,23 @@ ARG BUILD_VERSION
 
 WORKDIR /app
 
-COPY ./cpu-app/ClientApp/ ./cpu-app/ClientApp/
-
+# Copying package files first for better caching
+COPY ./cpu-app/ClientApp/package*.json ./cpu-app/ClientApp/
 WORKDIR /app/cpu-app/ClientApp
 
-RUN npm install
-RUN npm run build -- --configuration production
+# Installing dependencies with npm ci for faster, deterministic builds instead of  RUN npm install
+RUN npm ci
+
+# Adding Node.js memory optimization for large Angular builds
+ENV NODE_OPTIONS="--max-old-space-size=8192"
+
+# Copying source files after dependencies
+COPY ./cpu-app/ClientApp/ ./cpu-app/ClientApp/
+
+# Build Angular app
+RUN npm run build
+# removed --configuration=production from npm run build, as it is already defined in angular.json which executes
+# ng build --configuration=production
 
 # ======================
 # .NET Build Stage
@@ -70,11 +81,12 @@ ARG BUILD_VERSION
 WORKDIR /src
 
 COPY . .
+RUN dotnet restore cpu-app/cpu-app.csproj
 
 # Copy angular dist into the dotnet app
 COPY --from=angular-build /app/cpu-app/ClientApp/dist/ ./cpu-app/wwwroot/
 
-RUN dotnet publish cpu-app/cpu-app.csproj -c Release -o /app/publish
+RUN dotnet publish cpu-app/cpu-app.csproj -c Release -o /app/publish --no-restore --verbosity minimal
 
 # ======================
 # Runtime Image

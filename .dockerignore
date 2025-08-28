@@ -1,0 +1,57 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+README*
+LICENSE
+
+# GitHub Actions (your CI/CD)
+.github/
+
+# OpenShift and other deployment configs
+openshift/
+vars/
+docker-compose.yml
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Development scripts and configs
+manage
+go.bat
+
+# Node.js (Angular ClientApp)
+cpu-app/ClientApp/node_modules/
+cpu-app/ClientApp/npm-debug.log*
+cpu-app/ClientApp/coverage/
+cpu-app/ClientApp/dist/
+cpu-app/ClientApp/docker-*.sh
+cpu-app/ClientApp/docker-compose.yml
+
+# .NET build artifacts
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Test files
+**/*.spec.ts
+**/e2e/
+Tests/
+
+# Documentation and design files
+pdf_printing_templates/
+puml/
+COMPLIANCE.yaml
+CPU.postman_collection.json
+
+# Logs
+*.log
