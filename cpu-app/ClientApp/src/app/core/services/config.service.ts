@@ -52,7 +52,7 @@ export class ConfigService{
   }
 
   public get featureHideReportSaveButton(): boolean {
-   return this.configuration?.featureHideReportSaveButton ?? true;
+   return this.configuration?.featureHideReportSaveButton ?? false;
   }
 
   protected handleError(err: any): Observable<never> {
