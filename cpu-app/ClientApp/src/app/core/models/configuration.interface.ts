@@ -3,4 +3,5 @@ export interface Configuration {
   outageEndDate?: string;
   outageMessage?: string;
   isProdCpu?: boolean;
+  featureHideReportSaveButton?: boolean;
 }
