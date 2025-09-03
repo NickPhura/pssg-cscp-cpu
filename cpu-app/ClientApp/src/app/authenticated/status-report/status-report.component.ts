@@ -42,8 +42,8 @@ export class StatusReportComponent implements OnInit, OnDestroy {
     public configService: ConfigService
   ) { }
 
-  get hideProdButton(): boolean {
-    return !this.configService.isProdCpu;
+  get hideReportSaveButton(): boolean {
+    return this.configService.featureHideReportSaveButton;
   }
 
   ngOnInit() {

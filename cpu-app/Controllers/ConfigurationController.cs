@@ -32,12 +32,14 @@ namespace Gov.Cscp.Victims.Public.Controllers
                     OutageStartDate = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_STARTDATE"),
                     OutageEndDate = configuration.GetValue<string>("CONFIGURATION_OUTAGEINFORMATION_ENDDATE"),
                     //check if it is prod env
-                    IsProdCpu  = !string.IsNullOrEmpty(configuration.GetValue<string>("PROD_CPU_PORT"))
+                    IsProdCpu  = !string.IsNullOrEmpty(configuration.GetValue<string>("PROD_CPU_PORT")),
+                    FeatureHideReportSaveButton = configuration.GetValue<bool?>("FEATURE_HIDE_REPORT_SAVE"),
+
                 };
 
                 if (string.IsNullOrEmpty(config.OutageMessage) || string.IsNullOrEmpty(config.OutageStartDate) || string.IsNullOrEmpty(config.OutageEndDate))
                 {
-                    return Ok(new { config.IsProdCpu });
+                    return Ok(new { config.IsProdCpu, config.FeatureHideReportSaveButton });
                 }
                 ;
 
@@ -58,4 +60,5 @@ public class Configuration
     public string OutageStartDate { get; set; }
     public string OutageEndDate { get; set; }
     public bool IsProdCpu { get; set; }
+    public bool? FeatureHideReportSaveButton { get; set; }
 };

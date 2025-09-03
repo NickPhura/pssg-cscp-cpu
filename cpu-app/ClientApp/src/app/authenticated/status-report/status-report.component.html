@@ -27,7 +27,7 @@
         <app-icon-stepper></app-icon-stepper>
         <button class="btn btn-primary mt-2 exit-button" (click)="exit()">Exit</button>
         <button 
-          *ngIf="hideProdButton" 
+          *ngIf="!hideReportSaveButton" 
           class="btn btn-primary mt-2" 
           [class.is-disabled]="saving" 
           (click)="save()">

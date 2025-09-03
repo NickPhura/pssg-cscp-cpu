@@ -51,6 +51,10 @@ export class ConfigService{
     return this.configuration?.isProdCpu ?? false;
   }
 
+  public get featureHideReportSaveButton(): boolean {
+   return this.configuration?.featureHideReportSaveButton ?? true;
+  }
+
   protected handleError(err: any): Observable<never> {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
