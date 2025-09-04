@@ -81,7 +81,7 @@ COPY . .
 # Restore .NET dependencies
 RUN dotnet restore cpu-app/cpu-app.csproj
 
-# Copy angular dist into the dotnet app
+# Copy angular dist into the dotnet app.
 COPY --from=angular-build /app/cpu-app/ClientApp/dist/ ./cpu-app/wwwroot/
 
 RUN dotnet publish cpu-app/cpu-app.csproj -c Release -o /app/publish --no-restore --verbosity minimal
