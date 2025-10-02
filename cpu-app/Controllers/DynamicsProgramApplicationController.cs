@@ -56,6 +56,11 @@ namespace Gov.Cscp.Victims.Public.Controllers
                     return BadRequest(ModelState);
                 }
 
+                if (model.ContactCollection != null)
+                {
+                    model.ContactCollection = CleanEmptyContacts(model.ContactCollection);
+                }
+
                 string endpointUrl = "vsd_SetCPUOrgContracts";
                 string modelString = System.Text.Json.JsonSerializer.Serialize(model);
                 modelString = Helpers.Helpers.updateFortunecookieBindNull(modelString);
@@ -70,6 +75,22 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 return BadRequest();
             }
             finally { }
+        }
+
+
+        private DynamicsProgramApplicationContactPost[] CleanEmptyContacts(DynamicsProgramApplicationContactPost[] contacts)
+        {
+            foreach (DynamicsProgramApplicationContactPost contact in contacts)
+            {
+
+                var requiredFields = new[] { contact.firstname, contact.lastname, contact.jobtitle, contact.emailaddress1, contact.mobilephone, contact.address1_line1 };
+                if (requiredFields.Any(x => x == null))
+                {
+                    contacts = contacts.Where(c => c != contact).ToArray();
+                }
+
+            }
+            return contacts;
         }
     }
 }
