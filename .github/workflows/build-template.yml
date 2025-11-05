@@ -115,6 +115,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: "image"
+          args: '--skip-version-check'
           image-ref: "${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
           scanners: "vuln,secret"
           format: "table"
@@ -126,7 +127,8 @@ jobs:
       - name: Scan Image for Vulnerabilities
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          scan-type: "image"
+          scan-type: "image"          
+          args: '--skip-version-check'
           image-ref: "${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
           scanners: "vuln,secret"
           format: "sarif"
