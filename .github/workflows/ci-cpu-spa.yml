@@ -162,7 +162,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: "fs"
-          scan-ref: "--skip-version-check cpu-app"
+          scan-ref: "cpu-app"
           scanners: "vuln,secret"
           vuln-type: "library"
           severity: "CRITICAL,HIGH" # only applies to vuln scanner
