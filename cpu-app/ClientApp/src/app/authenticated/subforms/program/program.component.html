@@ -90,7 +90,7 @@
 
       <div *ngIf="programApplication.hasPoliceContact" class="shared-cost-contact-div">
         <div class="form-check">
-          <input disabled [(ngModel)]="programApplication.hasSharedCostContact" class="form-check-input" type="checkbox" id="hasSharedCostContactCheckbox" name="hasSharedCostContactCheckbox">
+          <input [(ngModel)]="programApplication.hasSharedCostContact" class="form-check-input" type="checkbox" id="hasSharedCostContactCheckbox" name="hasSharedCostContactCheckbox">
           <label class="form-check-label form-label fw-normal" for="hasSharedCostContactCheckbox">
             Please select the check box to complete your cost share contact information with local Government:
           </label>
