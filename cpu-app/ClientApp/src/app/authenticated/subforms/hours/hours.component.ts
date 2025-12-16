@@ -23,4 +23,9 @@ export class HoursComponent implements OnInit {
   ngOnInit() {
     this.uuid = uuidv4();
   }
+
+  daysOfTheWeekSelected(): boolean
+  {
+    return (this.hours.closed == null && this.hours.open == null)  ||this.hours.monday || this.hours.tuesday || this.hours.wednesday || this.hours.thursday || this.hours.friday || this.hours.saturday || this.hours.sunday;
+  }
 }

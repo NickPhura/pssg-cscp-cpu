@@ -58,6 +58,9 @@
         </label>
       </div>
     </div>
+    <div class="row mb-3" *ngIf="!daysOfTheWeekSelected()">
+      <span class="col invalid-feedback ng-invalid"> Try Again </span>
+    </div>
     <div class="row form-inline">
       <div class="mb-3 col-md-6">
         <label for="open" class="form-label fw-normal">Open</label>
