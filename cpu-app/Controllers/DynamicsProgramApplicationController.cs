@@ -10,7 +10,7 @@ using System.Linq;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class DynamicsProgramApplicationController : Controller
     {
         private readonly IDynamicsResultService _dynamicsResultService;
@@ -83,7 +83,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
             foreach (DynamicsProgramApplicationContactPost contact in contacts)
             {
 
-                var requiredFields = new[] { contact.firstname, contact.lastname, contact.jobtitle, contact.emailaddress1, contact.mobilephone, contact.address1_line1 };
+                var requiredFields = new[] { contact.firstname, contact.lastname, contact.jobtitle, contact.emailaddress1, contact.address1_line1 };
                 if (requiredFields.Any(x => x == null))
                 {
                     contacts = contacts.Where(c => c != contact).ToArray();
