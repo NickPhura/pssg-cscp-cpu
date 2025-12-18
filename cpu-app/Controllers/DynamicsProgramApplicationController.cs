@@ -10,7 +10,7 @@ using System.Linq;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class DynamicsProgramApplicationController : Controller
     {
         private readonly IDynamicsResultService _dynamicsResultService;
