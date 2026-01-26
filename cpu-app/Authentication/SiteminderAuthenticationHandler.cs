@@ -246,13 +246,6 @@ namespace Gov.Cscp.Victims.Public.Authentication
         /// <returns></returns>
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            //         // get siteminder headers
-            _logger.LogDebug("Parsing the HTTP headers for SiteMinder authentication credential");
-            _logger.LogInformation("Test information");
-            _logger.LogTrace("Test Trace");
-
-            // Console.WriteLine("Parsing the HTTP headers for SiteMinder authentication credential");
-
             SiteMinderAuthOptions options = new SiteMinderAuthOptions();
             bool isDeveloperLogin = false;
             bool isBCSCDeveloperLogin = false;
@@ -286,15 +279,11 @@ namespace Gov.Cscp.Victims.Public.Authentication
                 // **************************************************
                 try
                 {
-                    _logger.LogInformation("Checking user session");
                     userSettings = UserSettings.ReadUserSettings(context);
-                    _logger.LogDebug("UserSettings found: " + userSettings.GetJson());
-                    // Console.WriteLine("UserSettings found: " + userSettings.GetJson());
                 }
                 catch
                 {
-                    //do nothing
-                    // Console.WriteLine("No UserSettings found");
+                    //do nothing                    
                     _logger.LogDebug("No UserSettings found");
                 }
 
@@ -304,7 +293,6 @@ namespace Gov.Cscp.Victims.Public.Authentication
                          !string.IsNullOrEmpty(userSettings.UserId) && userSettings.UserId == userId))
                 {
                     _logger.LogDebug("User already authenticated with active session: " + userSettings.UserId);
-                    // Console.WriteLine("User already authenticated with active session: " + userSettings.GetJson());
                     principal = userSettings.AuthenticatedUser.ToClaimsPrincipal(options.Scheme, userSettings.UserType);
                     return AuthenticateResult.Success(new AuthenticationTicket(principal, null, Options.Scheme));
                 }
@@ -328,9 +316,6 @@ namespace Gov.Cscp.Victims.Public.Authentication
                 // TODO userId is always null
                 if (string.IsNullOrEmpty(userId))
                 {
-                    _logger.LogDebug("Getting user data from headers");
-                    // Console.WriteLine("Getting user data from headers");
-
                     userId = context.Request.Headers[options.SiteMinderUserNameKey];
                     if (string.IsNullOrEmpty(userId))
                     {
@@ -387,7 +372,6 @@ namespace Gov.Cscp.Victims.Public.Authentication
 
                 if (_dynamicsResultService != null)
                 {
-                    // Console.WriteLine("We're \"Logged in\", businessBCeID: " + siteMinderBusinessGuid + ", UserBCeID: " + siteMinderGuid);
                     _logger.LogDebug("We're \"Logged in\", businessBCeID: " + siteMinderBusinessGuid + ", UserBCeID: " + siteMinderGuid);
 
                     userSettings.AuthenticatedUser = new User(new Guid(siteMinderGuid), "Bill", "Octoroc", true, "BO", "octoroc@foo.gov", siteMinderGuid, siteMinderBusinessGuid, siteMinderUserType, null);
@@ -397,7 +381,6 @@ namespace Gov.Cscp.Victims.Public.Authentication
                     // set the endpoint action
                     string endpointUrl = "vsd_GetCPUOrgContracts";
                     HttpClientResult result = await _dynamicsResultService.Post(endpointUrl, requestJson);
-                    // Console.WriteLine("Dynamics result info:");
                     string resultString = result.ToString();
                     string resultResult = result.result.ToString();
                     string messageString = result.responseMessage.ToString();
@@ -484,7 +467,8 @@ namespace Gov.Cscp.Victims.Public.Authentication
                         return AuthenticateResult.Success(new AuthenticationTicket(principal, null, Options.Scheme));
                     }
                 }
-                else {
+                else
+                {
                     // Console.WriteLine("No DynamicsResultService configured.");
                     _splunkLogger.Error(new Exception("No DynamicsResultService configured."), "Unexpected error while in siteminder auth handler - No DynamicsResultService configured. Source = CPU");
                     return AuthenticateResult.Fail("No DynamicsResultService configured");
