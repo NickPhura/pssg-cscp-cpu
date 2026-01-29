@@ -65,11 +65,11 @@ namespace Gov.Cscp.Victims.Public.Services
 
             if (result.result.ContainsKey("IsSuccess") && result.result["IsSuccess"].ToString().Equals("False"))
             {
-                _logger.Information(new HttpOperationException($"Received a fail response from {endpointUrl}. Source = CPU"), $"Error calling API function {endpointUrl}. \nSource = CPU. \nError is:\n{result.result}\n\nJSON sent:{requestJson}", result.result, requestJson);
+                _logger.Information(new HttpOperationException($"Received a fail response from {endpointUrl}. Source = CPU"), $"Error calling API function {endpointUrl}. \nSource = CPU. \nError is:\n{result.result}", result.result);
             }
             if (!(new HttpResponseMessage((HttpStatusCode)_statusCode).IsSuccessStatusCode))
             {
-                _logger.Error(new HttpOperationException($"Error calling API function {endpointUrl}. Source = CPU"), $"Error calling API function {endpointUrl}. \nSource = CPU. \nError is:\n{result.result}\n\nJSON sent:{requestJson}", result.result, requestJson);
+                _logger.Error(new HttpOperationException($"Error calling API function {endpointUrl}. Source = CPU"), $"Error calling API function {endpointUrl}. \nSource = CPU. \nError is:\n{result.result}", result.result);
             }
 
             // Console.WriteLine(result.result);

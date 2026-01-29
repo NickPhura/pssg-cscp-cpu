@@ -1,18 +1,18 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ProfileService } from '../../core/services/profile.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { StateService } from '../../core/services/state.service';
-import { Transmogrifier } from '../../core/models/transmogrifier.class';
-import { convertContactInformationToDynamics } from '../../core/models/converters/contact-information-to-dynamics';
-import { NotificationQueueService } from '../../core/services/notification-queue.service';
-import { FormHelper } from '../../core/form-helper';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
+import { FormHelper } from '../../core/form-helper';
 import { Address } from '../../core/models/address.class';
 import { ContactInformation } from '../../core/models/contact-information.class';
 import { iContactInformation } from '../../core/models/contact-information.interface';
-import { PersonPickerComponent } from '../subforms/person-picker/person-picker.component';
+import { convertContactInformationToDynamics } from '../../core/models/converters/contact-information-to-dynamics';
+import { Transmogrifier } from '../../core/models/transmogrifier.class';
 import { Roles } from '../../core/models/user-settings.interface';
+import { NotificationQueueService } from '../../core/services/notification-queue.service';
+import { ProfileService } from '../../core/services/profile.service';
+import { StateService } from '../../core/services/state.service';
+import { PersonPickerComponent } from '../subforms/person-picker/person-picker.component';
 
 @Component({
     selector: 'app-profile',
@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
     this.stateSubscription.unsubscribe();
   }
+  
   cancel() {
     this.trans.contactInformation = this.originalContactInfo;
     this.originalContactInfo = _.cloneDeep(this.trans.contactInformation);
@@ -63,7 +64,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.trans.contactInformation.boardContact && this.trans.contactInformation.boardContact.personId) {
       this.boardContactComp.setPerson(this.trans.contactInformation.boardContact.personId);
     }
+
+    this.exit();
   }
+
   save(shouldExit: boolean = false): void {
     try {
       if (!this.formHelper.isFormValid(this.notificationQueueService)) {
@@ -99,10 +103,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.saving = false;
     }
   }
+
   exit() {
-    this.stateService.refresh();
-    this.router.navigate(['/authenticated/dashboard']);
+    if (this.formHelper.isFormDirty()) {
+      if (confirm("Are you sure you want to return to the dashboard? All unsaved work will be lost.")) {
+        this.stateService.refresh();
+        this.router.navigate(['/authenticated/dashboard']);
+      }
+    } else {
+      this.stateService.refresh();
+      this.router.navigate(['/authenticated/dashboard']);
+    }    
   }
+
   setMailingAddressSameAsMainAddress() {
     if (this.trans.contactInformation.mailingAddressSameAsMainAddress) {
       this.trans.contactInformation.mailingAddress = this.trans.contactInformation.mainAddress;
