@@ -65,11 +65,11 @@ namespace Gov.Cscp.Victims.Public.Services
 
             if (result.result.ContainsKey("IsSuccess") && result.result["IsSuccess"].ToString().Equals("False"))
             {
-                _logger.Information(new HttpOperationException($"Received a fail response from {endpointUrl}. Source = CPU"), $"Error calling API function {endpointUrl}. \nSource = CPU. \nError is:\n{result.result}", result.result);
+                _logger.Information(new HttpOperationException("Received a fail response from Dynamics endpoint. Source = CPU"), "Error calling Dynamics API function. \nSource = CPU.");
             }
             if (!(new HttpResponseMessage((HttpStatusCode)_statusCode).IsSuccessStatusCode))
             {
-                _logger.Error(new HttpOperationException($"Error calling API function {endpointUrl}. Source = CPU"), $"Error calling API function {endpointUrl}. \nSource = CPU. \nError is:\n{result.result}", result.result);
+                _logger.Error(new HttpOperationException("Error calling API function. Source = CPU"), "Error calling API function Dynamics endpoint. Source = CPU.");
             }
 
             // Console.WriteLine(result.result);
