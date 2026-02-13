@@ -14,7 +14,6 @@ import { StateService } from "../../../core/services/state.service";
 })
 export class PersonPickerFormComponent implements OnInit, OnDestroy {
   @Input() title = "Select Person";
-  @Input() isDisabled: boolean = false;
   @Input() idNum: number = 0;
   @Input() control: FormControl;
   @Input() errorMessage: string = "Please select a person";

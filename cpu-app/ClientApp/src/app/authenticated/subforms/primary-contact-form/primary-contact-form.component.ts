@@ -12,7 +12,6 @@ import { iContactInformation } from "../../../core/models/contact-information.in
 })
 export class PrimaryContactFormComponent implements OnInit {
   @Input() contactInformation: iContactInformation;
-  @Input() isDisabled: boolean = false;
   @Input() formGroup?: FormGroup;
   @Output() contactInformationChange = new EventEmitter<iContactInformation>();
 
@@ -20,19 +19,7 @@ export class PrimaryContactFormComponent implements OnInit {
   emailRegex: RegExp = EMAIL;
   phoneRegex: RegExp = PHONE_NUMBER;
 
-  ngOnInit() {
-    this.updateDisabledState();
-  }
-
-  private updateDisabledState(): void {
-    if (!this.formGroup) return;
-
-    if (this.isDisabled) {
-      this.formGroup.disable();
-    } else {
-      this.formGroup.enable();
-    }
-  }
+  ngOnInit() {}
 
   get emailControl() {
     return this.formGroup?.get("emailAddress") || null;

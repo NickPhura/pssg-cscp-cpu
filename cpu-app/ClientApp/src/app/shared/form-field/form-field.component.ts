@@ -66,10 +66,6 @@ export class FormFieldComponent {
     );
   }
 
-  get isDisabled(): boolean {
-    return this.disabled || this.control?.disabled;
-  }
-
   onBlur(): void {
     if (
       this.trimOnBlur &&

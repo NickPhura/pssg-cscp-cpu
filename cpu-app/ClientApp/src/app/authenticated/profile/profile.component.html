@@ -16,22 +16,15 @@
       </div>
 
       <h2 class="blue-header">Primary Agency Contact Information</h2>
-      <app-primary-contact-form
-        [formGroup]="contactForm.get('primaryContact')"
-        [isDisabled]="userRole === Roles.ProgramStaff"
-      >
+      <app-primary-contact-form [formGroup]="contactForm.get('primaryContact')">
       </app-primary-contact-form>
 
-      <app-address-form
-        [formGroup]="contactForm.get('mainAddress')"
-        [isDisabled]="userRole === Roles.ProgramStaff"
-      >
+      <app-address-form [formGroup]="contactForm.get('mainAddress')">
       </app-address-form>
 
       <h2 class="blue-header mt-4">Mailing Address</h2>
       <div class="form-check">
         <input
-          [disabled]="userRole === Roles.ProgramStaff"
           [formControl]="contactForm.get('mailingAddressSameAsMainAddress')"
           class="form-check-input"
           type="checkbox"
@@ -46,13 +39,7 @@
           Program Contact Address
         </label>
       </div>
-      <app-address-form
-        [formGroup]="contactForm.get('mailingAddress')"
-        [isDisabled]="
-          contactForm.get('mailingAddressSameAsMainAddress')?.value ||
-          userRole === Roles.ProgramStaff
-        "
-      >
+      <app-address-form [formGroup]="contactForm.get('mailingAddress')">
       </app-address-form>
 
       <h2 class="blue-header mt-4">Organization Contact(s)</h2>
@@ -61,7 +48,6 @@
         update personnel contact information for your organization.
       </p>
       <app-person-picker-form
-        [isDisabled]="userRole === Roles.ProgramStaff"
         [title]="'Contractor Contact'"
         [control]="executiveContactControl"
       >
@@ -69,7 +55,6 @@
 
       <div class="form-check mt-4">
         <input
-          [disabled]="userRole === Roles.ProgramStaff"
           [formControl]="contactForm.get('hasBoardContact')"
           type="checkbox"
           id="hasBoardOfDirectors"
@@ -83,7 +68,6 @@
       </div>
       <span *ngIf="contactForm.get('hasBoardContact')?.value">
         <app-person-picker-form
-          [isDisabled]="userRole === Roles.ProgramStaff"
           [title]="'Board Contact (For societies only)'"
           [control]="boardContactControl"
         >

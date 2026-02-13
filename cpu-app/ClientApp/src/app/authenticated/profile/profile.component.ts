@@ -38,8 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    let userSettings = this.stateService.userSettings.getValue();
-    this.userRole = userSettings.userRole;
+    this.userRole = this.stateService.userSettings.getValue().userRole;
 
     this.stateSubscription = this.stateService.main.subscribe(
       (m: Transmogrifier) => {
@@ -53,13 +52,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.trans.contactInformation,
           );
 
-        // Set up mailing address sync
         this.setupMailingAddressSync();
 
-        // Handle disabled state for ProgramStaff
-        if (this.userRole === Roles.ProgramStaff) {
-          this.contactForm.disable();
-        }
+        this.disableFormControlsForRole();
+
+        this.setTransmogrifierValueOnContactChange();
       },
     );
   }
@@ -70,18 +67,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
     const mainAddressControl = this.contactForm.get("mainAddress");
     const mailingAddressControl = this.contactForm.get("mailingAddress");
-    const hasBoardContactControl = this.contactForm.get("hasBoardContact");
 
-    // Sync mailing address when checkbox changes
+    if (mailingAddressSameControl?.value) {
+      mailingAddressControl?.disable({ emitEvent: false });
+    }
+
     mailingAddressSameControl?.valueChanges.subscribe((isSame) => {
       if (isSame) {
-        mailingAddressControl?.patchValue(mainAddressControl?.value);
-        mailingAddressControl?.disable();
-      } else {
-        mailingAddressControl?.enable();
-        if (this.userRole === Roles.ProgramStaff) {
-          mailingAddressControl?.disable();
-        }
+        mailingAddressControl?.patchValue(mainAddressControl?.value, {
+          emitEvent: false,
+        });
+        mailingAddressControl?.disable({ emitEvent: false });
       }
     });
 
@@ -91,10 +87,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
         mailingAddressControl?.patchValue(mainAddress, { emitEvent: false });
       }
     });
+  }
 
-    // Sync hasBoardContact back to trans
+  private disableFormControlsForRole(): void {
+    if (this.userRole === Roles.ProgramStaff) {
+      this.contactForm.get("primaryContact")?.disable();
+      this.contactForm.get("mainAddress")?.disable();
+      this.contactForm.get("mailingAddress")?.disable();
+      this.contactForm.get("executiveContactId")?.disable();
+      this.contactForm.get("boardContactId")?.disable();
+    }
+  }
+
+  private setTransmogrifierValueOnContactChange(): void {
+    const hasBoardContactControl = this.contactForm.get("hasBoardContact");
     hasBoardContactControl?.valueChanges.subscribe((hasBoardContact) => {
       this.trans.contactInformation.hasBoardContact = hasBoardContact;
+
+      if (!hasBoardContact) {
+        this.boardContactControl?.patchValue(null);
+      }
     });
 
     // Sync executive contact personId to trans.contactInformation
@@ -118,11 +130,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       },
     );
-
-    // Initialize disabled state if needed
-    if (mailingAddressSameControl?.value) {
-      mailingAddressControl?.disable();
-    }
   }
 
   get executiveContactControl(): FormControl {
@@ -178,6 +185,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.contactForm.markAsPristine();
     this.contactForm.markAsUntouched();
   }
+
   save(shouldExit: boolean = false): void {
     try {
       // Mark all fields as touched to show validation errors

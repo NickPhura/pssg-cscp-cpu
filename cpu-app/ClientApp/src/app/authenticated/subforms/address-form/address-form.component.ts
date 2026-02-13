@@ -20,7 +20,6 @@ import { iAddress } from "../../../core/models/address.interface";
 })
 export class AddressFormComponent implements OnInit {
   @Input() address: iAddress;
-  @Input() isDisabled: boolean = false;
   @Input() addressRequired: boolean = false;
   @Input() formGroup: FormGroup;
   @Output() addressChange = new EventEmitter<iAddress>();
@@ -38,13 +37,9 @@ export class AddressFormComponent implements OnInit {
 
   ngOnInit() {
     this.updateCountry();
-    this.updateDisabledState();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["isDisabled"]) {
-      this.updateDisabledState();
-    }
     if (changes["formGroup"] && this.formGroup) {
       this.updateCountry();
     }
@@ -64,16 +59,6 @@ export class AddressFormComponent implements OnInit {
 
   onChange() {
     this.addressChange.emit(this.address);
-  }
-
-  private updateDisabledState(): void {
-    if (!this.formGroup) return;
-
-    if (this.isDisabled) {
-      this.formGroup.disable();
-    } else {
-      this.formGroup.enable();
-    }
   }
 
   get line1Control() {
