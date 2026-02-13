@@ -1,15 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { nameAssemble } from "../../../core/constants/name-assemble";
-import { Person } from "../../../core/models/person.class";
 import { iPerson } from "../../../core/models/person.interface";
 import { Transmogrifier } from "../../../core/models/transmogrifier.class";
 import { StateService } from "../../../core/services/state.service";
@@ -23,54 +15,41 @@ import { StateService } from "../../../core/services/state.service";
 export class PersonPickerFormComponent implements OnInit, OnDestroy {
   @Input() title = "Select Person";
   @Input() isDisabled: boolean = false;
-  @Input() person: iPerson;
   @Input() idNum: number = 0;
-  @Output() personChange = new EventEmitter<iPerson>();
-  @Input() showCard = true;
-  @Input() control?: FormControl; // Optional FormControl for reactive forms integration
+  @Input() control: FormControl;
   @Input() errorMessage: string = "Please select a person";
-  personId: string = null;
+
+  person: iPerson;
+
   public nameAssemble = nameAssemble;
   trans: Transmogrifier;
   private stateSubscription: Subscription;
+  private controlSubscription: Subscription;
 
   constructor(private stateService: StateService) {}
 
   ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
+    this.stateSubscription?.unsubscribe();
+    this.controlSubscription?.unsubscribe();
   }
   ngOnInit() {
-    if (this.person && this.person.personId) {
-      this.personId = this.person.personId;
-    }
-
     this.stateSubscription = this.stateService.main.subscribe(
       (m: Transmogrifier) => {
         this.trans = m;
 
-        if (!this.person) {
-          this.person = new Person();
-          this.personId = this.person.personId;
+        if (this.trans?.persons) {
+          this.person = this.trans.persons.find(
+            (p) => p.personId === this.control.value,
+          );
         }
-        this.setPerson(this.personId);
       },
     );
-  }
-  setPerson(personId: string): void {
-    this.person = this.trans.persons.find((p) => p.personId === personId);
-    this.personId = personId;
 
-    if (this.control) {
-      this.control.setValue(personId);
-    }
-  }
-  onChange() {
-    this.setPerson(this.personId);
-    this.personChange.emit(this.person);
-
-    if (this.control) {
-      this.control.setValue(this.personId);
-    }
+    this.controlSubscription = this.control.valueChanges.subscribe((value) => {
+      if (this.trans?.persons && value) {
+        this.person = this.trans.persons.find((p) => p.personId === value);
+      }
+    });
   }
 
   get isDirtyOrTouched(): boolean {
@@ -92,5 +71,14 @@ export class PersonPickerFormComponent implements OnInit, OnDestroy {
     if (!this.control) return false;
 
     return this.control.hasError("required") && this.isDirtyOrTouched;
+  }
+
+  get personOptions() {
+    if (!this.trans?.persons) return [];
+
+    return this.trans.persons.map((p) => ({
+      value: p.personId,
+      label: `${nameAssemble(p.firstName, p.middleName, p.lastName)}${p.title ? " - " + p.title : ""}`,
+    }));
   }
 }

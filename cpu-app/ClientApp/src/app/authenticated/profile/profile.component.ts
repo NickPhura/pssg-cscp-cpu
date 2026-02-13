@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
@@ -11,7 +11,6 @@ import { Roles } from "../../core/models/user-settings.interface";
 import { NotificationQueueService } from "../../core/services/notification-queue.service";
 import { ProfileService } from "../../core/services/profile.service";
 import { StateService } from "../../core/services/state.service";
-import { PersonPickerComponent } from "../subforms/person-picker/person-picker.component";
 
 @Component({
   selector: "app-profile",
@@ -20,15 +19,12 @@ import { PersonPickerComponent } from "../subforms/person-picker/person-picker.c
   standalone: false,
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  @ViewChild(PersonPickerComponent, { static: false })
-  contractorContactComp: PersonPickerComponent;
-  @ViewChild(PersonPickerComponent, { static: false })
-  boardContactComp: PersonPickerComponent;
-
   trans: Transmogrifier;
   contactForm: FormGroup;
   saving: boolean = false;
   private stateSubscription: Subscription;
+  private executiveContactSubscription: Subscription;
+  private boardContactSubscription: Subscription;
   originalContactInfo: iContactInformation;
   Roles = Roles;
   userRole = Roles.ProgramStaff;
@@ -101,11 +97,42 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.trans.contactInformation.hasBoardContact = hasBoardContact;
     });
 
+    // Sync executive contact personId to trans.contactInformation
+    const executiveContactControl = this.contactForm.get("executiveContactId");
+    this.executiveContactSubscription =
+      executiveContactControl?.valueChanges.subscribe((personId) => {
+        if (personId && this.trans?.persons) {
+          this.trans.contactInformation.executiveContact =
+            this.trans.persons.find((p) => p.personId === personId);
+        }
+      });
+
+    // Sync board contact personId to trans.contactInformation
+    const boardContactControl = this.contactForm.get("boardContactId");
+    this.boardContactSubscription = boardContactControl?.valueChanges.subscribe(
+      (personId) => {
+        if (personId && this.trans?.persons) {
+          this.trans.contactInformation.boardContact = this.trans.persons.find(
+            (p) => p.personId === personId,
+          );
+        }
+      },
+    );
+
     // Initialize disabled state if needed
     if (mailingAddressSameControl?.value) {
       mailingAddressControl?.disable();
     }
   }
+
+  get executiveContactControl(): FormControl {
+    return this.contactForm?.get("executiveContactId") as FormControl;
+  }
+
+  get boardContactControl(): FormControl {
+    return this.contactForm?.get("boardContactId") as FormControl;
+  }
+
   ngOnDestroy() {
     // Restore original contact info if form was modified but not saved
     if (this.contactForm && this.contactForm.dirty) {
@@ -118,35 +145,38 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.trans.contactInformation = this.originalContactInfo;
       }
     }
-    this.stateSubscription.unsubscribe();
+    this.stateSubscription?.unsubscribe();
+    this.executiveContactSubscription?.unsubscribe();
+    this.boardContactSubscription?.unsubscribe();
   }
 
   cancel() {
-    // Reset form to original values
-    ContactInformationFormFactory.patchForm(
-      this.contactForm,
-      this.originalContactInfo,
-    );
+    // Reset form to original values - this will trigger subscriptions
+    // and update trans.contactInformation automatically
+    this.contactForm.patchValue({
+      executiveContactId:
+        this.originalContactInfo.executiveContact?.personId || null,
+      boardContactId: this.originalContactInfo.boardContact?.personId || null,
+      hasBoardContact: this.originalContactInfo.hasBoardContact || false,
+      mailingAddressSameAsMainAddress:
+        this.originalContactInfo.mailingAddressSameAsMainAddress || false,
+    });
+
+    // Reset address groups
+    this.contactForm
+      .get("mainAddress")
+      ?.patchValue(this.originalContactInfo.mainAddress || {});
+    this.contactForm
+      .get("mailingAddress")
+      ?.patchValue(this.originalContactInfo.mailingAddress || {});
+    this.contactForm.get("primaryContact")?.patchValue({
+      emailAddress: this.originalContactInfo.emailAddress || "",
+      phoneNumber: this.originalContactInfo.phoneNumber || "",
+      faxNumber: this.originalContactInfo.faxNumber || "",
+    });
+
     this.contactForm.markAsPristine();
     this.contactForm.markAsUntouched();
-
-    // Reset person pickers - FormControl values trigger setPerson internally
-    if (
-      this.originalContactInfo.executiveContact &&
-      this.originalContactInfo.executiveContact.personId
-    ) {
-      this.contractorContactComp.setPerson(
-        this.originalContactInfo.executiveContact.personId,
-      );
-    }
-    if (
-      this.originalContactInfo.boardContact &&
-      this.originalContactInfo.boardContact.personId
-    ) {
-      this.boardContactComp.setPerson(
-        this.originalContactInfo.boardContact.personId,
-      );
-    }
   }
   save(shouldExit: boolean = false): void {
     try {

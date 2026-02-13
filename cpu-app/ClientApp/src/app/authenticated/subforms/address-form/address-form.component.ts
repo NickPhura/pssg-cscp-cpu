@@ -99,4 +99,8 @@ export class AddressFormComponent implements OnInit {
   get countryControl() {
     return this.formGroup?.get("country") || null;
   }
+
+  get provinceOptions() {
+    return this.country?.areas || [];
+  }
 }

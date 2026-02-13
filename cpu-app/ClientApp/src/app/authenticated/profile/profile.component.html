@@ -63,8 +63,7 @@
       <app-person-picker-form
         [isDisabled]="userRole === Roles.ProgramStaff"
         [title]="'Contractor Contact'"
-        [(person)]="trans.contactInformation.executiveContact"
-        [control]="contactForm.get('executiveContactId')"
+        [control]="executiveContactControl"
       >
       </app-person-picker-form>
 
@@ -86,8 +85,7 @@
         <app-person-picker-form
           [isDisabled]="userRole === Roles.ProgramStaff"
           [title]="'Board Contact (For societies only)'"
-          [(person)]="trans.contactInformation.boardContact"
-          [control]="contactForm.get('boardContactId')"
+          [control]="boardContactControl"
         >
         </app-person-picker-form>
       </span>

@@ -1,6 +1,23 @@
 import { Component, Input } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 
+export type InputType =
+  | "text"
+  | "tel"
+  | "email"
+  | "number"
+  | "password"
+  | "date"
+  | "datetime-local"
+  | "month"
+  | "week"
+  | "time"
+  | "url"
+  | "color";
+export type ControlType = "input" | "select";
+
+export type Option = { label: string; value: any };
+
 @Component({
   selector: "app-form-field",
   templateUrl: "./form-field.component.html",
@@ -8,16 +25,21 @@ import { FormControl, Validators } from "@angular/forms";
   standalone: false,
 })
 export class FormFieldComponent {
-  @Input() control?: FormControl;
-  @Input() label: string;
+  @Input() type: InputType = "text";
+  @Input() controlType: ControlType = "input";
+
   @Input() id: string;
-  @Input() type: string = "text";
+  @Input() label: string;
   @Input() placeholder: string = "";
+  @Input() control?: FormControl;
   @Input() mask: string = "";
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() errorMessage: string = "Try Again";
   @Input() trimOnBlur: boolean = true;
+
+  // select-specific inputs
+  @Input() options?: Option[];
 
   constructor() {}
 

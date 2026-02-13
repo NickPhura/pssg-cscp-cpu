@@ -1,26 +1,14 @@
-<div class="mb-3">
-  <label for="personPicker{{ idNum }}" class="form-label fw-normal">
-    {{ title }}<span *ngIf="isRequired" style="color: #d93e45"> *</span>
-  </label>
-  <select
-    [disabled]="isDisabled"
-    [(ngModel)]="personId"
-    (change)="onChange()"
-    class="form-control"
-    [class.is-invalid]="hasError"
-    name="personPicker{{ idNum }}"
-    id="personPicker{{ idNum }}"
-  >
-    <option [value]="null">--</option>
-    <option *ngFor="let p of trans.persons" [ngValue]="p.personId">
-      {{ nameAssemble(p.firstName, p.middleName, p.lastName)
-      }}<span *ngIf="p.title"> - {{ p.title }}</span>
-    </option>
-  </select>
-  <div class="invalid-feedback" [style.display]="hasError ? 'block' : 'none'">
-    {{ errorMessage }}
-  </div>
-</div>
-<div *ngIf="showCard === true && person">
+<app-form-field
+  [control]="control"
+  [label]="title"
+  [id]="'personPicker' + idNum"
+  controlType="select"
+  [options]="personOptions"
+  placeholder="Select a person"
+  [errorMessage]="errorMessage"
+  [disabled]="isDisabled"
+>
+</app-form-field>
+<div *ngIf="control?.value && person">
   <app-person-card [person]="person"></app-person-card>
 </div>

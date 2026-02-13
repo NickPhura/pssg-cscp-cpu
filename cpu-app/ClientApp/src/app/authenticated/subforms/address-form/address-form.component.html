@@ -33,37 +33,16 @@
       </app-form-field>
     </div>
     <div class="col-md">
-      <div class="mb-3">
-        <label for="province" class="form-label fw-normal">
-          Province<span *ngIf="addressRequired" style="color: #d93e45"> *</span>
-        </label>
-        <select
-          [formControl]="provinceControl"
-          [disabled]="isDisabled"
-          class="form-control"
-          [class.is-invalid]="
-            provinceControl?.invalid &&
-            (provinceControl?.dirty || provinceControl?.touched)
-          "
-          id="province"
-        >
-          <option value="">Select Province</option>
-          <option *ngFor="let area of country.areas" [value]="area">
-            {{ area }}
-          </option>
-        </select>
-        <div
-          class="invalid-feedback"
-          [style.display]="
-            provinceControl?.invalid &&
-            (provinceControl?.dirty || provinceControl?.touched)
-              ? 'block'
-              : 'none'
-          "
-        >
-          Please select a province
-        </div>
-      </div>
+      <app-form-field
+        [control]="provinceControl"
+        label="Province"
+        id="province"
+        controlType="select"
+        [options]="provinceOptions"
+        placeholder="Select Province"
+        errorMessage="Please select a province"
+      >
+      </app-form-field>
     </div>
   </div>
 

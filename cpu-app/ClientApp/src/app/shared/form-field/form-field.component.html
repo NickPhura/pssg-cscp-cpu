@@ -2,7 +2,24 @@
   <label *ngIf="label" [for]="id" class="form-label fw-normal">
     {{ label }}<span *ngIf="isRequired" style="color: #d93e45"> *</span>
   </label>
-  @if (control) {
+
+  @if (controlType === "select") {
+    <select
+      [formControl]="control"
+      [id]="id"
+      [name]="id"
+      [disabled]="isDisabled"
+      [class.is-invalid]="hasError"
+      class="form-control"
+    >
+      <option value="" *ngIf="placeholder">
+        {{ placeholder }}
+      </option>
+      <option *ngFor="let option of options" [ngValue]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  } @else {
     <input
       [formControl]="control"
       [type]="type"
@@ -15,20 +32,9 @@
       class="form-control"
       (blur)="onBlur()"
     />
-  } @else {
-    <input
-      [type]="type"
-      [id]="id"
-      [name]="id"
-      [placeholder]="placeholder"
-      [mask]="mask"
-      [disabled]="isDisabled"
-      [class.is-invalid]="hasError"
-      class="form-control"
-      (blur)="onBlur()"
-    />
   }
-  <div class="invalid-feedback" [style.display]="hasError ? 'block' : 'none'">
+
+  <div [style.display]="hasError ? 'block' : 'none'">
     {{ errorMessage }}
   </div>
 </div>
