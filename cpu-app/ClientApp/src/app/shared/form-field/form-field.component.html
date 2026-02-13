@@ -1,0 +1,34 @@
+<div class="mb-3">
+  <label *ngIf="label" [for]="id" class="form-label fw-normal">
+    {{ label }}<span *ngIf="isRequired" style="color: #d93e45"> *</span>
+  </label>
+  @if (control) {
+    <input
+      [formControl]="control"
+      [type]="type"
+      [id]="id"
+      [name]="id"
+      [placeholder]="placeholder"
+      [mask]="mask"
+      [disabled]="isDisabled"
+      [class.is-invalid]="hasError"
+      class="form-control"
+      (blur)="onBlur()"
+    />
+  } @else {
+    <input
+      [type]="type"
+      [id]="id"
+      [name]="id"
+      [placeholder]="placeholder"
+      [mask]="mask"
+      [disabled]="isDisabled"
+      [class.is-invalid]="hasError"
+      class="form-control"
+      (blur)="onBlur()"
+    />
+  }
+  <div class="invalid-feedback" [style.display]="hasError ? 'block' : 'none'">
+    {{ errorMessage }}
+  </div>
+</div>

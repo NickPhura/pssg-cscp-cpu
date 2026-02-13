@@ -1,0 +1,83 @@
+<div *ngIf="address || formGroup">
+  <div class="row">
+    <div class="col-md">
+      <app-form-field
+        [control]="line1Control"
+        label="Address Line 1"
+        id="line1"
+        type="text"
+        errorMessage="Please enter an address"
+      >
+      </app-form-field>
+    </div>
+    <div class="col-md">
+      <app-form-field
+        [control]="line2Control"
+        label="Address Line 2 (Optional)"
+        id="line2"
+        type="text"
+        errorMessage="Please enter an address"
+      >
+      </app-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <app-form-field
+        [control]="cityControl"
+        label="City"
+        id="city"
+        type="text"
+        errorMessage="Please enter a city"
+      >
+      </app-form-field>
+    </div>
+    <div class="col-md">
+      <div class="mb-3">
+        <label for="province" class="form-label fw-normal">
+          Province<span *ngIf="addressRequired" style="color: #d93e45"> *</span>
+        </label>
+        <select
+          [formControl]="provinceControl"
+          [disabled]="isDisabled"
+          class="form-control"
+          [class.is-invalid]="
+            provinceControl?.invalid &&
+            (provinceControl?.dirty || provinceControl?.touched)
+          "
+          id="province"
+        >
+          <option value="">Select Province</option>
+          <option *ngFor="let area of country.areas" [value]="area">
+            {{ area }}
+          </option>
+        </select>
+        <div
+          class="invalid-feedback"
+          [style.display]="
+            provinceControl?.invalid &&
+            (provinceControl?.dirty || provinceControl?.touched)
+              ? 'block'
+              : 'none'
+          "
+        >
+          Please select a province
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md">
+      <app-form-field
+        [control]="postalCodeControl"
+        label="Postal Code"
+        id="postalCode"
+        type="text"
+        placeholder="X1X 2Y2 or X1X2Y2"
+        errorMessage="Please enter a valid postal code"
+      >
+      </app-form-field>
+    </div>
+  </div>
+</div>
