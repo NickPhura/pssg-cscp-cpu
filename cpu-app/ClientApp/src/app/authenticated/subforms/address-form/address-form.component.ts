@@ -1,16 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { COUNTRIES_ADDRESS_2 } from "../../../core/constants/country-list";
 import { POSTAL_CODE } from "../../../core/constants/regex.constants";
-import { FormHelper } from "../../../core/form-helper";
-import { iAddress } from "../../../core/models/address.interface";
+import { Option } from "../../../shared/form-field/form-field.component";
 
 @Component({
   selector: "app-address-form",
@@ -19,12 +11,7 @@ import { iAddress } from "../../../core/models/address.interface";
   standalone: false,
 })
 export class AddressFormComponent implements OnInit {
-  @Input() address: iAddress;
-  @Input() addressRequired: boolean = false;
   @Input() formGroup: FormGroup;
-  @Output() addressChange = new EventEmitter<iAddress>();
-
-  public formHelper = new FormHelper();
 
   countries: any;
   country: any;
@@ -39,26 +26,13 @@ export class AddressFormComponent implements OnInit {
     this.updateCountry();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes["formGroup"] && this.formGroup) {
-      this.updateCountry();
-    }
-  }
-
   private updateCountry(): void {
-    // consider input address first, then form control, then default to Canada
-    const countryValue =
-      (this.address && this.address.country) ||
-      this.formGroup?.get("country")?.value;
+    const countryValue = this.formGroup?.get("country")?.value;
 
     this.country =
       countryValue && COUNTRIES_ADDRESS_2[countryValue]
         ? COUNTRIES_ADDRESS_2[countryValue]
         : COUNTRIES_ADDRESS_2["Canada"];
-  }
-
-  onChange() {
-    this.addressChange.emit(this.address);
   }
 
   get line1Control() {
@@ -85,7 +59,10 @@ export class AddressFormComponent implements OnInit {
     return this.formGroup?.get("country") || null;
   }
 
-  get provinceOptions() {
-    return this.country?.areas || [];
+  get provinceOptions(): Option[] {
+    return this.country?.areas?.map((area: any) => ({
+      label: area,
+      value: area,
+    }));
   }
 }

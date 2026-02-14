@@ -78,6 +78,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
           emitEvent: false,
         });
         mailingAddressControl?.disable({ emitEvent: false });
+      } else {
+        mailingAddressControl?.enable({ emitEvent: false });
+        mailingAddressControl?.reset(mainAddressControl?.value, {
+          emitEvent: false,
+        });
       }
     });
 
