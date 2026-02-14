@@ -137,8 +137,11 @@ export class PersonnelComponent implements OnInit, OnDestroy {
           (p) => p.personId === person.personId,
         );
         if (personIndex !== -1) {
-          // Update person object with form values
-          Object.assign(this.trans.persons[personIndex], values);
+          // Update person object with form values (use getRawValue to include disabled fields)
+          Object.assign(
+            this.trans.persons[personIndex],
+            formGroup.getRawValue(),
+          );
         }
       });
 
@@ -148,6 +151,12 @@ export class PersonnelComponent implements OnInit, OnDestroy {
 
   createPersonFormGroup(person: iPerson): FormGroup {
     return new FormGroup({
+      personId: new FormControl(person.personId),
+      userId: new FormControl(person.userId),
+      orgId: new FormControl(person.orgId),
+      me: new FormControl(person.me),
+      deactivated: new FormControl(person.deactivated),
+      vsd_portalfield: new FormControl(person.vsd_portalfield),
       firstName: new FormControl(person.firstName || "", [
         Validators.required,
         Validators.pattern(NAME_REGEX),
@@ -250,7 +259,7 @@ export class PersonnelComponent implements OnInit, OnDestroy {
 
       this.saving = true;
 
-      const personFormValue = new Person(personForm.value);
+      const personFormValue = new Person(personForm.getRawValue());
 
       const userId = this.stateService.main.getValue().userId;
       const organizationId = this.stateService.main.getValue().organizationId;
@@ -345,7 +354,7 @@ export class PersonnelComponent implements OnInit, OnDestroy {
         (p) => p.personId === person.personId,
       );
       if (personIndex !== -1) {
-        Object.assign(this.trans.persons[personIndex], values);
+        Object.assign(this.trans.persons[personIndex], formGroup.getRawValue());
       }
     });
 
