@@ -38,6 +38,7 @@ import { ProgramSurplusComponent } from "./authenticated/program-surplus/program
 import { SignContractComponent } from "./authenticated/sign-contract/sign-contract.component";
 import { CompletedStatusReportComponent } from "./authenticated/status-report/completed-status-report.component";
 import { StatusReportComponent } from "./authenticated/status-report/status-report.component";
+import { AddressFormComponent } from "./authenticated/subforms/address-form/address-form.component";
 import { AddressComponent } from "./authenticated/subforms/address/address.component";
 import { Address2Component } from "./authenticated/subforms/address2/address2.component";
 import { AdministrativeInformationComponent } from "./authenticated/subforms/administrative-information/administrative-information.component";
@@ -53,11 +54,14 @@ import { HoursComponent } from "./authenticated/subforms/hours/hours.component";
 import { MessageReadComponent } from "./authenticated/subforms/message-read/message-read.component";
 import { MessageWriteComponent } from "./authenticated/subforms/message-write/message-write.component";
 import { PersonCardComponent } from "./authenticated/subforms/person-card/person-card.component";
+import { PersonEditorFormComponent } from "./authenticated/subforms/person-editor-form/person-editor-form.component";
 import { PersonEditorComponent } from "./authenticated/subforms/person-editor/person-editor.component";
+import { PersonPickerFormComponent } from "./authenticated/subforms/person-picker-form/person-picker-form.component";
 import { PersonPickerListComponent } from "./authenticated/subforms/person-picker-list/person-picker-list.component";
 import { PersonPickerComponent } from "./authenticated/subforms/person-picker/person-picker.component";
 import { PersonTableComponent } from "./authenticated/subforms/person-table/person-table.component";
 import { PersonnelExpenseTableComponent } from "./authenticated/subforms/personnel-expense-table/personnel-expense-table.component";
+import { PrimaryContactFormComponent } from "./authenticated/subforms/primary-contact-form/primary-contact-form.component";
 import { PrimaryContactInfoComponent } from "./authenticated/subforms/primary-contact-info/primary-contact-info.component";
 import { ProgramAuthorizerComponent } from "./authenticated/subforms/program-authorizer/program-authorizer.component";
 import { ProgramBudgetComponent } from "./authenticated/subforms/program-budget/program-budget.component";
@@ -82,6 +86,9 @@ import { TestComponent } from "./test/test.component";
   declarations: [
     AddPersonDialog,
     Address2Component,
+    PersonPickerFormComponent,
+    PrimaryContactFormComponent,
+    AddressFormComponent,
     AddressComponent,
     AdministrativeInformationComponent,
     AppComponent,
@@ -112,6 +119,7 @@ import { TestComponent } from "./test/test.component";
     OrganizationProfileBoxComponent,
     PersonCardComponent,
     PersonEditorComponent,
+    PersonEditorFormComponent,
     PersonPickerComponent,
     PersonPickerListComponent,
     PersonTableComponent,

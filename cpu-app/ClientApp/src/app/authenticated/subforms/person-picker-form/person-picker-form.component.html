@@ -1,0 +1,13 @@
+<app-form-field
+  [control]="control"
+  [label]="title"
+  [id]="'personPicker' + idNum"
+  controlType="select"
+  [options]="personOptions"
+  placeholder="Select a person"
+  [errorMessage]="errorMessage"
+>
+</app-form-field>
+<div *ngIf="control?.value && person">
+  <app-person-card [person]="person"></app-person-card>
+</div>

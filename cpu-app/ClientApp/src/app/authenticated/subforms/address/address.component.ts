@@ -1,12 +1,13 @@
-import { Component, OnInit, forwardRef, OnDestroy, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { tap, takeUntil } from 'rxjs/operators';
-import { iCountry, COUNTRIES_ADDRESS_2 } from '../../../core/constants/country-list';
+import { takeUntil, tap } from 'rxjs/operators';
+import { COUNTRIES_ADDRESS_2, iCountry } from '../../../core/constants/country-list';
 import { POSTAL_CODE, WORD } from '../../../core/constants/regex.constants';
 import { FormHelper } from '../../../core/form-helper';
 import { iAddress } from '../../../core/models/address.interface';
 
+// TODO: not used
 @Component({
     selector: 'app-address',
     templateUrl: './address.component.html',
