@@ -6,14 +6,9 @@ export type InputType =
   | "tel"
   | "email"
   | "number"
+  | "phone"
   | "password"
-  | "date"
-  | "datetime-local"
-  | "month"
-  | "week"
-  | "time"
-  | "url"
-  | "color";
+  | "date";
 export type ControlType = "input" | "select";
 
 export type Option = { label: string; value: any };
@@ -55,7 +50,7 @@ export class FormFieldComponent {
 
   get hasError(): boolean {
     if (!this.control) return false;
-    return this.control.hasError("required") && this.isDirtyOrTouched;
+    return this.control.invalid && this.isDirtyOrTouched;
   }
 
   get isRequired(): boolean {
