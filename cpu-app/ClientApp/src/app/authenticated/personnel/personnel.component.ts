@@ -260,6 +260,9 @@ export class PersonnelComponent implements OnInit, OnDestroy {
       this.saving = true;
 
       const personFormValue = new Person(personForm.getRawValue());
+      if (personFormValue.personId.toString().startsWith("temp-")) {
+        personFormValue.personId = null; // Clear temp ID before sending to backend
+      }
 
       const userId = this.stateService.main.getValue().userId;
       const organizationId = this.stateService.main.getValue().organizationId;
@@ -341,6 +344,7 @@ export class PersonnelComponent implements OnInit, OnDestroy {
 
   add() {
     const person = new Person();
+    person.personId = `temp-${Math.random().toString(36).substr(2, 9)}`; // Temporary ID for tracking
     this.stepperService.addStepperElement(person, "New Person", null, "person");
     this.trans.persons.push(person);
 
