@@ -77,6 +77,7 @@ import { PhonePipe } from "./core/pipes/phone.pipe";
 import { SafePipe } from "./core/pipes/safe.pipe";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LoginPageComponent } from "./login/login.component";
+import { ServiceNotAvailableComponent } from "./shared/service-not-available.component";
 import { SharedModule } from "./shared/shared.module";
 import { ToolTipTriggerComponent } from "./shared/tool-tip/tool-tip.component";
 import { TestComponent } from "./test/test.component";
@@ -147,6 +148,7 @@ import { TestComponent } from "./test/test.component";
     ToolTipTriggerComponent,
     UploadDocumentComponent,
     UppercaseDirective,
+    ServiceNotAvailableComponent,
   ],
   imports: [
     AppRoutingModule,

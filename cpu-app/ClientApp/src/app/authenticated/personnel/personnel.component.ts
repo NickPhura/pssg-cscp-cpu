@@ -324,6 +324,8 @@ export class PersonnelComponent implements OnInit, OnDestroy {
       reset.push(temp);
     }
     this.trans.persons = reset;
+
+    this.exit();
   }
 
   exit() {

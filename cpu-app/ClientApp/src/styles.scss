@@ -202,3 +202,18 @@ body {
 .dark-overlay {
   opacity: 0.5;
 }
+
+.red-snackbar {
+  --mdc-snackbar-container-color: #f44336;
+  --mat-mdc-snack-bar-button-color: #fff;
+
+  .mat-mdc-snack-bar-container,
+  .mat-snack-bar-container {
+    background: #f44336 !important;
+    color: white;
+  }
+
+  .mdc-snackbar__surface {
+    background-color: #f44336 !important;
+  }
+}

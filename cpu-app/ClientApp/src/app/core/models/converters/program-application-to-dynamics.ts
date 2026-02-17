@@ -115,7 +115,7 @@ export function convertProgramApplicationToDynamics(trans: TransmogrifierProgram
     // push programs into program collection
     programCollection.push({
       vsd_ContactLookup2fortunecookiebind: p.policeContact && p.hasPoliceContact ? p.policeContact.personId || "" : null,
-      vsd_ContactLookup3fortunecookiebind: p.sharedCostContact && p.hasPoliceContact && p.hasSharedCostContact ? p.sharedCostContact.personId : null,
+      vsd_ContactLookup3fortunecookiebind: p.sharedCostContact && p.hasPoliceContact && p.hasSharedCostContact ? p.sharedCostContact.personId || "" : null,
       vsd_ContactLookupfortunecookiebind: p.programContact ? p.programContact.personId : null,
       vsd_addressline1: p.mainAddress.line1,
       vsd_addressline2: p.mainAddress.line2,
