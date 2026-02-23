@@ -52,6 +52,10 @@
             </div>
           </div>
 
+          <div class="alert alert-info" role="alert">
+            <small>Supported file types: PDF, Max. file size: 25MB</small>
+          </div>
+
           <input #files id="files" type="file" style="display: none" (change)="onFilesAdded($event.target.files)" multiple>
           <button type="button" class="btn btn-warning" (click)="fakeBrowseClick()" [class.is-disabled]="downloadingDocument">Add File</button>
           <button class="btn btn-warning ms-2" [class.is-disabled]="documentsToAdd.length == 0 || saving || downloadingDocument" (click)="upload()">Upload Files</button>
