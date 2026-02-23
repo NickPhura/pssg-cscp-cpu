@@ -62,12 +62,12 @@ export class PersonnelComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.stepperService.currentStepperElement.subscribe(
-      (e) => (this.currentStepperElement = e),
-    );
     this.stepperService.stepperElements.subscribe(
       (e) => (this.stepperElements = e),
     );
+    this.stepperService.currentStepperElement.subscribe((e) => {
+      this.currentStepperElement = e;
+    });
     this.stateSubscription = this.stateService.main.subscribe(
       (m: Transmogrifier) => {
         this.trans = m;
@@ -229,92 +229,116 @@ export class PersonnelComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.savePerson(false);
+    this.savePerson()
+      .then(() => {
+        // set form state
+        this.stepperService.setStepperElementProperty(
+          this.currentStepperElement.id,
+          "formState",
+          "complete",
+        );
+
+        // select next stepper element after save
+        if (this.stepperElements && this.stepperElements.length > 0) {
+          if (this.stepperIndex < this.stepperElements.length - 1) {
+            this.stepperIndex++;
+          }
+          this.stepperService.setCurrentStepperElement(
+            this.stepperElements[this.stepperIndex].id,
+          );
+        }
+
+        this.formHelper.makeFormClean();
+      })
+      .catch(() => {
+        this.stepperService.setStepperElementProperty(
+          this.currentStepperElement.id,
+          "formState",
+          "invalid",
+        );
+      });
   }
 
   saveAndExit() {
-    this.savePerson(true);
+    this.savePerson()
+      .then(() => {
+        this.router.navigate(["/authenticated/dashboard"]);
+      })
+      .catch(() => {});
   }
 
-  private savePerson(shouldExit: boolean) {
-    const personId = this.currentStepperElement.object["personId"];
+  private savePerson() {
+    return new Promise<void>((resolve, reject) => {
+      const personId = this.currentStepperElement.object["personId"];
+      const personForm = this.getPersonForm(personId);
 
-    const personForm = this.getPersonForm(personId);
-
-    if (!personForm) {
-      console.debug("No form found for the current person.");
-      return;
-    }
-
-    personForm.markAllAsTouched();
-
-    try {
-      if (personForm.invalid) {
-        this.notificationQueueService.addNotification(
-          "Please fill in all required fields and ensure all fields are in the correct format.",
-          "warning",
-        );
+      if (!personForm) {
+        console.debug("No form found for the current person.");
+        reject();
         return;
       }
 
-      this.saving = true;
+      personForm.markAllAsTouched();
 
-      const personFormValue = new Person(personForm.getRawValue());
-      if (personFormValue.personId.toString().startsWith("temp-")) {
-        personFormValue.personId = null; // Clear temp ID before sending to backend
-      }
+      try {
+        if (personForm.invalid) {
+          this.notificationQueueService.addNotification(
+            "Please fill in all required fields and ensure all fields are in the correct format.",
+            "warning",
+          );
+          reject();
+          return;
+        }
 
-      const userId = this.stateService.main.getValue().userId;
-      const organizationId = this.stateService.main.getValue().organizationId;
-      const personDynamicsModel = convertPersonnelToDynamics(
-        userId,
-        organizationId,
-        [personFormValue],
-      );
-      this.personService.setPersons(personDynamicsModel).subscribe(
-        (r) => {
-          if (r.IsSuccess) {
-            this.saving = false;
-            this.notificationQueueService.addNotification(
-              `Information is saved for ${nameAssemble(personFormValue.firstName, personFormValue.middleName, personFormValue.lastName)}`,
-              "success",
-            );
+        this.saving = true;
 
-            // Mark form as pristine after successful save
-            personForm.markAsPristine();
+        const personFormValue = new Person(personForm.getRawValue());
+        if (personFormValue.personId.toString().startsWith("temp-")) {
+          personFormValue.personId = null; // Clear temp ID before sending to backend
+        }
 
-            if (shouldExit) {
-              this.stateService.refresh();
-              this.router.navigate(["/authenticated/dashboard"]);
+        const userId = this.stateService.main.getValue().userId;
+        const organizationId = this.stateService.main.getValue().organizationId;
+        const personDynamicsModel = convertPersonnelToDynamics(
+          userId,
+          organizationId,
+          [personFormValue],
+        );
+        this.personService.setPersons(personDynamicsModel).subscribe(
+          (r) => {
+            if (r.IsSuccess) {
+              this.saving = false;
+              this.notificationQueueService.addNotification(
+                `Information is saved for ${nameAssemble(personFormValue.firstName, personFormValue.middleName, personFormValue.lastName)}`,
+                "success",
+              );
+
+              resolve();
             } else {
-              this.stepperIndex =
-                this.stepperElements.findIndex(
-                  (s) => s.id === this.currentStepperElement.id,
-                ) || 0;
-              this.stateService.refresh();
-              this.formHelper.makeFormClean();
+              this.notificationQueueService.addNotification(
+                "There was a problem saving this person. If this problem is persisting please contact your ministry representative.",
+                "danger",
+              );
+              this.saving = false;
+              reject();
             }
-          } else {
-            this.notificationQueueService.addNotification(
-              "There was a problem saving this person. If this problem is persisting please contact your ministry representative.",
-              "danger",
-            );
+          },
+          (err) => {
+            this.notificationQueueService.addNotification(err, "danger");
             this.saving = false;
-          }
-        },
-        (err) => {
-          this.notificationQueueService.addNotification(err, "danger");
-          this.saving = false;
-        },
-      );
-    } catch (err) {
-      console.log(err);
-      this.notificationQueueService.addNotification(
-        "The agency staff could not be saved. If this problem is persisting please contact your ministry representative.",
-        "danger",
-      );
-      this.saving = false;
-    }
+            reject();
+          },
+        );
+      } catch (err) {
+        console.log(err);
+        this.notificationQueueService.addNotification(
+          "The agency staff could not be saved. If this problem is persisting please contact your ministry representative.",
+          "danger",
+        );
+        this.saving = false;
+        reject();
+      }
+    });
   }
 
   cancel(person: iPerson) {
@@ -390,8 +414,25 @@ export class PersonnelComponent implements OnInit, OnDestroy {
           if (r.IsSuccess) {
             this.saving = false;
 
-            if (this.stepperIndex > 0) --this.stepperIndex;
-            this.stateService.refresh();
+            const stepperId = this.stepperElements[this.stepperIndex].id;
+            this.stepperService.removeStepperElement(stepperId);
+            this.trans.persons.splice(
+              this.trans.persons.findIndex(
+                (p) => p.personId === person.personId,
+              ),
+              1,
+            );
+
+            // select next stepper element after save
+            if (this.stepperElements && this.stepperElements.length > 0) {
+              if (this.stepperIndex === this.stepperElements.length) {
+                this.stepperIndex--;
+              }
+
+              this.stepperService.setCurrentStepperElement(
+                this.stepperElements[this.stepperIndex].id,
+              );
+            }
           } else {
             this.notificationQueueService.addNotification(
               "The agency staff could not be saved. If this problem is persisting please contact your ministry representative.",

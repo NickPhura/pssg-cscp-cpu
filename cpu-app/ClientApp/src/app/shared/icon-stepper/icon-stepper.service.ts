@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { uuidv4 } from '../../core/constants/uuidv4';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { uuidv4 } from "../../core/constants/uuidv4";
 
 export interface iStepperElement {
   itemName: string; // This is the show name
@@ -15,27 +15,49 @@ export interface iStepperElement {
   uniqueIdentifier?: string;
 }
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class IconStepperService {
+  constructor() {}
+  logging = false; // logging on or off? Just for development
+  currentStepperElement: BehaviorSubject<iStepperElement> =
+    new BehaviorSubject<iStepperElement>(null);
+  stepperElements: BehaviorSubject<iStepperElement[]> = new BehaviorSubject<
+    iStepperElement[]
+  >([]);
 
-  constructor() { }
-  logging = false;// logging on or off? Just for development
-  currentStepperElement: BehaviorSubject<iStepperElement> = new BehaviorSubject<iStepperElement>(null);
-  stepperElements: BehaviorSubject<iStepperElement[]> = new BehaviorSubject<iStepperElement[]>([]);
+  formStates: string[] = [
+    "untouched",
+    "incomplete",
+    "invalid",
+    "complete",
+    "info",
+    "saving",
+  ];
 
-  formStates: string[] = ['untouched', 'incomplete', 'invalid', 'complete', 'info', 'saving'];
-
-  addStepperElement(object: any, itemName: string, formState: string, discriminator?: string): iStepperElement {
+  addStepperElement(
+    object: any,
+    itemName: string,
+    formState: string,
+    discriminator?: string,
+  ): iStepperElement {
     if (!formState) {
       // be sure that if the formstate parameter is null we set it
       formState = this.formStates[0];
     }
-    if (this.logging) { console.log('addStepperElement()') }
+    if (this.logging) {
+      console.log("addStepperElement()");
+    }
     // collect the current stepper elements
     const stepperElements: iStepperElement[] = this.stepperElements.getValue();
     // put the elements into the stepper
-    const stepperElement: iStepperElement = { itemName, formState, object, id: uuidv4(), discriminator };
+    const stepperElement: iStepperElement = {
+      itemName,
+      formState,
+      object,
+      id: uuidv4(),
+      discriminator,
+    };
     // add the new one into the
     stepperElements.push(stepperElement);
     this.stepperElements.next(stepperElements);
@@ -49,25 +71,32 @@ export class IconStepperService {
     return stepperElement;
   }
   removeStepperElement(id: string): void {
-    if (this.logging) { console.log('removeStepperElement()') }
+    if (this.logging) {
+      console.log("removeStepperElement()");
+    }
 
     // collect the current stepper elements
-    const stepperElements: iStepperElement[] = this.stepperElements.getValue().filter(e => {
-      if (e.id === id) {
-        // do not return the matching item
-        return false;
-      } else {
-        // return all other items
-        return true;
-      }
-    });
-    if (this.currentStepperElement.getValue().id === id) { }
+    const stepperElements: iStepperElement[] = this.stepperElements
+      .getValue()
+      .filter((e) => {
+        if (e.id === id) {
+          // do not return the matching item
+          return false;
+        } else {
+          // return all other items
+          return true;
+        }
+      });
+    if (this.currentStepperElement.getValue().id === id) {
+    }
     // replace the behaviourSubject
     this.stepperElements.next(stepperElements);
     // this.checkForSelected();
   }
   getStepperElement(id: string): iStepperElement {
-    if (this.logging) { console.log('getStepperElement()') }
+    if (this.logging) {
+      console.log("getStepperElement()");
+    }
     // find and return the element
     const elements = this.stepperElements.getValue();
     // for is used so that
@@ -75,7 +104,7 @@ export class IconStepperService {
       if (elements[i].id === id) {
         // this item matches
         return elements[i];
-      };
+      }
       if (i === elements.length - 1) {
         // this is the last item in the list and didn't match
         return null;
@@ -88,22 +117,28 @@ export class IconStepperService {
   }
 
   setStepperElement(element: iStepperElement): void {
-    if (this.logging) { console.log('setStepperElement()') }
+    if (this.logging) {
+      console.log("setStepperElement()");
+    }
     // collect the elements
-    const stepperElements: iStepperElement[] = this.stepperElements.getValue().map(s => {
-      // if the id matches
-      if (s.id === element.id) {
-        // replace the element with the one supplied
-        s = element;
-      }
-      return s;
-    });
+    const stepperElements: iStepperElement[] = this.stepperElements
+      .getValue()
+      .map((s) => {
+        // if the id matches
+        if (s.id === element.id) {
+          // replace the element with the one supplied
+          s = element;
+        }
+        return s;
+      });
     // assign the stepper elements back to the behavioursubject
     this.stepperElements.next(stepperElements);
     // this.checkForSelected();
   }
   setStepperElementProperty(id: string, property: string, value: any): void {
-    if (this.logging) { console.log('setStepperElementProperty()') }
+    if (this.logging) {
+      console.log("setStepperElementProperty()");
+    }
 
     // collect the element
     const element = this.getStepperElement(id);
@@ -113,37 +148,44 @@ export class IconStepperService {
     this.setStepperElement(element);
   }
   setFormState(id: string, formState: string) {
-    if (this.logging) { console.log('setFormState()') }
-
+    if (this.logging) {
+      console.log("setFormState()");
+    }
 
     // check that formstate exists
     if (this.formStates.indexOf(formState) !== -1) {
       // set the formstate
       // console.log("setting form state");
-      this.setStepperElementProperty(id, 'formState', formState);
+      this.setStepperElementProperty(id, "formState", formState);
     }
   }
   setCurrentStepperElement(id: string) {
-    if (this.logging) { console.log('setCurrentStepperElement()') }
+    if (this.logging) {
+      console.log("setCurrentStepperElement()");
+    }
 
     const element = this.getStepperElement(id);
-    if (this.logging) { console.log('Collecting element. aoiuf', element) }
+    if (this.logging) {
+      console.log("Collecting element. aoiuf", element);
+    }
 
     // set it to the current
     this.currentStepperElement.next(element);
     // this.checkForSelected();
   }
   initializeStepperElements(stepperElements: iStepperElement[]): void {
-    if (this.logging) { console.log('initializeStepperElements()') }
+    if (this.logging) {
+      console.log("initializeStepperElements()");
+    }
 
-    const newStepperElements: iStepperElement[] = stepperElements.map(s => {
+    const newStepperElements: iStepperElement[] = stepperElements.map((s) => {
       // missing a UUID? Add one
-      if (!s['id']) {
+      if (!s["id"]) {
         // add uuidv4 if none supplied. This ID isn't supplied by the backend.
         s.id = uuidv4();
       }
       return s;
-    })
+    });
     // save the stepper elements
     this.stepperElements.next(newStepperElements);
     // this.checkForSelected();
@@ -157,7 +199,9 @@ export class IconStepperService {
     this.stepperElements.next([]);
   }
   private checkForSelected() {
-    if (this.logging) { console.log('checkForSelected()') }
+    if (this.logging) {
+      console.log("checkForSelected()");
+    }
 
     // this is a validity check to be sure the service isn't wrangled into a weird state.
     // We want this service to stay in a perpetually valid state because it is the source of truth for the stepper.
@@ -190,8 +234,7 @@ export class IconStepperService {
         // there must be one because se.length is true
         this.setToFirstStepperElement();
       }
-    }
-    else if (!c && !se.length) {
+    } else if (!c && !se.length) {
       // nothing loaded? Fine. do nothing
       // be sure to instantiate the behaviour subjects to the right states maybe?
     }
