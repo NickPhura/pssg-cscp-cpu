@@ -18,7 +18,7 @@ using Serilog;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize]
     public class DynamicsFileController : Controller
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

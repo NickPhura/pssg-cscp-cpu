@@ -11,7 +11,7 @@ using System.Linq;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize]
     public class DynamicsBudgetProposalController : Controller
     {
         private readonly IDynamicsResultService _dynamicsResultService;

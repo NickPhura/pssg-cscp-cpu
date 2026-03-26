@@ -69,19 +69,19 @@ namespace Database.Model
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("1st Quarter", 0, "#0000ff")]
-		_1StQuarter = 100000000,
+		_1stQuarter = 100000000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("2nd Quarter", 1, "#0000ff")]
-		_2NdQuarter = 100000001,
+		_2ndQuarter = 100000001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("3rd Quarter", 2, "#0000ff")]
-		_3RdQuarter = 100000002,
+		_3rdQuarter = 100000002,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("4th Quarter", 3, "#0000ff")]
-		_4ThQuarter = 100000003,
+		_4thQuarter = 100000003,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -1773,7 +1773,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

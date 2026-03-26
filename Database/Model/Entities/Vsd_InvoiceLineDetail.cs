@@ -174,6 +174,7 @@ namespace Database.Model
 			public const string Vsd_AmountCalculated_Base = "vsd_amountcalculated_base";
 			public const string Vsd_AmountSimple = "vsd_amountsimple";
 			public const string Vsd_AmountSimple_Base = "vsd_amountsimple_base";
+			public const string Vsd_AttendingSupportPerson = "vsd_attendingsupportperson";
 			public const string Vsd_CaseId = "vsd_caseid";
 			public const string Vsd_CaseiDnaMe = "vsd_caseidname";
 			public const string Vsd_ChildCareProviderLastName = "vsd_childcareproviderlastname";
@@ -674,6 +675,7 @@ namespace Database.Model
 		/// Contains the id of the stage where the entity is located.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stageid")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public System.Nullable<System.Guid> StageId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -815,6 +817,7 @@ namespace Database.Model
 		/// A comma separated list of string values representing the unique identifiers of stages in a Business Process Flow Instance in the order that they occur.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public string TraversedPath
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -914,6 +917,21 @@ namespace Database.Model
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_amountsimple_base");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_attendingsupportperson")]
+		public string Vsd_AttendingSupportPerson
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_attendingsupportperson");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_attendingsupportperson", value);
 			}
 		}
 		
@@ -2009,7 +2027,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

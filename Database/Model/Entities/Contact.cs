@@ -89,7 +89,7 @@ namespace Database.Model
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("FedEx", 2)]
-		Fedex = 3,
+		FedEx = 3,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Full Load", 5)]
@@ -284,16 +284,24 @@ namespace Database.Model
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Female", 1)]
-		Female = 2,
+		[OptionSetMetadataAttribute("Man/Boy (M)", 0)]
+		ManBoyM = 1,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Male", 0)]
-		Male = 1,
+		[OptionSetMetadataAttribute("Non-Binary (X)", 1, "#0000ff")]
+		NonBinaryX = 100000000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("X", 2, "#0000ff")]
-		X = 100000000,
+		[OptionSetMetadataAttribute("Prefer not to answer (U)", 3, "#0000ff")]
+		PreferNotToAnswerU = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Prefer to self-describe", 4, "#0000ff")]
+		PreferToSelfDescribe = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Woman/Girl (F)", 2)]
+		WomanGirlF = 2,
 	}
 	
 	/// <summary>
@@ -657,6 +665,230 @@ namespace Database.Model
 		Volunteer = 100000004,
 	}
 	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IIpsContactIsNotClient
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Contact Relationship to client", 0, "#0000ff")]
+		ContactRelationshipToClient = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Engagement on behalf of client", 1, "#0000ff")]
+		EngagementOnBehalfOfClient = 100000001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IIpsContactRelationshipToClient
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Friend", 2, "#0000ff")]
+		Friend = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Lawyer", 3, "#0000ff")]
+		Lawyer = 100000003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Litigation Guardian", 1, "#0000ff")]
+		LitigationGuardian = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 9, "#0000ff")]
+		Other = 100000009,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Parent/Legal Guardian", 0, "#0000ff")]
+		ParentLegalGuardian = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Public Guardian and Trust", 5, "#0000ff")]
+		PublicGuardianAndTrust = 100000005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Social Worker/MCFD", 4, "#0000ff")]
+		SocialWorkerMcfd = 100000004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Unknown", 8, "#0000ff")]
+		Unknown = 100000008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Victim Service Worker", 7, "#0000ff")]
+		VictimServiceWorker = 100000007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Youth Worker", 6, "#0000ff")]
+		YouthWorker = 100000006,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IiPsEngagementOnBehalfOfClient
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Engagement of parent/guardian on behalf of client who cannot provide consent", 1, "#0000ff")]
+		EngagementOfParentGuardianOnBehalfOfClientWhoCannotProvideConsent = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Engagement with client consent", 0, "#0000ff")]
+		EngagementWithClientConsent = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Engagement without client knowledge or consent", 2, "#0000ff")]
+		EngagementWithoutClientKnowledgeOrConsent = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3, "#0000ff")]
+		Other = 100000003,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IIpsOkayToLeaveVoiceMailOther
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No", 1, "#0000ff")]
+		No = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 2, "#0000ff")]
+		Other = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes", 0, "#0000ff")]
+		Yes = 100000000,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IiPspHoNeType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Cell Phone(Private)", 0, "#0000ff")]
+		CellPhoneprivate = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Cell Phone(Shared)", 1, "#0000ff")]
+		CellPhoneshared = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other(Private)", 2, "#0000ff")]
+		Otherprivate = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other(Shared)", 3, "#0000ff")]
+		Othershared = 100000003,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IiPspRiMaryContactIdentity
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Contact is client", 0, "#0000ff")]
+		ContactIsClient = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Contact is not client", 1, "#0000ff")]
+		ContactIsNotClient = 100000001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IiPspRoNouns
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("He/Him/His", 1, "#0000ff")]
+		HeHimHis = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3, "#0000ff")]
+		Other = 100000003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("She/Her/Hers", 0, "#0000ff")]
+		SheHerHers = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("They/Them/Theirs", 2, "#0000ff")]
+		TheyThemTheirs = 100000002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_IIpsReferralFrom
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("C3P", 1, "#0000ff")]
+		C3p = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Community-based Victim Services", 8, "#0000ff")]
+		CommunityBasedVictimServices = 100000008,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Crown Counsel", 3, "#0000ff")]
+		CrownCounsel = 100000003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("CRT", 0, "#0000ff")]
+		Crt = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("CVAP", 5, "#0000ff")]
+		Cvap = 100000005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Health Services", 13, "#0000ff")]
+		HealthServices = 100000013,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Item", 14, "#0000ff")]
+		Item = 100000014,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Ministry of Children and Family Development", 6, "#0000ff")]
+		MinistryOfChildrenAndFamilyDevelopment = 100000006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 16, "#0000ff")]
+		Other = 100000016,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Police-based Victim Services", 7, "#0000ff")]
+		PoliceBasedVictimServices = 100000007,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Post-Secondary Institution", 12, "#0000ff")]
+		PostSecondaryInstitution = 100000012,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("RCMP/Police", 2, "#0000ff")]
+		RcmpPolice = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Secondary school (or school district)", 11, "#0000ff")]
+		SecondarySchoolOrSchoolDistrict = 100000011,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Self-referral", 15, "#0000ff")]
+		SelfReferral = 100000015,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Victim Court Support Services", 4, "#0000ff")]
+		VictimCourtSupportServices = 100000004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("VictimLinkBC", 10, "#0000ff")]
+		Victimlinkbc = 100000010,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Violence Against Women Program", 9, "#0000ff")]
+		ViolenceAgainstWomenProgram = 100000009,
+	}
+	
 	/// <summary>
 	/// An Indicator that the contact has a status of indigenous.
 	/// </summary>
@@ -674,7 +906,7 @@ namespace Database.Model
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Métis", 1, "#0000ff")]
-		MTis = 100000001,
+		Metis = 100000001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Not Applicable", 4, "#0000ff")]
@@ -696,6 +928,44 @@ namespace Database.Model
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("EFT", 0, "#0000ff")]
 		Eft = 100000000,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_OkayToLeaveVoiceMail
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("No", 1, "#0000ff")]
+		No = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 2, "#0000ff")]
+		Other = 100000002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Yes", 0, "#0000ff")]
+		Yes = 100000000,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Contact_Vsd_PreferredContactMethods
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Email", 0, "#0000ff")]
+		Email = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3, "#0000ff")]
+		Other = 100000003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Phone call", 1, "#0000ff")]
+		PhoneCall = 100000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Text Message", 2, "#0000ff")]
+		TextMessage = 100000002,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -734,6 +1004,27 @@ namespace Database.Model
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Primary", 0, "#0000ff")]
 		Primary = 100000000,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Vsd_Contact_Vsd_Cvap_Affiliation_MultiSelect
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("BCACC - RCC", 0, "#0000ff")]
+		BcaccRcc = 865490000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("BCCSW - RSW / RCSW", 2, "#0000ff")]
+		BccswRswRcsw = 865490002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("CCPA - CCC", 1, "#0000ff")]
+		CcpaCcc = 865490001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Other", 3, "#0000ff")]
+		Other = 865490003,
 	}
 	
 	/// <summary>
@@ -1045,6 +1336,7 @@ namespace Database.Model
 			public const string Vsd_Contact_Vsd_Contract_ContactLookup1 = "Vsd_Contact_Vsd_Contract_ContactLookup1";
 			public const string Vsd_Contact_Vsd_Contract_ContactLookup2 = "Vsd_Contact_Vsd_Contract_ContactLookup2";
 			public const string Vsd_Contact_Vsd_Contract_Customer = "Vsd_Contact_Vsd_Contract_Customer";
+			public const string Vsd_Contact_Vsd_Invoice = "Vsd_Contact_Vsd_Invoice";
 			public const string Vsd_Contact_Vsd_Invoice_Customer = "Vsd_Contact_Vsd_Invoice_Customer";
 			public const string Vsd_Contact_Vsd_Invoice_Payee = "Vsd_Contact_Vsd_Invoice_Payee";
 			public const string Vsd_Contact_Vsd_Payment_Payee = "Vsd_Contact_Vsd_Payment_Payee";
@@ -1064,10 +1356,14 @@ namespace Database.Model
 			public const string Vsd_CSuCaseCount = "vsd_csucasecount";
 			public const string Vsd_CSuCaseCount_Date = "vsd_csucasecount_date";
 			public const string Vsd_CSuCaseCount_State = "vsd_csucasecount_state";
+			public const string Vsd_Cvap_Affiliation_MultiSelect = "vsd_cvap_affiliation_multiselect";
+			public const string Vsd_Cvap_Affiliation_MultiSelectName = "vsd_cvap_affiliation_multiselectname";
 			public const string Vsd_Cvap_CounsellingStatus = "vsd_cvap_counsellingstatus";
 			public const string Vsd_Cvap_CounsellingStatusName = "vsd_cvap_counsellingstatusname";
 			public const string Vsd_Cvap_CounsellorRegistrationDate = "vsd_cvap_counsellorregistrationdate";
 			public const string Vsd_Cvap_CounsellorRenewalDueDate = "vsd_cvap_counsellorrenewalduedate";
+			public const string Vsd_Cvap_GstApplied = "vsd_cvap_gstapplied";
+			public const string Vsd_Cvap_GstAppliedName = "vsd_cvap_gstappliedname";
 			public const string Vsd_Cvap_Justin = "vsd_cvap_justin";
 			public const string Vsd_Cvap_JustinName = "vsd_cvap_justinname";
 			public const string Vsd_CvapCaseCount = "vsd_cvapcasecount";
@@ -1082,9 +1378,42 @@ namespace Database.Model
 			public const string Vsd_EmploymentStatus = "vsd_employmentstatus";
 			public const string Vsd_EmploymentStatusName = "vsd_employmentstatusname";
 			public const string Vsd_ExecutiveContact_Account = "Vsd_ExecutiveContact_Account";
+			public const string Vsd_GenderIdentityText = "vsd_genderidentitytext";
 			public const string Vsd_HasPortalAccess = "vsd_hasportalaccess";
 			public const string Vsd_HasPortalAccessName = "vsd_hasportalaccessname";
 			public const string Vsd_HomePhoneExtension = "vsd_homephoneextension";
+			public const string Vsd_IIpsAccessibilityNeeds = "vsd_iipsaccessibilityneeds";
+			public const string Vsd_IIpsAccessibilityNeedsName = "vsd_iipsaccessibilityneedsname";
+			public const string Vsd_IIpsAccessibilityNeedsNotes = "vsd_iipsaccessibilityneedsnotes";
+			public const string Vsd_IIpSbFForManagerReview = "vsd_iipsbfformanagerreview";
+			public const string Vsd_IIpSbFForManagerReviewName = "vsd_iipsbfformanagerreviewname";
+			public const string Vsd_IIpsBringForwardReviewNotes = "vsd_iipsbringforwardreviewnotes";
+			public const string Vsd_IIpsContactIsNotClient = "vsd_iipscontactisnotclient";
+			public const string Vsd_IIpsContactIsNotClientName = "vsd_iipscontactisnotclientname";
+			public const string Vsd_IIpsContactRelationshipToClient = "vsd_iipscontactrelationshiptoclient";
+			public const string Vsd_IIpsContactRelationshipToClientName = "vsd_iipscontactrelationshiptoclientname";
+			public const string Vsd_IiPsEngagementOnBehalfOfClient = "vsd_iipsengagementonbehalfofclient";
+			public const string Vsd_IiPsEngagementOnBehalfOfClientName = "vsd_iipsengagementonbehalfofclientname";
+			public const string Vsd_IIpsNotes = "vsd_iipsnotes";
+			public const string Vsd_IIpsOkayToLeaveVoiceMailOther = "vsd_iipsokaytoleavevoicemailother";
+			public const string Vsd_IIpsOkayToLeaveVoiceMailOtherName = "vsd_iipsokaytoleavevoicemailothername";
+			public const string Vsd_IIpsOkayToSendTextMessages = "vsd_iipsokaytosendtextmessages";
+			public const string Vsd_IIpsOkayToSendTextMessagesName = "vsd_iipsokaytosendtextmessagesname";
+			public const string Vsd_IIpsOkayToSendTextMessagesOther = "vsd_iipsokaytosendtextmessagesother";
+			public const string Vsd_IIpsOkayToSendTextMessagesOtherName = "vsd_iipsokaytosendtextmessagesothername";
+			public const string Vsd_IiPspHoNeType = "vsd_iipsphonetype";
+			public const string Vsd_IiPspHoNeTypeName = "vsd_iipsphonetypename";
+			public const string Vsd_IiPspRiMaryContactIdentity = "vsd_iipsprimarycontactidentity";
+			public const string Vsd_IiPspRiMaryContactIdentityName = "vsd_iipsprimarycontactidentityname";
+			public const string Vsd_IiPspRoGrAmUnit = "vsd_iipsprogramunit";
+			public const string Vsd_IiPspRoGrAmUnitName = "vsd_iipsprogramunitname";
+			public const string Vsd_IiPspRoNouns = "vsd_iipspronouns";
+			public const string Vsd_IiPspRoNounsName = "vsd_iipspronounsname";
+			public const string Vsd_IiPspRoNoUnText = "vsd_iipspronountext";
+			public const string Vsd_IIpsReferralFrom = "vsd_iipsreferralfrom";
+			public const string Vsd_IIpsReferralFromName = "vsd_iipsreferralfromname";
+			public const string Vsd_IIpSwarmHandoff = "vsd_iipswarmhandoff";
+			public const string Vsd_IIpSwarmHandoffName = "vsd_iipswarmhandoffname";
 			public const string Vsd_Indigenous = "vsd_indigenous";
 			public const string Vsd_IndigenousName = "vsd_indigenousname";
 			public const string Vsd_InstitutionNo = "vsd_institutionno";
@@ -1096,13 +1425,20 @@ namespace Database.Model
 			public const string Vsd_MainPhoneExtension = "vsd_mainphoneextension";
 			public const string Vsd_MethodOfPayment = "vsd_methodofpayment";
 			public const string Vsd_MethodOfPaymentName = "vsd_methodofpaymentname";
+			public const string Vsd_OkayToLeaveVoiceMail = "vsd_okaytoleavevoicemail";
+			public const string Vsd_OkayToLeaveVoiceMailName = "vsd_okaytoleavevoicemailname";
 			public const string Vsd_OriginalName = "vsd_originalname";
 			public const string Vsd_OriginalRegistrationDate = "vsd_originalregistrationdate";
 			public const string Vsd_OtherPhoneExtension = "vsd_otherphoneextension";
 			public const string Vsd_PersonalHealthNumber = "vsd_personalhealthnumber";
 			public const string Vsd_PortalField = "vsd_portalfield";
+			public const string Vsd_PreferredContactMethods = "vsd_preferredcontactmethods";
+			public const string Vsd_PreferredContactMethodsName = "vsd_preferredcontactmethodsname";
 			public const string Vsd_PreferredFirstName = "vsd_preferredfirstname";
 			public const string Vsd_PreferredLastName = "vsd_preferredlastname";
+			public const string Vsd_PrimaryRaceEthnicity = "vsd_primaryraceethnicity";
+			public const string Vsd_PrimaryRaceEthnicityName = "vsd_primaryraceethnicityname";
+			public const string Vsd_PrimaryRaceEthnicityText = "vsd_primaryraceethnicitytext";
 			public const string Vsd_Rest_AWOl = "vsd_rest_awol";
 			public const string Vsd_Rest_AWOlName = "vsd_rest_awolname";
 			public const string Vsd_Rest_AWOlStartDate = "vsd_rest_awolstartdate";
@@ -1212,6 +1548,7 @@ namespace Database.Model
 			public const string Vsd_VistaParticipantId = "vsd_vistaparticipantid";
 			public const string Vsd_VoiceMailOption = "vsd_voicemailoption";
 			public const string Vsd_VoiceMailOptionName = "vsd_voicemailoptionname";
+			public const string Vsd_Vsd_PortalRole_Contact = "vsd_vsd_portalrole_contact";
 			public const string Vsd_Vsd_Program_Contact = "vsd_vsd_program_contact";
 			public const string Vsd_Vsu_Minor = "vsd_vsu_minor";
 			public const string Vsd_Vsu_MinorName = "vsd_vsu_minorname";
@@ -5525,6 +5862,7 @@ namespace Database.Model
 		/// Shows the ID of the stage.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stageid")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public System.Nullable<System.Guid> StageId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -5822,6 +6160,7 @@ namespace Database.Model
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public string TraversedPath
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -6250,6 +6589,38 @@ namespace Database.Model
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cvap_affiliation_multiselect")]
+		public virtual System.Collections.Generic.IEnumerable<Vsd_Contact_Vsd_Cvap_Affiliation_MultiSelect> Vsd_Cvap_Affiliation_MultiSelect
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return EntityOptionSetEnum.GetMultiEnum<Vsd_Contact_Vsd_Cvap_Affiliation_MultiSelect>(this, "vsd_cvap_affiliation_multiselect");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_cvap_affiliation_multiselect", EntityOptionSetEnum.GetMultiEnum(this, "vsd_cvap_affiliation_multiselect", value));
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cvap_affiliation_multiselectname")]
+		public string Vsd_Cvap_Affiliation_MultiSelectName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_cvap_affiliation_multiselect"))
+				{
+					return this.FormattedValues["vsd_cvap_affiliation_multiselect"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cvap_counsellingstatus")]
 		public virtual Contact_Vsd_Cvap_CounsellingStatus? Vsd_Cvap_CounsellingStatus
 		{
@@ -6309,6 +6680,38 @@ namespace Database.Model
 			set
 			{
 				this.SetAttributeValue("vsd_cvap_counsellorrenewalduedate", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cvap_gstapplied")]
+		public virtual Vsd_YesNo? Vsd_Cvap_GstApplied
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Vsd_YesNo?)(EntityOptionSetEnum.GetEnum(this, "vsd_cvap_gstapplied")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_cvap_gstapplied", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cvap_gstappliedname")]
+		public string Vsd_Cvap_GstAppliedName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_cvap_gstapplied"))
+				{
+					return this.FormattedValues["vsd_cvap_gstapplied"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -6509,6 +6912,21 @@ namespace Database.Model
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_genderidentitytext")]
+		public string Vsd_GenderIdentityText
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_genderidentitytext");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_genderidentitytext", value);
+			}
+		}
+		
 		/// <summary>
 		/// Select Yes to provide contact access to CPU Portal.
 		/// </summary>
@@ -6556,6 +6974,517 @@ namespace Database.Model
 			set
 			{
 				this.SetAttributeValue("vsd_homephoneextension", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsaccessibilityneeds")]
+		public System.Nullable<bool> Vsd_IIpsAccessibilityNeeds
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("vsd_iipsaccessibilityneeds");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsaccessibilityneeds", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsaccessibilityneedsname")]
+		public string Vsd_IIpsAccessibilityNeedsName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsaccessibilityneeds"))
+				{
+					return this.FormattedValues["vsd_iipsaccessibilityneeds"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsaccessibilityneedsnotes")]
+		public string Vsd_IIpsAccessibilityNeedsNotes
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_iipsaccessibilityneedsnotes");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsaccessibilityneedsnotes", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsbfformanagerreview")]
+		public System.Nullable<bool> Vsd_IIpSbFForManagerReview
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("vsd_iipsbfformanagerreview");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsbfformanagerreview", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsbfformanagerreviewname")]
+		public string Vsd_IIpSbFForManagerReviewName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsbfformanagerreview"))
+				{
+					return this.FormattedValues["vsd_iipsbfformanagerreview"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsbringforwardreviewnotes")]
+		public string Vsd_IIpsBringForwardReviewNotes
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_iipsbringforwardreviewnotes");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsbringforwardreviewnotes", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipscontactisnotclient")]
+		public virtual Contact_Vsd_IIpsContactIsNotClient? Vsd_IIpsContactIsNotClient
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IIpsContactIsNotClient?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipscontactisnotclient")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipscontactisnotclient", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipscontactisnotclientname")]
+		public string Vsd_IIpsContactIsNotClientName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipscontactisnotclient"))
+				{
+					return this.FormattedValues["vsd_iipscontactisnotclient"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipscontactrelationshiptoclient")]
+		public virtual Contact_Vsd_IIpsContactRelationshipToClient? Vsd_IIpsContactRelationshipToClient
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IIpsContactRelationshipToClient?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipscontactrelationshiptoclient")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipscontactrelationshiptoclient", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipscontactrelationshiptoclientname")]
+		public string Vsd_IIpsContactRelationshipToClientName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipscontactrelationshiptoclient"))
+				{
+					return this.FormattedValues["vsd_iipscontactrelationshiptoclient"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsengagementonbehalfofclient")]
+		public virtual Contact_Vsd_IiPsEngagementOnBehalfOfClient? Vsd_IiPsEngagementOnBehalfOfClient
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IiPsEngagementOnBehalfOfClient?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipsengagementonbehalfofclient")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsengagementonbehalfofclient", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsengagementonbehalfofclientname")]
+		public string Vsd_IiPsEngagementOnBehalfOfClientName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsengagementonbehalfofclient"))
+				{
+					return this.FormattedValues["vsd_iipsengagementonbehalfofclient"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsnotes")]
+		public string Vsd_IIpsNotes
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_iipsnotes");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsnotes", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsokaytoleavevoicemailother")]
+		public virtual Contact_Vsd_IIpsOkayToLeaveVoiceMailOther? Vsd_IIpsOkayToLeaveVoiceMailOther
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IIpsOkayToLeaveVoiceMailOther?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipsokaytoleavevoicemailother")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsokaytoleavevoicemailother", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsokaytoleavevoicemailothername")]
+		public string Vsd_IIpsOkayToLeaveVoiceMailOtherName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsokaytoleavevoicemailother"))
+				{
+					return this.FormattedValues["vsd_iipsokaytoleavevoicemailother"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsokaytosendtextmessages")]
+		public System.Nullable<bool> Vsd_IIpsOkayToSendTextMessages
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("vsd_iipsokaytosendtextmessages");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsokaytosendtextmessages", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsokaytosendtextmessagesname")]
+		public string Vsd_IIpsOkayToSendTextMessagesName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsokaytosendtextmessages"))
+				{
+					return this.FormattedValues["vsd_iipsokaytosendtextmessages"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsokaytosendtextmessagesother")]
+		public System.Nullable<bool> Vsd_IIpsOkayToSendTextMessagesOther
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("vsd_iipsokaytosendtextmessagesother");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsokaytosendtextmessagesother", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsokaytosendtextmessagesothername")]
+		public string Vsd_IIpsOkayToSendTextMessagesOtherName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsokaytosendtextmessagesother"))
+				{
+					return this.FormattedValues["vsd_iipsokaytosendtextmessagesother"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsphonetype")]
+		public virtual Contact_Vsd_IiPspHoNeType? Vsd_IiPspHoNeType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IiPspHoNeType?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipsphonetype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsphonetype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsphonetypename")]
+		public string Vsd_IiPspHoNeTypeName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsphonetype"))
+				{
+					return this.FormattedValues["vsd_iipsphonetype"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsprimarycontactidentity")]
+		public virtual Contact_Vsd_IiPspRiMaryContactIdentity? Vsd_IiPspRiMaryContactIdentity
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IiPspRiMaryContactIdentity?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipsprimarycontactidentity")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsprimarycontactidentity", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsprimarycontactidentityname")]
+		public string Vsd_IiPspRiMaryContactIdentityName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsprimarycontactidentity"))
+				{
+					return this.FormattedValues["vsd_iipsprimarycontactidentity"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Program Unit for internal use
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsprogramunit")]
+		public virtual Vsd_ProgramUnit? Vsd_IiPspRoGrAmUnit
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Vsd_ProgramUnit?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipsprogramunit")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsprogramunit", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsprogramunitname")]
+		public string Vsd_IiPspRoGrAmUnitName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsprogramunit"))
+				{
+					return this.FormattedValues["vsd_iipsprogramunit"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipspronouns")]
+		public virtual Contact_Vsd_IiPspRoNouns? Vsd_IiPspRoNouns
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IiPspRoNouns?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipspronouns")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipspronouns", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipspronounsname")]
+		public string Vsd_IiPspRoNounsName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipspronouns"))
+				{
+					return this.FormattedValues["vsd_iipspronouns"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipspronountext")]
+		public string Vsd_IiPspRoNoUnText
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_iipspronountext");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipspronountext", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsreferralfrom")]
+		public virtual Contact_Vsd_IIpsReferralFrom? Vsd_IIpsReferralFrom
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_IIpsReferralFrom?)(EntityOptionSetEnum.GetEnum(this, "vsd_iipsreferralfrom")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipsreferralfrom", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipsreferralfromname")]
+		public string Vsd_IIpsReferralFromName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipsreferralfrom"))
+				{
+					return this.FormattedValues["vsd_iipsreferralfrom"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipswarmhandoff")]
+		public System.Nullable<bool> Vsd_IIpSwarmHandoff
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("vsd_iipswarmhandoff");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_iipswarmhandoff", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_iipswarmhandoffname")]
+		public string Vsd_IIpSwarmHandoffName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_iipswarmhandoff"))
+				{
+					return this.FormattedValues["vsd_iipswarmhandoff"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -6739,6 +7668,38 @@ namespace Database.Model
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_okaytoleavevoicemail")]
+		public virtual Contact_Vsd_OkayToLeaveVoiceMail? Vsd_OkayToLeaveVoiceMail
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_OkayToLeaveVoiceMail?)(EntityOptionSetEnum.GetEnum(this, "vsd_okaytoleavevoicemail")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_okaytoleavevoicemail", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_okaytoleavevoicemailname")]
+		public string Vsd_OkayToLeaveVoiceMailName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_okaytoleavevoicemail"))
+				{
+					return this.FormattedValues["vsd_okaytoleavevoicemail"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		/// <summary>
 		/// Original Name
 		/// </summary>
@@ -6823,6 +7784,38 @@ namespace Database.Model
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_preferredcontactmethods")]
+		public virtual Contact_Vsd_PreferredContactMethods? Vsd_PreferredContactMethods
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Contact_Vsd_PreferredContactMethods?)(EntityOptionSetEnum.GetEnum(this, "vsd_preferredcontactmethods")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_preferredcontactmethods", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_preferredcontactmethodsname")]
+		public string Vsd_PreferredContactMethodsName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_preferredcontactmethods"))
+				{
+					return this.FormattedValues["vsd_preferredcontactmethods"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		/// <summary>
 		/// Preferred First
 		/// </summary>
@@ -6856,6 +7849,53 @@ namespace Database.Model
 			set
 			{
 				this.SetAttributeValue("vsd_preferredlastname", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_primaryraceethnicity")]
+		public virtual Vsd_RaceEthnicity? Vsd_PrimaryRaceEthnicity
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Vsd_RaceEthnicity?)(EntityOptionSetEnum.GetEnum(this, "vsd_primaryraceethnicity")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_primaryraceethnicity", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_primaryraceethnicityname")]
+		public string Vsd_PrimaryRaceEthnicityName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_primaryraceethnicity"))
+				{
+					return this.FormattedValues["vsd_primaryraceethnicity"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_primaryraceethnicitytext")]
+		public string Vsd_PrimaryRaceEthnicityText
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_primaryraceethnicitytext");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_primaryraceethnicitytext", value);
 			}
 		}
 		
@@ -7110,6 +8150,7 @@ namespace Database.Model
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_rest_disbursementchequeinstructions")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public string Vsd_Rest_DisbursementChequeInstructions
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -7271,6 +8312,7 @@ namespace Database.Model
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_rest_frequencyofupdates")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public virtual Vsd_RestFrequencyOfUpdates? Vsd_Rest_FrequencyOfUpdates
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -7903,6 +8945,7 @@ namespace Database.Model
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_rest_reportingenddate")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public System.Nullable<System.DateTime> Vsd_Rest_ReportingEndDate
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -8907,6 +9950,24 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N vsd_contact_vsd_invoice
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_contact_vsd_invoice")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Invoice> Vsd_Contact_Vsd_Invoice
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_Invoice>("vsd_contact_vsd_invoice", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_Invoice>("vsd_contact_vsd_invoice", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N vsd_contact_vsd_invoice_Customer
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_contact_vsd_invoice_Customer")]
@@ -9087,6 +10148,24 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// N:N vsd_vsd_portalrole_contact
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_portalrole_contact")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_PortalRole> Vsd_Vsd_PortalRole_Contact
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_PortalRole>("vsd_vsd_portalrole_contact", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_PortalRole>("vsd_vsd_portalrole_contact", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// N:N vsd_vsd_program_contact
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_contact")]
@@ -9188,7 +10267,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

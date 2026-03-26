@@ -4,12 +4,12 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { ServiceNotAvailableComponent } from "../../shared/service-not-available.component";
-import { iDynamicsBlob } from "../models/dynamics-blob";
+import { CpuOrgContractsDto } from "../api/models";
+import { CpuOrgContractsService } from "../api/services/cpu-org-contracts/cpu-org-contracts.service";
 import { iPerson } from "../models/person.interface";
 import { Transmogrifier } from "../models/transmogrifier.class";
 import { UserSettings } from "../models/user-settings.class";
 import { iUserSettings, Roles } from "../models/user-settings.interface";
-import { MainService } from "./main.service";
 import { NotificationQueueService } from "./notification-queue.service";
 import { UserDataService } from "./user-data.service";
 
@@ -44,12 +44,12 @@ export class StateService {
   // public isNewAccount: boolean = false;
 
   constructor(
-    private mainService: MainService,
     private notificationQueueService: NotificationQueueService,
     private userData: UserDataService,
     private router: Router,
     private http: HttpClient,
     private snackBar: MatSnackBar,
+    private cpuOrgContractsService: CpuOrgContractsService,
   ) {}
 
   login() {
@@ -70,8 +70,8 @@ export class StateService {
       // orgId = 'D25E31FFC5AA4C3A9B7557CED3A5DDA5';
 
       //Victimservices4 - Family Service of Greater Vancouver
-      // userId = '136339471ABD4770A82227AF6AD2C01C';
-      // orgId = '53AFBD4EB74B4156BAC2042593FBC5F1';
+      userId = "136339471ABD4770A82227AF6AD2C01C";
+      orgId = "53AFBD4EB74B4156BAC2042593FBC5F1";
 
       //Victimservices7 - City of Burnaby
       // userId = '3DFB2AE927C04063A1399BA059134AE8';
@@ -121,118 +121,120 @@ export class StateService {
 
     this.loading.next(true);
     // on login collect the information from the organization id
-    this.mainService.getBlob(userId, orgId).subscribe(
-      (m: iDynamicsBlob) => {
-        if (!m || !m.Result) {
-          this.notificationQueueService.addNotification(
-            "Error getting result from COAST",
-            "danger",
-          );
-          this.loading.next(false);
-          return;
-        }
-
-        // check for actual error message
-        if (
-          m.Result.includes(
-            "BusinessBCeID doesn't match to which the Contact belongs to",
-          )
-        ) {
-          this.notificationQueueService.addNotification(
-            "Your organization's BCeID does not match one in our records.",
-            "danger",
-          );
-          this.currentUser.next({
-            userId,
-            orgId,
-            firstName: "New",
-            lastName: "User",
-            email: "",
-          });
-          // set the logged in state
-          this.homeRoute.next("authenticated/new_user");
-          this.loggedIn.next(true);
-        } else if (
-          m.Result.includes("No contact found with the supplied BCeID")
-        ) {
-          this.notificationQueueService.addNotification(
-            "Your user BCeID does not match one in our records.",
-            "danger",
-          );
-          this.currentUser.next({
-            userId,
-            orgId,
-            firstName: "New",
-            lastName: "User",
-            email: "",
-          });
-          // set the logged in state
-          this.homeRoute.next("authenticated/new_user");
-          this.loggedIn.next(true);
-        } else if (m.Result.includes("Error: Principal user")) {
-          console.log(m);
-          console.log("Did you update user secrets??");
-          this.notificationQueueService.addNotification(
-            "User does not have required privileges to access portal.",
-            "danger",
-          );
-          this.loading.next(false);
-          return;
-        } else if (m.Result.includes("No roles assigned to the contact")) {
-          console.log(m);
-          console.log("Need to assign roles in CRM");
-          this.notificationQueueService.addNotification(
-            "User does not have any roles assigned.",
-            "danger",
-          );
-          this.loading.next(false);
-          return;
-        } else {
-          // console.log("settings");
-          // console.log(this.userSettings.getValue());
-
-          // collect the blob into a useful object
-          // console.log("Dynamics blob");
-          // console.log(JSON.parse(JSON.stringify(m)));
-          const mainData = new Transmogrifier(m);
-
-          let updatedSettings = new UserSettings(userInfo);
-          updatedSettings.userRole = mainData.role;
-
-          if (window.location.href.includes("localhost")) {
-            // updatedSettings.userRole = Roles.ProgramStaff;
-            // console.log("setting localhost role to ExecutiveContact");
-            updatedSettings.userRole = Roles.ExecutiveContact;
+    this.cpuOrgContractsService
+      .getApiCpuorgcontractsBusinessBceidUserBceid(orgId, userId)
+      .subscribe(
+        (m: CpuOrgContractsDto) => {
+          if (!m) {
+            this.notificationQueueService.addNotification(
+              "Error getting result from COAST",
+              "danger",
+            );
+            this.loading.next(false);
+            return;
           }
-          this.userSettings.next(updatedSettings);
 
-          // save the useful blob of viewmodels
-          this.main.next(mainData);
-          // save the user that matches the current bceid
-          this.currentUser.next(
-            mainData.persons.filter((p) => p.userId === userId)[0],
-          );
-          // give a notification
-          this.notificationQueueService.addNotification(
-            `${mainData.organizationName} has been logged in successfully.`,
-            "success",
-          );
+          // check for actual error message
+          if (
+            m.result?.includes(
+              "BusinessBCeID doesn't match to which the Contact belongs to",
+            )
+          ) {
+            this.notificationQueueService.addNotification(
+              "Your organization's BCeID does not match one in our records.",
+              "danger",
+            );
+            this.currentUser.next({
+              userId,
+              orgId,
+              firstName: "New",
+              lastName: "User",
+              email: "",
+            });
+            // set the logged in state
+            this.homeRoute.next("authenticated/new_user");
+            this.loggedIn.next(true);
+          } else if (
+            m.result?.includes("No contact found with the supplied BCeID")
+          ) {
+            this.notificationQueueService.addNotification(
+              "Your user BCeID does not match one in our records.",
+              "danger",
+            );
+            this.currentUser.next({
+              userId,
+              orgId,
+              firstName: "New",
+              lastName: "User",
+              email: "",
+            });
+            // set the logged in state
+            this.homeRoute.next("authenticated/new_user");
+            this.loggedIn.next(true);
+          } else if (m.result?.includes("Error: Principal user")) {
+            console.log(m);
+            console.log("Did you update user secrets??");
+            this.notificationQueueService.addNotification(
+              "User does not have required privileges to access portal.",
+              "danger",
+            );
+            this.loading.next(false);
+            return;
+          } else if (m.result?.includes("No roles assigned to the contact")) {
+            console.log(m);
+            console.log("Need to assign roles in CRM");
+            this.notificationQueueService.addNotification(
+              "User does not have any roles assigned.",
+              "danger",
+            );
+            this.loading.next(false);
+            return;
+          } else {
+            // console.log("settings");
+            // console.log(this.userSettings.getValue());
 
-          // set the home button link and set log in to true (IN THAT ORDER)
-          this.homeRoute.next("authenticated/dashboard");
-          this.router.navigate(["/authenticated/dashboard"]);
-          this.loggedIn.next(true);
-        }
-      },
-      (err) => {
-        this.snackBar.openFromComponent(ServiceNotAvailableComponent, {
-          panelClass: ["red-snackbar"],
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      },
-      () => this.loading.next(false),
-    );
+            // collect the blob into a useful object
+            // console.log("Dynamics blob");
+            // console.log(JSON.parse(JSON.stringify(m)));
+            const mainData = new Transmogrifier(m);
+
+            let updatedSettings = new UserSettings(userInfo);
+            updatedSettings.userRole = mainData.role;
+
+            if (window.location.href.includes("localhost")) {
+              // updatedSettings.userRole = Roles.ProgramStaff;
+              // console.log("setting localhost role to ExecutiveContact");
+              updatedSettings.userRole = Roles.ExecutiveContact;
+            }
+            this.userSettings.next(updatedSettings);
+
+            // save the useful blob of viewmodels
+            this.main.next(mainData);
+            // save the user that matches the current bceid
+            this.currentUser.next(
+              mainData.persons.filter((p) => p.userId === userId)[0],
+            );
+            // give a notification
+            this.notificationQueueService.addNotification(
+              `${mainData.organizationName} has been logged in successfully.`,
+              "success",
+            );
+
+            // set the home button link and set log in to true (IN THAT ORDER)
+            this.homeRoute.next("authenticated/dashboard");
+            this.router.navigate(["/authenticated/dashboard"]);
+            this.loggedIn.next(true);
+          }
+        },
+        (err) => {
+          this.snackBar.openFromComponent(ServiceNotAvailableComponent, {
+            panelClass: ["red-snackbar"],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        },
+        () => this.loading.next(false),
+      );
   }
   logout() {
     // clear the state and route to the homepage
@@ -268,10 +270,10 @@ export class StateService {
     // only perform this get blob if the required information has been returned at least once
     // we need the user and organization id to do this
     if (userId && organizationId) {
-      this.mainService
-        .getBlob(userId, organizationId)
-        .subscribe((m: iDynamicsBlob) => {
-          if (!m.IsSuccess) {
+      this.cpuOrgContractsService
+        .getApiCpuorgcontractsBusinessBceidUserBceid(organizationId, userId)
+        .subscribe((m: CpuOrgContractsDto) => {
+          if (!m.isSuccess) {
             this.notificationQueueService.addNotification(
               "There was a problem loading dashboard data. If this problem is persisting please contact your ministry representative.",
               "danger",
@@ -310,75 +312,79 @@ export class StateService {
 
     // this.loading.next(true);
     // on login collect the information from the organization id
-    this.mainService.getBlob(userId, orgId).subscribe(
-      (m: iDynamicsBlob) => {
-        // check for actual error message
-        if (
-          m.Result.includes(
-            "BusinessBCeID doesn't match to which the Contact belongs to",
-          )
-        ) {
-          // console.log("BusinessBCeID doesn't match");
-          let firstName = "New";
-          let lastName = "User";
-          let userSettings = this.userSettings.getValue();
-          if (userSettings.userDisplayName) {
-            let userDisplayName = this.userSettings.getValue().userDisplayName;
-            let nameParts = userDisplayName.split(" ");
-            if (nameParts.length > 0) {
-              firstName = nameParts.splice(0, 1)[0];
-              lastName = nameParts.join(" ");
+    this.cpuOrgContractsService
+      .getApiCpuorgcontractsBusinessBceidUserBceid(orgId, userId)
+      .subscribe(
+        (m: CpuOrgContractsDto) => {
+          // check for actual error message
+          if (
+            m.result?.includes(
+              "BusinessBCeID doesn't match to which the Contact belongs to",
+            )
+          ) {
+            // console.log("BusinessBCeID doesn't match");
+            let firstName = "New";
+            let lastName = "User";
+            let userSettings = this.userSettings.getValue();
+            if (userSettings.userDisplayName) {
+              let userDisplayName =
+                this.userSettings.getValue().userDisplayName;
+              let nameParts = userDisplayName.split(" ");
+              if (nameParts.length > 0) {
+                firstName = nameParts.splice(0, 1)[0];
+                lastName = nameParts.join(" ");
+              }
             }
-          }
 
-          this.currentUser.next({
-            userId,
-            orgId,
-            firstName: firstName,
-            lastName: lastName,
-            email: "",
-          });
-        } else if (
-          m.Result.includes("No contact found with the supplied BCeID")
-        ) {
-          // console.log("BCeID doesn't match");
-          let firstName = "New";
-          let lastName = "User";
-          let userSettings = this.userSettings.getValue();
-          if (userSettings.userDisplayName) {
-            let userDisplayName = this.userSettings.getValue().userDisplayName;
-            let nameParts = userDisplayName.split(" ");
-            if (nameParts.length > 0) {
-              firstName = nameParts.splice(0, 1)[0];
-              lastName = nameParts.join(" ");
+            this.currentUser.next({
+              userId,
+              orgId,
+              firstName: firstName,
+              lastName: lastName,
+              email: "",
+            });
+          } else if (
+            m.result?.includes("No contact found with the supplied BCeID")
+          ) {
+            // console.log("BCeID doesn't match");
+            let firstName = "New";
+            let lastName = "User";
+            let userSettings = this.userSettings.getValue();
+            if (userSettings.userDisplayName) {
+              let userDisplayName =
+                this.userSettings.getValue().userDisplayName;
+              let nameParts = userDisplayName.split(" ");
+              if (nameParts.length > 0) {
+                firstName = nameParts.splice(0, 1)[0];
+                lastName = nameParts.join(" ");
+              }
             }
-          }
 
-          this.currentUser.next({
-            userId,
-            orgId,
-            firstName: firstName,
-            lastName: lastName,
-            email: "",
-          });
-        } else {
-          if (!m.IsSuccess) {
-            this.notificationQueueService.addNotification(
-              "There was a problem loading dashboard data. If this problem is persisting please contact your ministry representative.",
-              "danger",
-            );
+            this.currentUser.next({
+              userId,
+              orgId,
+              firstName: firstName,
+              lastName: lastName,
+              email: "",
+            });
           } else {
-            const mainData = new Transmogrifier(m);
-            // console.log("we did get some data");
-            // console.log(mainData);
-            this.currentUser.next(
-              mainData.persons.filter((p) => p.userId === userId)[0],
-            );
+            if (!m.isSuccess) {
+              this.notificationQueueService.addNotification(
+                "There was a problem loading dashboard data. If this problem is persisting please contact your ministry representative.",
+                "danger",
+              );
+            } else {
+              const mainData = new Transmogrifier(m);
+              // console.log("we did get some data");
+              // console.log(mainData);
+              this.currentUser.next(
+                mainData.persons.filter((p) => p.userId === userId)[0],
+              );
+            }
           }
-        }
-      },
-      (err) => {},
-      () => this.loading.next(false),
-    );
+        },
+        (err) => {},
+        () => this.loading.next(false),
+      );
   }
 }

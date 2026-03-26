@@ -1722,6 +1722,7 @@ namespace Database.Model
 		/// This field is used on the CAP program application.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cpu_programevaluationeffortsdescription")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public virtual Vsd_YesNo? Vsd_Cpu_ProgramEvaluationEffortsDescription
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -2908,6 +2909,7 @@ namespace Database.Model
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programmodels")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public virtual System.Collections.Generic.IEnumerable<Vsd_Program_Vsd_ProgramModels> Vsd_ProgramModels
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -3608,7 +3610,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

@@ -113,7 +113,7 @@ namespace Database.Model
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("FedEx", 2)]
-		Fedex = 3,
+		FedEx = 3,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Full Load", 5)]
@@ -313,7 +313,7 @@ namespace Database.Model
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Doctor\'s Offices and Clinics", 10)]
-		DoctorSOfficesAndClinics = 11,
+		DoctorsOfficesAndClinics = 11,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Durable Manufacturing", 11)]
@@ -651,6 +651,19 @@ namespace Database.Model
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Account_Vsd_Cpu_MemberOfHeAbc
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Member", 0, "#0000ff")]
+		Member = 100000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Non-Member", 1, "#0000ff")]
+		NonMember = 100000001,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum Account_Vsd_MethodOfPayment
 	{
 		
@@ -874,6 +887,7 @@ namespace Database.Model
 			public const string ProcessId = "processid";
 			public const string ReferencedAccount_Master_Account = "ReferencedAccount_Master_Account";
 			public const string ReferencedAccount_Parent_Account = "ReferencedAccount_Parent_Account";
+			public const string ReferencedVsd_Account_Account_MergeTarget = "ReferencedVsd_Account_Account_MergeTarget";
 			public const string Revenue = "revenue";
 			public const string Revenue_Base = "revenue_base";
 			public const string SharesOutstanding = "sharesoutstanding";
@@ -907,6 +921,7 @@ namespace Database.Model
 			public const string TraversedPath = "traversedpath";
 			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
+			public const string ReferencingVsd_Account_Account_MergeTarget = "vsd_account_account_mergetarget";
 			public const string Vsd_Account_Contact = "vsd_account_contact";
 			public const string Vsd_Account_Vsd_Contract_Customer = "Vsd_Account_Vsd_Contract_Customer";
 			public const string Vsd_Account_Vsd_Invoice_Customer = "Vsd_Account_Vsd_Invoice_Customer";
@@ -929,6 +944,8 @@ namespace Database.Model
 			public const string Vsd_CounsellingProviderStatusName = "vsd_counsellingproviderstatusname";
 			public const string Vsd_Cpu_MemberOfCSSea = "vsd_cpu_memberofcssea";
 			public const string Vsd_Cpu_MemberOfCSSeaName = "vsd_cpu_memberofcsseaname";
+			public const string Vsd_Cpu_MemberOfHeAbc = "vsd_cpu_memberofheabc";
+			public const string Vsd_Cpu_MemberOfHeAbcName = "vsd_cpu_memberofheabcname";
 			public const string Vsd_Cpu_NumberOfActivePrograms = "vsd_cpu_numberofactiveprograms";
 			public const string Vsd_Cpu_NumberOfActivePrograms_Date = "vsd_cpu_numberofactiveprograms_date";
 			public const string Vsd_Cpu_NumberOfActivePrograms_State = "vsd_cpu_numberofactiveprograms_state";
@@ -945,6 +962,10 @@ namespace Database.Model
 			public const string Vsd_InstitutionNo = "vsd_institutionno";
 			public const string Vsd_LastPaymentDate = "vsd_lastpaymentdate";
 			public const string Vsd_MainPhoneExtension = "vsd_mainphoneextension";
+			public const string Vsd_MergeTarget = "vsd_mergetarget";
+			public const string Vsd_MergeTargetGuid = "vsd_mergetargetguid";
+			public const string Vsd_MergeTargetName = "vsd_mergetargetname";
+			public const string Vsd_MergeTargetYomiName = "vsd_mergetargetyominame";
 			public const string Vsd_MethodOfPayment = "vsd_methodofpayment";
 			public const string Vsd_MethodOfPaymentName = "vsd_methodofpaymentname";
 			public const string Vsd_Org_Id = "vsd_org_id";
@@ -2173,6 +2194,11 @@ namespace Database.Model
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging30_base");
 			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("aging30_base", value);
+			}
 		}
 		
 		/// <summary>
@@ -2198,6 +2224,11 @@ namespace Database.Model
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("aging60_base");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("aging60_base", value);
 			}
 		}
 		
@@ -2449,6 +2480,11 @@ namespace Database.Model
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("creditlimit_base");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("creditlimit_base", value);
 			}
 		}
 		
@@ -3179,6 +3215,11 @@ namespace Database.Model
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("marketcap_base");
 			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("marketcap_base", value);
+			}
 		}
 		
 		/// <summary>
@@ -3498,6 +3539,11 @@ namespace Database.Model
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<int>>("onholdtime");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("onholdtime", value);
 			}
 		}
 		
@@ -4272,6 +4318,11 @@ namespace Database.Model
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("revenue_base");
 			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("revenue_base", value);
+			}
 		}
 		
 		/// <summary>
@@ -4414,6 +4465,7 @@ namespace Database.Model
 		/// Shows the ID of the stage.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stageid")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public System.Nullable<System.Guid> StageId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -4746,6 +4798,7 @@ namespace Database.Model
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public string TraversedPath
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -5022,6 +5075,38 @@ namespace Database.Model
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cpu_memberofheabc")]
+		public virtual Account_Vsd_Cpu_MemberOfHeAbc? Vsd_Cpu_MemberOfHeAbc
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Account_Vsd_Cpu_MemberOfHeAbc?)(EntityOptionSetEnum.GetEnum(this, "vsd_cpu_memberofheabc")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_cpu_memberofheabc", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cpu_memberofheabcname")]
+		public string Vsd_Cpu_MemberOfHeAbcName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_cpu_memberofheabc"))
+				{
+					return this.FormattedValues["vsd_cpu_memberofheabc"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cpu_numberofactiveprograms")]
 		public System.Nullable<int> Vsd_Cpu_NumberOfActivePrograms
 		{
@@ -5247,6 +5332,70 @@ namespace Database.Model
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_mergetarget")]
+		public Microsoft.Xrm.Sdk.EntityReference Vsd_MergeTarget
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("vsd_mergetarget");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_mergetarget", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_mergetargetguid")]
+		public string Vsd_MergeTargetGuid
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_mergetargetguid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_mergetargetguid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_mergetargetname")]
+		public string Vsd_MergeTargetName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_mergetarget"))
+				{
+					return this.FormattedValues["vsd_mergetarget"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_mergetargetyominame")]
+		public string Vsd_MergeTargetYomiName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_mergetarget"))
+				{
+					return this.FormattedValues["vsd_mergetarget"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_methodofpayment")]
 		public virtual Account_Vsd_MethodOfPayment? Vsd_MethodOfPayment
 		{
@@ -5310,6 +5459,7 @@ namespace Database.Model
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_pgocode")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public string Vsd_PGoCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -5859,6 +6009,24 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N vsd_account_account_mergetarget
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_account_account_mergetarget", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<Database.Model.Account> ReferencedVsd_Account_Account_MergeTarget
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Account>("vsd_account_account_mergetarget", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Account>("vsd_account_account_mergetarget", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N vsd_account_vsd_contract_Customer
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_account_vsd_contract_Customer")]
@@ -6056,6 +6224,25 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// N:1 vsd_account_account_mergetarget
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_mergetarget")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_account_account_mergetarget", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public Database.Model.Account ReferencingVsd_Account_Account_MergeTarget
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Database.Model.Account>("vsd_account_account_mergetarget", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<Database.Model.Account>("vsd_account_account_mergetarget", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+			}
+		}
+		
+		/// <summary>
 		/// N:1 vsd_boardcontact_account
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_boardcontactid")]
@@ -6106,7 +6293,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

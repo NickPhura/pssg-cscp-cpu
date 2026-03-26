@@ -113,6 +113,9 @@ namespace Gov.Cscp.Victims.Public
                     // ReferenceLoopHandling is set to Ignore to prevent JSON parser issues with the user / roles model.
                     opts.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
+                    // Use camelCase for JSON property names
+                    opts.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+
                     //opts.PayloadSerializerOptions.WriteIndented = true;
                 });
 
@@ -187,8 +190,6 @@ namespace Gov.Cscp.Victims.Public
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             ConfigureLogging(env);
-
-            var log = loggerFactory.CreateLogger("Startup");
 
             string pathBase = Configuration["BASE_PATH"];
 

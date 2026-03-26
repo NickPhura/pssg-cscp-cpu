@@ -20,27 +20,31 @@ namespace Database.Model
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("CPU", 3, "#0000ff")]
+		[OptionSetMetadataAttribute("CPU", 4, "#0000ff")]
 		Cpu = 100000003,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("CSU", 2, "#0000ff")]
+		[OptionSetMetadataAttribute("CSU", 3, "#0000ff")]
 		Csu = 100000002,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("CVAP", 0, "#0000ff")]
+		[OptionSetMetadataAttribute("CVAP", 1, "#0000ff")]
 		Cvap = 100000000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Gangs", 5, "#0000ff")]
+		[OptionSetMetadataAttribute("Gangs", 6, "#0000ff")]
 		Gangs = 100000005,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("REST", 4, "#0000ff")]
+		[OptionSetMetadataAttribute("IIPS", 0, "#0000ff")]
+		Iips = 100000006,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("REST", 5, "#0000ff")]
 		Rest = 100000004,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("VSU", 1, "#0000ff")]
+		[OptionSetMetadataAttribute("VSU", 2, "#0000ff")]
 		Vsu = 100000001,
 	}
 }

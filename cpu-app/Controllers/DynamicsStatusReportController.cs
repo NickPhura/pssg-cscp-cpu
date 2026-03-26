@@ -18,7 +18,7 @@ using System.Web;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize]
     public class DynamicsStatusReportController : Controller
     {
         private readonly IDynamicsResultService _dynamicsResultService;
@@ -43,12 +43,12 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 var programValue = result.result["Program"]["vsd_programid"];
                 var reportingPeriodValue = result.result["ReportingPeriod"];
 
-                string endpointUrl1 = "vsd_datacollections?$select=vsd_datacollectionid&$filter=(_vsd_contract_value eq " + contractValue + ") and (_vsd_program_value eq " + programValue + ") and (vsd_reportingperiod eq " + reportingPeriodValue +")";
+                string endpointUrl1 = "vsd_datacollections?$select=vsd_datacollectionid&$filter=(_vsd_contract_value eq " + contractValue + ") and (_vsd_program_value eq " + programValue + ") and (vsd_reportingperiod eq " + reportingPeriodValue + ")";
 
                 HttpClientResult result2 = await _dynamicsResultService.Get(endpointUrl1);
-                
 
-                if(result2.result["value"].HasValues)
+
+                if (result2.result["value"].HasValues)
                 {
                     var dataCollectionId = result2.result["value"]?.Last()["vsd_datacollectionid"];
                     string requestJson2 = "{\"UserBCeID\":\"" + userBceid + "\",\"BusinessBCeID\":\"" + businessBceid + "\"}";
