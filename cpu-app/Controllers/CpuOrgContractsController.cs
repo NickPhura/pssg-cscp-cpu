@@ -29,8 +29,18 @@ namespace Gov.Cscp.Victims.Public.Controllers
         [HttpGet("{businessBceid}/{userBceid}")]
         [ProducesResponseType(typeof(CpuOrgContractsDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CpuOrgContractsDto>> GetBlob(string businessBceid, string userBceid)
+        public async Task<ActionResult<CpuOrgContractsDto>> GetContacts(string businessBceid, string userBceid)
         {
+            if (string.IsNullOrWhiteSpace(businessBceid))
+            {
+                return BadRequest("businessBceid parameter is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(userBceid))
+            {
+                return BadRequest("userBceid parameter is required.");
+            }
+
             try
             {
                 var request = new Vsd_GetCpuOrgContractsRequest

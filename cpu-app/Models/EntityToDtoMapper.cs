@@ -194,6 +194,138 @@ namespace Gov.Cscp.Victims.Public.Models
             };
         }
 
+        public static ProgramExpenseDto ToProgramExpenseDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ProgramExpenseDto
+            {
+                Vsd_ProgramExpenseId = entity.GetAttributeValue<Guid>("vsd_programexpenseid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programexpenseid").ToString()
+                    : entity.Id.ToString(),
+                TransactionCurrencyIdValue = GetEntityReferenceValue(entity, "transactioncurrencyid"),
+                Vsd_EligibleExpenseItemIdValue = GetEntityReferenceValue(entity, "vsd_eligibleexpenseitemid"),
+                Vsd_ProgramIdValue = GetEntityReferenceValue(entity, "vsd_programid"),
+                Vsd_Cpu_TitlePosition = entity.GetAttributeValue<string>("vsd_cpu_titleposition"),
+                Vsd_Cpu_Benefits = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_benefits")?.Value,
+                Vsd_Cpu_FundedFromVscp = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_fundedfromvscp")?.Value,
+                Vsd_Cpu_ProgramExpenseType = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_programexpensetype")?.Value,
+                Vsd_Cpu_Salary = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_salary")?.Value,
+                Vsd_InputAmount = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_inputamount")?.Value,
+                Vsd_TotalCost = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_totalcost")?.Value,
+                Vsd_Cpu_OtherExpense = entity.GetAttributeValue<string>("vsd_cpu_otherexpense"),
+                StateCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode")?.Value,
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ProgramRevenueSourceDto ToProgramRevenueSourceDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ProgramRevenueSourceDto
+            {
+                Vsd_ProgramRevenueSourceId = entity.GetAttributeValue<Guid>("vsd_programrevenuesourceid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programrevenuesourceid").ToString()
+                    : entity.Id.ToString(),
+                TransactionCurrencyIdValue = GetEntityReferenceValue(entity, "transactioncurrencyid"),
+                Vsd_ProgramIdValue = GetEntityReferenceValue(entity, "vsd_programid"),
+                Vsd_CashContribution = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cashcontribution")?.Value,
+                Vsd_Cpu_OtherRevenueSource = entity.GetAttributeValue<string>("vsd_cpu_otherrevenuesource"),
+                Vsd_Cpu_RevenueSourceType = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_revenuesourcetype")?.Value,
+                Vsd_InKindContribution = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_inkindcontribution")?.Value,
+                StateCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode")?.Value,
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static EligibleExpenseItemDto ToEligibleExpenseItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new EligibleExpenseItemDto
+            {
+                Vsd_EligibleExpenseItemId = entity.GetAttributeValue<Guid>("vsd_eligibleexpenseitemid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_eligibleexpenseitemid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                Vsd_ProgramExpenseType = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_programexpensetype")?.Value,
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ProgramTypeDto ToProgramTypeDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ProgramTypeDto
+            {
+                Vsd_ProgramTypeId = entity.GetAttributeValue<Guid>("vsd_programtypeid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programtypeid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ProgramBudgetDto ToProgramBudgetDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ProgramBudgetDto
+            {
+                Vsd_ProgramId = entity.GetAttributeValue<Guid>("vsd_programid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programid").ToString()
+                    : entity.Id.ToString(),
+                TransactionCurrencyIdValue = GetEntityReferenceValue(entity, "transactioncurrencyid"),
+                Vsd_ContactLookupValue = GetEntityReferenceValue(entity, "vsd_contactlookup"),
+                Vsd_ContractIdValue = GetEntityReferenceValue(entity, "vsd_contractid"),
+                Vsd_ProgramTypeValue = GetEntityReferenceValue(entity, "vsd_programtype"),
+                Vsd_ServiceProviderIdValue = GetEntityReferenceValue(entity, "vsd_serviceproviderid"),
+                StatusCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode")?.Value,
+                Vsd_Cpu_PercentOfTotalAdminCostsFromVscp = entity.GetAttributeValue<decimal?>("vsd_cpu_percentoftotaladmincostsfromvscp"),
+                Vsd_Cpu_PercentOfTotalProgramDeliveryFromVscp = entity.GetAttributeValue<decimal?>("vsd_cpu_percentoftotalprogramdeliveryfromvscp"),
+                Vsd_Cpu_PercentOfTotalSalaryBenefitsVscp = entity.GetAttributeValue<decimal?>("vsd_cpu_percentoftotalsalarybenefitsvscp"),
+                Vsd_Cpu_TotalAdministrationCosts = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totaladministrationcosts")?.Value,
+                Vsd_Cpu_TotalAdministrationCostsFromVscp = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totaladministrationcostsfromvscp")?.Value,
+                Vsd_Cpu_TotalCashContributions = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalcashcontributions")?.Value,
+                Vsd_Cpu_TotalInKindContributions = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalinkindcontributions")?.Value,
+                Vsd_Cpu_TotalProgramDeliveryCosts = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalprogramdeliverycosts")?.Value,
+                Vsd_Cpu_TotalProgramDeliveryFromVscp = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalprogramdeliveryfromvscp")?.Value,
+                Vsd_Cpu_TotalRevenueAmounts = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalrevenueamounts")?.Value,
+                Vsd_Cpu_TotalSalariesAndBenefits = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalsalariesandbenefits")?.Value,
+                Vsd_Cpu_TotalSalariesAndBenefitsFromVscp = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_totalsalariesandbenefitsfromvscp")?.Value,
+                Vsd_EmailAddress = entity.GetAttributeValue<string>("vsd_emailaddress"),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                Vsd_SigningOfficerSignature = entity.GetAttributeValue<string>("vsd_signingofficersignature"),
+                Vsd_SigningOfficerFullName = entity.GetAttributeValue<string>("vsd_signingofficerfullname"),
+                Vsd_SigningOfficerTitle = entity.GetAttributeValue<string>("vsd_signingofficertitle"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ContractBudgetDto ToContractBudgetDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ContractBudgetDto
+            {
+                Vsd_ContractId = entity.GetAttributeValue<Guid>("vsd_contractid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_contractid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                Vsd_FiscalStartDate = entity.GetAttributeValue<DateTime?>("vsd_fiscalstartdate"),
+                StatusCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode")?.Value,
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
         private static string GetEntityReferenceValue(Entity entity, string attributeName)
         {
             if (entity.Contains(attributeName) && entity[attributeName] is EntityReference entityRef)

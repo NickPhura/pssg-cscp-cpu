@@ -378,7 +378,10 @@ namespace Database.Model
 			public const string Vsd_Vsd_Program_Task = "Vsd_Vsd_Program_Task";
 			public const string Vsd_Vsd_Program_Vsd_Invoice = "Vsd_Vsd_Program_Vsd_Invoice";
 			public const string Vsd_Vsd_Program_Vsd_Payment = "Vsd_Vsd_Program_Vsd_Payment";
+			public const string Vsd_Vsd_Program_Vsd_ProgramExpense = "Vsd_Vsd_Program_Vsd_ProgramExpense";
+			public const string Vsd_Vsd_Program_Vsd_ProgramRevenueSource = "Vsd_Vsd_Program_Vsd_ProgramRevenueSource";
 			public const string Vsd_Vsd_Program_Vsd_ScheduleG_Program = "Vsd_Vsd_Program_Vsd_ScheduleG_Program";
+			public const string Vsd_Vsd_ProgramType_Vsd_Program_ProgramType = "vsd_vsd_programtype_vsd_program_ProgramType";
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
@@ -3430,6 +3433,42 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_programexpense
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_programexpense")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramExpense> Vsd_Vsd_Program_Vsd_ProgramExpense
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_program_vsd_programexpense", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_program_vsd_programexpense", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_programrevenuesource
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_programrevenuesource")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramRevenueSource> Vsd_Vsd_Program_Vsd_ProgramRevenueSource
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("vsd_vsd_program_vsd_programrevenuesource", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("vsd_vsd_program_vsd_programrevenuesource", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N vsd_vsd_program_vsd_scheduleg_Program
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_scheduleg_Program")]
@@ -3594,6 +3633,25 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntity<Database.Model.Vsd_Contract>("vsd_vsd_contract_vsd_program", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 vsd_vsd_programtype_vsd_program_ProgramType
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programtype")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_programtype_vsd_program_ProgramType")]
+		public Database.Model.Vsd_ProgramType Vsd_Vsd_ProgramType_Vsd_Program_ProgramType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Database.Model.Vsd_ProgramType>("vsd_vsd_programtype_vsd_program_ProgramType", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<Database.Model.Vsd_ProgramType>("vsd_vsd_programtype_vsd_program_ProgramType", null, value);
 			}
 		}
 		

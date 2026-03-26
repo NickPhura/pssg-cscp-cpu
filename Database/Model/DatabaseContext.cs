@@ -96,6 +96,17 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_EligibleExpenseItem"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_EligibleExpenseItem> Vsd_EligibleExpenseItemSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_EligibleExpenseItem>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_Invoice"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<Database.Model.Vsd_Invoice> Vsd_InvoiceSet
@@ -147,6 +158,39 @@ namespace Database.Model
 			get
 			{
 				return this.CreateQuery<Database.Model.Vsd_Program>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_ProgramExpense"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_ProgramExpense> Vsd_ProgramExpenseSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_ProgramExpense>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_ProgramRevenueSource"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_ProgramRevenueSource> Vsd_ProgramRevenueSourceSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_ProgramRevenueSource>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_ProgramType"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_ProgramType> Vsd_ProgramTypeSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_ProgramType>();
 			}
 		}
 		

@@ -1,11 +1,15 @@
+using Database.Model;
 using Gov.Cscp.Victims.Public.Models;
 using Gov.Cscp.Victims.Public.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.PowerPlatform.Dataverse.Client;
+using Microsoft.Xrm.Sdk;
 using Serilog;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Gov.Cscp.Victims.Public.Controllers
@@ -14,33 +18,122 @@ namespace Gov.Cscp.Victims.Public.Controllers
     // [Authorize]
     public class DynamicsBudgetProposalController : Controller
     {
+        private readonly IOrganizationServiceAsync _organizationService;
         private readonly IDynamicsResultService _dynamicsResultService;
         private readonly ILogger _logger;
 
-        public DynamicsBudgetProposalController(IDynamicsResultService dynamicsResultService)
+        public DynamicsBudgetProposalController(IOrganizationServiceAsync organizationService, IDynamicsResultService dynamicsResultService)
         {
+            this._organizationService = organizationService;
             this._dynamicsResultService = dynamicsResultService;
             _logger = Log.Logger;
         }
 
         [HttpGet("{businessBceid}/{userBceid}/{contractId}")]
-        public async Task<IActionResult> GetBudgetProposal(string businessBceid, string userBceid, string contractId)
+        [ProducesResponseType(typeof(BudgetProposalDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<BudgetProposalDto>> GetBudgetProposal(string businessBceid, string userBceid, string contractId)
         {
+            if (string.IsNullOrWhiteSpace(businessBceid))
+            {
+                return BadRequest("businessBceid parameter is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(userBceid))
+            {
+                return BadRequest("userBceid parameter is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(contractId))
+            {
+                return BadRequest("contractId parameter is required.");
+            }
+
             try
             {
-                string requestJson = "{\"UserBCeID\":\"" + userBceid + "\",\"BusinessBCeID\":\"" + businessBceid + "\"}";
-                string endpointUrl = "vsd_contracts(" + contractId + ")/Microsoft.Dynamics.CRM.vsd_GetCPUBudgetProposal";
+                var request = new Vsd_GetCpuBudgetProposalRequest
+                {
+                    UserBcEId = userBceid,
+                    BusinessBcEId = businessBceid,
+                    Target = new EntityReference("vsd_contract", Guid.Parse(contractId))
+                };
 
-                HttpClientResult result = await _dynamicsResultService.Post(endpointUrl, requestJson);
+                var response = (Vsd_GetCpuBudgetProposalResponse)await _organizationService.ExecuteAsync(request);
 
-                return StatusCode((int)result.statusCode, result.result.ToString());
+                // Map the Dataverse response to the DTO
+                var dto = new BudgetProposalDto
+                {
+                    IsSuccess = response.IsSuccess,
+                    Result = response.Result ?? string.Empty,
+                    Businessbceid = response.BusinessBcEId,
+                    Userbceid = response.UserBcEId,
+                    Contract = EntityToDtoMapper.ToContractBudgetDto(response.Contract),
+                    Organization = EntityToDtoMapper.ToOrganizationDto(response.Organization),
+                    PortalRoles = EntityCollectionToPortalRoleDtoArray(response.PortalRoles),
+                    ProgramCollection = EntityCollectionToProgramBudgetDtoArray(response.ProgramCollection),
+                    AdministrationCostCollection = EntityCollectionToProgramExpenseDtoArray(response.AdministrationCostCollection),
+                    ProgramDeliveryCostCollection = EntityCollectionToProgramExpenseDtoArray(response.ProgramDeliveryCostCollection),
+                    SalaryAndBenefitCollection = EntityCollectionToProgramExpenseDtoArray(response.SalaryAndBenefitCollection),
+                    ProgramRevenueSourceCollection = EntityCollectionToProgramRevenueSourceDtoArray(response.ProgramRevenueSourceCollection),
+                    EligibleExpenseItemCollection = EntityCollectionToEligibleExpenseItemDtoArray(response.EligibleExpenseItemCollection),
+                    ProgramTypeCollection = EntityCollectionToProgramTypeDtoArray(response.ProgramTypeCollection)
+                };
+
+                return Ok(dto);
             }
             catch (Exception e)
             {
                 _logger.Error(e, $"Unexpected error while getting budget proposal info 'vsd_GetCPUBudgetProposal'. Contract id = {contractId}. Source = CPU");
                 return BadRequest();
             }
-            finally { }
+        }
+
+        private PortalRoleDto[] EntityCollectionToPortalRoleDtoArray(EntityCollection collection)
+        {
+            if (collection == null || collection.Entities == null)
+                return new PortalRoleDto[0];
+
+            return collection.Entities.Select(e => EntityToDtoMapper.ToPortalRoleDto(e)).ToArray();
+        }
+
+        private ProgramBudgetDto[] EntityCollectionToProgramBudgetDtoArray(EntityCollection collection)
+        {
+            if (collection == null || collection.Entities == null)
+                return new ProgramBudgetDto[0];
+
+            return collection.Entities.Select(e => EntityToDtoMapper.ToProgramBudgetDto(e)).ToArray();
+        }
+
+        private ProgramExpenseDto[] EntityCollectionToProgramExpenseDtoArray(EntityCollection collection)
+        {
+            if (collection == null || collection.Entities == null)
+                return new ProgramExpenseDto[0];
+
+            return collection.Entities.Select(e => EntityToDtoMapper.ToProgramExpenseDto(e)).ToArray();
+        }
+
+        private ProgramRevenueSourceDto[] EntityCollectionToProgramRevenueSourceDtoArray(EntityCollection collection)
+        {
+            if (collection == null || collection.Entities == null)
+                return new ProgramRevenueSourceDto[0];
+
+            return collection.Entities.Select(e => EntityToDtoMapper.ToProgramRevenueSourceDto(e)).ToArray();
+        }
+
+        private EligibleExpenseItemDto[] EntityCollectionToEligibleExpenseItemDtoArray(EntityCollection collection)
+        {
+            if (collection == null || collection.Entities == null)
+                return new EligibleExpenseItemDto[0];
+
+            return collection.Entities.Select(e => EntityToDtoMapper.ToEligibleExpenseItemDto(e)).ToArray();
+        }
+
+        private ProgramTypeDto[] EntityCollectionToProgramTypeDtoArray(EntityCollection collection)
+        {
+            if (collection == null || collection.Entities == null)
+                return new ProgramTypeDto[0];
+
+            return collection.Entities.Select(e => EntityToDtoMapper.ToProgramTypeDto(e)).ToArray();
         }
 
         [HttpPost]

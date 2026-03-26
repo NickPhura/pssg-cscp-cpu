@@ -13,10 +13,10 @@ namespace Database.Model
 	
 	
 	/// <summary>
-	/// Status of the transaction currency.
+	/// Status of the Program Type
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum TransactionCurrency_StateCode
+	public enum Vsd_ProgramType_StateCode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -29,10 +29,10 @@ namespace Database.Model
 	}
 	
 	/// <summary>
-	/// Reason for the status of the transaction currency.
+	/// Reason for the status of the Program Type
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum TransactionCurrency_StatusCode
+	public enum Vsd_ProgramType_StatusCode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -44,20 +44,16 @@ namespace Database.Model
 		Inactive = 2,
 	}
 	
-	/// <summary>
-	/// Currency in which a financial transaction is carried out.
-	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("transactioncurrency")]
-	public partial class TransactionCurrency : Microsoft.Xrm.Sdk.Entity
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("vsd_programtype")]
+	public partial class Vsd_ProgramType : Microsoft.Xrm.Sdk.Entity
 	{
 		
 		/// <summary>
-		/// Available fields, a the time of codegen, for the transactioncurrency entity
+		/// Available fields, a the time of codegen, for the vsd_programtype entity
 		/// </summary>
 		public partial class Fields
 		{
-			public const string BaseCurrency_Organization = "BaseCurrency_Organization";
 			public const string CreatedBy = "createdby";
 			public const string CreatedByName = "createdbyname";
 			public const string CreatedByYomiName = "createdbyyominame";
@@ -65,16 +61,7 @@ namespace Database.Model
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
 			public const string CreatedOnBehalfByName = "createdonbehalfbyname";
 			public const string CreatedOnBehalfByYomiName = "createdonbehalfbyyominame";
-			public const string CurrencyName = "currencyname";
-			public const string CurrencyPrecision = "currencyprecision";
-			public const string CurrencySymbol = "currencysymbol";
-			public const string EntityImage = "entityimage";
-			public const string EntityImage_Timestamp = "entityimage_timestamp";
-			public const string EntityImage_Url = "entityimage_url";
-			public const string EntityImageId = "entityimageid";
-			public const string ExchangerAte = "exchangerate";
 			public const string ImportSequenceNumber = "importsequencenumber";
-			public const string IsoCurrencyCode = "isocurrencycode";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedByName = "modifiedbyname";
 			public const string ModifiedByYomiName = "modifiedbyyominame";
@@ -82,43 +69,45 @@ namespace Database.Model
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-			public const string Organization_TransactionCurrencies = "organization_transactioncurrencies";
+			public const string Organization_Vsd_ProgramType = "organization_vsd_programtype";
 			public const string OrganizationId = "organizationid";
+			public const string OrganizationIdName = "organizationidname";
 			public const string OverriddenCreatedOn = "overriddencreatedon";
 			public const string StateCode = "statecode";
 			public const string StateCodename = "statecodename";
 			public const string StatusCode = "statuscode";
 			public const string StatusCodename = "statuscodename";
-			public const string TransactionCurrency_Account = "TransactionCurrency_Account";
-			public const string TransactionCurrency_Contact = "TransactionCurrency_Contact";
-			public const string TransactionCurrency_Task = "TransactionCurrency_Task";
-			public const string TransactionCurrency_Vsd_Contract = "TransactionCurrency_Vsd_Contract";
-			public const string TransactionCurrency_Vsd_Invoice = "TransactionCurrency_Vsd_Invoice";
-			public const string TransactionCurrency_Vsd_InvoiceLineDetail = "TransactionCurrency_Vsd_InvoiceLineDetail";
-			public const string TransactionCurrency_Vsd_Payment = "TransactionCurrency_Vsd_Payment";
-			public const string TransactionCurrency_Vsd_Program = "TransactionCurrency_Vsd_Program";
-			public const string TransactionCurrency_Vsd_ProgramExpense = "TransactionCurrency_Vsd_ProgramExpense";
-			public const string TransactionCurrency_Vsd_ProgramRevenueSource = "TransactionCurrency_Vsd_ProgramRevenueSource";
-			public const string TransactionCurrency_Vsd_ScheduleG = "TransactionCurrency_Vsd_ScheduleG";
-			public const string TransactionCurrencyId = "transactioncurrencyid";
-			public const string Id = "transactioncurrencyid";
+			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
+			public const string Vsd_ClientCode = "vsd_clientcode";
+			public const string Vsd_FullProgramName = "vsd_fullprogramname";
+			public const string Vsd_Name = "vsd_name";
+			public const string Vsd_ProgramCategory = "vsd_programcategory";
+			public const string Vsd_ProgramCategoryName = "vsd_programcategoryname";
+			public const string Vsd_ProgramTypeId = "vsd_programtypeid";
+			public const string Id = "vsd_programtypeid";
+			public const string Vsd_ProjectCode = "vsd_projectcode";
+			public const string Vsd_ResponsibilityCentre = "vsd_responsibilitycentre";
+			public const string Vsd_ServiceLine = "vsd_serviceline";
+			public const string Vsd_SToB = "vsd_stob";
+			public const string Vsd_Vsd_ProgramType_Vsd_Program_ProgramType = "Vsd_Vsd_ProgramType_Vsd_Program_ProgramType";
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public TransactionCurrency(System.Guid id) : 
+		public Vsd_ProgramType(System.Guid id) : 
 				base(EntityLogicalName, id)
 		{
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public TransactionCurrency(string keyName, object keyValue) : 
+		public Vsd_ProgramType(string keyName, object keyValue) : 
 				base(EntityLogicalName, keyName, keyValue)
 		{
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public TransactionCurrency(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+		public Vsd_ProgramType(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
 				base(EntityLogicalName, keyAttributes)
 		{
 		}
@@ -127,25 +116,25 @@ namespace Database.Model
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public TransactionCurrency() : 
+		public Vsd_ProgramType() : 
 				base(EntityLogicalName)
 		{
 		}
 		
-		public const string PrimaryIdAttribute = "transactioncurrencyid";
+		public const string PrimaryIdAttribute = "vsd_programtypeid";
 		
-		public const string PrimaryNameAttribute = "currencyname";
+		public const string PrimaryNameAttribute = "vsd_name";
 		
-		public const string EntitySchemaName = "TransactionCurrency";
+		public const string EntitySchemaName = "vsd_programtype";
 		
-		public const string EntityLogicalName = "transactioncurrency";
+		public const string EntityLogicalName = "vsd_programtype";
 		
-		public const string EntityLogicalCollectionName = "transactioncurrencies";
+		public const string EntityLogicalCollectionName = "vsd_programtypes";
 		
-		public const string EntitySetName = "transactioncurrencies";
+		public const string EntitySetName = "vsd_programtypes";
 		
 		/// <summary>
-		/// Unique identifier of the user who created the transaction currency.
+		/// Unique identifier of the user who created the record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
 		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
@@ -192,7 +181,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Date and time when the transaction currency was created.
+		/// Date and time when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
 		public System.Nullable<System.DateTime> CreatedOn
@@ -205,7 +194,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Unique identifier of the delegate user who created the transactioncurrency.
+		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
 		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
@@ -257,130 +246,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Name of the transaction currency.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("currencyname")]
-		public string CurrencyName
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("currencyname");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("currencyname", value);
-			}
-		}
-		
-		/// <summary>
-		/// Number of decimal places that can be used for currency.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("currencyprecision")]
-		public System.Nullable<int> CurrencyPrecision
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<int>>("currencyprecision");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("currencyprecision", value);
-			}
-		}
-		
-		/// <summary>
-		/// Symbol for the transaction currency.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("currencysymbol")]
-		public string CurrencySymbol
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("currencysymbol");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("currencysymbol", value);
-			}
-		}
-		
-		/// <summary>
-		/// The default image for the entity.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage")]
-		public byte[] EntityImage
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<byte[]>("entityimage");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("entityimage", value);
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_timestamp")]
-		public System.Nullable<long> EntityImage_Timestamp
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<long>>("entityimage_timestamp");
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
-		public string EntityImage_Url
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("entityimage_url");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimageid")]
-		public System.Nullable<System.Guid> EntityImageId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("entityimageid");
-			}
-		}
-		
-		/// <summary>
-		/// Exchange rate between the transaction currency and the base currency.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
-		public System.Nullable<decimal> ExchangerAte
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("exchangerate", value);
-			}
-		}
-		
-		/// <summary>
-		/// Unique identifier of the data import or data migration that created this record.
+		/// Sequence number of the import that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
 		public System.Nullable<int> ImportSequenceNumber
@@ -398,25 +264,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// ISO currency code for the transaction currency.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isocurrencycode")]
-		public string IsoCurrencyCode
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("isocurrencycode");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetAttributeValue("isocurrencycode", value);
-			}
-		}
-		
-		/// <summary>
-		/// Unique identifier of the user who last modified the transaction currency.
+		/// Unique identifier of the user who modified the record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
 		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
@@ -463,7 +311,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Date and time when the transaction currency was last modified.
+		/// Date and time when the record was modified.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
 		public System.Nullable<System.DateTime> ModifiedOn
@@ -476,7 +324,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Unique identifier of the delegate user who last modified the transactioncurrency.
+		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
 		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
@@ -528,7 +376,7 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Unique identifier of the organization associated with the transaction currency.
+		/// Unique identifier for the organization
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
 		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
@@ -537,6 +385,23 @@ namespace Database.Model
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationidname")]
+		public string OrganizationIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("organizationid"))
+				{
+					return this.FormattedValues["organizationid"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
@@ -559,15 +424,15 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Status of the transaction currency.
+		/// Status of the Program Type
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public virtual TransactionCurrency_StateCode? StateCode
+		public virtual Vsd_ProgramType_StateCode? StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((TransactionCurrency_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
+				return ((Vsd_ProgramType_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -594,15 +459,15 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Reason for the status of the transaction currency.
+		/// Reason for the status of the Program Type
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public virtual TransactionCurrency_StatusCode? StatusCode
+		public virtual Vsd_ProgramType_StatusCode? StatusCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((TransactionCurrency_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+				return ((Vsd_ProgramType_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -629,48 +494,43 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Unique identifier of the transaction currency.
+		/// For internal use only.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
-		public System.Nullable<System.Guid> TransactionCurrencyId
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("transactioncurrencyid");
+				return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetAttributeValue("transactioncurrencyid", value);
-				if (value.HasValue)
-				{
-					base.Id = value.Value;
-				}
-				else
-				{
-					base.Id = System.Guid.Empty;
-				}
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
-		public override System.Guid Id
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return base.Id;
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.TransactionCurrencyId = value;
+				this.SetAttributeValue("timezoneruleversionnumber", value);
 			}
 		}
 		
 		/// <summary>
-		/// Version number of the transaction currency.
+		/// Time zone code that was in use when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		public System.Nullable<int> UtcConversionTimeZoneCode
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("utcconversiontimezonecode", value);
+			}
+		}
+		
+		/// <summary>
+		/// Version Number
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
@@ -683,232 +543,230 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// 1:N basecurrency_organization
+		/// Used for sending information to CAS.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("basecurrency_organization")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Organization> BaseCurrency_Organization
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_clientcode")]
+		public string Vsd_ClientCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Organization>("basecurrency_organization", null);
+				return this.GetAttributeValue<string>("vsd_clientcode");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Organization>("basecurrency_organization", null, value);
+				this.SetAttributeValue("vsd_clientcode", value);
 			}
 		}
 		
-		/// <summary>
-		/// 1:N transactioncurrency_account
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("transactioncurrency_account")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Account> TransactionCurrency_Account
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_fullprogramname")]
+		public string Vsd_FullProgramName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Account>("transactioncurrency_account", null);
+				return this.GetAttributeValue<string>("vsd_fullprogramname");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Account>("transactioncurrency_account", null, value);
+				this.SetAttributeValue("vsd_fullprogramname", value);
 			}
 		}
 		
 		/// <summary>
-		/// 1:N transactioncurrency_contact
+		/// The name of the custom entity.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("transactioncurrency_contact")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Contact> TransactionCurrency_Contact
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_name")]
+		public string Vsd_Name
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Contact>("transactioncurrency_contact", null);
+				return this.GetAttributeValue<string>("vsd_name");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Contact>("transactioncurrency_contact", null, value);
+				this.SetAttributeValue("vsd_name", value);
 			}
 		}
 		
-		/// <summary>
-		/// 1:N TransactionCurrency_Task
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_Task")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Task> TransactionCurrency_Task
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programcategory")]
+		public virtual Vsd_Cpu_ProgramType? Vsd_ProgramCategory
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Task>("TransactionCurrency_Task", null);
+				return ((Vsd_Cpu_ProgramType?)(EntityOptionSetEnum.GetEnum(this, "vsd_programcategory")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Task>("TransactionCurrency_Task", null, value);
+				this.SetAttributeValue("vsd_programcategory", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
 		
-		/// <summary>
-		/// 1:N TransactionCurrency_vsd_contract
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_contract")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Contract> TransactionCurrency_Vsd_Contract
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programcategoryname")]
+		public string Vsd_ProgramCategoryName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_Contract>("TransactionCurrency_vsd_contract", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<Database.Model.Vsd_Contract>("TransactionCurrency_vsd_contract", null, value);
+				if (this.FormattedValues.Contains("vsd_programcategory"))
+				{
+					return this.FormattedValues["vsd_programcategory"];
+				}
+				else
+				{
+					return default(string);
+				}
 			}
 		}
 		
 		/// <summary>
-		/// 1:N TransactionCurrency_vsd_invoice
+		/// Unique identifier for entity instances
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_invoice")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Invoice> TransactionCurrency_Vsd_Invoice
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programtypeid")]
+		public System.Nullable<System.Guid> Vsd_ProgramTypeId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_Invoice>("TransactionCurrency_vsd_invoice", null);
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("vsd_programtypeid");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_Invoice>("TransactionCurrency_vsd_invoice", null, value);
+				this.SetAttributeValue("vsd_programtypeid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
 			}
 		}
 		
-		/// <summary>
-		/// 1:N TransactionCurrency_vsd_invoicelinedetail
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_invoicelinedetail")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_InvoiceLineDetail> TransactionCurrency_Vsd_InvoiceLineDetail
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programtypeid")]
+		public override System.Guid Id
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_InvoiceLineDetail>("TransactionCurrency_vsd_invoicelinedetail", null);
+				return base.Id;
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_InvoiceLineDetail>("TransactionCurrency_vsd_invoicelinedetail", null, value);
+				this.Vsd_ProgramTypeId = value;
 			}
 		}
 		
 		/// <summary>
-		/// 1:N TransactionCurrency_vsd_payment
+		/// Used for sending information to CAS
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_payment")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Payment> TransactionCurrency_Vsd_Payment
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_projectcode")]
+		public string Vsd_ProjectCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_Payment>("TransactionCurrency_vsd_payment", null);
+				return this.GetAttributeValue<string>("vsd_projectcode");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_Payment>("TransactionCurrency_vsd_payment", null, value);
+				this.SetAttributeValue("vsd_projectcode", value);
 			}
 		}
 		
 		/// <summary>
-		/// 1:N TransactionCurrency_vsd_program
+		/// Used for sending information to CAS.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_program")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Program> TransactionCurrency_Vsd_Program
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_responsibilitycentre")]
+		public string Vsd_ResponsibilityCentre
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_Program>("TransactionCurrency_vsd_program", null);
+				return this.GetAttributeValue<string>("vsd_responsibilitycentre");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_Program>("TransactionCurrency_vsd_program", null, value);
+				this.SetAttributeValue("vsd_responsibilitycentre", value);
 			}
 		}
 		
 		/// <summary>
-		/// 1:N TransactionCurrency_vsd_programexpense
+		/// Used for sending information to CAS
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_programexpense")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramExpense> TransactionCurrency_Vsd_ProgramExpense
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_serviceline")]
+		public string Vsd_ServiceLine
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_ProgramExpense>("TransactionCurrency_vsd_programexpense", null);
+				return this.GetAttributeValue<string>("vsd_serviceline");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_ProgramExpense>("TransactionCurrency_vsd_programexpense", null, value);
+				this.SetAttributeValue("vsd_serviceline", value);
 			}
 		}
 		
 		/// <summary>
-		/// 1:N TransactionCurrency_vsd_programrevenuesource
+		/// Used for payment information sent to CAS.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_programrevenuesource")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramRevenueSource> TransactionCurrency_Vsd_ProgramRevenueSource
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_stob")]
+		public string Vsd_SToB
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("TransactionCurrency_vsd_programrevenuesource", null);
+				return this.GetAttributeValue<string>("vsd_stob");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("TransactionCurrency_vsd_programrevenuesource", null, value);
+				this.SetAttributeValue("vsd_stob", value);
 			}
 		}
 		
 		/// <summary>
-		/// 1:N TransactionCurrency_vsd_scheduleg
+		/// 1:N vsd_vsd_programtype_vsd_program_ProgramType
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_scheduleg")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ScheduleG> TransactionCurrency_Vsd_ScheduleG
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_programtype_vsd_program_ProgramType")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Program> Vsd_Vsd_ProgramType_Vsd_Program_ProgramType
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Database.Model.Vsd_ScheduleG>("TransactionCurrency_vsd_scheduleg", null);
+				return this.GetRelatedEntities<Database.Model.Vsd_Program>("vsd_vsd_programtype_vsd_program_ProgramType", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetRelatedEntities<Database.Model.Vsd_ScheduleG>("TransactionCurrency_vsd_scheduleg", null, value);
+				this.SetRelatedEntities<Database.Model.Vsd_Program>("vsd_vsd_programtype_vsd_program_ProgramType", null, value);
 			}
 		}
 		
 		/// <summary>
-		/// N:1 organization_transactioncurrencies
+		/// N:1 organization_vsd_programtype
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_transactioncurrencies")]
-		public Database.Model.Organization Organization_TransactionCurrencies
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_programtype")]
+		public Database.Model.Organization Organization_Vsd_ProgramType
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<Database.Model.Organization>("organization_transactioncurrencies", null);
+				return this.GetRelatedEntity<Database.Model.Organization>("organization_vsd_programtype", null);
 			}
 		}
 		
@@ -917,7 +775,7 @@ namespace Database.Model
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public TransactionCurrency(object anonymousType) : 
+		public Vsd_ProgramType(object anonymousType) : 
 				this()
 		{
             foreach (var p in anonymousType.GetType().GetProperties())
@@ -935,9 +793,9 @@ namespace Database.Model
                 {
                     case "id":
                         base.Id = (System.Guid)value;
-                        Attributes["transactioncurrencyid"] = base.Id;
+                        Attributes["vsd_programtypeid"] = base.Id;
                         break;
-                    case "transactioncurrencyid":
+                    case "vsd_programtypeid":
                         var id = (System.Nullable<System.Guid>) value;
                         if(id == null){ continue; }
                         base.Id = id.Value;

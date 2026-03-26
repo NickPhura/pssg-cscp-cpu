@@ -738,7 +738,9 @@ namespace Database.Model
 			public const string OobPriceCalculationEnabled = "oobpricecalculationenabled";
 			public const string OrderPrefix = "orderprefix";
 			public const string Organization_TransactionCurrencies = "Organization_TransactionCurrencies";
+			public const string Organization_Vsd_EligibleExpenseItem = "Organization_Vsd_EligibleExpenseItem";
 			public const string Organization_Vsd_PortalRole = "Organization_Vsd_PortalRole";
+			public const string Organization_Vsd_ProgramType = "Organization_Vsd_ProgramType";
 			public const string OrganizationId = "organizationid";
 			public const string Id = "organizationid";
 			public const string OrganizationState = "organizationstate";
@@ -7811,6 +7813,24 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N organization_vsd_eligibleexpenseitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_eligibleexpenseitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_EligibleExpenseItem> Organization_Vsd_EligibleExpenseItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_EligibleExpenseItem>("organization_vsd_eligibleexpenseitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_EligibleExpenseItem>("organization_vsd_eligibleexpenseitem", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N organization_vsd_portalrole
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_portalrole")]
@@ -7825,6 +7845,24 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.Vsd_PortalRole>("organization_vsd_portalrole", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N organization_vsd_programtype
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_programtype")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramType> Organization_Vsd_ProgramType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramType>("organization_vsd_programtype", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramType>("organization_vsd_programtype", null, value);
 			}
 		}
 		

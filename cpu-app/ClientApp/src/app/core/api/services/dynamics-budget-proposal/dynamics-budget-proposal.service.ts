@@ -26,6 +26,7 @@ import {
 } from 'rxjs';
 
 import type {
+  BudgetProposalDto,
   BudgetProposalPost
 } from '../../models';
 
@@ -56,16 +57,16 @@ interface HttpClientOptions {
 @Injectable({ providedIn: 'root' })
 export class DynamicsBudgetProposalService {
   private readonly http = inject(HttpClient);
- getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = void>(businessBceid: string,
+ getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = void>(businessBceid: string,
+ getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = void>(businessBceid: string,
+ getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = void>(
+  getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(
     businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
@@ -85,5 +86,5 @@ export class DynamicsBudgetProposalService {
   }
 };
 
-export type GetApiDynamicsBudgetProposalBusinessBceidUserBceidContractIdClientResult = NonNullable<void>
+export type GetApiDynamicsBudgetProposalBusinessBceidUserBceidContractIdClientResult = NonNullable<BudgetProposalDto>
 export type PostApiDynamicsBudgetProposalClientResult = NonNullable<void>

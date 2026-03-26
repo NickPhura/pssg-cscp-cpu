@@ -133,11 +133,15 @@
     "task",
     "transactioncurrency",
     "vsd_contract",
+    "vsd_eligibleexpenseitem",
     "vsd_invoice",
     "vsd_invoicelinedetail",
     "vsd_payment",
     "vsd_portalrole",
     "vsd_program",
+    "vsd_programexpense",
+    "vsd_programrevenuesource",
+    "vsd_programtype",
     "vsd_scheduleg"
   ],
   "entityTypesFolder": "Entities",
@@ -145,6 +149,7 @@
   "generateGlobalOptionSets": false,
   "messageNamesFilter": [
     "vsd_clonecontract*",
+    "vsd_getcpubudgetproposal*",
     "vsd_getcpuorgcontracts*",
     "bcgov_*",
     "cpu_*"

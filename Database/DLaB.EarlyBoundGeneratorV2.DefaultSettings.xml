@@ -12,6 +12,7 @@
     <ActionPrefixesWhitelist>bcgov_*|
 cpu_*</ActionPrefixesWhitelist>
     <ActionsWhitelist>vsd_clonecontract|
+vsd_getcpubudgetproposal|
 vsd_getcpuorgcontracts</ActionsWhitelist>
     <ActionsToSkip />
     <AddDebuggerNonUserCode>true</AddDebuggerNonUserCode>
@@ -39,11 +40,15 @@ organization|
 task|
 transactioncurrency|
 vsd_contract|
+vsd_eligibleexpenseitem|
 vsd_invoice|
 vsd_invoicelinedetail|
 vsd_payment|
 vsd_portalrole|
 vsd_program|
+vsd_programexpense|
+vsd_programrevenuesource|
+vsd_programtype|
 vsd_scheduleg</EntitiesWhitelist>
     <EntityAttributeSpecifiedNames />
     <EntityClassNameOverrides />
