@@ -1,49 +1,27 @@
-import { retry, catchError } from 'rxjs/operators';
-import { iDynamicsScheduleFResponse } from '../models/dynamics-blob';
-import { iDynamicsPostScheduleF } from '../models/dynamics-post';
-import { Observable, throwError, of } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { ProgramApplicationDto, ProgramApplicationPost } from "../api/models";
+import { ProgramApplicationService as OrvalProgramApplicationService } from "../api/services/program-application/program-application.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ProgramApplicationService {
-  baseUrl = environment.apiRootUrl;
-  apiPath = this.baseUrl.concat('api/DynamicsProgramApplication');
+  constructor(private orvalService: OrvalProgramApplicationService) {}
 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
-  getProgramApplication(organizationId: string, userId: string, scheduleFId: string): Observable<iDynamicsScheduleFResponse> {
-    return this.http.get<iDynamicsScheduleFResponse>(`${this.apiPath}/${organizationId}/${userId}/${scheduleFId}`, { headers: this.headers }).pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
-  }
-  setProgramApplication(budgetProposal: iDynamicsPostScheduleF): Observable<any> {
-    return this.http.post<any>(`${this.apiPath}`, budgetProposal, { headers: this.headers }).pipe(
-      retry(3),
-      catchError(this.handleError)
+  getProgramApplication(
+    organizationId: string,
+    userId: string,
+    scheduleFId: string,
+  ): Observable<ProgramApplicationDto> {
+    return this.orvalService.getApiProgramApplicationBusinessBceidUserBceidScheduleFId(
+      organizationId,
+      userId,
+      scheduleFId,
     );
   }
 
-  get headers(): HttpHeaders {
-    return new HttpHeaders({ 'Content-Type': 'application/json' });
-  }
-  protected handleError(err): Observable<never> {
-    let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      errorMessage = err.error.message;
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      errorMessage = `Backend returned code ${err.status}, body was: ${err.message}`;
-    }
-    return throwError(errorMessage);
+  setProgramApplication(body: ProgramApplicationPost): Observable<void> {
+    return this.orvalService.postApiProgramApplication(body);
   }
 }

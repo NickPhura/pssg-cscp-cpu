@@ -13,7 +13,9 @@
 cpu_*</ActionPrefixesWhitelist>
     <ActionsWhitelist>vsd_clonecontract|
 vsd_getcpubudgetproposal|
-vsd_getcpuorgcontracts</ActionsWhitelist>
+vsd_getcpuorgcontracts|
+vsd_getcpuschedulef|
+vsd_setcpuorgcontracts</ActionsWhitelist>
     <ActionsToSkip />
     <AddDebuggerNonUserCode>true</AddDebuggerNonUserCode>
     <AddNewFilesToProject>true</AddNewFilesToProject>
@@ -39,6 +41,7 @@ contact|
 organization|
 task|
 transactioncurrency|
+vsd_contact_vsd_program|
 vsd_contract|
 vsd_eligibleexpenseitem|
 vsd_invoice|
@@ -49,6 +52,7 @@ vsd_program|
 vsd_programexpense|
 vsd_programrevenuesource|
 vsd_programtype|
+vsd_schedule|
 vsd_scheduleg</EntitiesWhitelist>
     <EntityAttributeSpecifiedNames />
     <EntityClassNameOverrides />

@@ -132,6 +132,7 @@
     "organization",
     "task",
     "transactioncurrency",
+    "vsd_contact_vsd_program",
     "vsd_contract",
     "vsd_eligibleexpenseitem",
     "vsd_invoice",
@@ -142,6 +143,7 @@
     "vsd_programexpense",
     "vsd_programrevenuesource",
     "vsd_programtype",
+    "vsd_schedule",
     "vsd_scheduleg"
   ],
   "entityTypesFolder": "Entities",
@@ -151,6 +153,8 @@
     "vsd_clonecontract*",
     "vsd_getcpubudgetproposal*",
     "vsd_getcpuorgcontracts*",
+    "vsd_getcpuschedulef*",
+    "vsd_setcpuorgcontracts*",
     "bcgov_*",
     "cpu_*"
   ],

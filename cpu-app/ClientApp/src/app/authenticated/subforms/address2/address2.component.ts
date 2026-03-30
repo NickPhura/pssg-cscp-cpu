@@ -1,18 +1,16 @@
-import { Address } from '../../../core/models/address.class';
-import { COUNTRIES_ADDRESS_2 } from '../../../core/constants/country-list';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormHelper } from '../../../core/form-helper';
-import { POSTAL_CODE } from '../../../core/constants/regex.constants';
-import { iAddress } from '../../../core/models/address.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { COUNTRIES_ADDRESS_2 } from "../../../core/constants/country-list";
+import { POSTAL_CODE_PATTERN } from "../../../core/constants/regex.constants";
+import { FormHelper } from "../../../core/form-helper";
+import { iAddress } from "../../../core/models/address.interface";
 
 @Component({
-    selector: 'app-address2',
-    templateUrl: './address2.component.html',
-    styleUrls: ['./address2.component.css'],
-    standalone: false
+  selector: "app-address2",
+  templateUrl: "./address2.component.html",
+  styleUrls: ["./address2.component.css"],
+  standalone: false,
 })
 export class Address2Component implements OnInit {
-
   public formHelper = new FormHelper();
   @Input() address: iAddress;
   @Input() isDisabled: boolean = false;
@@ -21,15 +19,18 @@ export class Address2Component implements OnInit {
 
   countries: any;
   country: any;
-  postalRegex: RegExp;
+  postalRegex: string;
 
   constructor() {
-    this.postalRegex = POSTAL_CODE;
+    this.postalRegex = POSTAL_CODE_PATTERN;
     this.countries = COUNTRIES_ADDRESS_2;
-    this.country = this.address && this.address.country ? COUNTRIES_ADDRESS_2[this.address.country] : COUNTRIES_ADDRESS_2['Canada'];
+    this.country =
+      this.address && this.address.country
+        ? COUNTRIES_ADDRESS_2[this.address.country]
+        : COUNTRIES_ADDRESS_2["Canada"];
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
   onChange() {
     this.addressChange.emit(this.address);
   }

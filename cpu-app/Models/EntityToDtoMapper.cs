@@ -125,17 +125,35 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
                 Vsd_ContractIdValue = GetEntityReferenceValue(entity, "vsd_contractid"),
                 Vsd_ContactLookupValue = GetEntityReferenceValue(entity, "vsd_contactlookup"),
-                Vsd_City = entity.GetAttributeValue<string>("vsd_city"),
+                Vsd_ContactLookup2Value = GetEntityReferenceValue(entity, "vsd_contactlookup2"),
+                Vsd_ContactLookup3Value = GetEntityReferenceValue(entity, "vsd_contactlookup3"),
                 Vsd_AddressLine1 = entity.GetAttributeValue<string>("vsd_addressline1"),
                 Vsd_AddressLine2 = entity.GetAttributeValue<string>("vsd_addressline2"),
+                Vsd_City = entity.GetAttributeValue<string>("vsd_city"),
+                Vsd_PostalCodeZip = entity.GetAttributeValue<string>("vsd_postalcodezip"),
                 Vsd_ProvinceState = entity.GetAttributeValue<string>("vsd_provincestate"),
-                Vsd_EmailAddress = entity.GetAttributeValue<string>("vsd_emailaddress"),
-                Vsd_Fax = entity.GetAttributeValue<string>("vsd_fax"),
-                Vsd_MailingCity = entity.GetAttributeValue<string>("vsd_mailingcity"),
+                Vsd_Country = entity.GetAttributeValue<string>("vsd_country"),
                 Vsd_MailingAddressLine1 = entity.GetAttributeValue<string>("vsd_mailingaddressline1"),
                 Vsd_MailingAddressLine2 = entity.GetAttributeValue<string>("vsd_mailingaddressline2"),
+                Vsd_MailingCity = entity.GetAttributeValue<string>("vsd_mailingcity"),
+                Vsd_MailingPostalCodeZip = entity.GetAttributeValue<string>("vsd_mailingpostalcodezip"),
                 Vsd_MailingProvinceState = entity.GetAttributeValue<string>("vsd_mailingprovincestate"),
+                Vsd_MailingCountry = entity.GetAttributeValue<string>("vsd_mailingcountry"),
+                Vsd_EmailAddress = entity.GetAttributeValue<string>("vsd_emailaddress"),
+                Vsd_Fax = entity.GetAttributeValue<string>("vsd_fax"),
                 Vsd_PhoneNumber = entity.GetAttributeValue<string>("vsd_phonenumber"),
+                Vsd_GovernmentFunderAgency = entity.GetAttributeValue<string>("vsd_governmentfunderagency"),
+                Vsd_CostShare = entity.GetAttributeValue<bool?>("vsd_costshare"),
+                Vsd_AddressTransitionOrSafeHome = entity.GetAttributeValue<bool?>("vsd_addresstransitionorsafehome"),
+                Vsd_Cpu_ProgramStaffSubcontracted = entity.GetAttributeValue<bool?>("vsd_cpu_programstaffsubcontracted"),
+                Vsd_Cpu_Per = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_per")?.Value,
+                Vsd_Cpu_NumberOfHours = entity.GetAttributeValue<int?>("vsd_cpu_numberofhours"),
+                Vsd_TotalScheduledHours = entity.GetAttributeValue<int?>("vsd_totalscheduledhours"),
+                Vsd_TotalOnCallStandbyHours = entity.GetAttributeValue<int?>("vsd_totaloncallstandbyhours"),
+                Vsd_Cpu_EstimatedSubtotalComponentValue = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_estimatedsubtotalcomponentvalue")?.Value,
+                Vsd_ProgramTypeValue = GetEntityReferenceValue(entity, "vsd_programtype"),
+                Vsd_Cpu_RegionDistrictValue = GetEntityReferenceValue(entity, "vsd_cpu_regiondistrict"),
+                Vsd_Cpu_Program_Location = entity.GetAttributeValue<string>("vsd_cpu_program_location"),
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ??
                                    entity.RowVersion
@@ -170,6 +188,14 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
                 Vsd_FiscalStartDate = entity.GetAttributeValue<DateTime?>("vsd_fiscalstartdate"),
                 StatusCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode")?.Value,
+                Vsd_ContactLookup1IdValue = GetEntityReferenceValue(entity, "vsd_contactlookup1"),
+                Vsd_ContactLookup2IdValue = GetEntityReferenceValue(entity, "vsd_contactlookup2"),
+                Vsd_Cpu_InsuranceOptions = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_insuranceoptions")?.Value,
+                Vsd_Cpu_MemberOfCssea = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_memberofcssea")?.Value,
+                Vsd_Cpu_HumanResourcePolices = entity.GetAttributeValue<string>("vsd_cpu_humanresourcepolices"),
+                Vsd_Cpu_SpecificUnion = entity.GetAttributeValue<string>("vsd_cpu_specificunion"),
+                Vsd_Cpu_SubcontractedProgramStaff = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_subcontractedprogramstaff")?.Value,
+                Vsd_Cpu_UnionizedStaff = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_unionizedstaff")?.Value,
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ??
                                    entity.RowVersion
@@ -267,6 +293,7 @@ namespace Gov.Cscp.Victims.Public.Models
                     ? entity.GetAttributeValue<Guid>("vsd_programtypeid").ToString()
                     : entity.Id.ToString(),
                 Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                Vsd_ProgramCategory = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_programcategory")?.Value,                
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
             };
@@ -321,6 +348,71 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
                 Vsd_FiscalStartDate = entity.GetAttributeValue<DateTime?>("vsd_fiscalstartdate"),
                 StatusCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode")?.Value,
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ScheduleDto ToScheduleDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ScheduleDto
+            {
+                Vsd_ScheduleId = entity.GetAttributeValue<Guid>("vsd_scheduleid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_scheduleid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Days = entity.GetAttributeValue<string>("vsd_days"),
+                Vsd_ScheduledStartTime = entity.GetAttributeValue<string>("vsd_scheduledstarttime"),
+                Vsd_ScheduledEndTime = entity.GetAttributeValue<string>("vsd_scheduledendtime"),
+                Vsd_Cpu_ScheduleType = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_scheduletype")?.Value,
+                StateCode = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode")?.Value,
+                Vsd_ProgramIdValue = GetEntityReferenceValue(entity, "vsd_programid"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ProgramContactDto ToProgramContactDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ProgramContactDto
+            {
+                ContactId = GetEntityReferenceValue(entity, "contactid"),
+                Vsd_ProgramId = GetEntityReferenceValue(entity, "vsd_programid"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static RegionDistrictDto ToRegionDistrictDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new RegionDistrictDto
+            {
+                Vsd_RegionDistrictId = entity.GetAttributeValue<Guid>("vsd_regiondistrictid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_regiondistrictid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ServiceAreaDto ToServiceAreaDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ServiceAreaDto
+            {
+                Vsd_ServiceAreaId = entity.GetAttributeValue<Guid>("vsd_serviceareaid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_serviceareaid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                Vsd_ProgramId = GetEntityReferenceValue(entity, "vsd_programid"),
+                Vsd_RegionDistrictId = GetEntityReferenceValue(entity, "vsd_regiondistrictid"),
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
             };

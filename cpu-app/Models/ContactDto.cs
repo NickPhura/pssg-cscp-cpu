@@ -15,6 +15,7 @@ namespace Gov.Cscp.Victims.Public.Models
         public string Address1Line2 { get; set; }
         public string Address1PostalCode { get; set; }
         public string Address1StateOrProvince { get; set; }
+        public string Address1Country { get; set; }
         public string Vsd_BceId { get; set; }
         public string Vsd_MainPhoneExtension { get; set; }
         public string Telephone2 { get; set; }

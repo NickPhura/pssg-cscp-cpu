@@ -6,13 +6,11 @@
  * OpenAPI spec version: v1
  */
 
-export interface ProgramTypeDto {
+export interface ProgramContactDto {
   /** @nullable */
-  vsd_ProgramTypeId?: string | null;
+  contactId?: string | null;
   /** @nullable */
-  vsd_Name?: string | null;
-  /** @nullable */
-  vsd_ProgramCategory?: number | null;
+  vsd_ProgramId?: string | null;
   /** @nullable */
   fortuneCookieType?: string | null;
   /** @nullable */

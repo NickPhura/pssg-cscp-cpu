@@ -16,6 +16,22 @@ export interface ContractDto {
   /** @nullable */
   statusCode?: number | null;
   /** @nullable */
+  vsd_ContactLookup1IdValue?: string | null;
+  /** @nullable */
+  vsd_ContactLookup2IdValue?: string | null;
+  /** @nullable */
+  vsd_Cpu_InsuranceOptions?: number | null;
+  /** @nullable */
+  vsd_Cpu_MemberOfCssea?: number | null;
+  /** @nullable */
+  vsd_Cpu_HumanResourcePolices?: string | null;
+  /** @nullable */
+  vsd_Cpu_SpecificUnion?: string | null;
+  /** @nullable */
+  vsd_Cpu_SubcontractedProgramStaff?: number | null;
+  /** @nullable */
+  vsd_Cpu_UnionizedStaff?: number | null;
+  /** @nullable */
   fortuneCookieType?: string | null;
   /** @nullable */
   fortuneCookieEtag?: string | null;

@@ -6,13 +6,11 @@
  * OpenAPI spec version: v1
  */
 
-export interface ProgramTypeDto {
+export interface RegionDistrictDto {
   /** @nullable */
-  vsd_ProgramTypeId?: string | null;
+  vsd_RegionDistrictId?: string | null;
   /** @nullable */
   vsd_Name?: string | null;
-  /** @nullable */
-  vsd_ProgramCategory?: number | null;
   /** @nullable */
   fortuneCookieType?: string | null;
   /** @nullable */

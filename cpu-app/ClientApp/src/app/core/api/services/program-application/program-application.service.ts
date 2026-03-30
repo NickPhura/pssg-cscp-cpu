@@ -26,6 +26,7 @@ import {
 } from 'rxjs';
 
 import type {
+  ProgramApplicationDto,
   ProgramApplicationPost
 } from '../../models';
 
@@ -54,36 +55,36 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsProgramApplicationService {
+export class ProgramApplicationService {
   private readonly http = inject(HttpClient);
- getApiDynamicsProgramApplicationBusinessBceidUserBceidScheduleFId<TData = void>(businessBceid: string,
+ getApiProgramApplicationBusinessBceidUserBceidScheduleFId<TData = ProgramApplicationDto>(businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsProgramApplicationBusinessBceidUserBceidScheduleFId<TData = void>(businessBceid: string,
+ getApiProgramApplicationBusinessBceidUserBceidScheduleFId<TData = ProgramApplicationDto>(businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsProgramApplicationBusinessBceidUserBceidScheduleFId<TData = void>(businessBceid: string,
+ getApiProgramApplicationBusinessBceidUserBceidScheduleFId<TData = ProgramApplicationDto>(businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsProgramApplicationBusinessBceidUserBceidScheduleFId<TData = void>(
+  getApiProgramApplicationBusinessBceidUserBceidScheduleFId<TData = ProgramApplicationDto>(
     businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsProgramApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
+      `/api/ProgramApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
     );
   }
- postApiDynamicsProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsProgramApplication<TData = void>(
+ postApiProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiProgramApplication<TData = void>(
     programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsProgramApplication`,
+      `/api/ProgramApplication`,
       programApplicationPost,options
     );
   }
 };
 
-export type GetApiDynamicsProgramApplicationBusinessBceidUserBceidScheduleFIdClientResult = NonNullable<void>
-export type PostApiDynamicsProgramApplicationClientResult = NonNullable<void>
+export type GetApiProgramApplicationBusinessBceidUserBceidScheduleFIdClientResult = NonNullable<ProgramApplicationDto>
+export type PostApiProgramApplicationClientResult = NonNullable<void>

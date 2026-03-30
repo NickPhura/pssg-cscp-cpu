@@ -34,6 +34,8 @@ export interface ContactDto {
   /** @nullable */
   address1StateOrProvince?: string | null;
   /** @nullable */
+  address1Country?: string | null;
+  /** @nullable */
   vsd_BceId?: string | null;
   /** @nullable */
   vsd_MainPhoneExtension?: string | null;

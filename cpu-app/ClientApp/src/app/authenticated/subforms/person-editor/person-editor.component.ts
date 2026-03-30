@@ -1,13 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { iPerson } from '../../../core/models/person.interface';
-import { FormHelper } from '../../../core/form-helper';
-import { EMAIL, PHONE_NUMBER, LETTERS_SPACES, NAME_REGEX } from '../../../core/constants/regex.constants';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  EMAIL_PATTERN,
+  LETTERS_SPACES_PATTERN,
+  NAME_REGEX_PATTERN,
+  PHONE_NUMBER_PATTERN,
+} from "../../../core/constants/regex.constants";
+import { FormHelper } from "../../../core/form-helper";
+import { iPerson } from "../../../core/models/person.interface";
 
 @Component({
-    selector: 'app-person-editor',
-    templateUrl: './person-editor.component.html',
-    styleUrls: ['./person-editor.component.css'],
-    standalone: false
+  selector: "app-person-editor",
+  templateUrl: "./person-editor.component.html",
+  styleUrls: ["./person-editor.component.css"],
+  standalone: false,
 })
 export class PersonEditorComponent implements OnInit {
   @Input() person: iPerson;
@@ -21,11 +26,11 @@ export class PersonEditorComponent implements OnInit {
 
   public formHelper = new FormHelper();
   me: boolean = false;
-  emailRegex: RegExp = EMAIL;
-  phoneRegex: RegExp = PHONE_NUMBER;
-  wordRegex: RegExp = LETTERS_SPACES;
-  nameRegex: RegExp = NAME_REGEX;
-  constructor() { }
+  emailRegex: string = EMAIL_PATTERN;
+  phoneRegex: string = PHONE_NUMBER_PATTERN;
+  wordRegex: string = LETTERS_SPACES_PATTERN;
+  nameRegex: string = NAME_REGEX_PATTERN;
+  constructor() {}
 
   ngOnInit() {
     if (this.person.me) {
@@ -40,9 +45,8 @@ export class PersonEditorComponent implements OnInit {
   setAddressSameAsAgency() {
     if (!this.person.addressSameAsAgency) {
       this.setAddress.emit(this.person);
-    }
-    else {
-      this.clearAddress.emit(this.person)
+    } else {
+      this.clearAddress.emit(this.person);
     }
   }
 }

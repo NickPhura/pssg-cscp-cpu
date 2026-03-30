@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { COUNTRIES_ADDRESS_2 } from "../../../core/constants/country-list";
-import { POSTAL_CODE } from "../../../core/constants/regex.constants";
+import { POSTAL_CODE_PATTERN } from "../../../core/constants/regex.constants";
 import { Option } from "../../../shared/form-field/form-field.component";
 
 @Component({
@@ -15,10 +15,10 @@ export class AddressFormComponent implements OnInit {
 
   countries: any;
   country: any;
-  postalRegex: RegExp;
+  postalRegex: string;
 
   constructor() {
-    this.postalRegex = POSTAL_CODE;
+    this.postalRegex = POSTAL_CODE_PATTERN;
     this.countries = COUNTRIES_ADDRESS_2;
   }
 
