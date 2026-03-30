@@ -1,40 +1,39 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import { iDynamicsBudgetProposal } from '../models/dynamics-blob';
-import { iDynamicsPostBudgetProposal } from '../models/dynamics-post';
-import { environment } from '../../../environments/environment';
+import { Injectable, inject } from "@angular/core";
+import { Observable, throwError } from "rxjs";
+import { catchError, retry } from "rxjs/operators";
+import { BudgetProposalDto, BudgetProposalPost } from "../api/models";
+import { DynamicsBudgetProposalService } from "../api/services/dynamics-budget-proposal/dynamics-budget-proposal.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class BudgetProposalService {
-  baseUrl = environment.apiRootUrl;
-  apiPath = this.baseUrl.concat('api/DynamicsBudgetProposal');
+  private readonly dynamicsBudgetProposalService = inject(
+    DynamicsBudgetProposalService,
+  );
 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
-  getBudgetProposal(organizationId: string, userId: string, contractId: string): Observable<iDynamicsBudgetProposal> {
-    return this.http.get<iDynamicsBudgetProposal>(`${this.apiPath}/${organizationId}/${userId}/${contractId}`, { headers: this.headers }).pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
-  }
-  setBudgetProposal(budgetProposal: iDynamicsPostBudgetProposal): Observable<any> {
-    return this.http.post<any>(`${this.apiPath}`, budgetProposal, { headers: this.headers }).pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+  getBudgetProposal(
+    organizationId: string,
+    userId: string,
+    contractId: string,
+  ): Observable<BudgetProposalDto> {
+    return this.dynamicsBudgetProposalService
+      .getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId(
+        organizationId,
+        userId,
+        contractId,
+      )
+      .pipe(retry(3), catchError(this.handleError));
   }
 
-  get headers(): HttpHeaders {
-    return new HttpHeaders({ 'Content-Type': 'application/json' });
+  setBudgetProposal(budgetProposal: BudgetProposalPost): Observable<void> {
+    return this.dynamicsBudgetProposalService
+      .postApiDynamicsBudgetProposal(budgetProposal)
+      .pipe(retry(3), catchError(this.handleError));
   }
+
   protected handleError(err): Observable<never> {
-    let errorMessage = '';
+    let errorMessage = "";
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       errorMessage = err.error.message;
