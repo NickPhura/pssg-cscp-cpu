@@ -15,6 +15,7 @@ cpu_*</ActionPrefixesWhitelist>
 vsd_getcpubudgetproposal|
 vsd_getcpuorgcontracts|
 vsd_getcpuschedulef|
+vsd_getcpuscheduleg|
 vsd_setcpuorgcontracts</ActionsWhitelist>
     <ActionsToSkip />
     <AddDebuggerNonUserCode>true</AddDebuggerNonUserCode>

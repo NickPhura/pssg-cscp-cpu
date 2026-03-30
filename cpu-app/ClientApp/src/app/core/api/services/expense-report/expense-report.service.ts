@@ -26,6 +26,7 @@ import {
 } from 'rxjs';
 
 import type {
+  ExpenseReportDto,
   ExpenseReportPost
 } from '../../models';
 
@@ -54,36 +55,36 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsExpenseReportService {
+export class ExpenseReportService {
   private readonly http = inject(HttpClient);
- getApiDynamicsExpenseReportBusinessBceidUserBceidExpenseReportId<TData = void>(businessBceid: string,
+ getApiExpenseReportBusinessBceidUserBceidExpenseReportId<TData = ExpenseReportDto>(businessBceid: string,
     userBceid: string,
     expenseReportId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsExpenseReportBusinessBceidUserBceidExpenseReportId<TData = void>(businessBceid: string,
+ getApiExpenseReportBusinessBceidUserBceidExpenseReportId<TData = ExpenseReportDto>(businessBceid: string,
     userBceid: string,
     expenseReportId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsExpenseReportBusinessBceidUserBceidExpenseReportId<TData = void>(businessBceid: string,
+ getApiExpenseReportBusinessBceidUserBceidExpenseReportId<TData = ExpenseReportDto>(businessBceid: string,
     userBceid: string,
     expenseReportId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsExpenseReportBusinessBceidUserBceidExpenseReportId<TData = void>(
+  getApiExpenseReportBusinessBceidUserBceidExpenseReportId<TData = ExpenseReportDto>(
     businessBceid: string,
     userBceid: string,
     expenseReportId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsExpenseReport/${businessBceid}/${userBceid}/${expenseReportId}`,options
+      `/api/ExpenseReport/${businessBceid}/${userBceid}/${expenseReportId}`,options
     );
   }
- postApiDynamicsExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsExpenseReport<TData = void>(
+ postApiExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiExpenseReport<TData = void>(
     expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsExpenseReport`,
+      `/api/ExpenseReport`,
       expenseReportPost,options
     );
   }
 };
 
-export type GetApiDynamicsExpenseReportBusinessBceidUserBceidExpenseReportIdClientResult = NonNullable<void>
-export type PostApiDynamicsExpenseReportClientResult = NonNullable<void>
+export type GetApiExpenseReportBusinessBceidUserBceidExpenseReportIdClientResult = NonNullable<ExpenseReportDto>
+export type PostApiExpenseReportClientResult = NonNullable<void>

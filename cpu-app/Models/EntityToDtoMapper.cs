@@ -293,7 +293,7 @@ namespace Gov.Cscp.Victims.Public.Models
                     ? entity.GetAttributeValue<Guid>("vsd_programtypeid").ToString()
                     : entity.Id.ToString(),
                 Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
-                Vsd_ProgramCategory = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_programcategory")?.Value,                
+                Vsd_ProgramCategory = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_programcategory")?.Value,
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
             };
@@ -413,6 +413,68 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
                 Vsd_ProgramId = GetEntityReferenceValue(entity, "vsd_programid"),
                 Vsd_RegionDistrictId = GetEntityReferenceValue(entity, "vsd_regiondistrictid"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ScheduleGDto ToScheduleGDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ScheduleGDto
+            {
+                Vsd_ScheduleGId = entity.GetAttributeValue<Guid>("vsd_schedulegid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_schedulegid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_Cpu_ReportingPeriod = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_reportingperiod")?.Value,
+                Vsd_SalaryAndBenefitsBudgeted = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_salaryandbenefitsbudgeted")?.Value,
+                Vsd_QuarterlyBudgetedSalariesBenefits = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_quarterlybudgetedsalariesbenefits")?.Value,
+                Vsd_ProgramDeliveryBudgeted = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_programdeliverybudgeted")?.Value,
+                Vsd_QuarterlyBudgetedProgramDelivery = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_quarterlybudgetedprogramdelivery")?.Value,
+                Vsd_ProgramAdministrationBudgeted = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_programadministrationbudgeted")?.Value,
+                Vsd_QuarterlyBudgetedProgramAdministration = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_quarterlybudgetedprogramadministration")?.Value,
+                Vsd_ActualHoursThisQuarter = entity.GetAttributeValue<decimal?>("vsd_actualhoursthisquarter"),
+                Vsd_ContractedServiceHrsThisQuarter = entity.GetAttributeValue<decimal?>("vsd_contractedservicehrsthisquarter"),
+                Vsd_ProgramAdministrationCurrentQuarter = entity.GetAttributeValue<decimal?>("vsd_programadministrationcurrentquarter"),
+                Vsd_QuarterlyVarianceProgramAdministration = entity.GetAttributeValue<decimal?>("vsd_quarterlyvarianceprogramadministration"),
+                Vsd_YearToDateProgramAdministration = entity.GetAttributeValue<decimal?>("vsd_yeartodateprogramadministration"),
+                Vsd_YearToDateVarianceProgramAdministration = entity.GetAttributeValue<decimal?>("vsd_yeartodatevarianceprogramadministration"),
+                Vsd_ProgramDeliveryCurrentQuarter = entity.GetAttributeValue<decimal?>("vsd_programdeliverycurrentquarter"),
+                Vsd_QuarterlyVarianceProgramDelivery = entity.GetAttributeValue<decimal?>("vsd_quarterlyvarianceprogramdelivery"),
+                Vsd_YearToDateProgramDelivery = entity.GetAttributeValue<decimal?>("vsd_yeartodateprogramdelivery"),
+                Vsd_YearToDateVarianceProgramDelivery = entity.GetAttributeValue<decimal?>("vsd_yeartodatevarianceprogramdelivery"),
+                Vsd_SalariesBenefitsCurrentQuarter = entity.GetAttributeValue<decimal?>("vsd_salariesbenefitscurrentquarter"),
+                Vsd_QuarterlyVarianceSalariesBenefits = entity.GetAttributeValue<decimal?>("vsd_quarterlyvariancesalariesbenefits"),
+                Vsd_YearToDateSalariesAndBenefits = entity.GetAttributeValue<decimal?>("vsd_yeartodatesalariesandbenefits"),
+                Vsd_YearToDateVarianceSalariesBenefits = entity.GetAttributeValue<decimal?>("vsd_yeartodatevariancesalariesbenefits"),
+                Vsd_ProgramAdministrationExplanation = entity.GetAttributeValue<string>("vsd_programadministrationexplanation"),
+                Vsd_ProgramDeliveryExplanations = entity.GetAttributeValue<string>("vsd_programdeliveryexplanations"),
+                Vsd_SalariesAndBenefitsExplanation = entity.GetAttributeValue<string>("vsd_salariesandbenefitsexplanation"),
+                Vsd_ReportReviewed = entity.GetAttributeValue<bool?>("vsd_reportreviewed"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static ScheduleGLineItemDto ToScheduleGLineItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new ScheduleGLineItemDto
+            {
+                Vsd_ScheduleGLineItemId = entity.GetAttributeValue<Guid>("vsd_scheduleglineitemid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_scheduleglineitemid").ToString()
+                    : entity.Id.ToString(),
+                Vsd_ExpenseLineItemValue = GetEntityReferenceValue(entity, "vsd_expenselineitem"),
+                Vsd_ScheduleGIdValue = GetEntityReferenceValue(entity, "vsd_schedulegid"),
+                Vsd_AnnualBudgetedAmount = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_annualbudgetedamount")?.Value,
+                Vsd_QuarterlyBudgetedAmount = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_quarterlybudgetedamount")?.Value,
+                Vsd_ActualExpensesCurrentQuarter = entity.GetAttributeValue<decimal?>("vsd_actualexpensescurrentquarter"),
+                Vsd_QuarterlyVariance = entity.GetAttributeValue<decimal?>("vsd_quarterlyvariance"),
+                Vsd_ActualExpendituresYearToDate = entity.GetAttributeValue<decimal?>("vsd_actualexpendituresyeartodate"),
+                Vsd_YearToDateVariance = entity.GetAttributeValue<decimal?>("vsd_yeartodatevariance"),
+                Vsd_ExplanationForVariance = entity.GetAttributeValue<string>("vsd_explanationforvariance"),
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
             };

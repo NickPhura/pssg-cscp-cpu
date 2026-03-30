@@ -154,6 +154,7 @@
     "vsd_getcpubudgetproposal*",
     "vsd_getcpuorgcontracts*",
     "vsd_getcpuschedulef*",
+    "vsd_getcpuscheduleg*",
     "vsd_setcpuorgcontracts*",
     "bcgov_*",
     "cpu_*"
