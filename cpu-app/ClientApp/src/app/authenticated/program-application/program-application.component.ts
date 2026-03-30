@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
 import { ProgramApplicationPost } from "../../core/api/models";
+import { ProgramApplicationService } from "../../core/api/services/program-application/program-application.service";
 import { FormHelper } from "../../core/form-helper";
 import { Address } from "../../core/models/address.class";
 import { AdministrativeInformation } from "../../core/models/administrative-information.class";
@@ -13,7 +14,6 @@ import { ProgramApplication } from "../../core/models/program-application.class"
 import { iProgramApplication } from "../../core/models/program-application.interface";
 import { TransmogrifierProgramApplication } from "../../core/models/transmogrifier-program-application.class";
 import { NotificationQueueService } from "../../core/services/notification-queue.service";
-import { ProgramApplicationService } from "../../core/services/program-application.service";
 import { StateService } from "../../core/services/state.service";
 import {
   IconStepperService,
@@ -94,7 +94,11 @@ export class ProgramApplicationComponent implements OnInit {
       const organizationId: string =
         this.stateService.main.getValue().organizationId;
       this.programApplicationService
-        .getProgramApplication(organizationId, userId, p["taskId"])
+        .getApiProgramApplicationBusinessBceidUserBceidScheduleFId(
+          organizationId,
+          userId,
+          p["taskId"],
+        )
         .subscribe((f) => {
           if (!f.isSuccess) {
             this.notificationQueueService.addNotification(
@@ -269,9 +273,9 @@ export class ProgramApplicationComponent implements OnInit {
         this.saving = true;
         this.out = convertProgramApplicationToDynamics(this.trans);
         this.programApplicationService
-          .setProgramApplication(this.out)
-          .subscribe(
-            () => {
+          .postApiProgramApplication(this.out)
+          .subscribe({
+            next: () => {
               if (showNotification) {
                 this.notificationQueueService.addNotification(
                   `You have successfully saved the program application.`,
@@ -303,7 +307,7 @@ export class ProgramApplicationComponent implements OnInit {
               this.reloadProgramApplication();
               resolve();
             },
-            (err) => {
+            error: (err) => {
               console.log(err);
               this.notificationQueueService.addNotification(
                 "The program application could not be saved. If this problem is persisting please contact your ministry representative.",
@@ -312,7 +316,7 @@ export class ProgramApplicationComponent implements OnInit {
               this.saving = false;
               reject();
             },
-          );
+          });
       } catch (err) {
         console.log(err);
         this.notificationQueueService.addNotification(
@@ -347,25 +351,27 @@ export class ProgramApplicationComponent implements OnInit {
       this.saving = true;
       let isSubmit = true;
       this.out = convertProgramApplicationToDynamics(this.trans, isSubmit);
-      this.programApplicationService.setProgramApplication(this.out).subscribe(
-        () => {
-          this.notificationQueueService.addNotification(
-            `You have successfully submitted the program application.`,
-            "success",
-          );
-          this.saving = false;
-          this.stateService.refresh();
-          this.router.navigate(["/authenticated/dashboard"]);
-        },
-        (err) => {
-          console.log(err);
-          this.notificationQueueService.addNotification(
-            "The program application could not be submitted. If this problem is persisting please contact your ministry representative.",
-            "danger",
-          );
-          this.saving = false;
-        },
-      );
+      this.programApplicationService
+        .postApiProgramApplication(this.out)
+        .subscribe(
+          () => {
+            this.notificationQueueService.addNotification(
+              `You have successfully submitted the program application.`,
+              "success",
+            );
+            this.saving = false;
+            this.stateService.refresh();
+            this.router.navigate(["/authenticated/dashboard"]);
+          },
+          (err) => {
+            console.log(err);
+            this.notificationQueueService.addNotification(
+              "The program application could not be submitted. If this problem is persisting please contact your ministry representative.",
+              "danger",
+            );
+            this.saving = false;
+          },
+        );
     } catch (err) {
       console.log(err);
       this.notificationQueueService.addNotification(
@@ -381,7 +387,11 @@ export class ProgramApplicationComponent implements OnInit {
       const organizationId: string =
         this.stateService.main.getValue().organizationId;
       this.programApplicationService
-        .getProgramApplication(organizationId, userId, p["taskId"])
+        .getApiProgramApplicationBusinessBceidUserBceidScheduleFId(
+          organizationId,
+          userId,
+          p["taskId"],
+        )
         .subscribe((f) => {
           if (!f.isSuccess) {
             this.notificationQueueService.addNotification(

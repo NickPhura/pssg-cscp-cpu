@@ -8,6 +8,7 @@ import {
 import { AbstractControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { ProgramApplicationService } from "../../core/api/services/program-application/program-application.service";
 import {
   EMAIL_PATTERN,
   PHONE_NUMBER_PATTERN,
@@ -23,7 +24,6 @@ import { iProgramApplication } from "../../core/models/program-application.inter
 import { TransmogrifierProgramApplication } from "../../core/models/transmogrifier-program-application.class";
 import { Transmogrifier } from "../../core/models/transmogrifier.class";
 import { NotificationQueueService } from "../../core/services/notification-queue.service";
-import { ProgramApplicationService } from "../../core/services/program-application.service";
 import { StateService } from "../../core/services/state.service";
 
 @Component({
@@ -70,13 +70,18 @@ export class ProgramContactComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.stateSubscription.unsubscribe();
   }
+
   ngOnInit() {
     this.route.params.subscribe((p) => {
       const userId: string = this.stateService.main.getValue().userId;
       const organizationId: string =
         this.stateService.main.getValue().organizationId;
       this.programApplicationService
-        .getProgramApplication(organizationId, userId, p["contractId"])
+        .getApiProgramApplicationBusinessBceidUserBceidScheduleFId(
+          organizationId,
+          userId,
+          p["contractId"],
+        )
         .subscribe((f) => {
           if (!f.isSuccess) {
             this.router.navigate(["/authenticated/dashboard"]);
@@ -171,6 +176,7 @@ export class ProgramContactComponent implements OnInit, OnDestroy {
     }
     return true;
   }
+
   getMissingFields() {
     let ret = [];
     for (let i = 0; i < this.REQUIRED_FIELDS.length; ++i) {
@@ -180,15 +186,16 @@ export class ProgramContactComponent implements OnInit, OnDestroy {
     }
     return ret;
   }
+
   save(shouldExit: boolean = false): void {
     try {
       if (this.hasRequiredFields()) {
         this.saving = true;
         this.out = convertProgramApplicationToDynamics(this.programTrans);
         this.programApplicationService
-          .setProgramApplication(this.out)
-          .subscribe(
-            () => {
+          .postApiProgramApplication(this.out)
+          .subscribe({
+            next: () => {
               this.notificationQueueService.addNotification(
                 `You have successfully saved the program contact.`,
                 "success",
@@ -197,15 +204,14 @@ export class ProgramContactComponent implements OnInit, OnDestroy {
               if (shouldExit)
                 this.router.navigate(["/authenticated/dashboard"]);
             },
-            (err) => {
-              console.log(err);
+            error: (err) => {
               this.notificationQueueService.addNotification(
                 "The program contact could not be saved. If this problem is persisting please contact your ministry representative.",
                 "danger",
               );
               this.saving = false;
             },
-          );
+          });
       } else {
         this.saving = false;
         this.notificationQueueService.addNotification(
@@ -214,7 +220,6 @@ export class ProgramContactComponent implements OnInit, OnDestroy {
         );
       }
     } catch (err) {
-      console.log(err);
       this.notificationQueueService.addNotification(
         "The program contact could not be saved. If this problem is persisting please contact your ministry representative.",
         "danger",
