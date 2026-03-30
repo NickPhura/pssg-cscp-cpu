@@ -16,13 +16,13 @@ namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
     // [Authorize]
-    public class DynamicsBudgetProposalController : Controller
+    public class BudgetProposalController : Controller
     {
         private readonly IOrganizationServiceAsync _organizationService;
         private readonly IDynamicsResultService _dynamicsResultService;
         private readonly ILogger _logger;
 
-        public DynamicsBudgetProposalController(IOrganizationServiceAsync organizationService, IDynamicsResultService dynamicsResultService)
+        public BudgetProposalController(IOrganizationServiceAsync organizationService, IDynamicsResultService dynamicsResultService)
         {
             this._organizationService = organizationService;
             this._dynamicsResultService = dynamicsResultService;

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
 import { BudgetProposalDto, BudgetProposalPost } from "../../core/api/models";
-import { DynamicsBudgetProposalService } from "../../core/api/services/dynamics-budget-proposal/dynamics-budget-proposal.service";
+import { BudgetProposalService } from "../../core/api/services/budget-proposal/budget-proposal.service";
 import { nameAssemble } from "../../core/constants/name-assemble";
 import { revenueSourceTypes } from "../../core/constants/revenue-source-type";
 import { FormHelper } from "../../core/form-helper";
@@ -47,7 +47,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
   personDict: object = {};
   private formHelper = new FormHelper();
   constructor(
-    private dynamicsBudgetProposalService: DynamicsBudgetProposalService,
+    private budgetProposalService: BudgetProposalService,
     private notificationQueueService: NotificationQueueService,
     private route: ActivatedRoute,
     private router: Router,
@@ -86,8 +86,8 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
       const organizationId: string =
         this.stateService.main.getValue().organizationId;
 
-      this.dynamicsBudgetProposalService
-        .getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId(
+      this.budgetProposalService
+        .getApiBudgetProposalBusinessBceidUserBceidContractId(
           organizationId,
           userId,
           p["taskId"],
@@ -215,8 +215,8 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
 
         this.saving = true;
         this.out = convertBudgetProposalToDynamics(this.trans, isSubmit);
-        this.dynamicsBudgetProposalService
-          .postApiDynamicsBudgetProposal(this.out)
+        this.budgetProposalService
+          .postApiBudgetProposal(this.out)
           .subscribe(
             (r: any) => {
               if (r.isSuccess) {
@@ -279,8 +279,8 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
       const organizationId: string =
         this.stateService.main.getValue().organizationId;
 
-      this.dynamicsBudgetProposalService
-        .getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId(
+      this.budgetProposalService
+        .getApiBudgetProposalBusinessBceidUserBceidContractId(
           organizationId,
           userId,
           p["taskId"],
@@ -507,8 +507,8 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
         );
         this.out = convertBudgetProposalToDynamics(singleTrans);
 
-        this.dynamicsBudgetProposalService
-          .postApiDynamicsBudgetProposal(this.out)
+        this.budgetProposalService
+          .postApiBudgetProposal(this.out)
           .subscribe(
             (r: any) => {
               if (r.isSuccess) {

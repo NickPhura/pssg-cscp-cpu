@@ -55,36 +55,36 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsBudgetProposalService {
+export class BudgetProposalService {
   private readonly http = inject(HttpClient);
- getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
+ getApiBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
+ getApiBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
+ getApiBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(
+  getApiBudgetProposalBusinessBceidUserBceidContractId<TData = BudgetProposalDto>(
     businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsBudgetProposal/${businessBceid}/${userBceid}/${contractId}`,options
+      `/api/BudgetProposal/${businessBceid}/${userBceid}/${contractId}`,options
     );
   }
- postApiDynamicsBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsBudgetProposal<TData = void>(
+ postApiBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiBudgetProposal<TData = void>(
     budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsBudgetProposal`,
+      `/api/BudgetProposal`,
       budgetProposalPost,options
     );
   }
 };
 
-export type GetApiDynamicsBudgetProposalBusinessBceidUserBceidContractIdClientResult = NonNullable<BudgetProposalDto>
-export type PostApiDynamicsBudgetProposalClientResult = NonNullable<void>
+export type GetApiBudgetProposalBusinessBceidUserBceidContractIdClientResult = NonNullable<BudgetProposalDto>
+export type PostApiBudgetProposalClientResult = NonNullable<void>
