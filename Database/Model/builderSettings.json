@@ -144,7 +144,9 @@
     "vsd_programrevenuesource",
     "vsd_programtype",
     "vsd_schedule",
-    "vsd_scheduleg"
+    "vsd_scheduleg",
+    "vsd_surpluslineitem",
+    "vsd_surplusplanreport"
   ],
   "entityTypesFolder": "Entities",
   "generateActions": true,
@@ -158,6 +160,7 @@
     "vsd_getcpuorgcontracts*",
     "vsd_getcpuschedulef*",
     "vsd_getcpuscheduleg*",
+    "vsd_getcpusurplusplan*",
     "vsd_setcpumonthlystatisticsanswers*",
     "vsd_setcpuorgcontracts*",
     "bcgov_*",

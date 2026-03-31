@@ -19,6 +19,7 @@ vsd_getcpumonthlystatisticsquestions|
 vsd_getcpuorgcontracts|
 vsd_getcpuschedulef|
 vsd_getcpuscheduleg|
+vsd_getcpusurplusplan|
 vsd_setcpumonthlystatisticsanswers|
 vsd_setcpuorgcontracts</ActionsWhitelist>
     <ActionsToSkip />
@@ -58,7 +59,9 @@ vsd_programexpense|
 vsd_programrevenuesource|
 vsd_programtype|
 vsd_schedule|
-vsd_scheduleg</EntitiesWhitelist>
+vsd_scheduleg|
+vsd_surpluslineitem|
+vsd_surplusplanreport</EntitiesWhitelist>
     <EntityAttributeSpecifiedNames />
     <EntityClassNameOverrides />
     <EntityPrefixesToSkip />

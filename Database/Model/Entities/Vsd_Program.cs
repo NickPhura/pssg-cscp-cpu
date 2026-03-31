@@ -382,6 +382,7 @@ namespace Database.Model
 			public const string Vsd_Vsd_Program_Vsd_ProgramRevenueSource = "Vsd_Vsd_Program_Vsd_ProgramRevenueSource";
 			public const string Vsd_Vsd_Program_Vsd_Schedule = "Vsd_Vsd_Program_Vsd_Schedule";
 			public const string Vsd_Vsd_Program_Vsd_ScheduleG_Program = "Vsd_Vsd_Program_Vsd_ScheduleG_Program";
+			public const string Vsd_Vsd_Program_Vsd_SurplusPlanReport = "Vsd_Vsd_Program_Vsd_SurplusPlanReport";
 			public const string Vsd_Vsd_ProgramType_Vsd_Program_ProgramType = "vsd_vsd_programtype_vsd_program_ProgramType";
 		}
 		
@@ -3502,6 +3503,24 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.Vsd_ScheduleG>("vsd_vsd_program_vsd_scheduleg_Program", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_surplusplanreport
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_surplusplanreport")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusPlanReport> Vsd_Vsd_Program_Vsd_SurplusPlanReport
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_program_vsd_surplusplanreport", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_program_vsd_surplusplanreport", null, value);
 			}
 		}
 		

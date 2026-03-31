@@ -100,6 +100,8 @@ namespace Database.Model
 			public const string TransactionCurrency_Vsd_ProgramExpense = "TransactionCurrency_Vsd_ProgramExpense";
 			public const string TransactionCurrency_Vsd_ProgramRevenueSource = "TransactionCurrency_Vsd_ProgramRevenueSource";
 			public const string TransactionCurrency_Vsd_ScheduleG = "TransactionCurrency_Vsd_ScheduleG";
+			public const string TransactionCurrency_Vsd_SurplusLineItem = "TransactionCurrency_Vsd_SurplusLineItem";
+			public const string TransactionCurrency_Vsd_SurplusPlanReport = "TransactionCurrency_Vsd_SurplusPlanReport";
 			public const string TransactionCurrencyId = "transactioncurrencyid";
 			public const string Id = "transactioncurrencyid";
 			public const string VersionNumber = "versionnumber";
@@ -895,6 +897,42 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.Vsd_ScheduleG>("TransactionCurrency_vsd_scheduleg", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N TransactionCurrency_vsd_surpluslineitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_surpluslineitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusLineItem> TransactionCurrency_Vsd_SurplusLineItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("TransactionCurrency_vsd_surpluslineitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("TransactionCurrency_vsd_surpluslineitem", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N TransactionCurrency_vsd_surplusplanreport
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_surplusplanreport")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusPlanReport> TransactionCurrency_Vsd_SurplusPlanReport
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("TransactionCurrency_vsd_surplusplanreport", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("TransactionCurrency_vsd_surplusplanreport", null, value);
 			}
 		}
 		

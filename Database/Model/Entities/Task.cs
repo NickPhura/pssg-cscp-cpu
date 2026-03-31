@@ -212,6 +212,7 @@ namespace Database.Model
 			public const string Vsd_Vsd_Invoice_Task_Invoice = "vsd_vsd_invoice_task_Invoice";
 			public const string Vsd_Vsd_Program_Task = "vsd_vsd_program_task";
 			public const string Vsd_Vsd_ScheduleG_Task = "vsd_vsd_scheduleg_task";
+			public const string Vsd_Vsd_SurplusPlanReport_Task = "vsd_vsd_surplusplanreport_task";
 			public const string Vsd_Vsu_Title = "vsd_vsu_title";
 		}
 		
@@ -2223,6 +2224,25 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntity<Database.Model.Vsd_ScheduleG>("vsd_vsd_scheduleg_task", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 vsd_vsd_surplusplanreport_task
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_surplusplanid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_surplusplanreport_task")]
+		public Database.Model.Vsd_SurplusPlanReport Vsd_Vsd_SurplusPlanReport_Task
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_surplusplanreport_task", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_surplusplanreport_task", null, value);
 			}
 		}
 		

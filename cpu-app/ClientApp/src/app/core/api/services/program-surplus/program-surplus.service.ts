@@ -26,7 +26,9 @@ import {
 } from 'rxjs';
 
 import type {
-  ProgramSurplusPost
+  ProgramSurplusDto,
+  ProgramSurplusPost,
+  SetSurplusResponseDto
 } from '../../models';
 
 
@@ -54,36 +56,36 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsProgramSurplusService {
+export class ProgramSurplusService {
   private readonly http = inject(HttpClient);
- getApiDynamicsProgramSurplusBusinessBceidUserBceidSurplusId<TData = void>(businessBceid: string,
+ getApiProgramSurplusBusinessBceidUserBceidSurplusId<TData = ProgramSurplusDto>(businessBceid: string,
     userBceid: string,
     surplusId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsProgramSurplusBusinessBceidUserBceidSurplusId<TData = void>(businessBceid: string,
+ getApiProgramSurplusBusinessBceidUserBceidSurplusId<TData = ProgramSurplusDto>(businessBceid: string,
     userBceid: string,
     surplusId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsProgramSurplusBusinessBceidUserBceidSurplusId<TData = void>(businessBceid: string,
+ getApiProgramSurplusBusinessBceidUserBceidSurplusId<TData = ProgramSurplusDto>(businessBceid: string,
     userBceid: string,
     surplusId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsProgramSurplusBusinessBceidUserBceidSurplusId<TData = void>(
+  getApiProgramSurplusBusinessBceidUserBceidSurplusId<TData = ProgramSurplusDto>(
     businessBceid: string,
     userBceid: string,
     surplusId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsProgramSurplus/${businessBceid}/${userBceid}/${surplusId}`,options
+      `/api/ProgramSurplus/${businessBceid}/${userBceid}/${surplusId}`,options
     );
   }
- postApiDynamicsProgramSurplus<TData = void>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsProgramSurplus<TData = void>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsProgramSurplus<TData = void>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsProgramSurplus<TData = void>(
+ postApiProgramSurplus<TData = SetSurplusResponseDto>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiProgramSurplus<TData = SetSurplusResponseDto>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiProgramSurplus<TData = SetSurplusResponseDto>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiProgramSurplus<TData = SetSurplusResponseDto>(
     programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsProgramSurplus`,
+      `/api/ProgramSurplus`,
       programSurplusPost,options
     );
   }
 };
 
-export type GetApiDynamicsProgramSurplusBusinessBceidUserBceidSurplusIdClientResult = NonNullable<void>
-export type PostApiDynamicsProgramSurplusClientResult = NonNullable<void>
+export type GetApiProgramSurplusBusinessBceidUserBceidSurplusIdClientResult = NonNullable<ProgramSurplusDto>
+export type PostApiProgramSurplusClientResult = NonNullable<SetSurplusResponseDto>

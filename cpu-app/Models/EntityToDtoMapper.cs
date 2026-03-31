@@ -704,5 +704,48 @@ namespace Gov.Cscp.Victims.Public.Models
                 vsd_name = entity.GetAttributeValue<string>("vsd_name")
             };
         }
+
+        public static SurplusPlanDto ToSurplusPlanDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new SurplusPlanDto
+            {
+                Vsd_SurplusPlanReportId = (entity.GetAttributeValue<Guid>("vsd_surplusplanreportid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_surplusplanreportid")
+                    : entity.Id).ToString(),
+                Vsd_SurplusAmount = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_surplusamount")?.Value,
+                Vsd_SurplusRemittance = entity.GetAttributeValue<bool?>("vsd_surplusremittance"),
+                Vsd_DateSubmitted = entity.GetAttributeValue<DateTime?>("vsd_datesubmitted"),
+                Vsd_ProgramIdValue = GetEntityReferenceValue(entity, "vsd_programid"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
+
+        public static SurplusLineItemDto ToSurplusLineItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            return new SurplusLineItemDto
+            {
+                Vsd_SurplusLineItemId = (entity.GetAttributeValue<Guid>("vsd_surpluslineitemid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_surpluslineitemid")
+                    : entity.Id).ToString(),
+                Vsd_Name = entity.GetAttributeValue<string>("vsd_name"),
+                Vsd_JustificationDetails = entity.GetAttributeValue<string>("vsd_justificationdetails"),
+                Vsd_ActualExpenditures = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_actualexpenditures")?.Value,
+                Vsd_ActualExpenditures2 = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_actualexpenditures2")?.Value,
+                Vsd_ActualExpenditures3 = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_actualexpenditures3")?.Value,
+                Vsd_ActualExpenditures4 = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_actualexpenditures4")?.Value,
+                Vsd_AllocatedAmount = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_allocatedamount")?.Value,
+                Vsd_ProposedExpenditures = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_proposedexpenditures")?.Value,
+                Vsd_DateSubmitted = entity.GetAttributeValue<DateTime?>("vsd_datesubmitted"),
+                Vsd_EligibleExpenseItemIdValue = GetEntityReferenceValue(entity, "vsd_eligibleexpenseitemid"),
+                Vsd_SurplusPlanIdValue = GetEntityReferenceValue(entity, "vsd_surplusplanid"),
+                FortuneCookieType = entity.LogicalName,
+                FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
+            };
+        }
     }
 }

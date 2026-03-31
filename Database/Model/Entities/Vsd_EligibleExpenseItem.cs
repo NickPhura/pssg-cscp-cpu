@@ -110,6 +110,7 @@ namespace Database.Model
 			public const string Vsd_ProgramExpenseType = "vsd_programexpensetype";
 			public const string Vsd_ProgramExpenseTypeName = "vsd_programexpensetypename";
 			public const string Vsd_Vsd_EligibleExpenseItem_Vsd_ProgramExpENS = "Vsd_Vsd_EligibleExpenseItem_Vsd_ProgramExpENS";
+			public const string Vsd_Vsd_EligibleExpenseItem_Vsd_SurplusLineIt = "Vsd_Vsd_EligibleExpenseItem_Vsd_SurplusLineIt";
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
@@ -736,6 +737,24 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_eligibleexpenseitem_vsd_programexpens", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N vsd_vsd_eligibleexpenseitem_vsd_surpluslineit
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_eligibleexpenseitem_vsd_surpluslineit")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusLineItem> Vsd_Vsd_EligibleExpenseItem_Vsd_SurplusLineIt
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("vsd_vsd_eligibleexpenseitem_vsd_surpluslineit", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("vsd_vsd_eligibleexpenseitem_vsd_surpluslineit", null, value);
 			}
 		}
 		

@@ -226,6 +226,28 @@ namespace Database.Model
 				return this.CreateQuery<Database.Model.Vsd_ScheduleG>();
 			}
 		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_SurplusLineItem"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_SurplusLineItem> Vsd_SurplusLineItemSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_SurplusLineItem>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_SurplusPlanReport"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_SurplusPlanReport> Vsd_SurplusPlanReportSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_SurplusPlanReport>();
+			}
+		}
 	}
 	
 	/// <summary>
