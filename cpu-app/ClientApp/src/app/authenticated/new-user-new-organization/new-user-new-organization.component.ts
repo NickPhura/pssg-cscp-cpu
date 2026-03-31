@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { RegisterNewUserService } from "../../core/api/services/register-new-user/register-new-user.service";
 import {
   EMAIL_PATTERN,
   LETTERS_SPACES_PATTERN,
@@ -9,7 +10,6 @@ import {
 import { FormHelper } from "../../core/form-helper";
 import { convertNewUserToDynamics } from "../../core/models/converters/new-user-to-dynamics";
 import { TransmogrifierNewUser } from "../../core/models/converters/transmogrifier-new-user.class";
-import { NewUserService } from "../../core/services/new-user.service";
 import { NotificationQueueService } from "../../core/services/notification-queue.service";
 import { StateService } from "../../core/services/state.service";
 
@@ -30,7 +30,7 @@ export class NewUserNewOrganizationComponent implements OnInit {
   public formHelper = new FormHelper();
   constructor(
     private stateService: StateService,
-    private newUserService: NewUserService,
+    private registerNewUserService: RegisterNewUserService,
     private router: Router,
     private notificationQueueService: NotificationQueueService,
   ) {}
@@ -60,9 +60,9 @@ export class NewUserNewOrganizationComponent implements OnInit {
       }
 
       let data = convertNewUserToDynamics(this.trans);
-      this.newUserService.saveNewUser(data).subscribe(
+      this.registerNewUserService.postApiRegisterNewUser(data).subscribe(
         (res) => {
-          if (res.IsSuccess) {
+          if (res.isSuccess) {
             this.notificationQueueService.addNotification(
               `You have successfully registered a new user and organization.`,
               "success",

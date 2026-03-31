@@ -26,7 +26,8 @@ import {
 } from 'rxjs';
 
 import type {
-  RegisterNewUserPost
+  RegisterNewUserPost,
+  SetOrgContractsResponseDto
 } from '../../models';
 
 
@@ -54,18 +55,18 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsRegisterNewUserService {
+export class RegisterNewUserService {
   private readonly http = inject(HttpClient);
- postApiDynamicsRegisterNewUser<TData = void>(registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsRegisterNewUser<TData = void>(registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsRegisterNewUser<TData = void>(registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsRegisterNewUser<TData = void>(
+ postApiRegisterNewUser<TData = SetOrgContractsResponseDto>(registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiRegisterNewUser<TData = SetOrgContractsResponseDto>(registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiRegisterNewUser<TData = SetOrgContractsResponseDto>(registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiRegisterNewUser<TData = SetOrgContractsResponseDto>(
     registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsRegisterNewUser`,
+      `/api/RegisterNewUser`,
       registerNewUserPost,options
     );
   }
 };
 
-export type PostApiDynamicsRegisterNewUserClientResult = NonNullable<void>
+export type PostApiRegisterNewUserClientResult = NonNullable<SetOrgContractsResponseDto>

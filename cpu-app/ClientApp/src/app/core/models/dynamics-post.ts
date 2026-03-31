@@ -1,34 +1,43 @@
-import { iDynamicsSurplusPlan, iDynamicsSurplusPlanLineItem } from "./dynamics-blob";
+import {
+  iDynamicsSurplusPlan,
+  iDynamicsSurplusPlanLineItem,
+} from "./dynamics-blob";
 
-export interface iDynamicsPostScheduleG { //no controller setup to receive this yet
+export interface iDynamicsPostScheduleG {
+  //no controller setup to receive this yet
   UserBCeID: string;
   BusinessBCeID: string;
   ScheduleGCollection: iDynamicsScheduleGPost[];
   ScheduleGLineItemCollection: iDynamicsScheduleGLineItemPost[];
 }
-export interface iDynamicsPostOrg { //maps to OrganizationPost
+export interface iDynamicsPostOrg {
+  //maps to OrganizationPost
   UserBCeID: string;
   BusinessBCeID: string;
   Organization: iDynamicsOrganizationPost;
 }
-export interface iDynamicsPostUsers { //maps to OrganizationPost
+export interface iDynamicsPostUsers {
+  //maps to OrganizationPost
   UserBCeID: string;
   BusinessBCeID: string;
   StaffCollection: iDynamicsCrmContactPost[];
 }
-export interface iDynamicsPostStatusReport { //maps to MonthlyStatisticsAnswers
+export interface iDynamicsPostStatusReport {
+  //maps to MonthlyStatisticsAnswers
   BusinessBCeID: string;
   UserBCeID: string;
   DataCollectionid?: string;
   StatusCode?: number;
   AnswerCollection: iDynamicsAnswer[];
 }
-export interface iDynamicsPostFile { //maps to FilePost
+export interface iDynamicsPostFile {
+  //maps to FilePost
   Businessbceid: string;
   Userbceid: string;
   DocumentCollection?: iDynamicsDocumentPost[];
 }
-export interface iDynamicsPostSignedContract { //maps to FilePost
+export interface iDynamicsPostSignedContract {
+  //maps to FilePost
   Businessbceid: string;
   Userbceid: string;
   DocumentCollection?: iDynamicsDocumentPost[];
@@ -40,13 +49,8 @@ export interface iDynamicsSignaturePost {
   vsd_signingofficertitle?: string;
   vsd_signingofficersname?: string;
 }
-export interface iDynamicsPostRegisterNewUser {
-  BusinessBCeID: string;
-  UserBCeID: string;
-  NewContact?: iDynamicsCrmContactPost;
-  NewServiceProvider?: iDynamicsCrmServiceProviderPost;
-}
-export interface iDynamicsPostScheduleF { //maps to ProgramApplicationPost
+export interface iDynamicsPostScheduleF {
+  //maps to ProgramApplicationPost
   BusinessBCeID: string;
   UserBCeID: string;
   AddProgramContactCollection?: iDynamicsProgramContactPost[];
@@ -57,10 +61,11 @@ export interface iDynamicsPostScheduleF { //maps to ProgramApplicationPost
   ProgramCollection?: iDynamicsCrmProgramPost[];
   RemoveProgramContactCollection?: iDynamicsRemoveProgramContactPost[];
   RemoveProgramSubContractorCollection?: iDynamicsRemoveProgramContactPost[];
-  ScheduleCollection?: iDynamicsSchedulePost[];     //commented out on the controller side...
-  StaffCollection?: iDynamicsProgramContactPost[];  //commented out on the controller side...
+  ScheduleCollection?: iDynamicsSchedulePost[]; //commented out on the controller side...
+  StaffCollection?: iDynamicsProgramContactPost[]; //commented out on the controller side...
 }
-export interface iDynamicsPostScheduleFCAP { //maps to ProgramApplicationPost
+export interface iDynamicsPostScheduleFCAP {
+  //maps to ProgramApplicationPost
   BusinessBCeID: string;
   UserBCeID: string;
   AddProgramContactCollection?: iDynamicsProgramContactPost[];
@@ -69,9 +74,10 @@ export interface iDynamicsPostScheduleFCAP { //maps to ProgramApplicationPost
   Organization?: iDynamicsOrganizationPost;
   ProgramCollection?: iDynamicsCrmProgramPost[];
   RemoveProgramContactCollection?: iDynamicsRemoveProgramContactPost[];
-  StaffCollection?: iDynamicsProgramContactPost[];  //commented out on the controller side...
+  StaffCollection?: iDynamicsProgramContactPost[]; //commented out on the controller side...
 }
-export interface iDynamicsPostBudgetProposal { //maps to BudgetProposalPost
+export interface iDynamicsPostBudgetProposal {
+  //maps to BudgetProposalPost
   BusinessBCeID: string;
   UserBCeID: string;
   ProgramExpenseCollection: iDynamicsProgramExpense[];
@@ -269,18 +275,6 @@ export interface iDynamicsCrmContactPost {
   vsd_programid?: string; // added when contact is listed in a program
   vsd_portalfield?: string;
   vsd_contactrole?: number;
-}
-export interface iDynamicsCrmServiceProviderPost {
-  name?: string;
-  address1_line1?: string;
-  address1_line2?: string;
-  address1_city?: string;
-  address1_country?: string;
-  address1_stateorprovince?: string;
-  emailaddress1?: string;
-  fax?: string;
-  telephone1?: string;
-  address1_postalcode?: string;
 }
 export interface iDynamicsCrmProgramPost {
   _vsd_contractid_value?: string;
