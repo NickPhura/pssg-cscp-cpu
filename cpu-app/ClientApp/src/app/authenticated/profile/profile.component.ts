@@ -3,13 +3,13 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
+import { OrgService } from "../../core/api/services/org/org.service";
 import { ContactInformationFormFactory } from "../../core/forms/contact-information-form.factory";
 import { iContactInformation } from "../../core/models/contact-information.interface";
 import { convertContactInformationToDynamics } from "../../core/models/converters/contact-information-to-dynamics";
 import { Transmogrifier } from "../../core/models/transmogrifier.class";
 import { Roles } from "../../core/models/user-settings.interface";
 import { NotificationQueueService } from "../../core/services/notification-queue.service";
-import { ProfileService } from "../../core/services/profile.service";
 import { StateService } from "../../core/services/state.service";
 
 @Component({
@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private stateService: StateService,
-    private profileService: ProfileService,
+    private orgService: OrgService,
     private notificationQueueService: NotificationQueueService,
     private fb: FormBuilder,
   ) {}
@@ -217,10 +217,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       // Update trans with form values
       this.trans.contactInformation = updatedContactInfo;
 
-      this.profileService
-        .updateOrg(convertContactInformationToDynamics(this.trans))
+      this.orgService
+        .postApiOrg(convertContactInformationToDynamics(this.trans))
         .subscribe(
-          (res: any) => {
+          (res) => {
             this.saving = false;
             this.notificationQueueService.addNotification(
               "The contact information for your organization has been updated.",

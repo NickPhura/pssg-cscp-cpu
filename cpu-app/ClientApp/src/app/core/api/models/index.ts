@@ -62,6 +62,7 @@ export * from './scheduleDto';
 export * from './scheduleGDto';
 export * from './scheduleGLineItemDto';
 export * from './serviceAreaDto';
+export * from './setOrgContractsResponseDto';
 export * from './signedContractPostFromPortal';
 export * from './systemUserDto';
 export * from './taskDto';

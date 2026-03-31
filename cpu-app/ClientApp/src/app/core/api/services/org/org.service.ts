@@ -26,7 +26,8 @@ import {
 } from 'rxjs';
 
 import type {
-  OrganizationPost
+  OrganizationPost,
+  SetOrgContractsResponseDto
 } from '../../models';
 
 
@@ -54,29 +55,29 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsOrgService {
+export class OrgService {
   private readonly http = inject(HttpClient);
- postApiDynamicsOrg<TData = void>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsOrg<TData = void>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsOrg<TData = void>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsOrg<TData = void>(
+ postApiOrg<TData = SetOrgContractsResponseDto>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiOrg<TData = SetOrgContractsResponseDto>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiOrg<TData = SetOrgContractsResponseDto>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiOrg<TData = SetOrgContractsResponseDto>(
     organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsOrg`,
+      `/api/Org`,
       organizationPost,options
     );
   }
- setStaff<TData = void>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- setStaff<TData = void>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- setStaff<TData = void>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  setStaff<TData = void>(
+ setStaff<TData = SetOrgContractsResponseDto>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ setStaff<TData = SetOrgContractsResponseDto>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ setStaff<TData = SetOrgContractsResponseDto>(organizationPost: OrganizationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  setStaff<TData = SetOrgContractsResponseDto>(
     organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsOrg/SetStaff`,
+      `/api/Org/SetStaff`,
       organizationPost,options
     );
   }
 };
 
-export type PostApiDynamicsOrgClientResult = NonNullable<void>
-export type SetStaffClientResult = NonNullable<void>
+export type PostApiOrgClientResult = NonNullable<SetOrgContractsResponseDto>
+export type SetStaffClientResult = NonNullable<SetOrgContractsResponseDto>
