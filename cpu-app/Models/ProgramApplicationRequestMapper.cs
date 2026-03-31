@@ -56,27 +56,27 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapOrganization(DynamicsProgramApplicationOrganizationPost org)
         {
-            var entity = new Entity("account");
+            var entity = new Account();
 
             if (Guid.TryParse(org.accountid, out var accountId))
                 entity.Id = accountId;
 
-            SetString(entity, "name", org.name);
-            SetString(entity, "telephone1", org.telephone1);
-            SetString(entity, "emailaddress1", org.emailaddress1);
-            SetString(entity, "fax", org.fax);
-            SetString(entity, "address1_city", org.address1_city);
-            SetString(entity, "address1_line1", org.address1_line1);
-            SetString(entity, "address1_line2", org.address1_line2);
-            SetString(entity, "address1_postalcode", org.address1_postalcode);
-            SetString(entity, "address1_stateorprovince", org.address1_stateorprovince);
-            SetString(entity, "address1_country", org.address1_country);
-            SetString(entity, "address2_city", org.address2_city);
-            SetString(entity, "address2_line1", org.address2_line1);
-            SetString(entity, "address2_line2", org.address2_line2);
-            SetString(entity, "address2_postalcode", org.address2_postalcode);
-            SetString(entity, "address2_stateorprovince", org.address2_stateorprovince);
-            SetString(entity, "address2_country", org.address2_country);
+            if (org.name != null) entity.Name = org.name;
+            if (org.telephone1 != null) entity.Telephone1 = org.telephone1;
+            if (org.emailaddress1 != null) entity.EmailAddress1 = org.emailaddress1;
+            if (org.fax != null) entity.Fax = org.fax;
+            if (org.address1_city != null) entity.Address1_City = org.address1_city;
+            if (org.address1_line1 != null) entity.Address1_Line1 = org.address1_line1;
+            if (org.address1_line2 != null) entity.Address1_Line2 = org.address1_line2;
+            if (org.address1_postalcode != null) entity.Address1_PostalCode = org.address1_postalcode;
+            if (org.address1_stateorprovince != null) entity.Address1_StateOrProvince = org.address1_stateorprovince;
+            if (org.address1_country != null) entity.Address1_Country = org.address1_country;
+            if (org.address2_city != null) entity.Address2_City = org.address2_city;
+            if (org.address2_line1 != null) entity.Address2_Line1 = org.address2_line1;
+            if (org.address2_line2 != null) entity.Address2_Line2 = org.address2_line2;
+            if (org.address2_postalcode != null) entity.Address2_PostalCode = org.address2_postalcode;
+            if (org.address2_stateorprovince != null) entity.Address2_StateOrProvince = org.address2_stateorprovince;
+            if (org.address2_country != null) entity.Address2_Country = org.address2_country;
 
             SetEntityReference(entity, "vsd_executivecontactid", "contact", org.vsd_ExecutiveContactIdfortunecookiebind);
             SetEntityReference(entity, "vsd_boardcontactid", "contact", org.vsd_BoardContactIdfortunecookiebind);
@@ -86,61 +86,68 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapContact(DynamicsProgramApplicationContactPost c)
         {
-            var entity = new Entity("contact");
+            var entity = new Contact();
 
             if (Guid.TryParse(c.contactid, out var contactId))
                 entity.Id = contactId;
 
-            SetString(entity, "firstname", c.firstname);
-            SetString(entity, "lastname", c.lastname);
-            SetString(entity, "middlename", c.middlename);
-            SetString(entity, "jobtitle", c.jobtitle);
-            SetString(entity, "emailaddress1", c.emailaddress1);
-            SetString(entity, "mobilephone", c.mobilephone);
-            SetString(entity, "fax", c.fax);
-            SetString(entity, "telephone2", c.telephone2);
-            SetString(entity, "address1_line1", c.address1_line1);
-            SetString(entity, "address1_line2", c.address1_line2);
-            SetString(entity, "address1_city", c.address1_city);
-            SetString(entity, "address1_postalcode", c.address1_postalcode);
-            SetString(entity, "address1_stateorprovince", c.address1_stateorprovince);
-            SetString(entity, "vsd_bceid", c.vsd_bceid);
-            SetString(entity, "vsd_mainphoneextension", c.vsd_mainphoneextension);
-            SetString(entity, "vsd_homephoneextension", c.vsd_homephoneextension);
-            SetString(entity, "vsd_portalfield", c.vsd_portalfield);
-            SetParentCustomerId(entity, c._parentcustomerid_value);
+            if (c.firstname != null) entity.FirstName = c.firstname;
+            if (c.lastname != null) entity.LastName = c.lastname;
+            if (c.middlename != null) entity.MiddleName = c.middlename;
+            if (c.jobtitle != null) entity.JobTitle = c.jobtitle;
+            if (c.emailaddress1 != null) entity.EmailAddress1 = c.emailaddress1;
+            if (c.mobilephone != null) entity.MobilePhone = c.mobilephone;
+            if (c.fax != null) entity.Fax = c.fax;
+            if (c.telephone2 != null) entity.Telephone2 = c.telephone2;
+            if (c.address1_line1 != null) entity.Address1_Line1 = c.address1_line1;
+            if (c.address1_line2 != null) entity.Address1_Line2 = c.address1_line2;
+            if (c.address1_city != null) entity.Address1_City = c.address1_city;
+            if (c.address1_postalcode != null) entity.Address1_PostalCode = c.address1_postalcode;
+            if (c.address1_stateorprovince != null) entity.Address1_StateOrProvince = c.address1_stateorprovince;
+            if (c.vsd_bceid != null) entity.Vsd_BcEId = c.vsd_bceid;
+            if (c.vsd_mainphoneextension != null) entity.Vsd_MainPhoneExtension = c.vsd_mainphoneextension;
+            if (c.vsd_homephoneextension != null) entity.Vsd_HomePhoneExtension = c.vsd_homephoneextension;
+            if (c.vsd_portalfield != null) entity.Vsd_PortalField = c.vsd_portalfield;
+
+            if (c._parentcustomerid_value != null && Guid.TryParse(c._parentcustomerid_value, out var accountId))
+                entity.ParentCustomerId = new EntityReference("account", accountId);
 
             if (c.vsd_employmentstatus.HasValue)
-                entity["vsd_employmentstatus"] = new OptionSetValue(c.vsd_employmentstatus.Value);
+                entity.Vsd_EmploymentStatus = (Contact_Vsd_EmploymentStatus)c.vsd_employmentstatus.Value;
 
             if (c.statecode.HasValue)
-                entity["statecode"] = new OptionSetValue(c.statecode.Value);
+                entity.StateCode = (Contact_StateCode)c.statecode.Value;
 
             return entity;
         }
 
         private static Entity MapContract(DynamicsProgramApplicationContractPost c)
         {
-            var entity = new Entity("vsd_contract");
+            var entity = new Vsd_Contract();
 
             if (Guid.TryParse(c.vsd_contractid, out var contractId))
                 entity.Id = contractId;
 
-            SetString(entity, "vsd_name", c.vsd_name);
+            if (c.vsd_name != null) entity.Vsd_Name = c.vsd_name;
+
+            // vsd_cpu_humanresourcepolices is a multi-select optionset; the DTO carries it as a
+            // raw string so no clean conversion to IEnumerable<Vsd_Contract_Vsd_Cpu_HumanResourcePolices>
+            // is possible — set the attribute directly.
             SetString(entity, "vsd_cpu_humanresourcepolices", c.vsd_cpu_humanresourcepolices);
-            SetString(entity, "vsd_cpu_specificunion", c.vsd_cpu_specificunion);
-            SetString(entity, "vsd_authorizedsigningofficersignature", c.vsd_authorizedsigningofficersignature);
-            SetString(entity, "vsd_signingofficersname", c.vsd_signingofficersname);
-            SetString(entity, "vsd_signingofficertitle", c.vsd_signingofficertitle);
+
+            if (c.vsd_cpu_specificunion != null) entity.Vsd_Cpu_SpecificUnion = c.vsd_cpu_specificunion;
+            if (c.vsd_authorizedsigningofficersignature != null) entity.Vsd_AuthorizedSigningOfficerSignature = c.vsd_authorizedsigningofficersignature;
+            if (c.vsd_signingofficersname != null) entity.Vsd_SigningOfficersName = c.vsd_signingofficersname;
+            if (c.vsd_signingofficertitle != null) entity.Vsd_SigningOfficerTitle = c.vsd_signingofficertitle;
 
             if (c.vsd_cpu_subcontractedprogramstaff.HasValue)
-                entity["vsd_cpu_subcontractedprogramstaff"] = new OptionSetValue(c.vsd_cpu_subcontractedprogramstaff.Value);
+                entity.Vsd_Cpu_SubcontractedProgramStaff = (Vsd_YesNo)c.vsd_cpu_subcontractedprogramstaff.Value;
             if (c.vsd_cpu_unionizedstaff.HasValue)
-                entity["vsd_cpu_unionizedstaff"] = new OptionSetValue(c.vsd_cpu_unionizedstaff.Value);
+                entity.Vsd_Cpu_UnionizedStaff = (Vsd_YesNo)c.vsd_cpu_unionizedstaff.Value;
             if (c.vsd_cpu_insuranceoptions.HasValue)
-                entity["vsd_cpu_insuranceoptions"] = new OptionSetValue(c.vsd_cpu_insuranceoptions.Value);
+                entity.Vsd_Cpu_InsuranceOptions = (Vsd_Contract_Vsd_Cpu_InsuranceOptions)c.vsd_cpu_insuranceoptions.Value;
             if (c.vsd_cpu_memberofcssea.HasValue)
-                entity["vsd_cpu_memberofcssea"] = new OptionSetValue(c.vsd_cpu_memberofcssea.Value);
+                entity.Vsd_Cpu_MemberOfCSSea = (Vsd_Contract_Vsd_Cpu_MemberOfCSSea)c.vsd_cpu_memberofcssea.Value;
 
             SetEntityReference(entity, "vsd_contactlookup1", "contact", c.vsd_ContactLookup1fortunecookiebind);
             SetEntityReference(entity, "vsd_contactlookup2", "contact", c.vsd_ContactLookup2fortunecookiebind);
@@ -150,38 +157,38 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapProgram(DynamicsProgramApplicationProgramPost p)
         {
-            var entity = new Entity("vsd_program");
+            var entity = new Vsd_Program();
 
             if (Guid.TryParse(p.vsd_programid, out var programId))
                 entity.Id = programId;
 
-            SetString(entity, "vsd_addressline1", p.vsd_addressline1);
-            SetString(entity, "vsd_addressline2", p.vsd_addressline2);
-            SetString(entity, "vsd_city", p.vsd_city);
-            SetString(entity, "vsd_country", p.vsd_country);
-            SetString(entity, "vsd_emailaddress", p.vsd_emailaddress);
-            SetString(entity, "vsd_fax", p.vsd_fax);
-            SetString(entity, "vsd_governmentfunderagency", p.vsd_governmentfunderagency);
-            SetString(entity, "vsd_mailingaddressline1", p.vsd_mailingaddressline1);
-            SetString(entity, "vsd_mailingaddressline2", p.vsd_mailingaddressline2);
-            SetString(entity, "vsd_mailingcity", p.vsd_mailingcity);
-            SetString(entity, "vsd_mailingcountry", p.vsd_mailingcountry);
-            SetString(entity, "vsd_mailingpostalcodezip", p.vsd_mailingpostalcodezip);
-            SetString(entity, "vsd_mailingprovincestate", p.vsd_mailingprovincestate);
-            SetString(entity, "vsd_phonenumber", p.vsd_phonenumber);
-            SetString(entity, "vsd_postalcodezip", p.vsd_postalcodezip);
-            SetString(entity, "vsd_provincestate", p.vsd_provincestate);
+            if (p.vsd_addressline1 != null) entity.Vsd_AddressLine1 = p.vsd_addressline1;
+            if (p.vsd_addressline2 != null) entity.Vsd_AddressLine2 = p.vsd_addressline2;
+            if (p.vsd_city != null) entity.Vsd_City = p.vsd_city;
+            if (p.vsd_country != null) entity.Vsd_Country = p.vsd_country;
+            if (p.vsd_emailaddress != null) entity.Vsd_EmailAddress = p.vsd_emailaddress;
+            if (p.vsd_fax != null) entity.Vsd_Fax = p.vsd_fax;
+            if (p.vsd_governmentfunderagency != null) entity.Vsd_GovernmentFunderAgency = p.vsd_governmentfunderagency;
+            if (p.vsd_mailingaddressline1 != null) entity.Vsd_MailingAddressLine1 = p.vsd_mailingaddressline1;
+            if (p.vsd_mailingaddressline2 != null) entity.Vsd_MailingAddressLine2 = p.vsd_mailingaddressline2;
+            if (p.vsd_mailingcity != null) entity.Vsd_MailingCity = p.vsd_mailingcity;
+            if (p.vsd_mailingcountry != null) entity.Vsd_MailingCountry = p.vsd_mailingcountry;
+            if (p.vsd_mailingpostalcodezip != null) entity.Vsd_MailingPostalCodeZip = p.vsd_mailingpostalcodezip;
+            if (p.vsd_mailingprovincestate != null) entity.Vsd_MailingProvinceState = p.vsd_mailingprovincestate;
+            if (p.vsd_phonenumber != null) entity.Vsd_PhoneNumber = p.vsd_phonenumber;
+            if (p.vsd_postalcodezip != null) entity.Vsd_PostalCodeZip = p.vsd_postalcodezip;
+            if (p.vsd_provincestate != null) entity.Vsd_ProvinceState = p.vsd_provincestate;
 
-            entity["vsd_costshare"] = p.vsd_costshare;
-            entity["vsd_cpu_programstaffsubcontracted"] = p.vsd_cpu_programstaffsubcontracted;
-            entity["vsd_addresstransitionorsafehome"] = p.vsd_addresstransitionorsafehome;
+            entity.Vsd_CostShare = p.vsd_costshare;
+            entity.Vsd_Cpu_ProgramStaffSubcontracted = p.vsd_cpu_programstaffsubcontracted;
+            entity.Vsd_AddressTransitionOrSafeHome = p.vsd_addresstransitionorsafehome;
 
             if (p.vsd_cpu_per.HasValue)
-                entity["vsd_cpu_per"] = new OptionSetValue(p.vsd_cpu_per.Value);
+                entity.Vsd_Cpu_Per = (Vsd_Program_Vsd_Cpu_Per)p.vsd_cpu_per.Value;
             if (p.vsd_totaloncallstandbyhours.HasValue)
-                entity["vsd_totaloncallstandbyhours"] = p.vsd_totaloncallstandbyhours.Value;
+                entity.Vsd_ToTalonCallStandbyHours = p.vsd_totaloncallstandbyhours.Value;
             if (p.vsd_totalscheduledhours.HasValue)
-                entity["vsd_totalscheduledhours"] = p.vsd_totalscheduledhours.Value;
+                entity.Vsd_TotalScheduledHours = p.vsd_totalscheduledhours.Value;
 
             SetEntityReference(entity, "vsd_contactlookup", "contact", p.vsd_ContactLookupfortunecookiebind);
             SetEntityReference(entity, "vsd_contactlookup2", "contact", p.vsd_ContactLookup2fortunecookiebind);
@@ -192,19 +199,20 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapSchedule(DynamicsProgramApplicationSchedulePost s)
         {
-            var entity = new Entity("vsd_schedule");
+            var entity = new Vsd_Schedule();
 
             if (Guid.TryParse(s.vsd_scheduleid, out var scheduleId))
                 entity.Id = scheduleId;
 
+            // vsd_days is a multi-select optionset; the DTO carries it as a string
             SetString(entity, "vsd_days", s.vsd_days);
-            SetString(entity, "vsd_scheduledstarttime", s.vsd_scheduledstarttime);
-            SetString(entity, "vsd_scheduledendtime", s.vsd_scheduledendtime);
+            if (s.vsd_scheduledstarttime != null) entity.Vsd_ScheduledStartTime = s.vsd_scheduledstarttime;
+            if (s.vsd_scheduledendtime != null) entity.Vsd_ScheduledEndTime = s.vsd_scheduledendtime;
 
-            entity["vsd_cpu_scheduletype"] = new OptionSetValue(s.vsd_cpu_scheduletype);
+            entity.Vsd_Cpu_ScheduleType = (Vsd_Schedule_Vsd_Cpu_ScheduleType)s.vsd_cpu_scheduletype;
 
             if (s.statecode.HasValue)
-                entity["statecode"] = new OptionSetValue(s.statecode.Value);
+                entity.StateCode = (Vsd_Schedule_StateCode)s.statecode.Value;
 
             SetEntityReference(entity, "vsd_programid", "vsd_program", s.vsd_ProgramIdfortunecookiebind);
 
@@ -249,10 +257,6 @@ namespace Gov.Cscp.Victims.Public.Models
                 entity[attributeName] = new EntityReference(logicalName, guid.Value);
         }
 
-        private static void SetParentCustomerId(Entity entity, string accountId)
-        {
-            if (Guid.TryParse(accountId, out var guid))
-                entity["parentcustomerid"] = new EntityReference("account", guid);
-        }
+
     }
 }

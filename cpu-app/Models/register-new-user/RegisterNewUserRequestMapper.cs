@@ -32,43 +32,43 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapContact(DynamicsRegisterNewUserContactPost c)
         {
-            var entity = new Entity("contact");
+            var entity = new Contact();
 
-            SetString(entity, "firstname", c.firstname);
-            SetString(entity, "lastname", c.lastname);
-            SetString(entity, "middlename", c.middlename);
-            SetString(entity, "jobtitle", c.jobtitle);
-            SetString(entity, "emailaddress1", c.emailaddress1);
-            SetString(entity, "fax", c.fax);
-            SetString(entity, "mobilephone", c.mobilephone);
-            SetString(entity, "telephone2", c.telephone2);
-            SetString(entity, "vsd_mainphoneextension", c.vsd_mainphoneextension);
-            SetString(entity, "vsd_homephoneextension", c.vsd_homephoneextension);
-            SetString(entity, "address1_city", c.address1_city);
-            SetString(entity, "address1_line1", c.address1_line1);
-            SetString(entity, "address1_line2", c.address1_line2);
-            SetString(entity, "address1_postalcode", c.address1_postalcode);
-            SetString(entity, "address1_stateorprovince", c.address1_stateorprovince);
+            if (c.firstname != null) entity.FirstName = c.firstname;
+            if (c.lastname != null) entity.LastName = c.lastname;
+            if (c.middlename != null) entity.MiddleName = c.middlename;
+            if (c.jobtitle != null) entity.JobTitle = c.jobtitle;
+            if (c.emailaddress1 != null) entity.EmailAddress1 = c.emailaddress1;
+            if (c.fax != null) entity.Fax = c.fax;
+            if (c.mobilephone != null) entity.MobilePhone = c.mobilephone;
+            if (c.telephone2 != null) entity.Telephone2 = c.telephone2;
+            if (c.vsd_mainphoneextension != null) entity.Vsd_MainPhoneExtension = c.vsd_mainphoneextension;
+            if (c.vsd_homephoneextension != null) entity.Vsd_HomePhoneExtension = c.vsd_homephoneextension;
+            if (c.address1_city != null) entity.Address1_City = c.address1_city;
+            if (c.address1_line1 != null) entity.Address1_Line1 = c.address1_line1;
+            if (c.address1_line2 != null) entity.Address1_Line2 = c.address1_line2;
+            if (c.address1_postalcode != null) entity.Address1_PostalCode = c.address1_postalcode;
+            if (c.address1_stateorprovince != null) entity.Address1_StateOrProvince = c.address1_stateorprovince;
 
             // Role is always expected (100000005 = Staff, 100000007 = Contractor)
-            entity["vsd_contactrole"] = new OptionSetValue(c.vsd_contactrole);
+            entity.Vsd_ContactRole = (Contact_Vsd_ContactRole)c.vsd_contactrole;
 
             return entity;
         }
 
         private static Entity MapServiceProvider(DynamicsRegisterNewUserServiceProviderPost sp)
         {
-            var entity = new Entity("account");
+            var entity = new Account();
 
-            SetString(entity, "name", sp.name);
-            SetString(entity, "telephone1", sp.telephone1);
-            SetString(entity, "emailaddress1", sp.emailaddress1);
-            SetString(entity, "fax", sp.fax);
-            SetString(entity, "address1_city", sp.address1_city);
-            SetString(entity, "address1_line1", sp.address1_line1);
-            SetString(entity, "address1_line2", sp.address1_line2);
-            SetString(entity, "address1_postalcode", sp.address1_postalcode);
-            SetString(entity, "address1_stateorprovince", sp.address1_stateorprovince);
+            if (sp.name != null) entity.Name = sp.name;
+            if (sp.telephone1 != null) entity.Telephone1 = sp.telephone1;
+            if (sp.emailaddress1 != null) entity.EmailAddress1 = sp.emailaddress1;
+            if (sp.fax != null) entity.Fax = sp.fax;
+            if (sp.address1_city != null) entity.Address1_City = sp.address1_city;
+            if (sp.address1_line1 != null) entity.Address1_Line1 = sp.address1_line1;
+            if (sp.address1_line2 != null) entity.Address1_Line2 = sp.address1_line2;
+            if (sp.address1_postalcode != null) entity.Address1_PostalCode = sp.address1_postalcode;
+            if (sp.address1_stateorprovince != null) entity.Address1_StateOrProvince = sp.address1_stateorprovince;
 
             return entity;
         }

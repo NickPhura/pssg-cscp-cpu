@@ -38,25 +38,25 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapOrganization(DynamicsOrganizationPost org)
         {
-            var entity = new Entity("account");
+            var entity = new Account();
 
             if (Guid.TryParse(org.accountid, out var accountId))
                 entity.Id = accountId;
 
-            SetString(entity, "name", org.name);
-            SetString(entity, "telephone1", org.telephone1);
-            SetString(entity, "emailaddress1", org.emailaddress1);
-            SetString(entity, "fax", org.fax);
-            SetString(entity, "address1_city", org.address1_city);
-            SetString(entity, "address1_line1", org.address1_line1);
-            SetString(entity, "address1_line2", org.address1_line2);
-            SetString(entity, "address1_postalcode", org.address1_postalcode);
-            SetString(entity, "address1_stateorprovince", org.address1_stateorprovince);
-            SetString(entity, "address2_city", org.address2_city);
-            SetString(entity, "address2_line1", org.address2_line1);
-            SetString(entity, "address2_line2", org.address2_line2);
-            SetString(entity, "address2_postalcode", org.address2_postalcode);
-            SetString(entity, "address2_stateorprovince", org.address2_stateorprovince);
+            if (org.name != null) entity.Name = org.name;
+            if (org.telephone1 != null) entity.Telephone1 = org.telephone1;
+            if (org.emailaddress1 != null) entity.EmailAddress1 = org.emailaddress1;
+            if (org.fax != null) entity.Fax = org.fax;
+            if (org.address1_city != null) entity.Address1_City = org.address1_city;
+            if (org.address1_line1 != null) entity.Address1_Line1 = org.address1_line1;
+            if (org.address1_line2 != null) entity.Address1_Line2 = org.address1_line2;
+            if (org.address1_postalcode != null) entity.Address1_PostalCode = org.address1_postalcode;
+            if (org.address1_stateorprovince != null) entity.Address1_StateOrProvince = org.address1_stateorprovince;
+            if (org.address2_city != null) entity.Address2_City = org.address2_city;
+            if (org.address2_line1 != null) entity.Address2_Line1 = org.address2_line1;
+            if (org.address2_line2 != null) entity.Address2_Line2 = org.address2_line2;
+            if (org.address2_postalcode != null) entity.Address2_PostalCode = org.address2_postalcode;
+            if (org.address2_stateorprovince != null) entity.Address2_StateOrProvince = org.address2_stateorprovince;
 
             // The getter wraps the stored raw GUID in the OData bind format "/contacts(guid)".
             // SetEntityReference extracts the GUID from that string via regex.
@@ -68,36 +68,36 @@ namespace Gov.Cscp.Victims.Public.Models
 
         private static Entity MapContact(DynamicsOrganizationContactPost c)
         {
-            var entity = new Entity("contact");
+            var entity = new Contact();
 
             if (Guid.TryParse(c.contactid, out var contactId))
                 entity.Id = contactId;
 
-            SetString(entity, "firstname", c.firstname);
-            SetString(entity, "lastname", c.lastname);
-            SetString(entity, "middlename", c.middlename);
-            SetString(entity, "jobtitle", c.jobtitle);
-            SetString(entity, "emailaddress1", c.emailaddress1);
-            SetString(entity, "mobilephone", c.mobilephone);
-            SetString(entity, "fax", c.fax);
-            SetString(entity, "telephone2", c.telephone2);
-            SetString(entity, "address1_line1", c.address1_line1);
-            SetString(entity, "address1_line2", c.address1_line2);
-            SetString(entity, "address1_city", c.address1_city);
-            SetString(entity, "address1_postalcode", c.address1_postalcode);
-            SetString(entity, "address1_stateorprovince", c.address1_stateorprovince);
-            SetString(entity, "vsd_bceid", c.vsd_bceid);
-            SetString(entity, "vsd_mainphoneextension", c.vsd_mainphoneextension);
-            SetString(entity, "vsd_homephoneextension", c.vsd_homephoneextension);
+            if (c.firstname != null) entity.FirstName = c.firstname;
+            if (c.lastname != null) entity.LastName = c.lastname;
+            if (c.middlename != null) entity.MiddleName = c.middlename;
+            if (c.jobtitle != null) entity.JobTitle = c.jobtitle;
+            if (c.emailaddress1 != null) entity.EmailAddress1 = c.emailaddress1;
+            if (c.mobilephone != null) entity.MobilePhone = c.mobilephone;
+            if (c.fax != null) entity.Fax = c.fax;
+            if (c.telephone2 != null) entity.Telephone2 = c.telephone2;
+            if (c.address1_line1 != null) entity.Address1_Line1 = c.address1_line1;
+            if (c.address1_line2 != null) entity.Address1_Line2 = c.address1_line2;
+            if (c.address1_city != null) entity.Address1_City = c.address1_city;
+            if (c.address1_postalcode != null) entity.Address1_PostalCode = c.address1_postalcode;
+            if (c.address1_stateorprovince != null) entity.Address1_StateOrProvince = c.address1_stateorprovince;
+            if (c.vsd_bceid != null) entity.Vsd_BcEId = c.vsd_bceid;
+            if (c.vsd_mainphoneextension != null) entity.Vsd_MainPhoneExtension = c.vsd_mainphoneextension;
+            if (c.vsd_homephoneextension != null) entity.Vsd_HomePhoneExtension = c.vsd_homephoneextension;
 
             if (c._parentcustomerid_value != null && Guid.TryParse(c._parentcustomerid_value, out var accountId))
-                entity["parentcustomerid"] = new EntityReference("account", accountId);
+                entity.ParentCustomerId = new EntityReference("account", accountId);
 
             if (c.vsd_employmentstatus.HasValue)
-                entity["vsd_employmentstatus"] = new OptionSetValue(c.vsd_employmentstatus.Value);
+                entity.Vsd_EmploymentStatus = (Contact_Vsd_EmploymentStatus)c.vsd_employmentstatus.Value;
 
             if (c.statecode.HasValue)
-                entity["statecode"] = new OptionSetValue(c.statecode.Value);
+                entity.StateCode = (Contact_StateCode)c.statecode.Value;
 
             return entity;
         }
