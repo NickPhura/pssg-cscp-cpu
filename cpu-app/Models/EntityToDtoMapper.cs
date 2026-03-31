@@ -196,6 +196,12 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_Cpu_SpecificUnion = entity.GetAttributeValue<string>("vsd_cpu_specificunion"),
                 Vsd_Cpu_SubcontractedProgramStaff = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_subcontractedprogramstaff")?.Value,
                 Vsd_Cpu_UnionizedStaff = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_unionizedstaff")?.Value,
+                // CAP-specific fields
+                Vsd_CollaborationWithKeyStakeholders = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_collaborationwithkeystakeholders")?.Value,
+                Vsd_ComplaintAndFeedbackProcessForParticipant = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_complaintandfeedbackprocessforparticipant")?.Value,
+                Vsd_CriminalRecordChecks = entity.GetAttributeValue<bool?>("vsd_criminalrecordchecks"),
+                Vsd_LetterOfReferenceFromReferralSources = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_letterofreferencefromreferralsources")?.Value,
+                Vsd_EstablishedConfidentialityGuidelines = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_establishedconfidentialityguidelines")?.Value,
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ??
                                    entity.RowVersion

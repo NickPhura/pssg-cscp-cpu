@@ -18,6 +18,12 @@ public class ContractDto
     public string? Vsd_Cpu_SpecificUnion { get; set; }
     public int? Vsd_Cpu_SubcontractedProgramStaff { get; set; }
     public int? Vsd_Cpu_UnionizedStaff { get; set; }
+    // CAP-specific fields
+    public int? Vsd_CollaborationWithKeyStakeholders { get; set; }
+    public int? Vsd_ComplaintAndFeedbackProcessForParticipant { get; set; }
+    public bool? Vsd_CriminalRecordChecks { get; set; }
+    public int? Vsd_LetterOfReferenceFromReferralSources { get; set; }
+    public int? Vsd_EstablishedConfidentialityGuidelines { get; set; }
     public string? FortuneCookieType { get; set; }
     public string? FortuneCookieEtag { get; set; }
 }

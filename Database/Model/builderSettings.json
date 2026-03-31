@@ -159,6 +159,7 @@
     "vsd_getcpumonthlystatisticsquestions*",
     "vsd_getcpuorgcontracts*",
     "vsd_getcpuschedulef*",
+    "vsd_getcpuschedulef_cap*",
     "vsd_getcpuscheduleg*",
     "vsd_getcpusurplusplan*",
     "vsd_setcpumonthlystatisticsanswers*",

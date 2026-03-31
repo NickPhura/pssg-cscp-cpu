@@ -26,7 +26,9 @@ import {
 } from 'rxjs';
 
 import type {
-  CAPApplicationPost
+  CAPApplicationDto,
+  CAPApplicationPost,
+  SetCAPApplicationResponseDto
 } from '../../models';
 
 
@@ -54,36 +56,36 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsCapApplicationService {
+export class CapapplicationService {
   private readonly http = inject(HttpClient);
- getApiDynamicsCAPApplicationBusinessBceidUserBceidScheduleFId<TData = void>(businessBceid: string,
+ getApiCAPApplicationBusinessBceidUserBceidScheduleFId<TData = CAPApplicationDto>(businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsCAPApplicationBusinessBceidUserBceidScheduleFId<TData = void>(businessBceid: string,
+ getApiCAPApplicationBusinessBceidUserBceidScheduleFId<TData = CAPApplicationDto>(businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsCAPApplicationBusinessBceidUserBceidScheduleFId<TData = void>(businessBceid: string,
+ getApiCAPApplicationBusinessBceidUserBceidScheduleFId<TData = CAPApplicationDto>(businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsCAPApplicationBusinessBceidUserBceidScheduleFId<TData = void>(
+  getApiCAPApplicationBusinessBceidUserBceidScheduleFId<TData = CAPApplicationDto>(
     businessBceid: string,
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsCAPApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
+      `/api/CAPApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
     );
   }
- postApiDynamicsCAPApplication<TData = void>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsCAPApplication<TData = void>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsCAPApplication<TData = void>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsCAPApplication<TData = void>(
+ postApiCAPApplication<TData = SetCAPApplicationResponseDto>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ postApiCAPApplication<TData = SetCAPApplicationResponseDto>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ postApiCAPApplication<TData = SetCAPApplicationResponseDto>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  postApiCAPApplication<TData = SetCAPApplicationResponseDto>(
     cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsCAPApplication`,
+      `/api/CAPApplication`,
       cAPApplicationPost,options
     );
   }
 };
 
-export type GetApiDynamicsCAPApplicationBusinessBceidUserBceidScheduleFIdClientResult = NonNullable<void>
-export type PostApiDynamicsCAPApplicationClientResult = NonNullable<void>
+export type GetApiCAPApplicationBusinessBceidUserBceidScheduleFIdClientResult = NonNullable<CAPApplicationDto>
+export type PostApiCAPApplicationClientResult = NonNullable<SetCAPApplicationResponseDto>

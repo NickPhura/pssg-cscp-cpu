@@ -1,17 +1,19 @@
-import { iDynamicsPostScheduleFCAP, iDynamicsProgramContactPost, iDynamicsRemoveProgramContactPost, iDynamicsCrmProgramPost } from "../dynamics-post";
+import {
+    CAPApplicationPost,
+    DynamicsCAPApplicationProgramContactPost,
+    DynamicsCAPApplicationProgramPost,
+} from "../../api/models";
 import { iPerson } from "../person.interface";
 import { nameAssemble } from "../../constants/name-assemble";
-import * as _ from "lodash";
 import { TransmogrifierCAPApplication } from "../transmogrifier-cap-application.class";
 import { iCAPProgram } from "../cap-program.interface";
 import { boolOptionSet } from "../../constants/bool-optionset-values";
 
-export function convertCAPProgramToDynamics(trans: TransmogrifierCAPApplication, isSubmit: boolean = false): iDynamicsPostScheduleFCAP {
-    const post: iDynamicsPostScheduleFCAP = {
-        BusinessBCeID: trans.organizationId,
-        UserBCeID: trans.userId,
-        ContractCollection: [{
-            vsd_ContactLookup1fortunecookiebind: trans.applicantInformation.executiveContact ? trans.applicantInformation.executiveContact.personId : null,
+export function convertCAPProgramToDynamics(trans: TransmogrifierCAPApplication, isSubmit: boolean = false): CAPApplicationPost {
+    const post: CAPApplicationPost = {
+        businessBCeID: trans.organizationId,
+        userBCeID: trans.userId,
+        contractCollection: [{
             vsd_contractid: trans.contractId,
             vsd_name: trans.contractNumber,
             vsd_authorizedsigningofficersignature: trans.signature.signature && isSubmit ? trans.signature.signature : null,
@@ -24,7 +26,7 @@ export function convertCAPProgramToDynamics(trans: TransmogrifierCAPApplication,
             vsd_letterofreferencefromreferralsources: trans.letterOfReference ? 100000001 : 100000000,
             vsd_establishedconfidentialityguidelines: trans.establishedConfidentialityGuidelines ? 100000001 : 100000000,
         }],
-        Organization: {
+        organization: {
             accountid: trans.accountId,
             address1_city: trans.applicantInformation.mailingAddress.city,
             address1_country: trans.applicantInformation.mailingAddress.country,
@@ -36,30 +38,28 @@ export function convertCAPProgramToDynamics(trans: TransmogrifierCAPApplication,
         },
     };
 
-    const programContactCollection: iDynamicsProgramContactPost[] = [];
-    const removeProgramContactCollection: iDynamicsRemoveProgramContactPost[] = [];
+    const addProgramContactCollection: DynamicsCAPApplicationProgramContactPost[] = [];
+    const removeProgramContactCollection: DynamicsCAPApplicationProgramContactPost[] = [];
     trans.capPrograms.forEach((program: iCAPProgram) => {
         // in each program add the list of staff by their id
         program.additionalStaff.forEach((s: iPerson): void => {
-            const contact: iDynamicsProgramContactPost = {
+            addProgramContactCollection.push({
                 contactid: s.personId,
                 vsd_programid: program.programId,
-            };
-            programContactCollection.push(contact);
+            });
         });
 
         program.removedStaff.forEach((s: iPerson): void => {
-            const contact: iDynamicsRemoveProgramContactPost = {
+            removeProgramContactCollection.push({
                 contactid: s.personId,
                 vsd_programid: program.programId,
-            };
-            removeProgramContactCollection.push(contact);
+            });
         });
     });
-    if (programContactCollection.length) post.AddProgramContactCollection = programContactCollection;
-    if (removeProgramContactCollection.length) post.RemoveProgramContactCollection = removeProgramContactCollection;
+    if (addProgramContactCollection.length) post.addProgramContactCollection = addProgramContactCollection;
+    if (removeProgramContactCollection.length) post.removeProgramContactCollection = removeProgramContactCollection;
 
-    const programCollection: iDynamicsCrmProgramPost[] = [];
+    const programCollection: DynamicsCAPApplicationProgramPost[] = [];
     trans.capPrograms.forEach((program: iCAPProgram) => {
         programCollection.push({
             vsd_ContactLookupfortunecookiebind: program.programContact ? program.programContact.personId : null,
@@ -71,7 +71,7 @@ export function convertCAPProgramToDynamics(trans: TransmogrifierCAPApplication,
             vsd_cpu_programevaluationdescription: program.evaluationDescription,
             vsd_cpu_capprogramoperationscomments: program.additionalComments,
         });
-        if (programCollection.length) post.ProgramCollection = programCollection;
+        if (programCollection.length) post.programCollection = programCollection;
     });
     return post;
 }

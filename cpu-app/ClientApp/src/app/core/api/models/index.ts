@@ -8,6 +8,7 @@
 
 export * from './budgetProposalDto';
 export * from './budgetProposalPost';
+export * from './cAPApplicationDto';
 export * from './cAPApplicationPost';
 export * from './contactDto';
 export * from './contactMinimalDto';
@@ -67,6 +68,7 @@ export * from './scheduleDto';
 export * from './scheduleGDto';
 export * from './scheduleGLineItemDto';
 export * from './serviceAreaDto';
+export * from './setCAPApplicationResponseDto';
 export * from './setOrgContractsResponseDto';
 export * from './setStatusReportAnswersResponseDto';
 export * from './setSurplusResponseDto';

@@ -32,6 +32,16 @@ export interface ContractDto {
   /** @nullable */
   vsd_Cpu_UnionizedStaff?: number | null;
   /** @nullable */
+  vsd_CollaborationWithKeyStakeholders?: number | null;
+  /** @nullable */
+  vsd_ComplaintAndFeedbackProcessForParticipant?: number | null;
+  /** @nullable */
+  vsd_CriminalRecordChecks?: boolean | null;
+  /** @nullable */
+  vsd_LetterOfReferenceFromReferralSources?: number | null;
+  /** @nullable */
+  vsd_EstablishedConfidentialityGuidelines?: number | null;
+  /** @nullable */
   fortuneCookieType?: string | null;
   /** @nullable */
   fortuneCookieEtag?: string | null;
