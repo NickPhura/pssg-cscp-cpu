@@ -497,5 +497,212 @@ namespace Gov.Cscp.Victims.Public.Models
 
             return null;
         }
+
+        // ── Status Report mappers ─────────────────────────────────────────────────
+
+        public static StatusReportContractDto ToStatusReportContractDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportContractDto
+            {
+                vsd_contractid = (entity.GetAttributeValue<Guid>("vsd_contractid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_contractid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                _vsd_customer_value = GetEntityReferenceValue(entity, "vsd_customer")
+            };
+        }
+
+        public static StatusReportProgramDto ToStatusReportProgramDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportProgramDto
+            {
+                vsd_programid = (entity.GetAttributeValue<Guid>("vsd_programid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                _vsd_contractid_value = GetEntityReferenceValue(entity, "vsd_contractid"),
+                _vsd_programtype_value = GetEntityReferenceValue(entity, "vsd_programtype"),
+                _vsd_serviceproviderid_value = GetEntityReferenceValue(entity, "vsd_serviceproviderid"),
+                vsd_cpu_numberofhours = entity.GetAttributeValue<int?>("vsd_cpu_numberofhours")
+            };
+        }
+
+        public static StatusReportOrganizationDto ToStatusReportOrganizationDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportOrganizationDto
+            {
+                accountid = (entity.GetAttributeValue<Guid>("accountid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("accountid")
+                    : entity.Id).ToString(),
+                name = entity.GetAttributeValue<string>("name")
+            };
+        }
+
+        public static StatusReportContactDto ToStatusReportContactDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportContactDto
+            {
+                contactid = (entity.GetAttributeValue<Guid>("contactid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("contactid")
+                    : entity.Id).ToString(),
+                firstname = entity.GetAttributeValue<string>("firstname"),
+                lastname = entity.GetAttributeValue<string>("lastname")
+            };
+        }
+
+        public static StatusReportCategoryDto ToStatusReportCategoryDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportCategoryDto
+            {
+                vsd_monthlystatisticscategoryid = (entity.GetAttributeValue<Guid>("vsd_monthlystatisticscategoryid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_monthlystatisticscategoryid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                vsd_categoryorder = entity.GetAttributeValue<int?>("vsd_categoryorder")
+            };
+        }
+
+        public static StatusReportQuestionItemDto ToStatusReportQuestionItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+            var categoryId = GetEntityReferenceValue(entity, "vsd_categoryid");
+            return new StatusReportQuestionItemDto
+            {
+                vsd_cpustatisticsmasterdataid = (entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                vsd_questionorder = entity.GetAttributeValue<int?>("vsd_questionorder"),
+                vsd_questiontype = entity.GetAttributeValue<OptionSetValue>("vsd_questiontype")?.Value,
+                vsd_tooltip = entity.GetAttributeValue<string>("vsd_tooltip"),
+                _vsd_categoryid_value = categoryId,
+                categoryID = categoryId,
+                _vsd_cpuprogramtype_value = GetEntityReferenceValue(entity, "vsd_cpuprogramtype")
+            };
+        }
+
+        public static StatusReportChildQuestionDto ToStatusReportChildQuestionDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportChildQuestionDto
+            {
+                vsd_cpustatisticsmasterdataid = (entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                vsd_questionorder = entity.GetAttributeValue<int?>("vsd_questionorder"),
+                vsd_questiontype = entity.GetAttributeValue<OptionSetValue>("vsd_questiontype")?.Value,
+                vsd_tooltip = entity.GetAttributeValue<string>("vsd_tooltip"),
+                _vsd_categoryid_value = GetEntityReferenceValue(entity, "vsd_categoryid"),
+                _vsd_parentid_value = GetEntityReferenceValue(entity, "vsd_parentid")
+            };
+        }
+
+        public static StatusReportMcQuestionDto ToStatusReportMcQuestionDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportMcQuestionDto
+            {
+                vsd_cpustatisticsmasterdataanswerid = (entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataanswerid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataanswerid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                _vsd_questionid_value = GetEntityReferenceValue(entity, "vsd_questionid")
+            };
+        }
+
+        public static StatusReportChildMcQuestionDto ToStatusReportChildMcQuestionDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportChildMcQuestionDto
+            {
+                vsd_cpustatisticsmasterdataanswerid = (entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataanswerid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_cpustatisticsmasterdataanswerid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                _vsd_questionid_value = GetEntityReferenceValue(entity, "vsd_questionid"),
+                _vsd_parentid_value = GetEntityReferenceValue(entity, "vsd_parentid")
+            };
+        }
+
+        public static StatusReportAnswerItemDto ToStatusReportAnswerItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportAnswerItemDto
+            {
+                vsd_datacollectionlineitemid = (entity.GetAttributeValue<Guid>("vsd_datacollectionlineitemid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_datacollectionlineitemid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                _vsd_datacollectionid_value = GetEntityReferenceValue(entity, "vsd_datacollectionid"),
+                vsd_questioncategory = entity.GetAttributeValue<string>("vsd_questioncategory"),
+                vsd_questionorder = entity.GetAttributeValue<int?>("vsd_questionorder"),
+                vsd_questiontype1 = entity.GetAttributeValue<OptionSetValue>("vsd_questiontype1")?.Value,
+                vsd_tooltip = entity.GetAttributeValue<string>("vsd_tooltip"),
+                vsd_yesno = entity.GetAttributeValue<OptionSetValue>("vsd_yesno")?.Value,
+                vsd_textanswer = entity.GetAttributeValue<string>("vsd_textanswer"),
+                vsd_number = entity.GetAttributeValue<double?>("vsd_number"),
+                createdon = entity.GetAttributeValue<DateTime?>("createdon")
+            };
+        }
+
+        public static StatusReportProgramTypeDto ToStatusReportProgramTypeDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new StatusReportProgramTypeDto
+            {
+                vsd_programtypeid = (entity.GetAttributeValue<Guid>("vsd_programtypeid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programtypeid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name")
+            };
+        }
+
+        public static DataCollectionItemDto ToDataCollectionItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new DataCollectionItemDto
+            {
+                vsd_datacollectionid = (entity.GetAttributeValue<Guid>("vsd_datacollectionid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_datacollectionid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name"),
+                vsd_reportingperiod = entity.GetAttributeValue<OptionSetValue>("vsd_reportingperiod")?.Value,
+                statuscode = entity.GetAttributeValue<OptionSetValue>("statuscode")?.Value,
+                vsd_submissiondate = entity.GetAttributeValue<DateTime?>("vsd_submissiondate")?.ToString("o"),
+                _vsd_contact_value = GetEntityReferenceValue(entity, "vsd_contact"),
+                createdon = entity.GetAttributeValue<DateTime?>("createdon"),
+                _vsd_program_value = GetEntityReferenceValue(entity, "vsd_program")
+            };
+        }
+
+        public static ContactMinimalDto ToContactMinimalDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new ContactMinimalDto
+            {
+                contactid = (entity.GetAttributeValue<Guid>("contactid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("contactid")
+                    : entity.Id).ToString(),
+                fullname = entity.GetAttributeValue<string>("fullname")
+            };
+        }
+
+        public static ProgramMinimalDto ToProgramMinimalDto(Entity entity)
+        {
+            if (entity == null) return null;
+            return new ProgramMinimalDto
+            {
+                vsd_programid = (entity.GetAttributeValue<Guid>("vsd_programid") != Guid.Empty
+                    ? entity.GetAttributeValue<Guid>("vsd_programid")
+                    : entity.Id).ToString(),
+                vsd_name = entity.GetAttributeValue<string>("vsd_name")
+            };
+        }
     }
 }

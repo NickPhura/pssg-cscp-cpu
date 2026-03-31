@@ -16,8 +16,5 @@ export default defineConfig({
       prettier: true,
       tsconfig: "./tsconfig.json",
     },
-    hooks: {
-      afterAllFilesWrite: "prettier --write",
-    },
   },
 });

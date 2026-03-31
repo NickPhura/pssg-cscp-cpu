@@ -1,24 +1,26 @@
-import { TransmogrifierStatusReport } from "../transmogrifier-status-report.class";
-import { iDynamicsPostStatusReport, iDynamicsAnswer } from "../dynamics-post";
+import {
+  DynamicsDataCollectionLineItemPost,
+  MonthlyStatisticsAnswers,
+} from "../../api/models";
+import { boolOptionSet } from "../../constants/bool-optionset-values";
 import { iQuestionCollection } from "../question-collection.interface";
 import { iQuestion } from "../status-report-question.interface";
-import { months as monthDict } from "../../constants/month-codes";
-import { boolOptionSet } from "../../constants/bool-optionset-values";
+import { TransmogrifierStatusReport } from "../transmogrifier-status-report.class";
 
 export function convertStatusReportToDynamics(
-  trans: TransmogrifierStatusReport
-): iDynamicsPostStatusReport {
+  trans: TransmogrifierStatusReport,
+): MonthlyStatisticsAnswers {
   const types = {
     number: 100000000,
     boolean: 100000001,
     string: 100000002,
   };
   // build the answers into a flatter dynamics form
-  const answers: iDynamicsAnswer[] = [];
+  const answers: DynamicsDataCollectionLineItemPost[] = [];
 
   const typeHandlers: Record<
     string,
-    (q: iQuestion, li: iDynamicsAnswer) => void
+    (q: iQuestion, li: DynamicsDataCollectionLineItemPost) => void
   > = {
     number: (q, li) => {
       li["vsd_number"] = q.number != null ? q.number : null;
@@ -39,7 +41,7 @@ export function convertStatusReportToDynamics(
   trans.statusReportQuestions.forEach((srq: iQuestionCollection) => {
     // for each question assemble shared elements
     srq.questions.forEach((q: iQuestion) => {
-      const lineItem: iDynamicsAnswer = {
+      const lineItem: DynamicsDataCollectionLineItemPost = {
         vsd_name: q.label,
         vsd_questioncategory: srq.name,
         vsd_QuestionIdfortunecookiebind: q.uuid,
@@ -59,11 +61,9 @@ export function convertStatusReportToDynamics(
   });
 
   return {
-    BusinessBCeID: trans.organizationId,
-    UserBCeID: trans.userId,
-    DataCollectionid: trans.DataCollectionid,
-    // ReportingPeriod: monthDict[trans.reportingPeriod] || 0,
+    businessBCeID: trans.organizationId,
+    userBCeID: trans.userId,
     // get rid of any answers are missing a value. Otherwise dynamics 204's.
-    AnswerCollection: answers, //.filter(v => v.vsd_yesno || v.vsd_textanswer || v.vsd_number)
+    answerCollection: answers, //.filter(v => v.vsd_yesno || v.vsd_textanswer || v.vsd_number)
   };
 }

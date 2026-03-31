@@ -26,7 +26,11 @@ import {
 } from 'rxjs';
 
 import type {
-  MonthlyStatisticsAnswers
+  MonthlyStatisticsAnswers,
+  MonthlyStatisticsDto,
+  SetStatusReportAnswersResponseDto,
+  StatusReportAnswersDto,
+  StatusReportQuestionsDto
 } from '../../models';
 
 
@@ -54,98 +58,98 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsStatusReportService {
+export class StatusReportService {
   private readonly http = inject(HttpClient);
- getApiDynamicsStatusReportBusinessBceidUserBceidTaskId<TData = void>(businessBceid: string,
+ getApiStatusReportBusinessBceidUserBceidTaskId<TData = StatusReportQuestionsDto>(businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsStatusReportBusinessBceidUserBceidTaskId<TData = void>(businessBceid: string,
+ getApiStatusReportBusinessBceidUserBceidTaskId<TData = StatusReportQuestionsDto>(businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsStatusReportBusinessBceidUserBceidTaskId<TData = void>(businessBceid: string,
+ getApiStatusReportBusinessBceidUserBceidTaskId<TData = StatusReportQuestionsDto>(businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsStatusReportBusinessBceidUserBceidTaskId<TData = void>(
+  getApiStatusReportBusinessBceidUserBceidTaskId<TData = StatusReportQuestionsDto>(
     businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsStatusReport/${businessBceid}/${userBceid}/${taskId}`,options
+      `/api/StatusReport/${businessBceid}/${userBceid}/${taskId}`,options
     );
   }
- getApiDynamicsStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = void>(businessBceid: string,
+ getApiStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = MonthlyStatisticsDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = void>(businessBceid: string,
+ getApiStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = MonthlyStatisticsDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = void>(businessBceid: string,
+ getApiStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = MonthlyStatisticsDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = void>(
+  getApiStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = MonthlyStatisticsDto>(
     businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsStatusReport/monthly_stats/${businessBceid}/${userBceid}/${contractId}`,options
+      `/api/StatusReport/monthly_stats/${businessBceid}/${userBceid}/${contractId}`,options
     );
   }
- getApiDynamicsStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = void>(businessBceid: string,
+ getApiStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = StatusReportAnswersDto>(businessBceid: string,
     userBceid: string,
     dataCollectionId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = void>(businessBceid: string,
+ getApiStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = StatusReportAnswersDto>(businessBceid: string,
     userBceid: string,
     dataCollectionId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = void>(businessBceid: string,
+ getApiStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = StatusReportAnswersDto>(businessBceid: string,
     userBceid: string,
     dataCollectionId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = void>(
+  getApiStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = StatusReportAnswersDto>(
     businessBceid: string,
     userBceid: string,
     dataCollectionId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsStatusReport/data_collection/${businessBceid}/${userBceid}/${dataCollectionId}`,options
+      `/api/StatusReport/data_collection/${businessBceid}/${userBceid}/${dataCollectionId}`,options
     );
   }
- postApiDynamicsStatusReportTaskId<TData = void>(taskId: string,
+ postApiStatusReportTaskId<TData = SetStatusReportAnswersResponseDto>(taskId: string,
     monthlyStatisticsAnswers: MonthlyStatisticsAnswers, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsStatusReportTaskId<TData = void>(taskId: string,
+ postApiStatusReportTaskId<TData = SetStatusReportAnswersResponseDto>(taskId: string,
     monthlyStatisticsAnswers: MonthlyStatisticsAnswers, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsStatusReportTaskId<TData = void>(taskId: string,
+ postApiStatusReportTaskId<TData = SetStatusReportAnswersResponseDto>(taskId: string,
     monthlyStatisticsAnswers: MonthlyStatisticsAnswers, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsStatusReportTaskId<TData = void>(
+  postApiStatusReportTaskId<TData = SetStatusReportAnswersResponseDto>(
     taskId: string,
     monthlyStatisticsAnswers: MonthlyStatisticsAnswers, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsStatusReport/${taskId}`,
+      `/api/StatusReport/${taskId}`,
       monthlyStatisticsAnswers,options
     );
   }
- getApiDynamicsStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void>(contractId: string,
+ getApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void | void>(contractId: string,
     programId: string,
     contractNumber: string,
     programName: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void>(contractId: string,
+ getApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void | void>(contractId: string,
     programId: string,
     contractNumber: string,
     programName: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void>(contractId: string,
+ getApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void | void>(contractId: string,
     programId: string,
     contractNumber: string,
     programName: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void>(
+  getApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<TData = void | void>(
     contractId: string,
     programId: string,
     contractNumber: string,
     programName: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsStatusReport/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`,options
+      `/api/StatusReport/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`,options
     );
   }
 };
 
-export type GetApiDynamicsStatusReportBusinessBceidUserBceidTaskIdClientResult = NonNullable<void>
-export type GetApiDynamicsStatusReportMonthlyStatsBusinessBceidUserBceidContractIdClientResult = NonNullable<void>
-export type GetApiDynamicsStatusReportDataCollectionBusinessBceidUserBceidDataCollectionIdClientResult = NonNullable<void>
-export type PostApiDynamicsStatusReportTaskIdClientResult = NonNullable<void>
-export type GetApiDynamicsStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramNameClientResult = NonNullable<void>
+export type GetApiStatusReportBusinessBceidUserBceidTaskIdClientResult = NonNullable<StatusReportQuestionsDto>
+export type GetApiStatusReportMonthlyStatsBusinessBceidUserBceidContractIdClientResult = NonNullable<MonthlyStatisticsDto>
+export type GetApiStatusReportDataCollectionBusinessBceidUserBceidDataCollectionIdClientResult = NonNullable<StatusReportAnswersDto>
+export type PostApiStatusReportTaskIdClientResult = NonNullable<SetStatusReportAnswersResponseDto>
+export type GetApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramNameClientResult = NonNullable<void | void>

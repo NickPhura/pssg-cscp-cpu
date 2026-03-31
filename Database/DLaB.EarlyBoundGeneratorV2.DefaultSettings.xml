@@ -13,9 +13,13 @@
 cpu_*</ActionPrefixesWhitelist>
     <ActionsWhitelist>vsd_clonecontract|
 vsd_getcpubudgetproposal|
+vsd_getcpumonthlystatistics|
+vsd_getcpumonthlystatisticsanswers|
+vsd_getcpumonthlystatisticsquestions|
 vsd_getcpuorgcontracts|
 vsd_getcpuschedulef|
 vsd_getcpuscheduleg|
+vsd_setcpumonthlystatisticsanswers|
 vsd_setcpuorgcontracts</ActionsWhitelist>
     <ActionsToSkip />
     <AddDebuggerNonUserCode>true</AddDebuggerNonUserCode>

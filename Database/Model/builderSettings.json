@@ -152,9 +152,13 @@
   "messageNamesFilter": [
     "vsd_clonecontract*",
     "vsd_getcpubudgetproposal*",
+    "vsd_getcpumonthlystatistics*",
+    "vsd_getcpumonthlystatisticsanswers*",
+    "vsd_getcpumonthlystatisticsquestions*",
     "vsd_getcpuorgcontracts*",
     "vsd_getcpuschedulef*",
     "vsd_getcpuscheduleg*",
+    "vsd_setcpumonthlystatisticsanswers*",
     "vsd_setcpuorgcontracts*",
     "bcgov_*",
     "cpu_*"
