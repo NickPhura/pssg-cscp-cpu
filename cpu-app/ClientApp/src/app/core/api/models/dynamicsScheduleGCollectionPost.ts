@@ -7,29 +7,57 @@
  */
 
 export interface DynamicsScheduleGCollectionPost {
+  /** @nullable */
+  readonly fortunecookietype?: string | null;
+  /** @minLength 1 */
+  vsd_schedulegid: string;
+  /**
+   * @minimum 0
+   * @maximum 100000
+   */
   vsd_actualhoursthisquarter?: number;
   vsd_contractedservicehrsthisquarter?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_programadministrationcurrentquarter?: number;
   vsd_quarterlyvarianceprogramadministration?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_yeartodateprogramadministration?: number;
   vsd_yeartodatevarianceprogramadministration?: number;
+  /** @nullable */
+  vsd_programadministrationexplanation?: string | null;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_programdeliverycurrentquarter?: number;
   vsd_quarterlyvarianceprogramdelivery?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_yeartodateprogramdelivery?: number;
   vsd_yeartodatevarianceprogramdelivery?: number;
+  /** @nullable */
+  vsd_programdeliveryexplanations?: string | null;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_salariesbenefitscurrentquarter?: number;
   vsd_quarterlyvariancesalariesbenefits?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_yeartodatesalariesandbenefits?: number;
   vsd_yeartodatevariancesalariesbenefits?: number;
   /** @nullable */
-  readonly fortunecookietype?: string | null;
-  /** @nullable */
-  vsd_programadministrationexplanation?: string | null;
-  /** @nullable */
-  vsd_programdeliveryexplanations?: string | null;
-  /** @nullable */
   vsd_salariesandbenefitsexplanation?: string | null;
-  /** @nullable */
-  vsd_schedulegid?: string | null;
   vsd_reportreviewed?: boolean;
 }

@@ -7,14 +7,22 @@
  */
 
 export interface DynamicsScheduleGLineItemCollectionPost {
-  vsd_actualexpensescurrentquarter?: number;
-  vsd_quarterlyvariance?: number;
-  vsd_actualexpendituresyeartodate?: number;
-  vsd_yeartodatevariance?: number;
   /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  vsd_scheduleglineitemid?: string | null;
+  /** @minLength 1 */
+  vsd_scheduleglineitemid: string;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_actualexpensescurrentquarter?: number;
+  vsd_quarterlyvariance?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_actualexpendituresyeartodate?: number;
+  vsd_yeartodatevariance?: number;
   /** @nullable */
   vsd_explanationforvariance?: string | null;
 }

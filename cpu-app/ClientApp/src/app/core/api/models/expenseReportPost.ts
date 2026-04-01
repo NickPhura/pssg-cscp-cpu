@@ -9,12 +9,11 @@ import type { DynamicsScheduleGCollectionPost } from './dynamicsScheduleGCollect
 import type { DynamicsScheduleGLineItemCollectionPost } from './dynamicsScheduleGLineItemCollectionPost';
 
 export interface ExpenseReportPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
-  /** @nullable */
-  scheduleGCollection?: DynamicsScheduleGCollectionPost[] | null;
-  /** @nullable */
-  scheduleGLineItemCollection?: DynamicsScheduleGLineItemCollectionPost[] | null;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
+  /** @minItems 1 */
+  scheduleGCollection: DynamicsScheduleGCollectionPost[];
+  scheduleGLineItemCollection: DynamicsScheduleGLineItemCollectionPost[];
 }
