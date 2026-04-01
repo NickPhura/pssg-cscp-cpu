@@ -738,6 +738,7 @@ namespace Database.Model
 			public const string OobPriceCalculationEnabled = "oobpricecalculationenabled";
 			public const string OrderPrefix = "orderprefix";
 			public const string Organization_TransactionCurrencies = "Organization_TransactionCurrencies";
+			public const string Organization_Vsd_DataCollectionLineItem = "Organization_Vsd_DataCollectionLineItem";
 			public const string Organization_Vsd_EligibleExpenseItem = "Organization_Vsd_EligibleExpenseItem";
 			public const string Organization_Vsd_PortalRole = "Organization_Vsd_PortalRole";
 			public const string Organization_Vsd_ProgramType = "Organization_Vsd_ProgramType";
@@ -7809,6 +7810,24 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.TransactionCurrency>("organization_transactioncurrencies", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N organization_vsd_datacollectionlineitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_datacollectionlineitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_DataCollectionLineItem> Organization_Vsd_DataCollectionLineItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_DataCollectionLineItem>("organization_vsd_datacollectionlineitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_DataCollectionLineItem>("organization_vsd_datacollectionlineitem", null, value);
 			}
 		}
 		

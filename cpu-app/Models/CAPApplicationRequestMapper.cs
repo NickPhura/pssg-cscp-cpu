@@ -29,11 +29,11 @@ namespace Gov.Cscp.Victims.Public.Models
 
             if (model.AddProgramContactCollection != null)
                 request.AddProgramContactCollection = new EntityCollection(
-                    model.AddProgramContactCollection.Select(MapProgramContact).ToList());
+                    model.AddProgramContactCollection.Select(MapProgramContact).Cast<Entity>().ToList());
 
             if (model.RemoveProgramContactCollection != null)
                 request.RemoveProgramContactCollection = new EntityCollection(
-                    model.RemoveProgramContactCollection.Select(MapProgramContact).ToList());
+                    model.RemoveProgramContactCollection.Select(MapProgramContact).Cast<Entity>().ToList());
 
             return request;
         }
@@ -112,9 +112,9 @@ namespace Gov.Cscp.Victims.Public.Models
             return entity;
         }
 
-        private static Entity MapProgramContact(DynamicsCAPApplicationProgramContactPost pc)
+        private static Vsd_Contact_Vsd_Program MapProgramContact(DynamicsCAPApplicationProgramContactPost pc)
         {
-            var entity = new Entity("vsd_contact_vsd_program");
+            var entity = new Vsd_Contact_Vsd_Program();
 
             if (Guid.TryParse(pc.contactid, out var contactId))
                 entity["contactid"] = new EntityReference("contact", contactId);

@@ -13,10 +13,10 @@ namespace Database.Model
 	
 	
 	/// <summary>
-	/// Status of the Eligible Expense Item
+	/// Status of the Data Collection Line Item
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum Vsd_EligibleExpenseItem_StateCode
+	public enum Vsd_DataCollectionLineItem_StateCode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -29,10 +29,10 @@ namespace Database.Model
 	}
 	
 	/// <summary>
-	/// Reason for the status of the Eligible Expense Item
+	/// Reason for the status of the Data Collection Line Item
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum Vsd_EligibleExpenseItem_StatusCode
+	public enum Vsd_DataCollectionLineItem_StatusCode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -44,33 +44,13 @@ namespace Database.Model
 		Inactive = 2,
 	}
 	
-	/// <summary>
-	/// The type of program expense listed in the Grant Application.
-	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum Vsd_EligibleExpenseItem_Vsd_ProgramExpenseType
-	{
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Administration", 2, "#0000ff")]
-		Administration = 100000002,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Program Delivery", 1, "#0000ff")]
-		ProgramDelivery = 100000001,
-		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Salaries and Benefits", 0, "#0000ff")]
-		SalariesAndBenefits = 100000000,
-	}
-	
-	[System.Runtime.Serialization.DataContractAttribute()]
-	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("vsd_eligibleexpenseitem")]
-	public partial class Vsd_EligibleExpenseItem : Microsoft.Xrm.Sdk.Entity
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("vsd_datacollectionlineitem")]
+	public partial class Vsd_DataCollectionLineItem : Microsoft.Xrm.Sdk.Entity
 	{
 		
 		/// <summary>
-		/// Available fields, a the time of codegen, for the vsd_eligibleexpenseitem entity
+		/// Available fields, a the time of codegen, for the vsd_datacollectionlineitem entity
 		/// </summary>
 		public partial class Fields
 		{
@@ -89,7 +69,7 @@ namespace Database.Model
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
-			public const string Organization_Vsd_EligibleExpenseItem = "organization_vsd_eligibleexpenseitem";
+			public const string Organization_Vsd_DataCollectionLineItem = "organization_vsd_datacollectionlineitem";
 			public const string OrganizationId = "organizationid";
 			public const string OrganizationIdName = "organizationidname";
 			public const string OverriddenCreatedOn = "overriddencreatedon";
@@ -100,34 +80,39 @@ namespace Database.Model
 			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
 			public const string UtcConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
-			public const string Vsd_AutoCreateScHeDULegLineItem = "vsd_autocreatescheduleglineitem";
-			public const string Vsd_AutoCreateScHeDULegLineItemName = "vsd_autocreatescheduleglineitemname";
-			public const string Vsd_AutoCreateSurplusLineItem = "vsd_autocreatesurpluslineitem";
-			public const string Vsd_AutoCreateSurplusLineItemName = "vsd_autocreatesurpluslineitemname";
-			public const string Vsd_EligibleExpenseItemId = "vsd_eligibleexpenseitemid";
-			public const string Id = "vsd_eligibleexpenseitemid";
+			public const string Vsd_CategoryId = "vsd_categoryid";
+			public const string Vsd_CategoryIdName = "vsd_categoryidname";
+			public const string Vsd_DataCollectionId = "vsd_datacollectionid";
+			public const string Vsd_DataCollectionIdName = "vsd_datacollectionidname";
+			public const string Vsd_DataCollectionLineItemId = "vsd_datacollectionlineitemid";
+			public const string Id = "vsd_datacollectionlineitemid";
 			public const string Vsd_Name = "vsd_name";
-			public const string Vsd_ProgramExpenseType = "vsd_programexpensetype";
-			public const string Vsd_ProgramExpenseTypeName = "vsd_programexpensetypename";
-			public const string Vsd_Vsd_EligibleExpenseItem_Vsd_ProgramExpENS = "Vsd_Vsd_EligibleExpenseItem_Vsd_ProgramExpENS";
-			public const string Vsd_Vsd_EligibleExpenseItem_Vsd_ScheduleGLineItem_ExpenseLineItem = "Vsd_Vsd_EligibleExpenseItem_Vsd_ScheduleGLineItem_ExpenseLineItem";
-			public const string Vsd_Vsd_EligibleExpenseItem_Vsd_SurplusLineIt = "Vsd_Vsd_EligibleExpenseItem_Vsd_SurplusLineIt";
+			public const string Vsd_Number = "vsd_number";
+			public const string Vsd_QuestionCategory = "vsd_questioncategory";
+			public const string Vsd_QuestionId = "vsd_questionid";
+			public const string Vsd_QuestionIdName = "vsd_questionidname";
+			public const string Vsd_QuestionOrder = "vsd_questionorder";
+			public const string Vsd_QuestionType1 = "vsd_questiontype1";
+			public const string Vsd_QuestionType1Name = "vsd_questiontype1name";
+			public const string Vsd_TextAnswer = "vsd_textanswer";
+			public const string Vsd_YesNo = "vsd_yesno";
+			public const string Vsd_YesNoName = "vsd_yesnoname";
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public Vsd_EligibleExpenseItem(System.Guid id) : 
+		public Vsd_DataCollectionLineItem(System.Guid id) : 
 				base(EntityLogicalName, id)
 		{
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public Vsd_EligibleExpenseItem(string keyName, object keyValue) : 
+		public Vsd_DataCollectionLineItem(string keyName, object keyValue) : 
 				base(EntityLogicalName, keyName, keyValue)
 		{
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public Vsd_EligibleExpenseItem(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+		public Vsd_DataCollectionLineItem(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
 				base(EntityLogicalName, keyAttributes)
 		{
 		}
@@ -136,22 +121,22 @@ namespace Database.Model
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public Vsd_EligibleExpenseItem() : 
+		public Vsd_DataCollectionLineItem() : 
 				base(EntityLogicalName)
 		{
 		}
 		
-		public const string PrimaryIdAttribute = "vsd_eligibleexpenseitemid";
+		public const string PrimaryIdAttribute = "vsd_datacollectionlineitemid";
 		
 		public const string PrimaryNameAttribute = "vsd_name";
 		
-		public const string EntitySchemaName = "vsd_eligibleexpenseitem";
+		public const string EntitySchemaName = "vsd_datacollectionlineitem";
 		
-		public const string EntityLogicalName = "vsd_eligibleexpenseitem";
+		public const string EntityLogicalName = "vsd_datacollectionlineitem";
 		
-		public const string EntityLogicalCollectionName = "vsd_eligibleexpenseitems";
+		public const string EntityLogicalCollectionName = "vsd_datacollectionlineitems";
 		
-		public const string EntitySetName = "vsd_eligibleexpenseitems";
+		public const string EntitySetName = "vsd_datacollectionlineitems";
 		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
@@ -444,15 +429,15 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Status of the Eligible Expense Item
+		/// Status of the Data Collection Line Item
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public virtual Vsd_EligibleExpenseItem_StateCode? StateCode
+		public virtual Vsd_DataCollectionLineItem_StateCode? StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((Vsd_EligibleExpenseItem_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
+				return ((Vsd_DataCollectionLineItem_StateCode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -479,15 +464,15 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Reason for the status of the Eligible Expense Item
+		/// Reason for the status of the Data Collection Line Item
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public virtual Vsd_EligibleExpenseItem_StatusCode? StatusCode
+		public virtual Vsd_DataCollectionLineItem_StatusCode? StatusCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((Vsd_EligibleExpenseItem_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+				return ((Vsd_DataCollectionLineItem_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -563,32 +548,32 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// Creates a schedule g line item automatically when a schedule g is created.
+		/// Unique identifier for Monthly Statistics Category associated with Data Collection Line Item.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_autocreatescheduleglineitem")]
-		public System.Nullable<bool> Vsd_AutoCreateScHeDULegLineItem
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_categoryid")]
+		public Microsoft.Xrm.Sdk.EntityReference Vsd_CategoryId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<bool>>("vsd_autocreatescheduleglineitem");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("vsd_categoryid");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetAttributeValue("vsd_autocreatescheduleglineitem", value);
+				this.SetAttributeValue("vsd_categoryid", value);
 			}
 		}
 		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_autocreatescheduleglineitemname")]
-		public string Vsd_AutoCreateScHeDULegLineItemName
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_categoryidname")]
+		public string Vsd_CategoryIdName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				if (this.FormattedValues.Contains("vsd_autocreatescheduleglineitem"))
+				if (this.FormattedValues.Contains("vsd_categoryid"))
 				{
-					return this.FormattedValues["vsd_autocreatescheduleglineitem"];
+					return this.FormattedValues["vsd_categoryid"];
 				}
 				else
 				{
@@ -597,30 +582,33 @@ namespace Database.Model
 			}
 		}
 		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_autocreatesurpluslineitem")]
-		public System.Nullable<bool> Vsd_AutoCreateSurplusLineItem
+		/// <summary>
+		/// Unique identifier for Data Collection associated with Data Collection Line Item.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_datacollectionid")]
+		public Microsoft.Xrm.Sdk.EntityReference Vsd_DataCollectionId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<bool>>("vsd_autocreatesurpluslineitem");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("vsd_datacollectionid");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetAttributeValue("vsd_autocreatesurpluslineitem", value);
+				this.SetAttributeValue("vsd_datacollectionid", value);
 			}
 		}
 		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_autocreatesurpluslineitemname")]
-		public string Vsd_AutoCreateSurplusLineItemName
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_datacollectionidname")]
+		public string Vsd_DataCollectionIdName
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				if (this.FormattedValues.Contains("vsd_autocreatesurpluslineitem"))
+				if (this.FormattedValues.Contains("vsd_datacollectionid"))
 				{
-					return this.FormattedValues["vsd_autocreatesurpluslineitem"];
+					return this.FormattedValues["vsd_datacollectionid"];
 				}
 				else
 				{
@@ -632,18 +620,18 @@ namespace Database.Model
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_eligibleexpenseitemid")]
-		public System.Nullable<System.Guid> Vsd_EligibleExpenseItemId
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_datacollectionlineitemid")]
+		public System.Nullable<System.Guid> Vsd_DataCollectionLineItemId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("vsd_eligibleexpenseitemid");
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("vsd_datacollectionlineitemid");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetAttributeValue("vsd_eligibleexpenseitemid", value);
+				this.SetAttributeValue("vsd_datacollectionlineitemid", value);
 				if (value.HasValue)
 				{
 					base.Id = value.Value;
@@ -655,7 +643,7 @@ namespace Database.Model
 			}
 		}
 		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_eligibleexpenseitemid")]
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_datacollectionlineitemid")]
 		public override System.Guid Id
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -666,7 +654,7 @@ namespace Database.Model
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.Vsd_EligibleExpenseItemId = value;
+				this.Vsd_DataCollectionLineItemId = value;
 			}
 		}
 		
@@ -688,33 +676,157 @@ namespace Database.Model
 			}
 		}
 		
-		/// <summary>
-		/// The type of program expense listed in the Grant Application.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programexpensetype")]
-		public virtual Vsd_EligibleExpenseItem_Vsd_ProgramExpenseType? Vsd_ProgramExpenseType
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_number")]
+		public System.Nullable<decimal> Vsd_Number
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((Vsd_EligibleExpenseItem_Vsd_ProgramExpenseType?)(EntityOptionSetEnum.GetEnum(this, "vsd_programexpensetype")));
+				return this.GetAttributeValue<System.Nullable<decimal>>("vsd_number");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.SetAttributeValue("vsd_programexpensetype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.SetAttributeValue("vsd_number", value);
 			}
 		}
 		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programexpensetypename")]
-		public string Vsd_ProgramExpenseTypeName
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_questioncategory")]
+		public string Vsd_QuestionCategory
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				if (this.FormattedValues.Contains("vsd_programexpensetype"))
+				return this.GetAttributeValue<string>("vsd_questioncategory");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_questioncategory", value);
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for CPU Statistics Master Data associated with Data Collection Line Item.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_questionid")]
+		public Microsoft.Xrm.Sdk.EntityReference Vsd_QuestionId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("vsd_questionid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_questionid", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_questionidname")]
+		public string Vsd_QuestionIdName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_questionid"))
 				{
-					return this.FormattedValues["vsd_programexpensetype"];
+					return this.FormattedValues["vsd_questionid"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_questionorder")]
+		public System.Nullable<int> Vsd_QuestionOrder
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("vsd_questionorder");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_questionorder", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_questiontype1")]
+		public virtual Vsd_QuestionType? Vsd_QuestionType1
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Vsd_QuestionType?)(EntityOptionSetEnum.GetEnum(this, "vsd_questiontype1")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_questiontype1", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_questiontype1name")]
+		public string Vsd_QuestionType1Name
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_questiontype1"))
+				{
+					return this.FormattedValues["vsd_questiontype1"];
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_textanswer")]
+		public string Vsd_TextAnswer
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("vsd_textanswer");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_textanswer", value);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_yesno")]
+		public virtual Vsd_YesNo? Vsd_YesNo
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Vsd_YesNo?)(EntityOptionSetEnum.GetEnum(this, "vsd_yesno")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetAttributeValue("vsd_yesno", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_yesnoname")]
+		public string Vsd_YesNoName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				if (this.FormattedValues.Contains("vsd_yesno"))
+				{
+					return this.FormattedValues["vsd_yesno"];
 				}
 				else
 				{
@@ -724,70 +836,16 @@ namespace Database.Model
 		}
 		
 		/// <summary>
-		/// 1:N vsd_vsd_eligibleexpenseitem_vsd_programexpens
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_eligibleexpenseitem_vsd_programexpens")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramExpense> Vsd_Vsd_EligibleExpenseItem_Vsd_ProgramExpENS
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_eligibleexpenseitem_vsd_programexpens", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_eligibleexpenseitem_vsd_programexpens", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// 1:N vsd_vsd_eligibleexpenseitem_vsd_scheduleglineitem_ExpenseLineItem
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_eligibleexpenseitem_vsd_scheduleglineitem_ExpenseLineItem")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ScheduleGLineItem> Vsd_Vsd_EligibleExpenseItem_Vsd_ScheduleGLineItem_ExpenseLineItem
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("vsd_vsd_eligibleexpenseitem_vsd_scheduleglineitem_ExpenseLineItem", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("vsd_vsd_eligibleexpenseitem_vsd_scheduleglineitem_ExpenseLineItem", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// 1:N vsd_vsd_eligibleexpenseitem_vsd_surpluslineit
-		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_eligibleexpenseitem_vsd_surpluslineit")]
-		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusLineItem> Vsd_Vsd_EligibleExpenseItem_Vsd_SurplusLineIt
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("vsd_vsd_eligibleexpenseitem_vsd_surpluslineit", null);
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.SetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("vsd_vsd_eligibleexpenseitem_vsd_surpluslineit", null, value);
-			}
-		}
-		
-		/// <summary>
-		/// N:1 organization_vsd_eligibleexpenseitem
+		/// N:1 organization_vsd_datacollectionlineitem
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_eligibleexpenseitem")]
-		public Database.Model.Organization Organization_Vsd_EligibleExpenseItem
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_vsd_datacollectionlineitem")]
+		public Database.Model.Organization Organization_Vsd_DataCollectionLineItem
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<Database.Model.Organization>("organization_vsd_eligibleexpenseitem", null);
+				return this.GetRelatedEntity<Database.Model.Organization>("organization_vsd_datacollectionlineitem", null);
 			}
 		}
 		
@@ -796,7 +854,7 @@ namespace Database.Model
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public Vsd_EligibleExpenseItem(object anonymousType) : 
+		public Vsd_DataCollectionLineItem(object anonymousType) : 
 				this()
 		{
             foreach (var p in anonymousType.GetType().GetProperties())
@@ -814,9 +872,9 @@ namespace Database.Model
                 {
                     case "id":
                         base.Id = (System.Guid)value;
-                        Attributes["vsd_eligibleexpenseitemid"] = base.Id;
+                        Attributes["vsd_datacollectionlineitemid"] = base.Id;
                         break;
-                    case "vsd_eligibleexpenseitemid":
+                    case "vsd_datacollectionlineitemid":
                         var id = (System.Nullable<System.Guid>) value;
                         if(id == null){ continue; }
                         base.Id = id.Value;

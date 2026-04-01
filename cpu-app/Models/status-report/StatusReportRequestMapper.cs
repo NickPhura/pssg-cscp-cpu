@@ -34,43 +34,43 @@ namespace Gov.Cscp.Victims.Public.Models
             return request;
         }
 
-        private static Entity MapAnswerToEntity(DynamicsDataCollectionLineItemPost answer)
+        private static Vsd_DataCollectionLineItem MapAnswerToEntity(DynamicsDataCollectionLineItemPost answer)
         {
-            var entity = new Entity("vsd_datacollectionlineitem");
+            var entity = new Vsd_DataCollectionLineItem();
 
             if (!string.IsNullOrEmpty(answer.vsd_name))
-                entity["vsd_name"] = answer.vsd_name;
+                entity.Vsd_Name = answer.vsd_name;
 
             if (!string.IsNullOrEmpty(answer.vsd_questioncategory))
-                entity["vsd_questioncategory"] = answer.vsd_questioncategory;
+                entity.Vsd_QuestionCategory = answer.vsd_questioncategory;
 
             if (answer.vsd_questionorder != 0)
-                entity["vsd_questionorder"] = answer.vsd_questionorder;
+                entity.Vsd_QuestionOrder = answer.vsd_questionorder;
 
             if (answer.vsd_questiontype1 != 0)
-                entity["vsd_questiontype1"] = new OptionSetValue(answer.vsd_questiontype1);
+                entity.Vsd_QuestionType1 = (Vsd_QuestionType)answer.vsd_questiontype1;
 
             if (answer.vsd_number.HasValue)
-                entity["vsd_number"] = answer.vsd_number.Value;
+                entity.Vsd_Number = answer.vsd_number.Value;
 
             if (!string.IsNullOrEmpty(answer.vsd_textanswer))
-                entity["vsd_textanswer"] = answer.vsd_textanswer;
+                entity.Vsd_TextAnswer = answer.vsd_textanswer;
 
             if (answer.vsd_yesno.HasValue)
-                entity["vsd_yesno"] = new OptionSetValue(answer.vsd_yesno.Value);
+                entity.Vsd_YesNo = (Vsd_YesNo)answer.vsd_yesno.Value;
 
             // vsd_QuestionIdfortunecookiebind getter returns "/vsd_cpustatisticsmasterdatas(GUID)"
             // the backing field was set with the raw GUID from the FE  
             var questionBindPath = answer.vsd_QuestionIdfortunecookiebind;
             var questionGuid = ParseBindGuid(questionBindPath);
             if (questionGuid.HasValue)
-                entity["vsd_questionid"] = new EntityReference("vsd_cpustatisticsmasterdata", questionGuid.Value);
+                entity.Vsd_QuestionId = new EntityReference("vsd_cpustatisticsmasterdata", questionGuid.Value);
 
             // vsd_CategoryIdfortunecookiebind getter returns "/vsd_monthlystatisticscategories(GUID)"
             var categoryBindPath = answer.vsd_CategoryIdfortunecookiebind;
             var categoryGuid = ParseBindGuid(categoryBindPath);
             if (categoryGuid.HasValue)
-                entity["vsd_categoryid"] = new EntityReference("vsd_monthlystatisticscategory", categoryGuid.Value);
+                entity.Vsd_CategoryId = new EntityReference("vsd_monthlystatisticscategory", categoryGuid.Value);
 
             return entity;
         }

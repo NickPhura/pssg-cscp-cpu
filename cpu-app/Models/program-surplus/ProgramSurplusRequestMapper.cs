@@ -33,51 +33,51 @@ namespace Gov.Cscp.Victims.Public.Models
             return request;
         }
 
-        private static Entity MapSurplusPlan(DynamicsProgramSurplus plan)
+        private static Vsd_SurplusPlanReport MapSurplusPlan(DynamicsProgramSurplus plan)
         {
-            var entity = new Entity("vsd_surplusplanreport");
+            var entity = new Vsd_SurplusPlanReport();
 
             if (Guid.TryParse(plan.vsd_surplusplanreportid, out var planId))
                 entity.Id = planId;
 
-            entity["vsd_surplusremittance"] = plan.vsd_surplusremittance;
+            entity.Vsd_SurplusRemittance = plan.vsd_surplusremittance;
 
             if (plan.vsd_datesubmitted.HasValue)
-                entity["vsd_datesubmitted"] = plan.vsd_datesubmitted.Value;
+                entity.Vsd_DateSubmitted = plan.vsd_datesubmitted.Value;
 
             return entity;
         }
 
-        private static Entity MapSurplusLineItem(DynamicsProgramSurplusLineItemPost item)
+        private static Vsd_SurplusLineItem MapSurplusLineItem(DynamicsProgramSurplusLineItemPost item)
         {
-            var entity = new Entity("vsd_surpluslineitem");
+            var entity = new Vsd_SurplusLineItem();
 
             if (Guid.TryParse(item.vsd_surpluslineitemid, out var lineItemId))
                 entity.Id = lineItemId;
 
             if (!string.IsNullOrEmpty(item.vsd_justificationdetails))
-                entity["vsd_justificationdetails"] = item.vsd_justificationdetails;
+                entity.Vsd_JustificationDetails = item.vsd_justificationdetails;
 
             if (item.vsd_actualexpenditures.HasValue)
-                entity["vsd_actualexpenditures"] = new Money(item.vsd_actualexpenditures.Value);
+                entity.Vsd_ActualExpenditures = new Money(item.vsd_actualexpenditures.Value);
 
             if (item.vsd_actualexpenditures2.HasValue)
-                entity["vsd_actualexpenditures2"] = new Money(item.vsd_actualexpenditures2.Value);
+                entity.Vsd_ActualExpenditures2 = new Money(item.vsd_actualexpenditures2.Value);
 
             if (item.vsd_actualexpenditures3.HasValue)
-                entity["vsd_actualexpenditures3"] = new Money(item.vsd_actualexpenditures3.Value);
+                entity.Vsd_ActualExpenditures3 = new Money(item.vsd_actualexpenditures3.Value);
 
             if (item.vsd_actualexpenditures4.HasValue)
-                entity["vsd_actualexpenditures4"] = new Money(item.vsd_actualexpenditures4.Value);
+                entity.Vsd_ActualExpenditures4 = new Money(item.vsd_actualexpenditures4.Value);
 
             if (item.vsd_allocatedamount.HasValue)
-                entity["vsd_allocatedamount"] = new Money(item.vsd_allocatedamount.Value);
+                entity.Vsd_AllocatedAmount = new Money(item.vsd_allocatedamount.Value);
 
             if (item.vsd_proposedexpenditures.HasValue)
-                entity["vsd_proposedexpenditures"] = new Money(item.vsd_proposedexpenditures.Value);
+                entity.Vsd_ProposedExpenditures = new Money(item.vsd_proposedexpenditures.Value);
 
             if (item.vsd_datesubmitted.HasValue)
-                entity["vsd_datesubmitted"] = item.vsd_datesubmitted.Value;
+                entity.Vsd_DateSubmitted = item.vsd_datesubmitted.Value;
 
             return entity;
         }

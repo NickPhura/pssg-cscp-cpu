@@ -134,6 +134,7 @@
     "transactioncurrency",
     "vsd_contact_vsd_program",
     "vsd_contract",
+    "vsd_datacollectionlineitem",
     "vsd_eligibleexpenseitem",
     "vsd_invoice",
     "vsd_invoicelinedetail",
@@ -145,6 +146,7 @@
     "vsd_programtype",
     "vsd_schedule",
     "vsd_scheduleg",
+    "vsd_scheduleglineitem",
     "vsd_surpluslineitem",
     "vsd_surplusplanreport"
   ],

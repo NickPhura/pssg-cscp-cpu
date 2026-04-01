@@ -107,6 +107,17 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_DataCollectionLineItem"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_DataCollectionLineItem> Vsd_DataCollectionLineItemSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_DataCollectionLineItem>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_EligibleExpenseItem"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<Database.Model.Vsd_EligibleExpenseItem> Vsd_EligibleExpenseItemSet
@@ -224,6 +235,17 @@ namespace Database.Model
 			get
 			{
 				return this.CreateQuery<Database.Model.Vsd_ScheduleG>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Database.Model.Vsd_ScheduleGLineItem"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Database.Model.Vsd_ScheduleGLineItem> Vsd_ScheduleGLineItemSet
+		{
+			get
+			{
+				return this.CreateQuery<Database.Model.Vsd_ScheduleGLineItem>();
 			}
 		}
 		

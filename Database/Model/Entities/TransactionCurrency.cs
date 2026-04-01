@@ -100,6 +100,7 @@ namespace Database.Model
 			public const string TransactionCurrency_Vsd_ProgramExpense = "TransactionCurrency_Vsd_ProgramExpense";
 			public const string TransactionCurrency_Vsd_ProgramRevenueSource = "TransactionCurrency_Vsd_ProgramRevenueSource";
 			public const string TransactionCurrency_Vsd_ScheduleG = "TransactionCurrency_Vsd_ScheduleG";
+			public const string TransactionCurrency_Vsd_ScheduleGLineItem = "TransactionCurrency_Vsd_ScheduleGLineItem";
 			public const string TransactionCurrency_Vsd_SurplusLineItem = "TransactionCurrency_Vsd_SurplusLineItem";
 			public const string TransactionCurrency_Vsd_SurplusPlanReport = "TransactionCurrency_Vsd_SurplusPlanReport";
 			public const string TransactionCurrencyId = "transactioncurrencyid";
@@ -897,6 +898,24 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.Vsd_ScheduleG>("TransactionCurrency_vsd_scheduleg", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N TransactionCurrency_vsd_scheduleglineitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_scheduleglineitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ScheduleGLineItem> TransactionCurrency_Vsd_ScheduleGLineItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("TransactionCurrency_vsd_scheduleglineitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("TransactionCurrency_vsd_scheduleglineitem", null, value);
 			}
 		}
 		

@@ -15,7 +15,7 @@ namespace Gov.Cscp.Victims.Public.Models
         public string vsd_name { get; set; }
         public string _vsd_questionid_value { set; get; }
         public string vsd_questioncategory { get; set; }
-        public double? vsd_number { get; set; }
+        public decimal? vsd_number { get; set; }
         public int vsd_questiontype1 { get; set; }
         public int vsd_questionorder { get; set; }
         public string vsd_textanswer { get; set; }
