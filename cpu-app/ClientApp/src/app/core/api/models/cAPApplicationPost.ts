@@ -11,17 +11,17 @@ import type { DynamicsCAPApplicationProgramContactPost } from './dynamicsCAPAppl
 import type { DynamicsCAPApplicationProgramPost } from './dynamicsCAPApplicationProgramPost';
 
 export interface CAPApplicationPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
-  /** @nullable */
-  contractCollection?: DynamicsCAPApplicationContractPost[] | null;
-  organization?: DynamicsCAPApplicationOrganizationPost;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
+  /** @minItems 1 */
+  contractCollection: DynamicsCAPApplicationContractPost[];
+  organization: DynamicsCAPApplicationOrganizationPost;
   /** @nullable */
   addProgramContactCollection?: DynamicsCAPApplicationProgramContactPost[] | null;
   /** @nullable */
   removeProgramContactCollection?: DynamicsCAPApplicationProgramContactPost[] | null;
-  /** @nullable */
-  programCollection?: DynamicsCAPApplicationProgramPost[] | null;
+  /** @minItems 1 */
+  programCollection: DynamicsCAPApplicationProgramPost[];
 }

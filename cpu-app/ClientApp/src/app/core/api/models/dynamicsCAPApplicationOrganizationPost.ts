@@ -11,22 +11,22 @@ export interface DynamicsCAPApplicationOrganizationPost {
   readonly fortunecookietype?: string | null;
   /** @nullable */
   _ownerid_value?: string | null;
+  /** @minLength 1 */
+  accountid: string;
   /** @nullable */
-  accountid?: string | null;
-  /** @nullable */
-  address1_city?: string | null;
-  /** @nullable */
-  address1_composite?: string | null;
-  /** @nullable */
-  address1_country?: string | null;
-  /** @nullable */
-  address1_line1?: string | null;
+  name?: string | null;
+  /** @minLength 1 */
+  address1_line1: string;
   /** @nullable */
   address1_line2?: string | null;
-  /** @nullable */
-  address1_postalcode?: string | null;
+  /** @minLength 1 */
+  address1_city: string;
+  /** @minLength 1 */
+  address1_postalcode: string;
   /** @nullable */
   address1_stateorprovince?: string | null;
   /** @nullable */
-  name?: string | null;
+  address1_country?: string | null;
+  /** @nullable */
+  address1_composite?: string | null;
 }

@@ -8,9 +8,9 @@
 
 export interface DynamicsCAPApplicationProgramContactPost {
   /** @nullable */
-  contactid?: string | null;
-  /** @nullable */
-  vsd_programid?: string | null;
-  /** @nullable */
   readonly fortunecookietype?: string | null;
+  /** @minLength 1 */
+  contactid: string;
+  /** @minLength 1 */
+  vsd_programid: string;
 }

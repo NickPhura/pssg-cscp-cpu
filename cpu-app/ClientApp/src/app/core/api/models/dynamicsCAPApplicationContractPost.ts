@@ -8,11 +8,9 @@
 
 export interface DynamicsCAPApplicationContractPost {
   /** @nullable */
-  vsd_cpu_insuranceoptions?: number | null;
-  /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  vsd_contractid?: string | null;
+  /** @minLength 1 */
+  vsd_contractid: string;
   /** @nullable */
   vsd_name?: string | null;
   /** @nullable */
@@ -21,13 +19,35 @@ export interface DynamicsCAPApplicationContractPost {
   vsd_signingofficersname?: string | null;
   /** @nullable */
   vsd_signingofficertitle?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
+  vsd_cpu_insuranceoptions?: number | null;
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_collaborationwithkeystakeholders?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_complaintandfeedbackprocessforparticipant?: number | null;
   vsd_criminalrecordchecks?: boolean;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_letterofreferencefromreferralsources?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_establishedconfidentialityguidelines?: number | null;
 }

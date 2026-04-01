@@ -1,7 +1,6 @@
 import {
   CAPApplicationPost,
   DynamicsCAPApplicationProgramContactPost,
-  DynamicsCAPApplicationProgramPost,
 } from "../../api/models";
 import { boolOptionSet } from "../../constants/bool-optionset-values";
 import { nameAssemble } from "../../constants/name-assemble";
@@ -62,6 +61,7 @@ export function convertCAPProgramToDynamics(
         trans.applicantInformation.mailingAddress.province,
       name: trans.organizationName,
     },
+    programCollection: [],
   };
 
   const addProgramContactCollection: DynamicsCAPApplicationProgramContactPost[] =
@@ -89,9 +89,8 @@ export function convertCAPProgramToDynamics(
   if (removeProgramContactCollection.length)
     post.removeProgramContactCollection = removeProgramContactCollection;
 
-  const programCollection: DynamicsCAPApplicationProgramPost[] = [];
   trans.capPrograms.forEach((program: iCAPProgram) => {
-    programCollection.push({
+    post.programCollection.push({
       vsd_ContactLookupfortunecookiebind: program.programContact
         ? program.programContact.personId
         : null,
@@ -107,7 +106,6 @@ export function convertCAPProgramToDynamics(
       vsd_cpu_programevaluationdescription: program.evaluationDescription,
       vsd_cpu_capprogramoperationscomments: program.additionalComments,
     });
-    if (programCollection.length) post.programCollection = programCollection;
   });
   return post;
 }

@@ -9,13 +9,21 @@
 export interface DynamicsCAPApplicationProgramPost {
   /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  vsd_programid?: string | null;
+  /** @minLength 1 */
+  vsd_programid: string;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
   vsd_cpu_fundingamountrequested?: number;
   /** @nullable */
   vsd_cpu_programmodeltypes?: string | null;
   /** @nullable */
   vsd_otherprogrammodels?: string | null;
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   */
   vsd_cpu_programevaluationefforts?: number;
   /** @nullable */
   vsd_cpu_programevaluationdescription?: string | null;
