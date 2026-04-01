@@ -753,5 +753,36 @@ namespace Gov.Cscp.Victims.Public.Models
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ?? entity.RowVersion
             };
         }
+
+        /// <summary>Maps an activitymimeattachment entity to a DocumentItemDto.</summary>
+        public static DocumentItemDto ToDocumentItemDto(Entity entity)
+        {
+            if (entity == null) return null;
+
+            // The attribute may come back as a string or as a Guid depending on the message.
+            string idStr = null;
+            if (entity.Contains("activitymimeattachmentid"))
+            {
+                var raw = entity["activitymimeattachmentid"];
+                idStr = raw switch
+                {
+                    Guid g => g != Guid.Empty ? g.ToString() : null,
+                    string s => !string.IsNullOrWhiteSpace(s) ? s : null,
+                    _ => raw?.ToString()
+                };
+            }
+            if (idStr == null && entity.Id != Guid.Empty)
+                idStr = entity.Id.ToString();
+
+            return new DocumentItemDto
+            {
+                activitymimeattachmentid = idStr,
+                filename = entity.GetAttributeValue<string>("filename"),
+                subject = entity.GetAttributeValue<string>("subject"),
+                subjectOther = entity.GetAttributeValue<string>("vsd_subjectother"),
+                body = entity.GetAttributeValue<string>("body"),
+                overwritetime = entity.GetAttributeValue<DateTime?>("overwritetime")?.ToString("o")
+            };
+        }
     }
 }

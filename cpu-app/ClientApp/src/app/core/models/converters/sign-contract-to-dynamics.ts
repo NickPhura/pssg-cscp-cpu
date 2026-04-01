@@ -1,28 +1,34 @@
 import { iSignature } from "../../../authenticated/subforms/program-authorizer/program-authorizer.component";
+import {
+  DocumentItemDto,
+  SignedContractPostFromPortal,
+} from "../../api/models";
 import { nameAssemble } from "../../constants/name-assemble";
-import { iDynamicsDocument } from "../dynamics-blob";
-import { iDynamicsPostSignedContract } from "../dynamics-post";
 
 //this is a mapper function for converting people into dynamics users
 export function convertContractPackageToDynamics(
   userId: string,
   organizationId: string,
-  documents: iDynamicsDocument[],
+  documents: DocumentItemDto[],
   signature: iSignature,
   isModificationAgreement: boolean = false,
-): iDynamicsPostSignedContract {
-  let post: iDynamicsPostSignedContract = {
-    Businessbceid: organizationId,
-    Userbceid: userId,
-    DocumentCollection: documents,
-    Signature: convertSignatureToDynamics(signature),
-    IsModificationAgreement: isModificationAgreement,
+): SignedContractPostFromPortal {
+  let post: SignedContractPostFromPortal = {
+    businessBCeID: organizationId,
+    userBCeID: userId,
+    documentCollection: documents.map((d) => ({
+      body: d.body,
+      filename: d.filename,
+      subject: d.subject,
+    })),
+    signature: convertSignatureToDynamics(signature),
+    isModificationAgreement: isModificationAgreement,
   };
   return post;
 }
 
 function convertSignatureToDynamics(signature: iSignature) {
-  let ret = {
+  return {
     vsd_authorizedsigningofficersignature: signature.signature
       ? signature.signature
       : null,
@@ -35,5 +41,4 @@ function convertSignatureToDynamics(signature: iSignature) {
         )
       : null,
   };
-  return ret;
 }

@@ -1,21 +1,20 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import * as moment from "moment";
 import { Subscription } from "rxjs";
-import { MonthlyStatisticsDto } from "../../../core/api/models";
+import {
+  DocumentItemDto,
+  MonthlyStatisticsDto,
+} from "../../../core/api/models";
+import { FileService } from "../../../core/api/services/file/file.service";
 import { StatusReportService } from "../../../core/api/services/status-report/status-report.service";
 import { formTypes } from "../../../core/constants/form-types";
 import { months } from "../../../core/constants/month-codes";
 import { TaskStatus } from "../../../core/constants/task-status";
 import { iContract } from "../../../core/models/contract.interface";
-import {
-  iDynamicsDocument,
-  iDynamicsFile,
-} from "../../../core/models/dynamics-blob";
 import { CRMPaymentStatusCode } from "../../../core/models/payment-status.interface";
 import { iTask } from "../../../core/models/task.interface";
 import { Transmogrifier } from "../../../core/models/transmogrifier.class";
 import { Roles } from "../../../core/models/user-settings.interface";
-import { FileService } from "../../../core/services/file.service";
 import { NotificationQueueService } from "../../../core/services/notification-queue.service";
 import { StateService } from "../../../core/services/state.service";
 
@@ -48,7 +47,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   dataCollection: any[] = [];
 
   didLoadDocuments: boolean = false;
-  documentCollection: iDynamicsDocument[] = [];
+  documentCollection: DocumentItemDto[] = [];
   private stateSubscription: Subscription;
   loadingDocuments: boolean = false;
   downloadingDocument: boolean = false;
@@ -149,27 +148,26 @@ export class TaskListComponent implements OnInit, OnDestroy {
       });
   }
 
-  download(doc: iDynamicsDocument) {
+  download(doc: DocumentItemDto) {
     if (this.downloadingDocument) return;
     this.downloadingDocument = true;
     this.fileService
-      .downloadDocument(
+      .getApiFileBusinessBceidUserBceidDocumentDocId(
         this.organizationId,
         this.userId,
         doc.activitymimeattachmentid,
       )
-      .subscribe((d: any) => {
+      .subscribe((d) => {
         this.downloadingDocument = false;
-        // console.log(d);
-        if (!d.IsSuccess) {
+        if (!d.isSuccess) {
           this.notificationQueueService.addNotification(
             "There has been a data problem retrieving this file. Please let your ministry contact know that you have seen this error.",
             "danger",
           );
         } else {
           let downloadLink = document.createElement("a");
-          downloadLink.href = "data:application/octet-stream;base64," + d.Body;
-          downloadLink.download = d.FileName;
+          downloadLink.href = "data:application/octet-stream;base64," + d.body;
+          downloadLink.download = d.fileName;
 
           document.body.appendChild(downloadLink);
           downloadLink.click();
@@ -184,22 +182,22 @@ export class TaskListComponent implements OnInit, OnDestroy {
     }
     this.loadingDocuments = true;
     this.fileService
-      .getContractDocuments(
+      .getApiFileBusinessBceidUserBceidDocumentsContractContractId(
         this.trans.organizationId,
         this.trans.userId,
         contractId,
       )
-      .subscribe((d: iDynamicsFile) => {
+      .subscribe((d) => {
         this.didLoadDocuments = true;
         this.loadingDocuments = false;
-        if (!d.IsSuccess) {
+        if (!d.isSuccess) {
           this.notificationQueueService.addNotification(
             "There has been a data problem retrieving this file. Please let your ministry contact know that you have seen this error.",
             "danger",
           );
         } else {
-          this.documentCollection = d.DocumentCollection.filter(
-            (d) => d.filename.indexOf(".pdf") > 0,
+          this.documentCollection = (d.documentCollection ?? []).filter(
+            (d) => d.filename?.indexOf(".pdf") > 0,
           );
         }
       });

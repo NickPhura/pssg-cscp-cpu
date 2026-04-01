@@ -26,8 +26,11 @@ import {
 } from 'rxjs';
 
 import type {
+  DocumentCollectionResponseDto,
+  DownloadDocumentDto,
   FilePost,
-  SignedContractPostFromPortal
+  SignedContractPostFromPortal,
+  UploadResponseDto
 } from '../../models';
 
 
@@ -55,124 +58,124 @@ interface HttpClientOptions {
 
 
 @Injectable({ providedIn: 'root' })
-export class DynamicsFileService {
+export class FileService {
   private readonly http = inject(HttpClient);
- getApiDynamicsFileBusinessBceidUserBceidDocumentsContractContractId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentsContractContractId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsFileBusinessBceidUserBceidDocumentsContractContractId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentsContractContractId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsFileBusinessBceidUserBceidDocumentsContractContractId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentsContractContractId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsFileBusinessBceidUserBceidDocumentsContractContractId<TData = void>(
+  getApiFileBusinessBceidUserBceidDocumentsContractContractId<TData = DocumentCollectionResponseDto>(
     businessBceid: string,
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsFile/${businessBceid}/${userBceid}/documents/contract/${contractId}`,options
+      `/api/File/${businessBceid}/${userBceid}/documents/contract/${contractId}`,options
     );
   }
- getApiDynamicsFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     accountId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     accountId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     accountId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = void>(
+  getApiFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = DocumentCollectionResponseDto>(
     businessBceid: string,
     userBceid: string,
     accountId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsFile/${businessBceid}/${userBceid}/documents/account/${accountId}`,options
+      `/api/File/${businessBceid}/${userBceid}/documents/account/${accountId}`,options
     );
   }
- getApiDynamicsFileBusinessBceidUserBceidDocumentDocId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentDocId<TData = DownloadDocumentDto>(businessBceid: string,
     userBceid: string,
     docId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsFileBusinessBceidUserBceidDocumentDocId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentDocId<TData = DownloadDocumentDto>(businessBceid: string,
     userBceid: string,
     docId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsFileBusinessBceidUserBceidDocumentDocId<TData = void>(businessBceid: string,
+ getApiFileBusinessBceidUserBceidDocumentDocId<TData = DownloadDocumentDto>(businessBceid: string,
     userBceid: string,
     docId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsFileBusinessBceidUserBceidDocumentDocId<TData = void>(
+  getApiFileBusinessBceidUserBceidDocumentDocId<TData = DownloadDocumentDto>(
     businessBceid: string,
     userBceid: string,
     docId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsFile/${businessBceid}/${userBceid}/document/${docId}`,options
+      `/api/File/${businessBceid}/${userBceid}/document/${docId}`,options
     );
   }
- getApiDynamicsFileContractPackageBusinessBceidUserBceidTaskId<TData = void>(businessBceid: string,
+ getApiFileContractPackageBusinessBceidUserBceidTaskId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- getApiDynamicsFileContractPackageBusinessBceidUserBceidTaskId<TData = void>(businessBceid: string,
+ getApiFileContractPackageBusinessBceidUserBceidTaskId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- getApiDynamicsFileContractPackageBusinessBceidUserBceidTaskId<TData = void>(businessBceid: string,
+ getApiFileContractPackageBusinessBceidUserBceidTaskId<TData = DocumentCollectionResponseDto>(businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  getApiDynamicsFileContractPackageBusinessBceidUserBceidTaskId<TData = void>(
+  getApiFileContractPackageBusinessBceidUserBceidTaskId<TData = DocumentCollectionResponseDto>(
     businessBceid: string,
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/DynamicsFile/contract_package/${businessBceid}/${userBceid}/${taskId}`,options
+      `/api/File/contract_package/${businessBceid}/${userBceid}/${taskId}`,options
     );
   }
- postApiDynamicsFileSignedContractTaskId<TData = void>(taskId: string,
+ postApiFileSignedContractTaskId<TData = UploadResponseDto>(taskId: string,
     signedContractPostFromPortal: SignedContractPostFromPortal, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsFileSignedContractTaskId<TData = void>(taskId: string,
+ postApiFileSignedContractTaskId<TData = UploadResponseDto>(taskId: string,
     signedContractPostFromPortal: SignedContractPostFromPortal, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsFileSignedContractTaskId<TData = void>(taskId: string,
+ postApiFileSignedContractTaskId<TData = UploadResponseDto>(taskId: string,
     signedContractPostFromPortal: SignedContractPostFromPortal, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsFileSignedContractTaskId<TData = void>(
+  postApiFileSignedContractTaskId<TData = UploadResponseDto>(
     taskId: string,
     signedContractPostFromPortal: SignedContractPostFromPortal, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsFile/signed_contract/${taskId}`,
+      `/api/File/signed_contract/${taskId}`,
       signedContractPostFromPortal,options
     );
   }
- postApiDynamicsFileAccountAccountId<TData = void>(accountId: string,
+ postApiFileAccountAccountId<TData = UploadResponseDto>(accountId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsFileAccountAccountId<TData = void>(accountId: string,
+ postApiFileAccountAccountId<TData = UploadResponseDto>(accountId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsFileAccountAccountId<TData = void>(accountId: string,
+ postApiFileAccountAccountId<TData = UploadResponseDto>(accountId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsFileAccountAccountId<TData = void>(
+  postApiFileAccountAccountId<TData = UploadResponseDto>(
     accountId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsFile/account/${accountId}`,
+      `/api/File/account/${accountId}`,
       filePost,options
     );
   }
- postApiDynamicsFileContractContractId<TData = void>(contractId: string,
+ postApiFileContractContractId<TData = UploadResponseDto>(contractId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- postApiDynamicsFileContractContractId<TData = void>(contractId: string,
+ postApiFileContractContractId<TData = UploadResponseDto>(contractId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- postApiDynamicsFileContractContractId<TData = void>(contractId: string,
+ postApiFileContractContractId<TData = UploadResponseDto>(contractId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  postApiDynamicsFileContractContractId<TData = void>(
+  postApiFileContractContractId<TData = UploadResponseDto>(
     contractId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/DynamicsFile/contract/${contractId}`,
+      `/api/File/contract/${contractId}`,
       filePost,options
     );
   }
 };
 
-export type GetApiDynamicsFileBusinessBceidUserBceidDocumentsContractContractIdClientResult = NonNullable<void>
-export type GetApiDynamicsFileBusinessBceidUserBceidDocumentsAccountAccountIdClientResult = NonNullable<void>
-export type GetApiDynamicsFileBusinessBceidUserBceidDocumentDocIdClientResult = NonNullable<void>
-export type GetApiDynamicsFileContractPackageBusinessBceidUserBceidTaskIdClientResult = NonNullable<void>
-export type PostApiDynamicsFileSignedContractTaskIdClientResult = NonNullable<void>
-export type PostApiDynamicsFileAccountAccountIdClientResult = NonNullable<void>
-export type PostApiDynamicsFileContractContractIdClientResult = NonNullable<void>
+export type GetApiFileBusinessBceidUserBceidDocumentsContractContractIdClientResult = NonNullable<DocumentCollectionResponseDto>
+export type GetApiFileBusinessBceidUserBceidDocumentsAccountAccountIdClientResult = NonNullable<DocumentCollectionResponseDto>
+export type GetApiFileBusinessBceidUserBceidDocumentDocIdClientResult = NonNullable<DownloadDocumentDto>
+export type GetApiFileContractPackageBusinessBceidUserBceidTaskIdClientResult = NonNullable<DocumentCollectionResponseDto>
+export type PostApiFileSignedContractTaskIdClientResult = NonNullable<UploadResponseDto>
+export type PostApiFileAccountAccountIdClientResult = NonNullable<UploadResponseDto>
+export type PostApiFileContractContractIdClientResult = NonNullable<UploadResponseDto>

@@ -12,7 +12,11 @@
     <ActionPrefixesWhitelist>bcgov_*|
 cpu_*</ActionPrefixesWhitelist>
     <ActionsWhitelist>vsd_clonecontract|
+vsd_downloaddocumentfromsharepoint|
+vsd_getcpuaccountdocuments|
 vsd_getcpubudgetproposal|
+vsd_getcpucontractdocuments|
+vsd_getcpucontractpackage|
 vsd_getcpumonthlystatistics|
 vsd_getcpumonthlystatisticsanswers|
 vsd_getcpumonthlystatisticsquestions|
@@ -22,7 +26,10 @@ vsd_getcpuschedulef_cap|
 vsd_getcpuscheduleg|
 vsd_getcpusurplusplan|
 vsd_setcpumonthlystatisticsanswers|
-vsd_setcpuorgcontracts</ActionsWhitelist>
+vsd_setcpuorgcontracts|
+vsd_uploadcpuaccountdocuments|
+vsd_uploadcpucontractdocuments|
+vsd_uploadcpucontractpackage</ActionsWhitelist>
     <ActionsToSkip />
     <AddDebuggerNonUserCode>true</AddDebuggerNonUserCode>
     <AddNewFilesToProject>true</AddNewFilesToProject>
