@@ -24,8 +24,8 @@ namespace Gov.Cscp.Victims.Public.Controllers
 
         public BudgetProposalController(IOrganizationServiceAsync organizationService, IDynamicsResultService dynamicsResultService)
         {
-            this._organizationService = organizationService;
-            this._dynamicsResultService = dynamicsResultService;
+            _organizationService = organizationService;
+            _dynamicsResultService = dynamicsResultService;
             _logger = Log.Logger;
         }
 

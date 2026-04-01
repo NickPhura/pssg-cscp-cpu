@@ -9,8 +9,8 @@
 export interface DynamicsBudgetProposalProgramPost {
   /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  vsd_programid?: string | null;
+  /** @minLength 1 */
+  vsd_programid: string;
   /** @nullable */
   vsd_signingofficersignature?: string | null;
   /** @nullable */

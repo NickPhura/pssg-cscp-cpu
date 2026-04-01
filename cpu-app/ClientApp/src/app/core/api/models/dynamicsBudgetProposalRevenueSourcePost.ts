@@ -13,13 +13,29 @@ export interface DynamicsBudgetProposalRevenueSourcePost {
   vsd_programrevenuesourceid?: string | null;
   /** @nullable */
   vsd_cpu_otherrevenuesource?: string | null;
+  /**
+   * @minimum 100000000
+   * @maximum 100000004
+   */
   vsd_cpu_revenuesourcetype?: number;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_cashcontribution?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_inkindcontribution?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 1
+   * @nullable
+   */
   statecode?: number | null;
-  /** @nullable */
-  vsd_ProgramIdfortunecookiebind?: string | null;
+  /** @minLength 1 */
+  vsd_ProgramIdfortunecookiebind: string;
 }

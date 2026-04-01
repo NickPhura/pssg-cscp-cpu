@@ -10,14 +10,12 @@ import type { DynamicsBudgetProposalRevenueSourcePost } from './dynamicsBudgetPr
 import type { DynamicsBudgetProposalProgramPost } from './dynamicsBudgetProposalProgramPost';
 
 export interface BudgetProposalPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
-  /** @nullable */
-  programExpenseCollection?: DynamicsBudgetProposalExpensePost[] | null;
-  /** @nullable */
-  programRevenueSourceCollection?: DynamicsBudgetProposalRevenueSourcePost[] | null;
-  /** @nullable */
-  programCollection?: DynamicsBudgetProposalProgramPost[] | null;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
+  programExpenseCollection: DynamicsBudgetProposalExpensePost[];
+  programRevenueSourceCollection: DynamicsBudgetProposalRevenueSourcePost[];
+  /** @minItems 1 */
+  programCollection: DynamicsBudgetProposalProgramPost[];
 }

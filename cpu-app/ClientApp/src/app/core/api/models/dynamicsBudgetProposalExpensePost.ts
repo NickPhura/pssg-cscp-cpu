@@ -8,23 +8,51 @@
 
 export interface DynamicsBudgetProposalExpensePost {
   /** @nullable */
-  vsd_cpu_titleposition?: string | null;
-  /** @nullable */
   readonly fortunecookietype?: string | null;
   /** @nullable */
   vsd_programexpenseid?: string | null;
+  /**
+   * @minimum 100000000
+   * @maximum 100000002
+   */
   vsd_cpu_programexpensetype?: number;
   /** @nullable */
   vsd_cpu_otherexpense?: string | null;
-  vsd_totalcost?: number;
-  vsd_inputamount?: number;
-  vsd_cpu_salary?: number;
-  vsd_cpu_fundedfromvscp?: number;
-  vsd_cpu_benefits?: number;
   /** @nullable */
+  vsd_cpu_titleposition?: string | null;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_totalcost?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_inputamount?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_cpu_salary?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_cpu_fundedfromvscp?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_cpu_benefits?: number;
+  /**
+   * @minimum 0
+   * @maximum 1
+   * @nullable
+   */
   statecode?: number | null;
   /** @nullable */
   vsd_EligibleExpenseItemIdfortunecookiebind?: string | null;
-  /** @nullable */
-  vsd_ProgramIdfortunecookiebind?: string | null;
+  /** @minLength 1 */
+  vsd_ProgramIdfortunecookiebind: string;
 }
