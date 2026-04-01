@@ -9,20 +9,44 @@
 export interface DynamicsProgramSurplusLineItemPost {
   /** @nullable */
   vsd_justificationdetails?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_actualexpenditures?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_actualexpenditures2?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_actualexpenditures3?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_actualexpenditures4?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_allocatedamount?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   * @nullable
+   */
   vsd_proposedexpenditures?: number | null;
-  /** @nullable */
-  vsd_surpluslineitemid?: string | null;
+  /** @minLength 1 */
+  vsd_surpluslineitemid: string;
   /** @nullable */
   vsd_datesubmitted?: string | null;
   /** @nullable */

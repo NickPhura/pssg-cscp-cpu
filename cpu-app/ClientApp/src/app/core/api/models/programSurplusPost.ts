@@ -9,12 +9,12 @@ import type { DynamicsProgramSurplusLineItemPost } from './dynamicsProgramSurplu
 import type { DynamicsProgramSurplus } from './dynamicsProgramSurplus';
 
 export interface ProgramSurplusPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
   /** @nullable */
   surplusPlanLineItemCollection?: DynamicsProgramSurplusLineItemPost[] | null;
-  /** @nullable */
-  surplusPlanCollection?: DynamicsProgramSurplus[] | null;
+  /** @minItems 1 */
+  surplusPlanCollection: DynamicsProgramSurplus[];
 }

@@ -7,8 +7,8 @@
  */
 
 export interface DynamicsProgramSurplus {
-  /** @nullable */
-  vsd_surplusplanreportid?: string | null;
+  /** @minLength 1 */
+  vsd_surplusplanreportid: string;
   vsd_surplusremittance?: boolean;
   /** @nullable */
   vsd_datesubmitted?: string | null;
