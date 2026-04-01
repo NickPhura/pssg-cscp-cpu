@@ -9,24 +9,24 @@
 export interface DynamicsRegisterNewUserServiceProviderPost {
   /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  name?: string | null;
-  /** @nullable */
-  address1_city?: string | null;
+  /** @minLength 1 */
+  name: string;
+  /** @minLength 1 */
+  address1_city: string;
   /** @nullable */
   address1_composite?: string | null;
-  /** @nullable */
-  address1_line1?: string | null;
+  /** @minLength 1 */
+  address1_line1: string;
   /** @nullable */
   address1_line2?: string | null;
-  /** @nullable */
-  address1_postalcode?: string | null;
+  /** @minLength 1 */
+  address1_postalcode: string;
   /** @nullable */
   address1_stateorprovince?: string | null;
-  /** @nullable */
-  emailaddress1?: string | null;
+  /** @minLength 1 */
+  emailaddress1: string;
   /** @nullable */
   fax?: string | null;
-  /** @nullable */
-  telephone1?: string | null;
+  /** @minLength 1 */
+  telephone1: string;
 }

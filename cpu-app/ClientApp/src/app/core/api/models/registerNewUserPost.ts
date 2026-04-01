@@ -9,10 +9,10 @@ import type { DynamicsRegisterNewUserContactPost } from './dynamicsRegisterNewUs
 import type { DynamicsRegisterNewUserServiceProviderPost } from './dynamicsRegisterNewUserServiceProviderPost';
 
 export interface RegisterNewUserPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
-  newContact?: DynamicsRegisterNewUserContactPost;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
+  newContact: DynamicsRegisterNewUserContactPost;
   newServiceProvider?: DynamicsRegisterNewUserServiceProviderPost;
 }

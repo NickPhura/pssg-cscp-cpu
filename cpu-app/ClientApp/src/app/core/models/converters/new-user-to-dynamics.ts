@@ -31,19 +31,19 @@ export function convertNewUserToDynamics(
 function convertServiceProviderToDynamics(
   sp: iServiceProvider,
 ): DynamicsRegisterNewUserServiceProviderPost {
-  const post: DynamicsRegisterNewUserServiceProviderPost = {};
-  // add all properties that are non null
-  if (sp.address && sp.address.city) post.address1_city = sp.address.city;
-  if (sp.address && sp.address.line1) post.address1_line1 = sp.address.line1;
+  const post: DynamicsRegisterNewUserServiceProviderPost = {
+    name: sp.name || null,
+    address1_city: (sp.address && sp.address.city) || null,
+    address1_line1: (sp.address && sp.address.line1) || null,
+    address1_postalcode: (sp.address && sp.address.postalCode) || null,
+    emailaddress1: sp.email || null,
+    telephone1: sp.phone || null,
+  };
+  // add optional properties that are non null
   if (sp.address && sp.address.line2) post.address1_line2 = sp.address.line2;
-  if (sp.address && sp.address.postalCode)
-    post.address1_postalcode = sp.address.postalCode;
   if (sp.address && sp.address.province)
     post.address1_stateorprovince = sp.address.province;
-  if (sp.email) post.emailaddress1 = sp.email;
   if (sp.fax) post.fax = sp.fax;
-  if (sp.phone) post.telephone1 = sp.phone;
-  if (sp.name) post.name = sp.name;
-  // return the person
+  // return the service provider
   return post;
 }

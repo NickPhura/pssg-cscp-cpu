@@ -9,35 +9,39 @@
 export interface DynamicsRegisterNewUserContactPost {
   /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  address1_city?: string | null;
+  /** @minLength 1 */
+  address1_city: string;
   /** @nullable */
   address1_composite?: string | null;
-  /** @nullable */
-  address1_line1?: string | null;
+  /** @minLength 1 */
+  address1_line1: string;
   /** @nullable */
   address1_line2?: string | null;
-  /** @nullable */
-  address1_postalcode?: string | null;
+  /** @minLength 1 */
+  address1_postalcode: string;
   /** @nullable */
   address1_stateorprovince?: string | null;
-  /** @nullable */
-  emailaddress1?: string | null;
+  /** @minLength 1 */
+  emailaddress1: string;
   /** @nullable */
   fax?: string | null;
-  /** @nullable */
-  firstname?: string | null;
+  /** @minLength 1 */
+  firstname: string;
   /** @nullable */
   fullname?: string | null;
+  /**
+   * @minimum 100000000
+   * @maximum 2147483647
+   */
   vsd_contactrole?: number;
-  /** @nullable */
-  jobtitle?: string | null;
-  /** @nullable */
-  lastname?: string | null;
+  /** @minLength 1 */
+  jobtitle: string;
+  /** @minLength 1 */
+  lastname: string;
   /** @nullable */
   middlename?: string | null;
-  /** @nullable */
-  mobilephone?: string | null;
+  /** @minLength 1 */
+  mobilephone: string;
   /** @nullable */
   vsd_mainphoneextension?: string | null;
   /** @nullable */
