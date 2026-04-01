@@ -47,8 +47,8 @@ export interface DynamicsProgramApplicationProgramPost {
   vsd_phonenumber?: string | null;
   /** @nullable */
   vsd_postalcodezip?: string | null;
-  /** @nullable */
-  vsd_programid?: string | null;
+  /** @minLength 1 */
+  vsd_programid: string;
   /** @nullable */
   vsd_provincestate?: string | null;
   vsd_addresstransitionorsafehome?: boolean;

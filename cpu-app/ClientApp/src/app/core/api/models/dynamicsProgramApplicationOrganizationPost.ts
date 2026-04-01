@@ -9,8 +9,8 @@
 export interface DynamicsProgramApplicationOrganizationPost {
   /** @nullable */
   _ownerid_value?: string | null;
-  /** @nullable */
-  accountid?: string | null;
+  /** @minLength 1 */
+  accountid: string;
   /** @nullable */
   address1_city?: string | null;
   /** @nullable */

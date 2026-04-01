@@ -18,8 +18,12 @@ export interface DynamicsProgramApplicationSchedulePost {
   /** @nullable */
   vsd_scheduleid?: string | null;
   vsd_cpu_scheduletype?: number;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 1
+   * @nullable
+   */
   statecode?: number | null;
-  /** @nullable */
-  vsd_ProgramIdfortunecookiebind?: string | null;
+  /** @minLength 1 */
+  vsd_ProgramIdfortunecookiebind: string;
 }

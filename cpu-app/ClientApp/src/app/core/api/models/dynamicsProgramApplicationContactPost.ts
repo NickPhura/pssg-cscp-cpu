@@ -45,7 +45,11 @@ export interface DynamicsProgramApplicationContactPost {
   telephone2?: string | null;
   /** @nullable */
   vsd_homephoneextension?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000004
+   * @nullable
+   */
   vsd_employmentstatus?: number | null;
   /** @nullable */
   readonly fortunecookietype?: string | null;
@@ -53,6 +57,10 @@ export interface DynamicsProgramApplicationContactPost {
   vsd_bceid?: string | null;
   /** @nullable */
   vsd_portalfield?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 1
+   * @nullable
+   */
   statecode?: number | null;
 }

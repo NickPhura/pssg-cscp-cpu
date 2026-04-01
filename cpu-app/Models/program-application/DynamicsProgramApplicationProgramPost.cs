@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,6 +29,7 @@ namespace Gov.Cscp.Victims.Public.Models
         public string vsd_mailingprovincestate { get; set; }
         public string vsd_phonenumber { get; set; }
         public string vsd_postalcodezip { get; set; }
+        [Required]
         public string vsd_programid { get; set; }
         public string vsd_provincestate { get; set; }
         public bool vsd_addresstransitionorsafehome { get; set; }

@@ -7,10 +7,10 @@
  */
 
 export interface DynamicsProgramApplicationProgramContactPost {
-  /** @nullable */
-  contactid?: string | null;
-  /** @nullable */
-  vsd_programid?: string | null;
+  /** @minLength 1 */
+  contactid: string;
+  /** @minLength 1 */
+  vsd_programid: string;
   /** @nullable */
   readonly fortunecookietype?: string | null;
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,8 +14,10 @@ namespace Gov.Cscp.Victims.Public.Models
         public string vsd_scheduledstarttime { get; set; }
         public string vsd_scheduleid { get; set; }
         public int vsd_cpu_scheduletype { get; set; }
+        [Range(0, 1)]
         public int? statecode { get; set; }
         private string _vsd_ProgramIdfortunecookiebind;
+        [Required]
         public string vsd_ProgramIdfortunecookiebind
         {
             get

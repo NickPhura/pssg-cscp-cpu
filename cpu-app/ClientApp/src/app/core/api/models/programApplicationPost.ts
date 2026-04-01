@@ -13,10 +13,10 @@ import type { DynamicsProgramApplicationSchedulePost } from './dynamicsProgramAp
 import type { DynamicsProgramApplicationProgramPost } from './dynamicsProgramApplicationProgramPost';
 
 export interface ProgramApplicationPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
   /** @nullable */
   addProgramContactCollection?: DynamicsProgramApplicationProgramContactPost[] | null;
   /** @nullable */
@@ -25,9 +25,9 @@ export interface ProgramApplicationPost {
   addProgramSubContractorCollection?: DynamicsProgramApplicationProgramContactPost[] | null;
   /** @nullable */
   removeProgramSubContractorCollection?: DynamicsProgramApplicationProgramContactPost[] | null;
-  organization?: DynamicsProgramApplicationOrganizationPost;
-  /** @nullable */
-  contractCollection?: DynamicsProgramApplicationContractPost[] | null;
+  organization: DynamicsProgramApplicationOrganizationPost;
+  /** @minItems 1 */
+  contractCollection: DynamicsProgramApplicationContractPost[];
   /** @nullable */
   contactCollection?: DynamicsProgramApplicationContactPost[] | null;
   /** @nullable */

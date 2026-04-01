@@ -11,9 +11,17 @@ export interface DynamicsProgramApplicationContractPost {
   vsd_ContactLookup1fortunecookiebind?: string | null;
   /** @nullable */
   vsd_ContactLookup2fortunecookiebind?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_cpu_subcontractedprogramstaff?: number | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_cpu_unionizedstaff?: number | null;
   /** @nullable */
   vsd_cpu_insuranceoptions?: number | null;
@@ -21,8 +29,8 @@ export interface DynamicsProgramApplicationContractPost {
   vsd_cpu_memberofcssea?: number | null;
   /** @nullable */
   readonly fortunecookietype?: string | null;
-  /** @nullable */
-  vsd_contractid?: string | null;
+  /** @minLength 1 */
+  vsd_contractid: string;
   /** @nullable */
   vsd_cpu_humanresourcepolices?: string | null;
   /** @nullable */
