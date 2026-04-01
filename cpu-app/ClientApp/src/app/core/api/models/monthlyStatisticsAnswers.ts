@@ -8,10 +8,10 @@
 import type { DynamicsDataCollectionLineItemPost } from './dynamicsDataCollectionLineItemPost';
 
 export interface MonthlyStatisticsAnswers {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
   /** @nullable */
   statusCode?: number | null;
   /** @nullable */

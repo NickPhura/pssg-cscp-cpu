@@ -17,14 +17,22 @@ export interface DynamicsDataCollectionLineItemPost {
   vsd_questioncategory?: string | null;
   /** @nullable */
   vsd_number?: number | null;
+  /**
+   * @minimum 100000000
+   * @maximum 100000002
+   */
   vsd_questiontype1?: number;
   vsd_questionorder?: number;
   /** @nullable */
   vsd_textanswer?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000001
+   * @nullable
+   */
   vsd_yesno?: number | null;
-  /** @nullable */
-  vsd_QuestionIdfortunecookiebind?: string | null;
+  /** @minLength 1 */
+  vsd_QuestionIdfortunecookiebind: string;
   /** @nullable */
   vsd_CategoryIdfortunecookiebind?: string | null;
 }
