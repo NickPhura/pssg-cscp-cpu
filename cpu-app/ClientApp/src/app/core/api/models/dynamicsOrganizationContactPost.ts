@@ -23,18 +23,18 @@ export interface DynamicsOrganizationContactPost {
   address1_stateorprovince?: string | null;
   /** @nullable */
   contactid?: string | null;
-  /** @nullable */
-  emailaddress1?: string | null;
+  /** @minLength 1 */
+  emailaddress1: string;
   /** @nullable */
   fax?: string | null;
-  /** @nullable */
-  firstname?: string | null;
+  /** @minLength 1 */
+  firstname: string;
   /** @nullable */
   fullname?: string | null;
   /** @nullable */
   jobtitle?: string | null;
-  /** @nullable */
-  lastname?: string | null;
+  /** @minLength 1 */
+  lastname: string;
   /** @nullable */
   middlename?: string | null;
   /** @nullable */
@@ -45,12 +45,20 @@ export interface DynamicsOrganizationContactPost {
   telephone2?: string | null;
   /** @nullable */
   vsd_homephoneextension?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 100000000
+   * @maximum 100000004
+   * @nullable
+   */
   vsd_employmentstatus?: number | null;
   /** @nullable */
   readonly fortunecookietype?: string | null;
   /** @nullable */
   vsd_bceid?: string | null;
-  /** @nullable */
+  /**
+   * @minimum 0
+   * @maximum 1
+   * @nullable
+   */
   statecode?: number | null;
 }

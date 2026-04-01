@@ -13,8 +13,8 @@ export interface DynamicsOrganizationPost {
   vsd_ExecutiveContactIdfortunecookiebind?: string | null;
   /** @nullable */
   vsd_BoardContactIdfortunecookiebind?: string | null;
-  /** @nullable */
-  accountid?: string | null;
+  /** @minLength 1 */
+  accountid: string;
   /** @nullable */
   address1_city?: string | null;
   /** @nullable */

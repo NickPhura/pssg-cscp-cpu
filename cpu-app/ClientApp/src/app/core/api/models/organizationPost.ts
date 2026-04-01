@@ -9,10 +9,10 @@ import type { DynamicsOrganizationPost } from './dynamicsOrganizationPost';
 import type { DynamicsOrganizationContactPost } from './dynamicsOrganizationContactPost';
 
 export interface OrganizationPost {
-  /** @nullable */
-  businessBCeID?: string | null;
-  /** @nullable */
-  userBCeID?: string | null;
+  /** @minLength 1 */
+  businessBCeID: string;
+  /** @minLength 1 */
+  userBCeID: string;
   organization?: DynamicsOrganizationPost;
   /** @nullable */
   staffCollection?: DynamicsOrganizationContactPost[] | null;
