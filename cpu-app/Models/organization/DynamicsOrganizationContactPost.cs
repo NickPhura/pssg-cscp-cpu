@@ -31,7 +31,7 @@ namespace Gov.Cscp.Victims.Public.Models
 		public string telephone2 { get; set; }
 		public string vsd_homephoneextension { get; set; }
 		[Range(100000000, 100000004)]
-		public int? vsd_employmentstatus {get; set;}
+		public int? vsd_employmentstatus { get; set; }
 		public string fortunecookietype { get { return "Microsoft.Dynamics.CRM.contact"; } }
 		public string vsd_bceid { get; set; }
 		// statecode is an optional status value. 1 is soft delete and null shouldn't be included.
