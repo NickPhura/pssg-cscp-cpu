@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Remove="Controllers\AccountController.cs" />
     <Compile Remove="Controllers\ContactController.cs" />
-    <Compile Remove="Controllers\FileController.cs" />
     <Compile Remove="Controllers\LoginController.cs" />
     <Compile Remove="Controllers\LogoutController.cs" />
     <Compile Remove="ViewModels\ApplicationModel.cs" />

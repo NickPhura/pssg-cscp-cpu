@@ -57,6 +57,7 @@ namespace Database.Model
 		/// </summary>
 		public partial class Fields
 		{
+			public const string BaseCurrency_Organization = "BaseCurrency_Organization";
 			public const string CreatedBy = "createdby";
 			public const string CreatedByName = "createdbyname";
 			public const string CreatedByYomiName = "createdbyyominame";
@@ -81,6 +82,7 @@ namespace Database.Model
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string ModifiedOnBehalfByName = "modifiedonbehalfbyname";
 			public const string ModifiedOnBehalfByYomiName = "modifiedonbehalfbyyominame";
+			public const string Organization_TransactionCurrencies = "organization_transactioncurrencies";
 			public const string OrganizationId = "organizationid";
 			public const string OverriddenCreatedOn = "overriddencreatedon";
 			public const string StateCode = "statecode";
@@ -95,7 +97,12 @@ namespace Database.Model
 			public const string TransactionCurrency_Vsd_InvoiceLineDetail = "TransactionCurrency_Vsd_InvoiceLineDetail";
 			public const string TransactionCurrency_Vsd_Payment = "TransactionCurrency_Vsd_Payment";
 			public const string TransactionCurrency_Vsd_Program = "TransactionCurrency_Vsd_Program";
+			public const string TransactionCurrency_Vsd_ProgramExpense = "TransactionCurrency_Vsd_ProgramExpense";
+			public const string TransactionCurrency_Vsd_ProgramRevenueSource = "TransactionCurrency_Vsd_ProgramRevenueSource";
 			public const string TransactionCurrency_Vsd_ScheduleG = "TransactionCurrency_Vsd_ScheduleG";
+			public const string TransactionCurrency_Vsd_ScheduleGLineItem = "TransactionCurrency_Vsd_ScheduleGLineItem";
+			public const string TransactionCurrency_Vsd_SurplusLineItem = "TransactionCurrency_Vsd_SurplusLineItem";
+			public const string TransactionCurrency_Vsd_SurplusPlanReport = "TransactionCurrency_Vsd_SurplusPlanReport";
 			public const string TransactionCurrencyId = "transactioncurrencyid";
 			public const string Id = "transactioncurrencyid";
 			public const string VersionNumber = "versionnumber";
@@ -679,6 +686,24 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N basecurrency_organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("basecurrency_organization")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Organization> BaseCurrency_Organization
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Organization>("basecurrency_organization", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Organization>("basecurrency_organization", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N transactioncurrency_account
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("transactioncurrency_account")]
@@ -823,6 +848,42 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N TransactionCurrency_vsd_programexpense
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_programexpense")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramExpense> TransactionCurrency_Vsd_ProgramExpense
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramExpense>("TransactionCurrency_vsd_programexpense", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramExpense>("TransactionCurrency_vsd_programexpense", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N TransactionCurrency_vsd_programrevenuesource
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_programrevenuesource")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramRevenueSource> TransactionCurrency_Vsd_ProgramRevenueSource
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("TransactionCurrency_vsd_programrevenuesource", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("TransactionCurrency_vsd_programrevenuesource", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N TransactionCurrency_vsd_scheduleg
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_scheduleg")]
@@ -841,6 +902,74 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N TransactionCurrency_vsd_scheduleglineitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_scheduleglineitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ScheduleGLineItem> TransactionCurrency_Vsd_ScheduleGLineItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("TransactionCurrency_vsd_scheduleglineitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("TransactionCurrency_vsd_scheduleglineitem", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N TransactionCurrency_vsd_surpluslineitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_surpluslineitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusLineItem> TransactionCurrency_Vsd_SurplusLineItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("TransactionCurrency_vsd_surpluslineitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusLineItem>("TransactionCurrency_vsd_surpluslineitem", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N TransactionCurrency_vsd_surplusplanreport
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("TransactionCurrency_vsd_surplusplanreport")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusPlanReport> TransactionCurrency_Vsd_SurplusPlanReport
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("TransactionCurrency_vsd_surplusplanreport", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("TransactionCurrency_vsd_surplusplanreport", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 organization_transactioncurrencies
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("organization_transactioncurrencies")]
+		public Database.Model.Organization Organization_TransactionCurrencies
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Database.Model.Organization>("organization_transactioncurrencies", null);
+			}
+		}
+		
+		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -853,7 +982,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

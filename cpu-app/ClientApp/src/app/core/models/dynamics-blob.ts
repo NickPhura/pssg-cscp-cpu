@@ -148,7 +148,7 @@ export interface iDynamicsCrmProgramType {
 }
 export interface iDynamicsCrmTask {
   _regardingobjectid_value?: string;
-  _vsd_programid_value?: string,
+  _vsd_programid_value?: string;
   _vsd_schedulegid_value?: string;
   _vsd_tasktypeid_value?: string;
   _vsd_surplusplanid_value?: string;
@@ -173,24 +173,26 @@ export interface iDynamicsCrmMessage {
   Subject: string;
   Description: string;
 }
-export interface iDynamicsBlob {
-  BoardContact?: iDynamicsCrmContact,
-  Businessbceid?: string; // represents the organization level BCeID.
-  Contracts?: iDynamicsCrmContract[];
-  ExecutiveContact?: iDynamicsCrmContact,
-  Invoices?: iDynamicsCrmInvoice[];
-  IsSuccess: boolean;
-  Messages?: iDynamicsCrmMessage[];
-  MinistryUser?: iDynamicsMinistryUser;
-  Organization?: iDynamicsOrganization;
-  PortalRoles?: iDynamicsPortalRole[];
-  Programs?: iDynamicsCrmProgram[];
-  Result: string;
-  Staff?: iDynamicsCrmContact[];
-  Tasks?: iDynamicsCrmTask[];
-  Userbceid?: string; // represents the user's BCeID.
-  fortunecookiecontext?: string;
-};
+
+// TODO: to be replaced with API generated DTO
+// export interface iDynamicsBlob {
+//   BoardContact?: iDynamicsCrmContact;
+//   Businessbceid?: string; // represents the organization level BCeID.
+//   Contracts?: iDynamicsCrmContract[];
+//   ExecutiveContact?: iDynamicsCrmContact;
+//   Invoices?: iDynamicsCrmInvoice[];
+//   IsSuccess: boolean;
+//   Messages?: iDynamicsCrmMessage[];
+//   MinistryUser?: iDynamicsMinistryUser;
+//   Organization?: iDynamicsOrganization;
+//   PortalRoles?: iDynamicsPortalRole[];
+//   Programs?: iDynamicsCrmProgram[];
+//   Result: string;
+//   Staff?: iDynamicsCrmContact[];
+//   Tasks?: iDynamicsCrmTask[];
+//   Userbceid?: string; // represents the user's BCeID.
+//   fortunecookiecontext?: string;
+// }
 
 export interface iDynamicsPortalRole {
   vsd_name: string;
@@ -369,7 +371,6 @@ export interface iDynamicsSurplusPlanLineItem {
   vsd_datesubmitted?: Date;
 }
 
-
 export interface iDynamicsRegionDistrict {
   vsd_name: string;
   vsd_regiondistrictid: string;
@@ -415,27 +416,27 @@ export interface iDynamicsProgramExpense {
   statecode?: number;
 }
 export interface iDynamicsCrmProgramBudget {
-  _transactioncurrencyid_value?: string,
-  _vsd_contactlookup_value?: string,
-  _vsd_contractid_value?: string,
-  _vsd_programtype_value?: string,
-  _vsd_serviceproviderid_value?: string,
-  statuscode?: number,
-  vsd_cpu_percentoftotaladmincostsfromvscp?: number,
-  vsd_cpu_percentoftotalprogramdeliveryfromvscp?: number,
-  vsd_cpu_percentoftotalsalarybenefitsvscp?: number,
-  vsd_cpu_totaladministrationcosts?: number,
-  vsd_cpu_totaladministrationcostsfromvscp?: number,
-  vsd_cpu_totalcashcontributions?: number,
-  vsd_cpu_totalinkindcontributions?: number,
-  vsd_cpu_totalprogramdeliverycosts?: number,
-  vsd_cpu_totalprogramdeliveryfromvscp?: number,
-  vsd_cpu_totalrevenueamounts?: number,
-  vsd_cpu_totalsalariesandbenefits?: number,
-  vsd_cpu_totalsalariesandbenefitsfromvscp?: number,
-  vsd_emailaddress?: string,
-  vsd_name?: string,
-  vsd_programid?: string,
+  _transactioncurrencyid_value?: string;
+  _vsd_contactlookup_value?: string;
+  _vsd_contractid_value?: string;
+  _vsd_programtype_value?: string;
+  _vsd_serviceproviderid_value?: string;
+  statuscode?: number;
+  vsd_cpu_percentoftotaladmincostsfromvscp?: number;
+  vsd_cpu_percentoftotalprogramdeliveryfromvscp?: number;
+  vsd_cpu_percentoftotalsalarybenefitsvscp?: number;
+  vsd_cpu_totaladministrationcosts?: number;
+  vsd_cpu_totaladministrationcostsfromvscp?: number;
+  vsd_cpu_totalcashcontributions?: number;
+  vsd_cpu_totalinkindcontributions?: number;
+  vsd_cpu_totalprogramdeliverycosts?: number;
+  vsd_cpu_totalprogramdeliveryfromvscp?: number;
+  vsd_cpu_totalrevenueamounts?: number;
+  vsd_cpu_totalsalariesandbenefits?: number;
+  vsd_cpu_totalsalariesandbenefitsfromvscp?: number;
+  vsd_emailaddress?: string;
+  vsd_name?: string;
+  vsd_programid?: string;
 }
 export interface iDynamicsCrmProgramRevenueSource {
   _transactioncurrencyid_value?: string;

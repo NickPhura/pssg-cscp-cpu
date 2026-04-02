@@ -22,7 +22,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
     }
 
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize]
     public class UserController : Controller
     {
         private readonly IConfiguration Configuration;

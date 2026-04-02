@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { EMAIL, PHONE_NUMBER } from "../../../core/constants/regex.constants";
+import {
+  EMAIL_PATTERN,
+  PHONE_NUMBER_PATTERN,
+} from "../../../core/constants/regex.constants";
 import { FormHelper } from "../../../core/form-helper";
 import { iContactInformation } from "../../../core/models/contact-information.interface";
 
@@ -16,8 +19,8 @@ export class PrimaryContactFormComponent implements OnInit {
   @Output() contactInformationChange = new EventEmitter<iContactInformation>();
 
   public formHelper = new FormHelper();
-  emailRegex: RegExp = EMAIL;
-  phoneRegex: RegExp = PHONE_NUMBER;
+  emailRegex: string = EMAIL_PATTERN;
+  phoneRegex: string = PHONE_NUMBER_PATTERN;
 
   ngOnInit() {}
 

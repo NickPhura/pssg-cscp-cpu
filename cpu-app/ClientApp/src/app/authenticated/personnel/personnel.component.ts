@@ -8,6 +8,7 @@ import {
 import { Router } from "@angular/router";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
+import { OrgService } from "../../core/api/services/org/org.service";
 import { nameAssemble } from "../../core/constants/name-assemble";
 import {
   EMAIL,
@@ -18,12 +19,10 @@ import { FormHelper } from "../../core/form-helper";
 import { ContactInformationFormFactory } from "../../core/forms/contact-information-form.factory";
 import { convertPersonToDynamics } from "../../core/models/converters/person-to-dynamics";
 import { convertPersonnelToDynamics } from "../../core/models/converters/personnel-to-dynamics";
-import { iDynamicsPostUsers } from "../../core/models/dynamics-post";
 import { Person } from "../../core/models/person.class";
 import { iPerson } from "../../core/models/person.interface";
 import { Transmogrifier } from "../../core/models/transmogrifier.class";
 import { NotificationQueueService } from "../../core/services/notification-queue.service";
-import { PersonService } from "../../core/services/person.service";
 import { StateService } from "../../core/services/state.service";
 import {
   IconStepperService,
@@ -54,7 +53,7 @@ export class PersonnelComponent implements OnInit, OnDestroy {
   originalPersons: iPerson[] = [];
   constructor(
     private router: Router,
-    private personService: PersonService,
+    private orgService: OrgService,
     private notificationQueueService: NotificationQueueService,
     private stepperService: IconStepperService,
     private stateService: StateService,
@@ -304,15 +303,15 @@ export class PersonnelComponent implements OnInit, OnDestroy {
           organizationId,
           [personFormValue],
         );
-        this.personService.setPersons(personDynamicsModel).subscribe(
+        this.orgService.setStaff(personDynamicsModel).subscribe(
           (r) => {
-            if (r.IsSuccess) {
+            if (r.isSuccess) {
               this.saving = false;
               this.notificationQueueService.addNotification(
                 `Information is saved for ${nameAssemble(personFormValue.firstName, personFormValue.middleName, personFormValue.lastName)}`,
                 "success",
               );
-
+              this.stateService.refresh();
               resolve();
             } else {
               this.notificationQueueService.addNotification(
@@ -405,13 +404,13 @@ export class PersonnelComponent implements OnInit, OnDestroy {
         person.deactivated = true;
         const userId = this.stateService.main.getValue().userId;
         const organizationId = this.stateService.main.getValue().organizationId;
-        const post: iDynamicsPostUsers = {
-          UserBCeID: userId,
-          BusinessBCeID: organizationId,
-          StaffCollection: [convertPersonToDynamics(person)],
+        const post = {
+          userBCeID: userId,
+          businessBCeID: organizationId,
+          staffCollection: [convertPersonToDynamics(person) as any],
         };
-        this.personService.setPersons(post).subscribe((r) => {
-          if (r.IsSuccess) {
+        this.orgService.setStaff(post).subscribe((r) => {
+          if (r.isSuccess) {
             this.saving = false;
 
             const stepperId = this.stepperElements[this.stepperIndex].id;

@@ -1,6 +1,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,13 +16,16 @@ namespace Gov.Cscp.Victims.Public.Models
         public string vsd_name { get; set; }
         public string _vsd_questionid_value { set; get; }
         public string vsd_questioncategory { get; set; }
-        public double? vsd_number { get; set; }
+        public decimal? vsd_number { get; set; }
+        [Range(100000000, 100000002)]
         public int vsd_questiontype1 { get; set; }
         public int vsd_questionorder { get; set; }
         public string vsd_textanswer { get; set; }
+        [Range(100000000, 100000001)]
         public int? vsd_yesno { get; set; }
 
         private string _vsd_QuestionIdfortunecookiebind;
+        [Required]
         public string vsd_QuestionIdfortunecookiebind
         {
             get

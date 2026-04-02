@@ -378,7 +378,12 @@ namespace Database.Model
 			public const string Vsd_Vsd_Program_Task = "Vsd_Vsd_Program_Task";
 			public const string Vsd_Vsd_Program_Vsd_Invoice = "Vsd_Vsd_Program_Vsd_Invoice";
 			public const string Vsd_Vsd_Program_Vsd_Payment = "Vsd_Vsd_Program_Vsd_Payment";
+			public const string Vsd_Vsd_Program_Vsd_ProgramExpense = "Vsd_Vsd_Program_Vsd_ProgramExpense";
+			public const string Vsd_Vsd_Program_Vsd_ProgramRevenueSource = "Vsd_Vsd_Program_Vsd_ProgramRevenueSource";
+			public const string Vsd_Vsd_Program_Vsd_Schedule = "Vsd_Vsd_Program_Vsd_Schedule";
 			public const string Vsd_Vsd_Program_Vsd_ScheduleG_Program = "Vsd_Vsd_Program_Vsd_ScheduleG_Program";
+			public const string Vsd_Vsd_Program_Vsd_SurplusPlanReport = "Vsd_Vsd_Program_Vsd_SurplusPlanReport";
+			public const string Vsd_Vsd_ProgramType_Vsd_Program_ProgramType = "vsd_vsd_programtype_vsd_program_ProgramType";
 		}
 		
 		[System.Diagnostics.DebuggerNonUserCode()]
@@ -1722,6 +1727,7 @@ namespace Database.Model
 		/// This field is used on the CAP program application.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_cpu_programevaluationeffortsdescription")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public virtual Vsd_YesNo? Vsd_Cpu_ProgramEvaluationEffortsDescription
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -2908,6 +2914,7 @@ namespace Database.Model
 		}
 		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programmodels")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public virtual System.Collections.Generic.IEnumerable<Vsd_Program_Vsd_ProgramModels> Vsd_ProgramModels
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -3428,6 +3435,60 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_programexpense
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_programexpense")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramExpense> Vsd_Vsd_Program_Vsd_ProgramExpense
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_program_vsd_programexpense", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramExpense>("vsd_vsd_program_vsd_programexpense", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_programrevenuesource
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_programrevenuesource")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ProgramRevenueSource> Vsd_Vsd_Program_Vsd_ProgramRevenueSource
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("vsd_vsd_program_vsd_programrevenuesource", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ProgramRevenueSource>("vsd_vsd_program_vsd_programrevenuesource", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_schedule
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_schedule")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_Schedule> Vsd_Vsd_Program_Vsd_Schedule
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_Schedule>("vsd_vsd_program_vsd_schedule", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_Schedule>("vsd_vsd_program_vsd_schedule", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// 1:N vsd_vsd_program_vsd_scheduleg_Program
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_scheduleg_Program")]
@@ -3442,6 +3503,24 @@ namespace Database.Model
 			set
 			{
 				this.SetRelatedEntities<Database.Model.Vsd_ScheduleG>("vsd_vsd_program_vsd_scheduleg_Program", null, value);
+			}
+		}
+		
+		/// <summary>
+		/// 1:N vsd_vsd_program_vsd_surplusplanreport
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_program_vsd_surplusplanreport")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_SurplusPlanReport> Vsd_Vsd_Program_Vsd_SurplusPlanReport
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_program_vsd_surplusplanreport", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_program_vsd_surplusplanreport", null, value);
 			}
 		}
 		
@@ -3596,6 +3675,25 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// N:1 vsd_vsd_programtype_vsd_program_ProgramType
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_programtype")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_programtype_vsd_program_ProgramType")]
+		public Database.Model.Vsd_ProgramType Vsd_Vsd_ProgramType_Vsd_Program_ProgramType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Database.Model.Vsd_ProgramType>("vsd_vsd_programtype_vsd_program_ProgramType", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<Database.Model.Vsd_ProgramType>("vsd_vsd_programtype_vsd_program_ProgramType", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -3608,7 +3706,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

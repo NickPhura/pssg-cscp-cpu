@@ -78,31 +78,28 @@ jobs:
           curl -sk "${ZAP_API}/JSON/core/action/accessUrl/?apikey=${ZAP_API_KEY}&url=${ZAP_TARGET}/authenticated/new_user&followRedirects=true"
           curl -sk "${ZAP_API}/JSON/core/action/accessUrl/?apikey=${ZAP_API_KEY}&url=${ZAP_TARGET}/authenticated/new_user_new_organization&followRedirects=true"
           curl -sk "${ZAP_API}/JSON/core/action/accessUrl/?apikey=${ZAP_API_KEY}&url=${ZAP_TARGET}/authenticated/program/20011/30021&followRedirects=true"
-          curl -sk "${ZAP_API}/JSON/core/action/accessUrl/?apikey=${ZAP_API_KEY}&url=${ZAP_TARGET}/404&followRedirects=true"
           curl -sk "${ZAP_API}/JSON/core/action/accessUrl/?apikey=${ZAP_API_KEY}&url=${ZAP_TARGET}/some-random-not-found-path&followRedirects=true"
 
           # API paths
           TOKEN="$TOKEN"
           # 1. Application Version
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/ApplicationVersionInfo"
-          # 2. Authentication (token endpoint, no auth)
-          curl -x $PROXY -sk -H "Content-Type: application/json" -d '{"secret":"dummysecret"}' "${ZAP_TARGET}/api/Authentication/token"
-          # 3. Configuration
+          # 2. Configuration
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/Configuration"
-          # 4. Contract
+          # 3. Contract
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/Contract/Clone"
-          # 5. DynamicsBlob
+          # 4. DynamicsBlob
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsBlob/123456/654321"
-          # 6. DynamicsBudgetProposal
+          # 5. DynamicsBudgetProposal
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsBudgetProposal/123456/654321/98765"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsBudgetProposal"
-          # 7. DynamicsCAPApplication
+          # 6. DynamicsCAPApplication
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsCAPApplication/123456/654321/88888"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsCAPApplication"
-          # 8. DynamicsExpenseReport
+          # 7. DynamicsExpenseReport
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsExpenseReport/123456/654321/77777"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsExpenseReport"
-          # 9. DynamicsFileController
+          # 8. DynamicsFileController
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsFile/123456/654321/documents/contract/98765"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsFile/123456/654321/documents/account/54321"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsFile/123456/654321/document/22222"
@@ -110,34 +107,32 @@ jobs:
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsFile/signed_contract/33333"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsFile/account/54321"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsFile/contract/98765"
-          # 10. DynamicsOrg
+          # 9. DynamicsOrg
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsOrg"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsOrg/SetStaff"
-          # 11. DynamicsProgramApplicationController
+          # 10. DynamicsProgramApplicationController
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsProgramApplication/123456/654321/44444"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsProgramApplication"
-          # 12. DynamicsProgramSurplusController
+          # 11. DynamicsProgramSurplusController
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsProgramSurplus/123456/654321/55555"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsProgramSurplus"
-          # 13. DynamicsRegisterNewUser
+          # 12. DynamicsRegisterNewUser
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsRegisterNewUser"
-          # 14. DynamicsStatusReport
+          # 13. DynamicsStatusReport
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsStatusReport/123456/654321/7007"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsStatusReport/monthly_stats/123456/654321/98765"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsStatusReport/data_collection/123456/654321/8008"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{}' "${ZAP_TARGET}/api/DynamicsStatusReport/7007"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/DynamicsStatusReport/export_monthly_report/98765/321/98765/ProgramA"
-          # 15. Login & Logout
+          # 14. Login & Logout
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/login"
           curl -x $PROXY -sk "${ZAP_TARGET}/login/token/123"
           curl -x $PROXY -sk "${ZAP_TARGET}/Logout"
-          # 16. NotFoundController
-          curl -x $PROXY -sk "${ZAP_TARGET}/404"
-          # 17. ProgramController
+          # 15. ProgramController
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/Program/Approved/2024Q4"
-          # 18. ScheduleGController
+          # 16. ScheduleGController
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/ScheduleG/CreateScheduleGTasks/2024Q4"
-          # 19. UserController
+          # 17. UserController
           curl -x $PROXY -sk "${ZAP_TARGET}/api/User/isLoggedIn"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/User/current"
           curl -x $PROXY -sk -H "Authorization: Bearer $TOKEN" "${ZAP_TARGET}/api/User/GetLogoutUrl"

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,12 +27,14 @@ namespace Gov.Cscp.Victims.Public.Models
         public string vsd_mainphoneextension { get; set; }
         public string telephone2 { get; set; }
         public string vsd_homephoneextension { get; set; }
+        [Range(100000000, 100000004)]
         public int? vsd_employmentstatus { get; set; }
         public string fortunecookietype { get { return "Microsoft.Dynamics.CRM.contact"; } }
         public string vsd_bceid { get; set; }
         public string vsd_portalfield { get; set; }
         // statecode is an optional status value. 1 is soft delete and null shouldn't be included.
         private int? _statecode;
+        [Range(0, 1)]
         public int? statecode
         {
             get

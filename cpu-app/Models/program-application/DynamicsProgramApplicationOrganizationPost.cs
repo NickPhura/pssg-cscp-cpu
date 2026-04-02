@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Gov.Cscp.Victims.Public.Models
 	public class DynamicsProgramApplicationOrganizationPost
 	{
 		public string _ownerid_value { get; set; }
+		[Required]
 		public string accountid { get; set; }
 		public string address1_city { get; set; }
 		public string address1_composite { get; set; }

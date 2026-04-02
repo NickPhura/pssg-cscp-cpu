@@ -69,19 +69,19 @@ namespace Database.Model
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("1st Quarter", 0, "#0000ff")]
-		_1StQuarter = 100000000,
+		_1stQuarter = 100000000,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("2nd Quarter", 1, "#0000ff")]
-		_2NdQuarter = 100000001,
+		_2ndQuarter = 100000001,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("3rd Quarter", 2, "#0000ff")]
-		_3RdQuarter = 100000002,
+		_3rdQuarter = 100000002,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("4th Quarter", 3, "#0000ff")]
-		_4ThQuarter = 100000003,
+		_4thQuarter = 100000003,
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -182,6 +182,7 @@ namespace Database.Model
 			public const string Vsd_Vsd_Contract_Vsd_ScheduleG_Contract = "vsd_vsd_contract_vsd_scheduleg_Contract";
 			public const string Vsd_Vsd_Program_Vsd_ScheduleG_Program = "vsd_vsd_program_vsd_scheduleg_Program";
 			public const string Vsd_Vsd_ScheduleG_Task = "Vsd_Vsd_ScheduleG_Task";
+			public const string Vsd_Vsd_ScheduleG_Vsd_ScheduleGLineItem = "Vsd_Vsd_ScheduleG_Vsd_ScheduleGLineItem";
 			public const string Vsd_YearToDateProgramAdministration = "vsd_yeartodateprogramadministration";
 			public const string Vsd_YearToDateProgramAdministration_Base = "vsd_yeartodateprogramadministration_base";
 			public const string Vsd_YearToDateProgramDelivery = "vsd_yeartodateprogramdelivery";
@@ -1666,6 +1667,24 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// 1:N vsd_vsd_scheduleg_vsd_scheduleglineitem
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_scheduleg_vsd_scheduleglineitem")]
+		public System.Collections.Generic.IEnumerable<Database.Model.Vsd_ScheduleGLineItem> Vsd_Vsd_ScheduleG_Vsd_ScheduleGLineItem
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("vsd_vsd_scheduleg_vsd_scheduleglineitem", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntities<Database.Model.Vsd_ScheduleGLineItem>("vsd_vsd_scheduleg_vsd_scheduleglineitem", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// N:1 TransactionCurrency_vsd_scheduleg
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
@@ -1773,7 +1792,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

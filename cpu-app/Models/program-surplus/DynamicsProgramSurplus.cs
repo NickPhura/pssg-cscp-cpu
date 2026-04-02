@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gov.Cscp.Victims.Public.Models
 {
     public class DynamicsProgramSurplus
     {
+        [Required]
         public string vsd_surplusplanreportid { get; set; }
         public bool vsd_surplusremittance { get; set; }
         public DateTime? vsd_datesubmitted { get; set; }

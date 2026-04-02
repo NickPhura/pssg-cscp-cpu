@@ -1927,7 +1927,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);

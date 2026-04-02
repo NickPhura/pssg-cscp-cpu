@@ -62,7 +62,14 @@
                 }
               ]
             },
-            "development": {}
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "aot": false,
+              "buildOptimizer": false
+            }
           },
           "defaultConfiguration": "development"
         },
@@ -75,7 +82,7 @@
             "production": {
               "buildTarget": "cpu-public-app:build:production"
             },
-            "development":{
+            "development": {
               "proxyConfig": "proxy.config.json",
               "host": "0.0.0.0"
             }
@@ -104,9 +111,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
-            "assets": [
-              "src/assets"
-            ]
+            "assets": ["src/assets"]
           }
         }
       }

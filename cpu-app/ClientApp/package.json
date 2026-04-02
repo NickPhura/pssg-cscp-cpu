@@ -13,7 +13,8 @@
     "build:ssr": "npm run build -- --app=ssr --output-hashing=media --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate:api": "orval --config ./orval.config.ts"
   },
   "engines": {
     "node": ">=20.19.0",
@@ -65,6 +66,7 @@
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
+    "orval": "^7.3.0",
     "protractor": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.8.3",

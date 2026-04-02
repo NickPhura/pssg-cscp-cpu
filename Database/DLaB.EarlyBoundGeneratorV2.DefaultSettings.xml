@@ -11,7 +11,25 @@
   <ExtensionConfig>
     <ActionPrefixesWhitelist>bcgov_*|
 cpu_*</ActionPrefixesWhitelist>
-    <ActionsWhitelist>vsd_clonecontract</ActionsWhitelist>
+    <ActionsWhitelist>vsd_clonecontract|
+vsd_downloaddocumentfromsharepoint|
+vsd_getcpuaccountdocuments|
+vsd_getcpubudgetproposal|
+vsd_getcpucontractdocuments|
+vsd_getcpucontractpackage|
+vsd_getcpumonthlystatistics|
+vsd_getcpumonthlystatisticsanswers|
+vsd_getcpumonthlystatisticsquestions|
+vsd_getcpuorgcontracts|
+vsd_getcpuschedulef|
+vsd_getcpuschedulef_cap|
+vsd_getcpuscheduleg|
+vsd_getcpusurplusplan|
+vsd_setcpumonthlystatisticsanswers|
+vsd_setcpuorgcontracts|
+vsd_uploadcpuaccountdocuments|
+vsd_uploadcpucontractdocuments|
+vsd_uploadcpucontractpackage</ActionsWhitelist>
     <ActionsToSkip />
     <AddDebuggerNonUserCode>true</AddDebuggerNonUserCode>
     <AddNewFilesToProject>true</AddNewFilesToProject>
@@ -34,14 +52,26 @@ vsu</CamelCaseCustomWords>
     <EntitiesToSkip />
     <EntitiesWhitelist>account|
 contact|
+organization|
 task|
 transactioncurrency|
+vsd_contact_vsd_program|
 vsd_contract|
+vsd_datacollectionlineitem|
+vsd_eligibleexpenseitem|
 vsd_invoice|
 vsd_invoicelinedetail|
 vsd_payment|
+vsd_portalrole|
 vsd_program|
-vsd_scheduleg</EntitiesWhitelist>
+vsd_programexpense|
+vsd_programrevenuesource|
+vsd_programtype|
+vsd_schedule|
+vsd_scheduleg|
+vsd_scheduleglineitem|
+vsd_surpluslineitem|
+vsd_surplusplanreport</EntitiesWhitelist>
     <EntityAttributeSpecifiedNames />
     <EntityClassNameOverrides />
     <EntityPrefixesToSkip />
@@ -66,10 +96,35 @@ vsd_scheduleg</EntitiesWhitelist>
     <LocalOptionSetFormat>{0}_{1}</LocalOptionSetFormat>
     <MakeReferenceTypesNullable>false</MakeReferenceTypesNullable>
     <ModelBuilderLogLevel>2</ModelBuilderLogLevel>
+    <ObsoleteDeprecated>true</ObsoleteDeprecated>
+    <ObsoleteTokens>*(Deprecated)*</ObsoleteTokens>
     <OptionSetLanguageCodeOverride
       xsi:nil="true" />
     <OptionSetNames />
-    <OutputRelativeDirectory>..\..\..\..\source\repos\pssg-cscp-cpu\Database\Model</OutputRelativeDirectory>
+    <OptionNameOverrides>0th:0th|
+1st:1st|
+2nd:2nd|
+3rd:3rd|
+4th:4th|
+5th:5th|
+6th:6th|
+7th:7th|
+8th:8th|
+9th:9th|
+conversationindex:ConversationIndex|
+customcorrelation:CustomCorrelation|
+fedex:FedEx|
+groupme:GroupMe|
+linkedin:LinkedIn|
+nontransient:NonTransient|
+notset:NotSet|
+reminderexpired:ReminderExpired|
+reminderinvalid:ReminderInvalid|
+reminderset:ReminderSet|
+smartmatching:SmartMatching|
+trackingtoken:TrackingToken|
+xheader:XHeader</OptionNameOverrides>
+    <OutputRelativeDirectory>.\Model</OutputRelativeDirectory>
     <ProjectNameForEarlyBoundFiles>Database</ProjectNameForEarlyBoundFiles>
     <PropertyEnumMappings />
     <ReadSerializedMetadata>false</ReadSerializedMetadata>
@@ -132,7 +187,7 @@ VoiceMail</TokenCapitalizationOverrides>
   <Namespace>Database.Model</Namespace>
   <ServiceContextName>DatabaseContext</ServiceContextName>
   <SuppressGeneratedCodeAttribute>true</SuppressGeneratedCodeAttribute>
-  <SettingsVersion>2.2024.9.11</SettingsVersion>
+  <SettingsVersion>2.2025.11.14</SettingsVersion>
   <UpdateBuilderSettingsJson>true</UpdateBuilderSettingsJson>
-  <Version>2.2024.9.11</Version>
+  <Version>2.2025.11.14</Version>
 </Config>

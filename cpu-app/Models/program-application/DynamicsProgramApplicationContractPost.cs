@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,11 +40,14 @@ namespace Gov.Cscp.Victims.Public.Models
             }
             set { _vsd_ContactLookup2fortunecookiebind = value; }
         }
+        [Range(100000000, 100000001)]
         public int? vsd_cpu_subcontractedprogramstaff { get; set; }
+        [Range(100000000, 100000001)]
         public int? vsd_cpu_unionizedstaff { get; set; }
         public int? vsd_cpu_insuranceoptions { get; set; }
         public int? vsd_cpu_memberofcssea { get; set; }
         public string fortunecookietype { get { return "Microsoft.Dynamics.CRM.vsd_contract"; } }
+        [Required]
         public string vsd_contractid { get; set; }
         public string vsd_cpu_humanresourcepolices { get; set; }
         public string vsd_cpu_specificunion { get; set; }

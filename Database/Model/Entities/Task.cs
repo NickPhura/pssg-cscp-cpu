@@ -212,6 +212,7 @@ namespace Database.Model
 			public const string Vsd_Vsd_Invoice_Task_Invoice = "vsd_vsd_invoice_task_Invoice";
 			public const string Vsd_Vsd_Program_Task = "vsd_vsd_program_task";
 			public const string Vsd_Vsd_ScheduleG_Task = "vsd_vsd_scheduleg_task";
+			public const string Vsd_Vsd_SurplusPlanReport_Task = "vsd_vsd_surplusplanreport_task";
 			public const string Vsd_Vsu_Title = "vsd_vsu_title";
 		}
 		
@@ -1240,6 +1241,7 @@ namespace Database.Model
 		/// Shows the ID of the stage.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stageid")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public System.Nullable<System.Guid> StageId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -1435,6 +1437,7 @@ namespace Database.Model
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[System.Obsolete("This attribute is deprecated.")]
 		public string TraversedPath
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
@@ -2225,6 +2228,25 @@ namespace Database.Model
 		}
 		
 		/// <summary>
+		/// N:1 vsd_vsd_surplusplanreport_task
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("vsd_surplusplanid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("vsd_vsd_surplusplanreport_task")]
+		public Database.Model.Vsd_SurplusPlanReport Vsd_Vsd_SurplusPlanReport_Task
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_surplusplanreport_task", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.SetRelatedEntity<Database.Model.Vsd_SurplusPlanReport>("vsd_vsd_surplusplanreport_task", null, value);
+			}
+		}
+		
+		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
@@ -2237,7 +2259,7 @@ namespace Database.Model
                 var value = p.GetValue(anonymousType, null);
                 var name = p.Name.ToLower();
             
-                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                if (value != null && name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
                 {
                     value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
                     name = name.Remove(name.Length - "enum".Length);
