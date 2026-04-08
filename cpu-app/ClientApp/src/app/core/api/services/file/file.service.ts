@@ -74,7 +74,7 @@ export class FileService {
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/File/${businessBceid}/${userBceid}/documents/contract/${contractId}`,options
+      `/coastcontracts/api/File/${businessBceid}/${userBceid}/documents/contract/${contractId}`,options
     );
   }
  getApiFileBusinessBceidUserBceidDocumentsAccountAccountId<TData = DocumentCollectionResponseDto>(businessBceid: string,
@@ -91,7 +91,7 @@ export class FileService {
     userBceid: string,
     accountId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/File/${businessBceid}/${userBceid}/documents/account/${accountId}`,options
+      `/coastcontracts/api/File/${businessBceid}/${userBceid}/documents/account/${accountId}`,options
     );
   }
  getApiFileBusinessBceidUserBceidDocumentDocId<TData = DownloadDocumentDto>(businessBceid: string,
@@ -108,7 +108,7 @@ export class FileService {
     userBceid: string,
     docId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/File/${businessBceid}/${userBceid}/document/${docId}`,options
+      `/coastcontracts/api/File/${businessBceid}/${userBceid}/document/${docId}`,options
     );
   }
  getApiFileContractPackageBusinessBceidUserBceidTaskId<TData = DocumentCollectionResponseDto>(businessBceid: string,
@@ -125,7 +125,7 @@ export class FileService {
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/File/contract_package/${businessBceid}/${userBceid}/${taskId}`,options
+      `/coastcontracts/api/File/contract_package/${businessBceid}/${userBceid}/${taskId}`,options
     );
   }
  postApiFileSignedContractTaskId<TData = UploadResponseDto>(taskId: string,
@@ -138,7 +138,7 @@ export class FileService {
     taskId: string,
     signedContractPostFromPortal: SignedContractPostFromPortal, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/File/signed_contract/${taskId}`,
+      `/coastcontracts/api/File/signed_contract/${taskId}`,
       signedContractPostFromPortal,options
     );
   }
@@ -152,7 +152,7 @@ export class FileService {
     accountId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/File/account/${accountId}`,
+      `/coastcontracts/api/File/account/${accountId}`,
       filePost,options
     );
   }
@@ -166,7 +166,7 @@ export class FileService {
     contractId: string,
     filePost: FilePost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/File/contract/${contractId}`,
+      `/coastcontracts/api/File/contract/${contractId}`,
       filePost,options
     );
   }

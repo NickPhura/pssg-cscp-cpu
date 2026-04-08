@@ -3,6 +3,7 @@ using Gov.Cscp.Victims.Public.Models;
 using Gov.Cscp.Victims.Public.Services;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.PowerPlatform.Dataverse.Client;
@@ -19,7 +20,7 @@ using System.Threading.Tasks;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    // [Authorize]
+    [Authorize]
     public class FileController : Controller
     {
         private readonly IOrganizationServiceAsync _organizationService;

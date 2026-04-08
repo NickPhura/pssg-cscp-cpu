@@ -72,7 +72,7 @@ export class CapapplicationService {
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/CAPApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
+      `/coastcontracts/api/CAPApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
     );
   }
  postApiCAPApplication<TData = SetCAPApplicationResponseDto>(cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -81,7 +81,7 @@ export class CapapplicationService {
   postApiCAPApplication<TData = SetCAPApplicationResponseDto>(
     cAPApplicationPost: CAPApplicationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/CAPApplication`,
+      `/coastcontracts/api/CAPApplication`,
       cAPApplicationPost,options
     );
   }

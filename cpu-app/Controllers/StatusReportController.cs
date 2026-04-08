@@ -1,5 +1,6 @@
 using Database.Model;
 using Gov.Cscp.Victims.Public.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.PowerPlatform.Dataverse.Client;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    // [Authorize]
+    [Authorize]
     public class StatusReportController : Controller
     {
         private readonly IOrganizationServiceAsync _organizationService;

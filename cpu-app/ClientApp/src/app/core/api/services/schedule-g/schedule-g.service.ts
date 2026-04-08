@@ -58,7 +58,7 @@ export class ScheduleGService {
   getApiScheduleGCreateScheduleGTasksQuarter<TData = void>(
     quarter: number, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/ScheduleG/CreateScheduleGTasks/${quarter}`,options
+      `/coastcontracts/api/ScheduleG/CreateScheduleGTasks/${quarter}`,options
     );
   }
 };

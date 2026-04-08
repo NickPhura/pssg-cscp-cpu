@@ -58,7 +58,7 @@ export class ApplicationVersionInfoService {
   getApiApplicationVersionInfo<TData = void>(
      options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/ApplicationVersionInfo`,options
+      `/coastcontracts/api/ApplicationVersionInfo`,options
     );
   }
 };

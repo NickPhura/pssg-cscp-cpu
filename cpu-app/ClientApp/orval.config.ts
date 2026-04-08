@@ -15,6 +15,7 @@ export default defineConfig({
       clean: true,
       prettier: true,
       tsconfig: "./tsconfig.json",
+      baseUrl: "/coastcontracts",
     },
   },
 });

@@ -71,7 +71,7 @@ export class ExpenseReportService {
     userBceid: string,
     expenseReportId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/ExpenseReport/${businessBceid}/${userBceid}/${expenseReportId}`,options
+      `/coastcontracts/api/ExpenseReport/${businessBceid}/${userBceid}/${expenseReportId}`,options
     );
   }
  postApiExpenseReport<TData = void>(expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -80,7 +80,7 @@ export class ExpenseReportService {
   postApiExpenseReport<TData = void>(
     expenseReportPost: ExpenseReportPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/ExpenseReport`,
+      `/coastcontracts/api/ExpenseReport`,
       expenseReportPost,options
     );
   }

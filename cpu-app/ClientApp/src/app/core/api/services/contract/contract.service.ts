@@ -58,7 +58,7 @@ export class ContractService {
   getApiContractClone<TData = void>(
      options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/Contract/Clone`,options
+      `/coastcontracts/api/Contract/Clone`,options
     );
   }
 };
