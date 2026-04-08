@@ -71,7 +71,7 @@ export class ProgramApplicationService {
     userBceid: string,
     scheduleFId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/ProgramApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
+      `/coastcontracts/api/ProgramApplication/${businessBceid}/${userBceid}/${scheduleFId}`,options
     );
   }
  postApiProgramApplication<TData = void>(programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -80,7 +80,7 @@ export class ProgramApplicationService {
   postApiProgramApplication<TData = void>(
     programApplicationPost: ProgramApplicationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/ProgramApplication`,
+      `/coastcontracts/api/ProgramApplication`,
       programApplicationPost,options
     );
   }

@@ -63,7 +63,7 @@ export class OrgService {
   postApiOrg<TData = SetOrgContractsResponseDto>(
     organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/Org`,
+      `/coastcontracts/api/Org`,
       organizationPost,options
     );
   }
@@ -73,7 +73,7 @@ export class OrgService {
   setStaff<TData = SetOrgContractsResponseDto>(
     organizationPost: OrganizationPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/Org/SetStaff`,
+      `/coastcontracts/api/Org/SetStaff`,
       organizationPost,options
     );
   }

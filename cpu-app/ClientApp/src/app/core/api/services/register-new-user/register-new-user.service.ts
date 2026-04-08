@@ -63,7 +63,7 @@ export class RegisterNewUserService {
   postApiRegisterNewUser<TData = SetOrgContractsResponseDto>(
     registerNewUserPost: RegisterNewUserPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/RegisterNewUser`,
+      `/coastcontracts/api/RegisterNewUser`,
       registerNewUserPost,options
     );
   }

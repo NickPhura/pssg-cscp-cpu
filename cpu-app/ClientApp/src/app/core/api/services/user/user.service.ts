@@ -58,7 +58,7 @@ export class UserService {
   getApiUserIsLoggedIn<TData = void>(
      options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/User/isLoggedIn`,options
+      `/coastcontracts/api/User/isLoggedIn`,options
     );
   }
  getApiUserCurrent<TData = void>( options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -67,7 +67,7 @@ export class UserService {
   getApiUserCurrent<TData = void>(
      options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/User/current`,options
+      `/coastcontracts/api/User/current`,options
     );
   }
  getApiUserGetLogoutUrl<TData = void>( options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -76,7 +76,7 @@ export class UserService {
   getApiUserGetLogoutUrl<TData = void>(
      options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/User/GetLogoutUrl`,options
+      `/coastcontracts/api/User/GetLogoutUrl`,options
     );
   }
 };

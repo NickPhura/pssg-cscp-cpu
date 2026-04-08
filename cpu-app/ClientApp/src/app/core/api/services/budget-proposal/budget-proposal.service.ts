@@ -71,7 +71,7 @@ export class BudgetProposalService {
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/BudgetProposal/${businessBceid}/${userBceid}/${contractId}`,options
+      `/coastcontracts/api/BudgetProposal/${businessBceid}/${userBceid}/${contractId}`,options
     );
   }
  postApiBudgetProposal<TData = void>(budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -80,7 +80,7 @@ export class BudgetProposalService {
   postApiBudgetProposal<TData = void>(
     budgetProposalPost: BudgetProposalPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/BudgetProposal`,
+      `/coastcontracts/api/BudgetProposal`,
       budgetProposalPost,options
     );
   }

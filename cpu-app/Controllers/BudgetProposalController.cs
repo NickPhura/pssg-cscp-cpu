@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
-    // [Authorize]
+    [Authorize]
     public class BudgetProposalController : Controller
     {
         private readonly IOrganizationServiceAsync _organizationService;

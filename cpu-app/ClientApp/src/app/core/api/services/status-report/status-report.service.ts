@@ -74,7 +74,7 @@ export class StatusReportService {
     userBceid: string,
     taskId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/StatusReport/${businessBceid}/${userBceid}/${taskId}`,options
+      `/coastcontracts/api/StatusReport/${businessBceid}/${userBceid}/${taskId}`,options
     );
   }
  getApiStatusReportMonthlyStatsBusinessBceidUserBceidContractId<TData = MonthlyStatisticsDto>(businessBceid: string,
@@ -91,7 +91,7 @@ export class StatusReportService {
     userBceid: string,
     contractId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/StatusReport/monthly_stats/${businessBceid}/${userBceid}/${contractId}`,options
+      `/coastcontracts/api/StatusReport/monthly_stats/${businessBceid}/${userBceid}/${contractId}`,options
     );
   }
  getApiStatusReportDataCollectionBusinessBceidUserBceidDataCollectionId<TData = StatusReportAnswersDto>(businessBceid: string,
@@ -108,7 +108,7 @@ export class StatusReportService {
     userBceid: string,
     dataCollectionId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/StatusReport/data_collection/${businessBceid}/${userBceid}/${dataCollectionId}`,options
+      `/coastcontracts/api/StatusReport/data_collection/${businessBceid}/${userBceid}/${dataCollectionId}`,options
     );
   }
  postApiStatusReportTaskId<TData = SetStatusReportAnswersResponseDto>(taskId: string,
@@ -121,7 +121,7 @@ export class StatusReportService {
     taskId: string,
     monthlyStatisticsAnswers: MonthlyStatisticsAnswers, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/StatusReport/${taskId}`,
+      `/coastcontracts/api/StatusReport/${taskId}`,
       monthlyStatisticsAnswers,options
     );
   }
@@ -143,7 +143,7 @@ export class StatusReportService {
     contractNumber: string,
     programName: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/StatusReport/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`,options
+      `/coastcontracts/api/StatusReport/export_monthly_report/${contractId}/${programId}/${contractNumber}/${programName}`,options
     );
   }
 };

@@ -66,7 +66,7 @@ export class CpuOrgContractsService {
     businessBceid: string,
     userBceid: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/cpuorgcontracts/${businessBceid}/${userBceid}`,options
+      `/coastcontracts/api/cpuorgcontracts/${businessBceid}/${userBceid}`,options
     );
   }
 };

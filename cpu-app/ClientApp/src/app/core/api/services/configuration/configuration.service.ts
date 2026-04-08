@@ -58,7 +58,7 @@ export class ConfigurationService {
   getApiConfiguration<TData = void>(
      options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/Configuration`,options
+      `/coastcontracts/api/Configuration`,options
     );
   }
 };

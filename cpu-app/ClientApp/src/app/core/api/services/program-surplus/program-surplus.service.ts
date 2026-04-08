@@ -72,7 +72,7 @@ export class ProgramSurplusService {
     userBceid: string,
     surplusId: string, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `/api/ProgramSurplus/${businessBceid}/${userBceid}/${surplusId}`,options
+      `/coastcontracts/api/ProgramSurplus/${businessBceid}/${userBceid}/${surplusId}`,options
     );
   }
  postApiProgramSurplus<TData = SetSurplusResponseDto>(programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -81,7 +81,7 @@ export class ProgramSurplusService {
   postApiProgramSurplus<TData = SetSurplusResponseDto>(
     programSurplusPost: ProgramSurplusPost, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.post<TData>(
-      `/api/ProgramSurplus`,
+      `/coastcontracts/api/ProgramSurplus`,
       programSurplusPost,options
     );
   }
