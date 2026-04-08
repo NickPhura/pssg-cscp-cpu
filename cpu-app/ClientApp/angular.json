@@ -83,7 +83,7 @@
               "buildTarget": "cpu-public-app:build:production"
             },
             "development": {
-              "proxyConfig": "proxy.config.json",
+              "proxyConfig": "proxy.config.js",
               "host": "0.0.0.0"
             }
           },

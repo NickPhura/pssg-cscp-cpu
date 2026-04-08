@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
-import { ConfigService } from "../..//core/services/config.service";
+import { ConfigurationStore } from "../..//core/store/configuration.store";
 import { StatusReportService } from "../../core/api/services/status-report/status-report.service";
 import { FormHelper } from "../../core/form-helper";
 import { convertStatusReportToDynamics } from "../../core/models/converters/status-report-to-dynamics";
@@ -34,6 +34,8 @@ export class StatusReportComponent implements OnInit, OnDestroy {
   partialSaveStatusCode: number = 100000004;
 
   public formHelper = new FormHelper();
+  readonly configStore = inject(ConfigurationStore);
+
   constructor(
     private notificationQueueService: NotificationQueueService,
     private route: ActivatedRoute,
@@ -41,11 +43,10 @@ export class StatusReportComponent implements OnInit, OnDestroy {
     private statusReportService: StatusReportService,
     private stateService: StateService,
     private stepperService: IconStepperService,
-    public configService: ConfigService,
   ) {}
 
   get hideReportSaveButton(): boolean {
-    return this.configService.featureHideReportSaveButton;
+    return this.configStore.featureHideReportSaveButton();
   }
 
   ngOnInit() {
