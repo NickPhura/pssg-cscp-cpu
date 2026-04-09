@@ -147,9 +147,9 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_AddressTransitionOrSafeHome = entity.GetAttributeValue<bool?>("vsd_addresstransitionorsafehome"),
                 Vsd_Cpu_ProgramStaffSubcontracted = entity.GetAttributeValue<bool?>("vsd_cpu_programstaffsubcontracted"),
                 Vsd_Cpu_Per = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_per")?.Value,
-                Vsd_Cpu_NumberOfHours = entity.GetAttributeValue<int?>("vsd_cpu_numberofhours"),
-                Vsd_TotalScheduledHours = entity.GetAttributeValue<int?>("vsd_totalscheduledhours"),
-                Vsd_TotalOnCallStandbyHours = entity.GetAttributeValue<int?>("vsd_totaloncallstandbyhours"),
+                Vsd_Cpu_NumberOfHours = (int?)entity.GetAttributeValue<decimal?>("vsd_cpu_numberofhours"),
+                Vsd_TotalScheduledHours = (int?)entity.GetAttributeValue<decimal?>("vsd_totalscheduledhours"),
+                Vsd_TotalOnCallStandbyHours = (int?)entity.GetAttributeValue<decimal?>("vsd_totaloncallstandbyhours"),
                 Vsd_Cpu_EstimatedSubtotalComponentValue = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_estimatedsubtotalcomponentvalue")?.Value,
                 Vsd_ProgramTypeValue = GetEntityReferenceValue(entity, "vsd_programtype"),
                 Vsd_Cpu_RegionDistrictValue = GetEntityReferenceValue(entity, "vsd_cpu_regiondistrict"),
@@ -531,7 +531,7 @@ namespace Gov.Cscp.Victims.Public.Models
                 _vsd_contractid_value = GetEntityReferenceValue(entity, "vsd_contractid"),
                 _vsd_programtype_value = GetEntityReferenceValue(entity, "vsd_programtype"),
                 _vsd_serviceproviderid_value = GetEntityReferenceValue(entity, "vsd_serviceproviderid"),
-                vsd_cpu_numberofhours = entity.GetAttributeValue<int?>("vsd_cpu_numberofhours")
+                vsd_cpu_numberofhours = (int?)entity.GetAttributeValue<decimal?>("vsd_cpu_numberofhours")
             };
         }
 
