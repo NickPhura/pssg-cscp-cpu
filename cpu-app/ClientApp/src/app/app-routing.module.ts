@@ -24,13 +24,13 @@ import { HealthGuard } from "./core/guards/health.guard";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LoginPageComponent } from "./login/login.component";
 import { NotFoundComponent } from "./shared/not-found/not-found.component";
-import { OutagePageComponent } from "./shared/outage/outage-page.component";
+import { OutageComponent } from "./shared/outage/outage.component";
 import { TestComponent } from "./test/test.component";
 
 const routes: Routes = [
   {
     path: "outage",
-    component: OutagePageComponent,
+    component: OutageComponent,
   },
   {
     path: "",

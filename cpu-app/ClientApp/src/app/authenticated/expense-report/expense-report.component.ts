@@ -337,7 +337,7 @@ export class ExpenseReportComponent implements OnInit, OnDestroy {
   }
 
   setNextStepper() {
-    let originalStepper = _.cloneDeep(this.currentStepperElement);
+    let originalStepper = structuredClone(this.currentStepperElement);
 
     if (!this.trans.expenseReport.executiveReview && !this.isCompleted) {
       setTimeout(() => {

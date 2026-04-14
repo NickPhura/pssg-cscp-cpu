@@ -1,15 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-<<<<<<< Updated upstream
-import * as _ from "lodash";
-<<<<<<< Updated upstream
 import { ConfigurationStore } from "../..//core/store/configuration.store";
-=======
-import { ConfigService } from "../..//core/services/config.service";
-=======
-import { ConfigurationStore } from "../..//core/store/configuration.store";
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 import { StatusReportService } from "../../core/api/services/status-report/status-report.service";
 import { FormHelper } from "../../core/form-helper";
 import { convertStatusReportToDynamics } from "../../core/models/converters/status-report-to-dynamics";
@@ -422,7 +413,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
     return isValid;
   }
   setNextStepper() {
-    let originalStepper = _.cloneDeep(this.currentStepperElement);
+    let originalStepper = structuredClone(this.currentStepperElement);
 
     if (!this.validateCurrentQuestionsAreFilledIn()) {
       this.stepperService.setStepperElementProperty(

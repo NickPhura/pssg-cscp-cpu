@@ -87,6 +87,7 @@ import { HealthCheckService } from "../../core/services/health-check.service";
       }
     `,
   ],
+  standalone: false,
 })
 export class OutageComponent {
   private readonly healthCheckService = inject(HealthCheckService);

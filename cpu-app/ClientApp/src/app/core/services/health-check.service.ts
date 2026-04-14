@@ -27,7 +27,7 @@ export class HealthCheckService {
   /** Called once at app init via APP_INITIALIZER. */
   initialize(): Promise<void> {
     return this.http
-      .get<HealthCheckResponse>("/hc")
+      .get<HealthCheckResponse>("/coastcontracts/hc")
       .pipe(
         map((response) => {
           // All individual checks must be Healthy – mirrors the API logic where
