@@ -1,23 +1,28 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { HealthCheckService } from '../services/health-check.service';
+import { Injectable } from "@angular/core";
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from "@angular/router";
+import { HealthCheckService } from "../services/health-check.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class HealthGuard {
   constructor(
     private healthCheckService: HealthCheckService,
-    private router: Router
+    private router: Router,
   ) {}
 
   canActivate(
     _route: ActivatedRouteSnapshot,
-    _state: RouterStateSnapshot
+    _state: RouterStateSnapshot,
   ): boolean | UrlTree {
     if (this.healthCheckService.isHealthy) {
       return true;
     }
-    return this.router.createUrlTree(['/outage']);
+    return this.router.createUrlTree(["/outage"]);
   }
 }

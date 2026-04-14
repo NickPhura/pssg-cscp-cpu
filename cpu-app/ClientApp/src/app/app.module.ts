@@ -75,11 +75,11 @@ import { UploadDocumentComponent } from "./authenticated/upload-document/upload-
 import { UppercaseDirective } from "./core/directives/uppercase.directive";
 import { PhonePipe } from "./core/pipes/phone.pipe";
 import { SafePipe } from "./core/pipes/safe.pipe";
+import { HealthCheckService } from "./core/services/health-check.service";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LoginPageComponent } from "./login/login.component";
-import { HealthCheckService } from "./core/services/health-check.service";
-import { ServiceNotAvailableComponent } from "./shared/service-not-available.component";
 import { OutagePageComponent } from "./shared/outage-page/outage-page.component";
+import { ServiceNotAvailableComponent } from "./shared/service-not-available.component";
 import { SharedModule } from "./shared/shared.module";
 import { ToolTipTriggerComponent } from "./shared/tool-tip/tool-tip.component";
 import { TestComponent } from "./test/test.component";
@@ -175,8 +175,8 @@ import { TestComponent } from "./test/test.component";
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: APP_INITIALIZER,
-      useFactory: (healthCheckService: HealthCheckService) =>
-        () => healthCheckService.initialize(),
+      useFactory: (healthCheckService: HealthCheckService) => () =>
+        healthCheckService.initialize(),
       deps: [HealthCheckService],
       multi: true,
     },

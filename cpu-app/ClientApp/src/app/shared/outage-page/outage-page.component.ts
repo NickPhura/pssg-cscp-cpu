@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-outage-page',
+  selector: "app-outage-page",
   template: `
     <div class="outage-wrapper">
       <div class="outage-card">
@@ -88,6 +88,6 @@ import { Component } from '@angular/core';
 })
 export class OutagePageComponent {
   retry(): void {
-    window.location.href = '/';
+    window.location.href = "/";
   }
 }

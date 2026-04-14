@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { catchError, map, of } from "rxjs";
 
 export interface HealthCheckEntry {
   name: string;
@@ -14,7 +14,7 @@ export interface HealthCheckResponse {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class HealthCheckService {
   private _healthy = false;
@@ -28,15 +28,15 @@ export class HealthCheckService {
   /** Called once at app init via APP_INITIALIZER. */
   initialize(): Promise<void> {
     return this.http
-      .get<HealthCheckResponse>('/hc')
+      .get<HealthCheckResponse>("/hc")
       .pipe(
         map((response) => {
-          this._healthy = response?.status?.toLowerCase() === 'healthy';
+          this._healthy = response?.status?.toLowerCase() === "healthy";
         }),
         catchError(() => {
           this._healthy = false;
           return of(undefined);
-        })
+        }),
       )
       .toPromise()
       .then(() => undefined);
