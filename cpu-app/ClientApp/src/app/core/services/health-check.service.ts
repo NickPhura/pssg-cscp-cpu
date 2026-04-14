@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { catchError, map, of } from "rxjs";
 
 export interface HealthCheckEntry {
@@ -17,11 +17,10 @@ export interface HealthCheckResponse {
   providedIn: "root",
 })
 export class HealthCheckService {
-  private _healthy = false;
+  private readonly _healthy = signal(false);
 
-  get isHealthy(): boolean {
-    return this._healthy;
-  }
+  /** Read-only signal – consumed by guards and components. */
+  readonly isHealthy = this._healthy.asReadonly();
 
   constructor(private http: HttpClient) {}
 
@@ -31,10 +30,16 @@ export class HealthCheckService {
       .get<HealthCheckResponse>("/hc")
       .pipe(
         map((response) => {
-          this._healthy = response?.status?.toLowerCase() === "healthy";
+          // All individual checks must be Healthy – mirrors the API logic where
+          // the overall HTTP status is driven by the API self-check only, but
+          // the FE treats any degraded/unhealthy check as an outage.
+          const healthy =
+            Array.isArray(response?.checks) &&
+            response.checks.every((c) => c.status === "Healthy");
+          this._healthy.set(healthy);
         }),
         catchError(() => {
-          this._healthy = false;
+          this._healthy.set(false);
           return of(undefined);
         }),
       )

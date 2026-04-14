@@ -20,7 +20,7 @@ export class HealthGuard {
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot,
   ): boolean | UrlTree {
-    if (this.healthCheckService.isHealthy) {
+    if (this.healthCheckService.isHealthy()) {
       return true;
     }
     return this.router.createUrlTree(["/outage"]);

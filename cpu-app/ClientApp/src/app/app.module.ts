@@ -78,7 +78,7 @@ import { SafePipe } from "./core/pipes/safe.pipe";
 import { HealthCheckService } from "./core/services/health-check.service";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LoginPageComponent } from "./login/login.component";
-import { OutagePageComponent } from "./shared/outage-page/outage-page.component";
+import { OutagePageComponent } from "./shared/outage/outage-page.component";
 import { ServiceNotAvailableComponent } from "./shared/service-not-available.component";
 import { SharedModule } from "./shared/shared.module";
 import { ToolTipTriggerComponent } from "./shared/tool-tip/tool-tip.component";

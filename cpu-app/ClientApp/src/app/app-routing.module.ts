@@ -24,7 +24,7 @@ import { HealthGuard } from "./core/guards/health.guard";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LoginPageComponent } from "./login/login.component";
 import { NotFoundComponent } from "./shared/not-found/not-found.component";
-import { OutagePageComponent } from "./shared/outage-page/outage-page.component";
+import { OutagePageComponent } from "./shared/outage/outage-page.component";
 import { TestComponent } from "./test/test.component";
 
 const routes: Routes = [

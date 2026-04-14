@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, effect, inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { HealthCheckService } from "../../core/services/health-check.service";
 
 @Component({
-  selector: "app-outage-page",
+  selector: "app-outage",
   template: `
     <div class="outage-wrapper">
       <div class="outage-card">
@@ -86,8 +88,21 @@ import { Component } from "@angular/core";
     `,
   ],
 })
-export class OutagePageComponent {
+export class OutageComponent {
+  private readonly healthCheckService = inject(HealthCheckService);
+  private readonly router = inject(Router);
+
+  constructor() {
+    // Automatically navigate home as soon as the API reports healthy again.
+    effect(() => {
+      if (this.healthCheckService.isHealthy()) {
+        this.router.navigateByUrl("/");
+      }
+    });
+  }
+
   retry(): void {
-    window.location.href = "/";
+    // Re-run the health check and let the effect handle navigation if healthy.
+    this.healthCheckService.initialize();
   }
 }
