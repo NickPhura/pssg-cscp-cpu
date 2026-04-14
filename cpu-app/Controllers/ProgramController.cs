@@ -15,7 +15,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
     [JwtAuthorize]
-    public class ProgramController(IBackgroundTaskQueue taskQueue, IHostApplicationLifetime applicationLifetime, IMediator mediator) : Controller
+    public class ProgramController(IHostApplicationLifetime applicationLifetime, IMediator mediator) : Controller
     {
         private readonly CancellationToken _cancellationToken = applicationLifetime.ApplicationStopping;
 
@@ -44,14 +44,14 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 IsoCurrencyCode = IsoCurrencyCode.CAD.ToString()
             };
             var currencyResult = new FindCurrencyResult(currency);
-            
+
             var invoiceDate = GetInvoiceDate(quarter);
 
             var dummy = new GetApprovedCommand();
             var programResult = await mediator.Send(dummy, token);
 
             var invoices = new List<(Invoice invoice, InvoiceLineDetail invoiceLineDetail)>();
-            foreach (var program in programResult.Programs) 
+            foreach (var program in programResult.Programs)
             {
                 var invoiceQuery = new InvoiceQuery();
                 invoiceQuery.ProgramId = program.Id;
@@ -134,7 +134,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
                 return firstQuarterDate.AddDays(-3); //15-January-current year
             else
                 throw new ArgumentException(string.Format("Invalid Quarter number '{0}'..", quarter));
-            }
+        }
 
         // NOTE use this version if quarter is not provided
         // what happens with dates Oct 16 to Dec 31, should it trigger quarter 1 and use next year's quarter?

@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 
 namespace Gov.Cscp.Victims.Public.Models;

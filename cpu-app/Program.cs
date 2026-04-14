@@ -26,7 +26,7 @@ namespace Gov.Cscp.Victims.Public
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
-                    logging.AddConsole(options => options.IncludeScopes = true);
+                    logging.AddSimpleConsole(options => options.IncludeScopes = true);
                     logging.SetMinimumLevel(LogLevel.Debug);
                     logging.AddDebug();
                     logging.AddEventSourceLogger();

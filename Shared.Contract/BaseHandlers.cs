@@ -5,7 +5,7 @@ public class FindQueryBaseHandlers<TRepository, TDto, TFindQuery, TFindResult, T
     where TRepository : IFindRepository<TFindQuery, TFindResult>, IQueryRepository<TQuery, TResult>, IBaseRepository<TDto>
     where TDto : IDto
 {
-    protected readonly TRepository _repository;
+    protected new readonly TRepository _repository;
 
     public FindQueryBaseHandlers(TRepository repository) : base(repository)
     {
@@ -26,7 +26,7 @@ public class QueryBaseHandlers<TRepository, TDto, TQuery, TResult> : BaseHandler
 {
     protected readonly TRepository _repository;
 
-    public QueryBaseHandlers(TRepository repository) : base(repository) 
+    public QueryBaseHandlers(TRepository repository) : base(repository)
     {
         _repository = repository;
     }

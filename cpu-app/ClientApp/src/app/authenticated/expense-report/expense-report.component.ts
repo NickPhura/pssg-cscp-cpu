@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import * as _ from "lodash";
 import { Subscription } from "rxjs";
 import { ExpenseReportPost } from "../../core/api/models/expenseReportPost";
 import { ExpenseReportService } from "../../core/api/services/expense-report/expense-report.service";
@@ -122,7 +121,7 @@ export class ExpenseReportComponent implements OnInit, OnDestroy {
     );
     this.stepperService.currentStepperElement.subscribe((e) => {
       if (this.currentStepperElement) {
-        let originalStepper = _.cloneDeep(this.currentStepperElement);
+        let originalStepper = structuredClone(this.currentStepperElement);
         let formState = this.formHelper.getFormState();
 
         if (

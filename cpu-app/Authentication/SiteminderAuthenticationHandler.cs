@@ -231,9 +231,8 @@ namespace Gov.Cscp.Victims.Public.Authentication
             IOptionsMonitor<SiteMinderAuthOptions> configureOptions,
             ILoggerFactory loggerFactory,
             UrlEncoder encoder,
-            ISystemClock clock,
             IDynamicsResultService dynamicsResultService
-            ) : base(configureOptions, loggerFactory, encoder, clock)
+            ) : base(configureOptions, loggerFactory, encoder)
         {
             _logger = loggerFactory.CreateLogger(typeof(SiteminderAuthenticationHandler));
             _dynamicsResultService = dynamicsResultService;

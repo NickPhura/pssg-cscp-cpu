@@ -4,7 +4,7 @@ namespace Database;
 
 public static class ServiceCollectionExtensions
 {
-    static IConfiguration _configuration;
+    static IConfiguration _configuration = null!;
 
     // TODO pass in configuration binded model instead of IConfiguration
     public static IServiceCollection AddDatabaseService(this IServiceCollection services, IConfiguration configuration)
@@ -50,7 +50,7 @@ public static class ServiceCollectionExtensions
             var result = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(responseContent);
             if (result?.ContainsKey("access_token") ?? false)
             {
-                return result["access_token"].GetString();
+                return result["access_token"].GetString()!;
             }
             else if (result?.ContainsKey("error") ?? false)
             {

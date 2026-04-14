@@ -51,10 +51,7 @@ namespace Gov.Cscp.Victims.Public.Models
 				{
 					claims.Add(new Claim(ClaimTypes.Email, user.Email));
 				}
-				if (user.ContactId != null)
-				{
-					claims.Add(new Claim(User.UseridClaim, user.ContactId.ToString()));
-				}
+				claims.Add(new Claim(User.UseridClaim, user.ContactId.ToString()));
 				if (!string.IsNullOrEmpty(user.UserType))
 				{
 					claims.Add(new Claim(User.UserTypeClaim, user.UserType));

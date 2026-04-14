@@ -103,7 +103,6 @@ namespace Gov.Cscp.Victims.Public
                         opts.Filters.Add(new AllowAnonymousFilter());
                     }
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opts =>
                 {
                     opts.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
@@ -256,7 +255,7 @@ namespace Gov.Cscp.Victims.Public
             app.Use(
                 async (ctx, next) =>
                 {
-                    ctx.Response.Headers.Add(
+                    ctx.Response.Headers.Append(
                         "Strict-Transport-Security",
                         "max-age=31536000; includeSubDomains; preload"
                     );
@@ -399,7 +398,7 @@ namespace Gov.Cscp.Victims.Public
             if (!string.IsNullOrEmpty(splunkCollectorUrl) && !string.IsNullOrEmpty(splunkToken))
             {
                 // Use proper certificate validation or provide custom validator
-                HttpClientHandler? handler = null;
+                HttpClientHandler handler = null;
 
                 if (env.IsDevelopment())
                 {

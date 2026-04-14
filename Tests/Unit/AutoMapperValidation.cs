@@ -24,9 +24,9 @@ public class AutoMapperValidation(IMapper mapper)
         var obj = FakeData.Contracts[0];
         var entity = mapper.Map<Vsd_Contract>(obj);
 
-        Assert.Equal((int)obj.ContractType, (int)entity.Vsd_Type);
-        Assert.Equal((int)obj.StateCode, (int)entity.StateCode);
-        Assert.Equal((int)obj.StatusCode, (int)entity.StatusCode);
+        Assert.Equal((int)obj.ContractType, (int)entity.Vsd_Type!);
+        Assert.Equal((int)obj.StateCode!, (int)entity.StateCode!);
+        Assert.Equal((int)obj.StatusCode!, (int)entity.StatusCode!);
         Assert.Equal(obj.Id, entity.Id);
     }
 
@@ -36,8 +36,8 @@ public class AutoMapperValidation(IMapper mapper)
         var obj = FakeData.Programs[0];
         var entity = mapper.Map<Vsd_Program>(obj);
 
-        Assert.Equal((int)obj.StateCode, (int)entity.StateCode);
-        Assert.Equal((int)obj.StatusCode, (int)entity.StatusCode);
+        Assert.Equal((int)obj.StateCode!, (int)entity.StateCode!);
+        Assert.Equal((int)obj.StatusCode!, (int)entity.StatusCode!);
         Assert.Equal(obj.Id, entity.Id);
         // TODO get this mapping working
         Assert.Equal(obj.ContractName, entity.Vsd_ContractIdName);
@@ -45,6 +45,6 @@ public class AutoMapperValidation(IMapper mapper)
         Assert.Equal(obj.ProvinceState, entity.Vsd_ProvinceState);
         Assert.Equal(obj.BudgetProposalSignatureDate, entity.Vsd_BudgetProposalSignaturedAte);
         Assert.Equal(obj.Name, entity.Vsd_Name);
-        Assert.Equal(obj.CpuSubtotal, entity.Vsd_Cpu_SubtotalComponentValue.Value);
+        Assert.Equal(obj.CpuSubtotal, entity.Vsd_Cpu_SubtotalComponentValue!.Value);
     }
 }

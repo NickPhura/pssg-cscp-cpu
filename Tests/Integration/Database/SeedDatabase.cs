@@ -1,4 +1,4 @@
-﻿public class SeedDatabase(DatabaseContext databaseContext, IContractRepository contractRepository, IProgramRepository programRepository)
+﻿public class SeedDatabase(IContractRepository contractRepository, IProgramRepository programRepository)
 {
     public void Seed()
     {
@@ -11,7 +11,8 @@
             {
                 id = contractRepository.Insert(contract);
                 Console.WriteLine($"Inserted contract with id {id}");
-            } catch { /* glup */ }
+            }
+            catch { /* glup */ }
         }
 
         foreach (var program in FakeData.Programs)
