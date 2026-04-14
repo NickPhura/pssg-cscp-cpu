@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticationGuard } from './core/guards/authentication.guard';
+import { HealthGuard } from './core/guards/health.guard';
+import { OutagePageComponent } from './shared/outage-page/outage-page.component';
 import { BudgetProposalComponent } from './authenticated/budget-proposal/budget-proposal.component';
 import { DashboardComponent } from './authenticated/dashboard/dashboard.component';
 import { ExpenseReportComponent } from './authenticated/expense-report/expense-report.component';
@@ -27,20 +29,27 @@ import { CAPApplicationComponent } from './authenticated/cap-application/cap-app
 
 const routes: Routes = [
   {
+    path: 'outage',
+    component: OutagePageComponent
+  },
+  {
     path: '',
-    component: LandingPageComponent
+    component: LandingPageComponent,
+    canActivate: [HealthGuard]
   },
   {
     path: 'test',
-    component: TestComponent
+    component: TestComponent,
+    canActivate: [HealthGuard]
   },
   {
     path: 'login',
-    component: LoginPageComponent
+    component: LoginPageComponent,
+    canActivate: [HealthGuard]
   },
   {
     path: 'authenticated',
-    canActivate: [AuthenticationGuard],
+    canActivate: [HealthGuard, AuthenticationGuard],
     children: [
       {
         path: '',
@@ -142,6 +151,7 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
+    canActivate: [HealthGuard]
   }
 ];
 
