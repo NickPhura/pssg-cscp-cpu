@@ -1,12 +1,15 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Database;
 using Gov.Cscp.Victims.Public.Authentication;
 using Gov.Cscp.Victims.Public.Authorization;
 using Gov.Cscp.Victims.Public.Background;
+using Gov.Cscp.Victims.Public.HealthChecks;
 using Gov.Cscp.Victims.Public.Services;
 using Manager;
 using Microsoft.AspNetCore;
@@ -22,8 +25,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
@@ -46,7 +50,6 @@ namespace Gov.Cscp.Victims.Public
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseHealthChecks("/hc")
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     var env = hostingContext.HostingEnvironment;
@@ -185,13 +188,18 @@ namespace Gov.Cscp.Victims.Public
             });
 
             // health checks
-            services.AddHealthChecks(checks =>
-            {
-                checks.AddValueTaskCheck(
-                    "HTTP Endpoint",
-                    () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok"))
+            services
+                .AddHealthChecks()
+                .AddCheck<ApiSelfHealthCheck>(
+                    "API",
+                    failureStatus: HealthStatus.Degraded,
+                    tags: new[] { "self", "process" }
+                )
+                .AddCheck<DataverseHealthCheck>(
+                    "Dataverse",
+                    failureStatus: HealthStatus.Unhealthy,
+                    tags: new[] { "dataverse", "dynamics", "ready" }
                 );
-            });
 
             services.AddSession(x =>
             {
@@ -377,6 +385,32 @@ namespace Gov.Cscp.Victims.Public
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks(
+                    "/hc",
+                    new HealthCheckOptions
+                    {
+                        ResponseWriter = async (context, report) =>
+                        {
+                            context.Response.ContentType = "application/json";
+
+                            var result = JsonSerializer.Serialize(
+                                new
+                                {
+                                    status = report.Status.ToString(),
+                                    checks = report.Entries.Select(e => new
+                                    {
+                                        name = e.Key,
+                                        status = e.Value.Status.ToString(),
+                                        description = e.Value.Description,
+                                    }),
+                                },
+                                new JsonSerializerOptions { WriteIndented = true }
+                            );
+
+                            await context.Response.WriteAsync(result);
+                        },
+                    }
+                );
             });
 
             if (CurrentEnvironment.IsProduction())
