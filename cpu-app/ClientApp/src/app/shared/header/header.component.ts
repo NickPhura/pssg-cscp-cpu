@@ -1,18 +1,19 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { StateService } from '../../core/services/state.service';
-import { nameAssemble } from '../../core/constants/name-assemble'
-import { UserDataService } from '../../core/services/user-data.service';
-import { environment } from '../../../environments/environment';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { environment } from "../../../environments/environment";
+import { nameAssemble } from "../../core/constants/name-assemble";
+import { HealthCheckService } from "../../core/services/health-check.service";
+import { StateService } from "../../core/services/state.service";
+import { UserDataService } from "../../core/services/user-data.service";
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css'],
-    standalone: false
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"],
+  standalone: false,
 })
 export class HeaderComponent implements OnInit {
-  title: string = 'Victim Services Community Programs Unit';
+  title: string = "Victim Services Community Programs Unit";
   currentUser: string;
   nameAssemble;
   loggedIn: boolean = false;
@@ -24,10 +25,14 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private stateService: StateService,
     private userData: UserDataService,
+    private healthCheckService: HealthCheckService,
   ) {
     // for building names
     this.nameAssemble = nameAssemble;
   }
+
+  /** Exposed so the template can read the health signal. */
+  readonly isHealthy = this.healthCheckService.isHealthy;
 
   ngOnInit() {
     this.stateService.loggedIn.subscribe((l: boolean) => {
@@ -36,19 +41,18 @@ export class HeaderComponent implements OnInit {
         this.router.navigate([this.stateService.homeRoute.getValue()]);
       }
     });
-    this.stateService.currentUser.subscribe(u => {
+    this.stateService.currentUser.subscribe((u) => {
       if (u) {
         this.currentUser = nameAssemble(u.firstName, u.middleName, u.lastName);
       }
     });
-    this.stateService.loading.subscribe(l => this.loading = l);
+    this.stateService.loading.subscribe((l) => (this.loading = l));
   }
   login() {
     if (window.location.href.includes("localhost")) {
       this.stateService.login();
-    }
-    else {
-      window.location.href = 'login';
+    } else {
+      window.location.href = "login";
     }
   }
   logout() {

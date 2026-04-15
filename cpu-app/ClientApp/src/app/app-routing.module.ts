@@ -43,9 +43,11 @@ const routes: Routes = [
     canActivate: [HealthGuard],
   },
   {
+    // No HealthGuard here – this is the SiteMinder/BCeID auth-callback
+    // landing route. Blocking it during an outage prevents the session
+    // handshake from completing and causes a redirect loop to /outage.
     path: "login",
     component: LoginPageComponent,
-    canActivate: [HealthGuard],
   },
   {
     path: "authenticated",
