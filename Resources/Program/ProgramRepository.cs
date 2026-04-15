@@ -4,7 +4,7 @@ public class ProgramRepository : BaseRepository<Vsd_Program, Program>, IProgramR
 {
     private readonly DatabaseContext _databaseContext;
 
-    public ProgramRepository(DatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper) 
+    public ProgramRepository(DatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
         _databaseContext = databaseContext;
     }
@@ -14,8 +14,8 @@ public class ProgramRepository : BaseRepository<Vsd_Program, Program>, IProgramR
         var queryResults = _databaseContext.Vsd_ProgramSet
             .WhereIf(programQuery.Id != null, x => x.Id == programQuery.Id)
             .WhereIf(programQuery.ContractId != null, x => x.Vsd_ContractId.Id == programQuery.ContractId)
-            .WhereIf(programQuery.StateCode != null, c => c.StateCode == (Vsd_Program_StateCode)programQuery.StateCode)
-            .WhereIf(programQuery.StatusCode != null, c => c.StatusCode == (Vsd_Program_StatusCode)programQuery.StatusCode)
+            .WhereIf(programQuery.StateCode != null, c => c.StateCode == (Vsd_Program_StateCode)programQuery.StateCode!.Value)
+            .WhereIf(programQuery.StatusCode != null, c => c.StatusCode == (Vsd_Program_StatusCode)programQuery.StatusCode!.Value)
             .ToList();
         var programs = _mapper.Map<IEnumerable<Program>>(queryResults);
         return new ProgramResult(programs);

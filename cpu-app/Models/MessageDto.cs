@@ -1,3 +1,4 @@
+#nullable enable
 namespace Gov.Cscp.Victims.Public.Models;
 
 public class MessageDto

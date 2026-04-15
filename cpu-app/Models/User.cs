@@ -219,7 +219,6 @@ namespace Gov.Cscp.Victims.Public.Models
 			) &&
 			(
 					AccountId == other.AccountId ||
-					AccountId != null &&
 					AccountId.Equals(other.AccountId)
 			) &&
 			(

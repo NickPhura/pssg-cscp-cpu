@@ -18,7 +18,7 @@ namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/[controller]")]
     [JwtAuthorize]
-    public class ScheduleGController(IMediator mediator, IBackgroundTaskQueue taskQueue, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory) : Controller
+    public class ScheduleGController(IMediator mediator, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory) : Controller
     {
         private readonly CancellationToken _cancellationToken = applicationLifetime.ApplicationStopping;
         private readonly ILogger _logger = loggerFactory.CreateLogger<ScheduleGController>();

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import * as _ from "lodash";
 import { ConfigurationStore } from "../..//core/store/configuration.store";
 import { StatusReportService } from "../../core/api/services/status-report/status-report.service";
 import { FormHelper } from "../../core/form-helper";
@@ -102,7 +101,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
     );
     this.stepperService.currentStepperElement.subscribe((e) => {
       if (this.currentStepperElement) {
-        let originalStepper = _.cloneDeep(this.currentStepperElement);
+        let originalStepper = structuredClone(this.currentStepperElement);
         let formState = this.formHelper.getFormState();
         if (
           originalStepper.formState === "valid" &&
@@ -414,7 +413,7 @@ export class StatusReportComponent implements OnInit, OnDestroy {
     return isValid;
   }
   setNextStepper() {
-    let originalStepper = _.cloneDeep(this.currentStepperElement);
+    let originalStepper = structuredClone(this.currentStepperElement);
 
     if (!this.validateCurrentQuestionsAreFilledIn()) {
       this.stepperService.setStepperElementProperty(

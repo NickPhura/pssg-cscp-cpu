@@ -3,7 +3,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -75,8 +75,10 @@ import { UploadDocumentComponent } from "./authenticated/upload-document/upload-
 import { UppercaseDirective } from "./core/directives/uppercase.directive";
 import { PhonePipe } from "./core/pipes/phone.pipe";
 import { SafePipe } from "./core/pipes/safe.pipe";
+import { HealthCheckService } from "./core/services/health-check.service";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LoginPageComponent } from "./login/login.component";
+import { OutageComponent } from "./shared/outage/outage.component";
 import { ServiceNotAvailableComponent } from "./shared/service-not-available.component";
 import { SharedModule } from "./shared/shared.module";
 import { ToolTipTriggerComponent } from "./shared/tool-tip/tool-tip.component";
@@ -149,6 +151,7 @@ import { TestComponent } from "./test/test.component";
     UploadDocumentComponent,
     UppercaseDirective,
     ServiceNotAvailableComponent,
+    OutageComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -167,7 +170,17 @@ import { TestComponent } from "./test/test.component";
     NgxMaskDirective,
     NgxMaskPipe,
   ],
-  providers: [provideNgxMask(), provideHttpClient(withInterceptorsFromDi())],
+  providers: [
+    provideNgxMask(),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (healthCheckService: HealthCheckService) => () =>
+        healthCheckService.initialize(),
+      deps: [HealthCheckService],
+      multi: true,
+    },
+  ],
   exports: [MatToolbarModule, MatTooltipModule, TooltipModule],
   bootstrap: [AppComponent],
 })

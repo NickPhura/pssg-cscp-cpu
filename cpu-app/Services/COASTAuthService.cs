@@ -91,10 +91,9 @@ namespace Gov.Cscp.Victims.Public.Services
                         throw new Exception("No configured connection to Dynamics.");
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return "error";
-                    throw e;
                 }
             }
             else

@@ -4,7 +4,7 @@ public class PaymentRepository : BaseRepository<Vsd_Payment, Payment>, IPaymentR
 {
     private readonly DatabaseContext _databaseContext;
 
-    public PaymentRepository(DatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper) 
+    public PaymentRepository(DatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
         _databaseContext = databaseContext;
     }
@@ -14,7 +14,7 @@ public class PaymentRepository : BaseRepository<Vsd_Payment, Payment>, IPaymentR
         var queryResults = _databaseContext.Vsd_PaymentSet
             .WhereIf(paymentQuery.ProgramId != null, p => p.Vsd_ProgramId.Id == paymentQuery.ProgramId)
             .WhereIf(paymentQuery.ContractId != null, p => p.Vsd_ContractId.Id == paymentQuery.ContractId)
-            .WhereIfNotIn(paymentQuery.ExcludeStatusCodes != null, x => (PaymentStatusCode)x.StatusCode, paymentQuery.ExcludeStatusCodes)
+            .WhereIfNotIn(paymentQuery.ExcludeStatusCodes != null, x => (PaymentStatusCode)x.StatusCode!, paymentQuery.ExcludeStatusCodes!)
             .ToList();
         var payments = _mapper.Map<IEnumerable<Payment>>(queryResults);
         return new PaymentResult(payments);

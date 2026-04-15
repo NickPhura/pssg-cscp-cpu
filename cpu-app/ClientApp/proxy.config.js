@@ -1,6 +1,6 @@
 const PROXY_CONFIG = [
   {
-    context: ["/api", "/coastcontracts/api"],
+    context: ["/api", "/coastcontracts/api", "/coastcontracts/hc"],
     target: "http://localhost:5000",
     secure: false,
     logLevel: "error",
