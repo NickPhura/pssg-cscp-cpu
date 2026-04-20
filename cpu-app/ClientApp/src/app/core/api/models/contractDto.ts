@@ -24,7 +24,7 @@ export interface ContractDto {
   /** @nullable */
   vsd_Cpu_MemberOfCssea?: number | null;
   /** @nullable */
-  vsd_Cpu_HumanResourcePolices?: string | null;
+  vsd_Cpu_HumanResourcePolices?: number[] | null;
   /** @nullable */
   vsd_Cpu_SpecificUnion?: string | null;
   /** @nullable */

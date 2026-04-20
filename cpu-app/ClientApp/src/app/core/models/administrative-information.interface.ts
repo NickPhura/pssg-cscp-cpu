@@ -6,7 +6,7 @@ export interface iAdministrativeInformation {
   compliantWorkersCompensation: boolean;
   staffUnionized?: boolean;
   staffUnion: string;
-  ccseaMemberType: string;
+  ccseaMemberType?: string;
   staffSubcontracted: boolean;
   staffSubcontractedPersons: iPerson[];
   awareOfCriminalRecordCheckRequirement: boolean;

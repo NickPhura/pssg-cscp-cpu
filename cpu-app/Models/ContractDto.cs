@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 
 namespace Gov.Cscp.Victims.Public.Models;
 
@@ -15,7 +16,7 @@ public class ContractDto
     // Administrative fields
     public int? Vsd_Cpu_InsuranceOptions { get; set; }
     public int? Vsd_Cpu_MemberOfCssea { get; set; }
-    public string? Vsd_Cpu_HumanResourcePolices { get; set; }
+    public int[]? Vsd_Cpu_HumanResourcePolices { get; set; }
     public string? Vsd_Cpu_SpecificUnion { get; set; }
     public int? Vsd_Cpu_SubcontractedProgramStaff { get; set; }
     public int? Vsd_Cpu_UnionizedStaff { get; set; }
