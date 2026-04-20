@@ -10,7 +10,7 @@ export interface ScheduleDto {
   /** @nullable */
   vsd_ScheduleId?: string | null;
   /** @nullable */
-  vsd_Days?: string | null;
+  vsd_Days?: number[] | null;
   /** @nullable */
   vsd_ScheduledStartTime?: string | null;
   /** @nullable */

@@ -14,7 +14,6 @@ using System;
 namespace Gov.Cscp.Victims.Public.Controllers
 {
     [Route("api/cpuorgcontracts")] // Keep route for backward compatibility
-    [Authorize]
     public class CpuOrgContractsController : Controller
     {
         private readonly IOrganizationServiceAsync _organizationService;

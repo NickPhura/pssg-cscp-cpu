@@ -111,7 +111,7 @@ namespace Gov.Cscp.Victims.Public.Models
         public string vsd_tooltip { get; set; }
         public int? vsd_yesno { get; set; }
         public string vsd_textanswer { get; set; }
-        public double? vsd_number { get; set; }
+        public decimal? vsd_number { get; set; }
         public DateTime? createdon { get; set; }
     }
 

@@ -60,13 +60,13 @@ export class TransmogrifierProgramApplication {
     return {
       ccseaMemberType: decodeCcseaMemberType(b.contract.vsd_Cpu_MemberOfCssea),
       compliantEmploymentStandardsAct: b.contract.vsd_Cpu_HumanResourcePolices
-        ? b.contract.vsd_Cpu_HumanResourcePolices.includes("100000000")
+        ? b.contract.vsd_Cpu_HumanResourcePolices.includes(100000000)
         : false,
       compliantHumanRights: b.contract.vsd_Cpu_HumanResourcePolices
-        ? b.contract.vsd_Cpu_HumanResourcePolices.includes("100000001")
+        ? b.contract.vsd_Cpu_HumanResourcePolices.includes(100000001)
         : false,
       compliantWorkersCompensation: b.contract.vsd_Cpu_HumanResourcePolices
-        ? b.contract.vsd_Cpu_HumanResourcePolices.includes("100000002")
+        ? b.contract.vsd_Cpu_HumanResourcePolices.includes(100000002)
         : false,
       awareOfCriminalRecordCheckRequirement: false,
       staffSubcontractedPersons:
