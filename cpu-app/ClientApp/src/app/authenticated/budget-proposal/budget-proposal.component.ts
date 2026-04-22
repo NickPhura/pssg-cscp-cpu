@@ -219,7 +219,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
           .postApiBudgetProposal(this.out)
           .subscribe(
             (r: any) => {
-              if (r.isSuccess) {
+              if (r.IsSuccess) {
                 this.notificationQueueService.addNotification(
                   `You have successfully saved the budget proposal.`,
                   "success",
@@ -511,7 +511,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
           .postApiBudgetProposal(this.out)
           .subscribe(
             (r: any) => {
-              if (r.isSuccess) {
+              if (r.IsSuccess) {
                 this.stateService.refresh();
                 this.saving = false;
                 this.reloadBudgetProposal();
