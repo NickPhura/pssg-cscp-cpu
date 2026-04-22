@@ -10,7 +10,7 @@ export class TransmogrifierNewUser {
     public organizationId: string;
     public userId: string;
     public person: iPerson;
-    public serviceProvider: iServiceProvider;
+    public serviceProvider?: iServiceProvider;
     public isContractorContact: boolean;
     public formHelper = new FormHelper();
 
