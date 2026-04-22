@@ -219,7 +219,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
           .postApiBudgetProposal(this.out)
           .subscribe(
             (r: any) => {
-              if (r.isSuccess) {
+              if (r.IsSuccess) {
                 this.notificationQueueService.addNotification(
                   `You have successfully saved the budget proposal.`,
                   "success",
@@ -250,7 +250,6 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
               }
             },
             (err) => {
-              console.log(err);
               this.notificationQueueService.addNotification(
                 "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
                 "danger",
@@ -260,7 +259,6 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
             },
           );
       } catch (err) {
-        console.log(err);
         this.notificationQueueService.addNotification(
           "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
           "danger",
@@ -511,7 +509,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
           .postApiBudgetProposal(this.out)
           .subscribe(
             (r: any) => {
-              if (r.isSuccess) {
+              if (r.IsSuccess) {
                 this.stateService.refresh();
                 this.saving = false;
                 this.reloadBudgetProposal();
@@ -526,7 +524,6 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
               }
             },
             (err) => {
-              console.log(err);
               this.notificationQueueService.addNotification(
                 "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
                 "danger",
@@ -536,7 +533,6 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
             },
           );
       } catch (err) {
-        console.log(err);
         this.notificationQueueService.addNotification(
           "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
           "danger",
