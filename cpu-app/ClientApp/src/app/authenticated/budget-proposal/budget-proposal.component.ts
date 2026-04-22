@@ -250,6 +250,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
               }
             },
             (err) => {
+              console.log(err);
               this.notificationQueueService.addNotification(
                 "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
                 "danger",
@@ -259,6 +260,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
             },
           );
       } catch (err) {
+        console.log(err);
         this.notificationQueueService.addNotification(
           "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
           "danger",
@@ -524,6 +526,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
               }
             },
             (err) => {
+              console.log(err);
               this.notificationQueueService.addNotification(
                 "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
                 "danger",
@@ -533,6 +536,7 @@ export class BudgetProposalComponent implements OnInit, OnDestroy {
             },
           );
       } catch (err) {
+        console.log(err);
         this.notificationQueueService.addNotification(
           "The budget proposal could not be saved. If this problem is persisting please contact your ministry representative.",
           "danger",
