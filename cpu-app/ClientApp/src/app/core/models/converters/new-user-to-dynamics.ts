@@ -13,7 +13,7 @@ export function convertNewUserToDynamics(
   const newContact: DynamicsRegisterNewUserContactPost =
     convertPersonToDynamics(trans.person) as DynamicsRegisterNewUserContactPost;
   const serviceProvider: DynamicsRegisterNewUserServiceProviderPost | undefined=
-    (trans.serviceProvider.name) ? convertServiceProviderToDynamics(trans.serviceProvider) : undefined;
+    trans.serviceProvider != undefined ? convertServiceProviderToDynamics(trans.serviceProvider) : undefined;
   if (trans.isContractorContact) {
     newContact.vsd_contactrole = 100000007;
   } else {
