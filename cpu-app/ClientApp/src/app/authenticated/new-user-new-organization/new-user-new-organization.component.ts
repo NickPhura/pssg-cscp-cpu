@@ -26,7 +26,7 @@ export class NewUserNewOrganizationComponent implements OnInit {
   nameRegex: string = NAME_REGEX_PATTERN;
   organizationName: string;
   saving: boolean = false;
-  trans: TransmogrifierNewUser = new TransmogrifierNewUser();
+  trans: TransmogrifierNewUser = new TransmogrifierNewUser(false);
   public formHelper = new FormHelper();
   constructor(
     private stateService: StateService,
