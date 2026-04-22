@@ -42,6 +42,7 @@ export class NewUserComponent implements OnInit {
       let userSettings = this.stateService.userSettings.getValue();
       this.trans.organizationId = userSettings.accountId;
       this.trans.userId = userSettings.userId;
+      this.trans.serviceProvider = undefined;
 
       if (!this.trans.hasRequiredFields()) {
         this.notificationQueueService.addNotification(
