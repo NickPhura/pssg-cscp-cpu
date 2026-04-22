@@ -468,7 +468,7 @@ namespace Gov.Cscp.Victims.Public.Models
         {
             if (entity == null) return null;
 
-            return new ScheduleGLineItemDto
+            return new ScheduleGLineItemDto 
             {
                 Vsd_ScheduleGLineItemId = entity.GetAttributeValue<Guid>("vsd_scheduleglineitemid") != Guid.Empty
                      ? entity.GetAttributeValue<Guid>("vsd_scheduleglineitemid").ToString()
@@ -654,7 +654,8 @@ namespace Gov.Cscp.Victims.Public.Models
                 vsd_yesno = entity.GetAttributeValue<OptionSetValue>("vsd_yesno")?.Value,
                 vsd_textanswer = entity.GetAttributeValue<string>("vsd_textanswer"),
                 vsd_number = entity.GetAttributeValue<decimal?>("vsd_number"),
-                createdon = entity.GetAttributeValue<DateTime?>("createdon")
+                createdon = entity.GetAttributeValue<DateTime?>("createdon"),
+                _vsd_categoryid_value = GetEntityReferenceValue(entity, "vsd_categoryid")
             };
         }
 

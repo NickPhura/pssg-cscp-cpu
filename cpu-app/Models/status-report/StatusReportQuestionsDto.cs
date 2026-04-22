@@ -102,6 +102,7 @@ namespace Gov.Cscp.Victims.Public.Models
 
     public class StatusReportAnswerItemDto
     {
+        public string _vsd_categoryid_value;
         public string vsd_datacollectionlineitemid { get; set; }
         public string vsd_name { get; set; }
         public string _vsd_datacollectionid_value { get; set; }
