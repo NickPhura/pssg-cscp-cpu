@@ -16,13 +16,15 @@ export class TransmogrifierNewUser {
 
     private REQUIRED_FIELDS: string[] = ["person.firstName", "person.lastName", "person.title", "person.email", "person.phone", "person.address.line1", "person.address.city", "person.address.postalCode",];
     private REQUIRED_ORGANIZATION_FIELDS: string[] = ["serviceProvider.name", "serviceProvider.email", "serviceProvider.phone", "serviceProvider.address.line1", "serviceProvider.address.city", "serviceProvider.address.postalCode",];
-    constructor(g: iDynamicsContactNotApproved = {}) {
+    constructor(isNewUserOnly: boolean, g: iDynamicsContactNotApproved = {}) {
         if (g) {
             this.userId = g.Userbceid;// this is the user's bceid
             this.organizationId = g.Businessbceid;// this is the organization's bceid
         }
         this.person = new Person();
-        this.serviceProvider = new ServiceProvider();
+        if(isNewUserOnly != true) {
+            this.serviceProvider = new ServiceProvider();
+        }
         this.isContractorContact = false;
     }
 

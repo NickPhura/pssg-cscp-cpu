@@ -26,7 +26,7 @@ export class NewUserComponent implements OnInit {
   nameRegex: string = NAME_REGEX_PATTERN;
   organizationName: string;
   saving: boolean = false;
-  trans: TransmogrifierNewUser = new TransmogrifierNewUser();
+  trans: TransmogrifierNewUser = new TransmogrifierNewUser(true);
   public formHelper = new FormHelper();
   constructor(
     private stateService: StateService,
@@ -42,7 +42,6 @@ export class NewUserComponent implements OnInit {
       let userSettings = this.stateService.userSettings.getValue();
       this.trans.organizationId = userSettings.accountId;
       this.trans.userId = userSettings.userId;
-      this.trans.serviceProvider = undefined;
 
       if (!this.trans.hasRequiredFields()) {
         this.notificationQueueService.addNotification(
