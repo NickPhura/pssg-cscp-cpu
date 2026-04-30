@@ -1,6 +1,7 @@
 using Database.Model;
 using Microsoft.Xrm.Sdk;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -96,9 +97,10 @@ namespace Gov.Cscp.Victims.Public.Models
                 entity.Id = programId;
 
             entity.Vsd_Cpu_FundingAmountRequested = new Money(p.vsd_cpu_fundingamountrequested);
+            entity.Vsd_Cpu_EstimatedSubtotalComponentValue = new Money(p.vsd_cpu_estimatedsubtotalcomponentvalue);
 
             // vsd_cpu_programmodeltypes is a multi-select optionset; carry as raw string
-            SetString(entity, "vsd_cpu_programmodeltypes", p.vsd_cpu_programmodeltypes);
+            SetEnumArray(entity, "vsd_cpu_programmodeltypes", p.vsd_cpu_programmodeltypes);
 
             if (p.vsd_otherprogrammodels != null) entity.Vsd_OtherProgramModels = p.vsd_otherprogrammodels;
             if (p.vsd_cpu_programevaluationdescription != null) entity.Vsd_Cpu_ProgramEvaluationDescription = p.vsd_cpu_programevaluationdescription;
@@ -117,10 +119,10 @@ namespace Gov.Cscp.Victims.Public.Models
             var entity = new Vsd_Contact_Vsd_Program();
 
             if (Guid.TryParse(pc.contactid, out var contactId))
-                entity["contactid"] = new EntityReference("contact", contactId);
+                entity["contactid"] =  contactId;
 
             if (Guid.TryParse(pc.vsd_programid, out var programId))
-                entity["vsd_programid"] = new EntityReference("vsd_program", programId);
+                entity["vsd_programid"] = programId;
 
             return entity;
         }
@@ -134,10 +136,16 @@ namespace Gov.Cscp.Victims.Public.Models
             return null;
         }
 
-        private static void SetString(Entity entity, string attributeName, string value)
+        private static void SetEnumArray(Entity entity, string attributeName, string value)
         {
-            if (value != null)
-                entity[attributeName] = value;
+            var options = value?
+                .Split(',')
+                .Select(s => s.Trim())
+                .Where(s => !string.IsNullOrEmpty(s))
+                .Select(s => new OptionSetValue(int.Parse(s)))
+                .ToList();
+
+            entity[attributeName] = new OptionSetValueCollection(options);
         }
 
         private static void SetEntityReference(Entity entity, string attributeName, string logicalName, string bindValue)

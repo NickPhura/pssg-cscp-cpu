@@ -39,6 +39,8 @@ public class ProgramDto
     public int? Vsd_Cpu_NumberOfHours { get; set; }
     public int? Vsd_TotalScheduledHours { get; set; }
     public int? Vsd_TotalOnCallStandbyHours { get; set; }
+    public string? Vsd_Cpu_CapProgramOperationsComments { get; set; }
+    public decimal? vsd_Cpu_FoundingAmountRequested { get; set; }
     public decimal? Vsd_Cpu_EstimatedSubtotalComponentValue { get; set; }
     // Lookup IDs for type, region, location
     public string? Vsd_ProgramTypeValue { get; set; }
@@ -46,4 +48,7 @@ public class ProgramDto
     public string? Vsd_Cpu_Program_Location { get; set; }
     public string? FortuneCookieType { get; set; }
     public string? FortuneCookieEtag { get; set; }
+    public string? Vsd_Cpu_ProgramModelTypes { get; set; }
+    public int? Vsd_Cpu_ProgramEvaluationEfforts { get; set; }
+    public string? Vsd_Cpu_ProgramEvaluationEffortsDescription { get; set; }
 }

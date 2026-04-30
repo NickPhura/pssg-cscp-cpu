@@ -27,6 +27,10 @@ namespace Gov.Cscp.Victims.Public.Models
             ErrorMessage = "vsd_cpu_fundingamountrequested must be between 0 and 10,000,000.")]
         public decimal vsd_cpu_fundingamountrequested { get; set; }
 
+        [Range(typeof(decimal), "0", "10000000",
+            ErrorMessage = "vsd_cpu_estimatedsubtotalcomponentvalue must be between 0 and 10,000,000.")]
+        public decimal vsd_cpu_estimatedsubtotalcomponentvalue { get; set; }
+
         /// <summary>
         /// Comma-separated multi-select option-set values representing chosen programme model types.
         /// Optional – may be null when the user has not yet selected any model.

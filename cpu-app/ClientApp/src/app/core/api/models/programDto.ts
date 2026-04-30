@@ -66,6 +66,10 @@ export interface ProgramDto {
   /** @nullable */
   vsd_TotalOnCallStandbyHours?: number | null;
   /** @nullable */
+  vsd_Cpu_CapProgramOperationsComments?: string | null;
+  /** @nullable */
+  vsd_Cpu_FoundingAmountRequested?: number | null;
+  /** @nullable */
   vsd_Cpu_EstimatedSubtotalComponentValue?: number | null;
   /** @nullable */
   vsd_ProgramTypeValue?: string | null;
@@ -77,4 +81,6 @@ export interface ProgramDto {
   fortuneCookieType?: string | null;
   /** @nullable */
   fortuneCookieEtag?: string | null;
+  /** @nullable */
+  vsd_Cpu_ProgramModelTypes?: string | null;
 }
