@@ -1,5 +1,6 @@
 using Database.Model;
 using Gov.Cscp.Victims.Public.Models;
+using Manager.Contract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -392,12 +393,12 @@ namespace Gov.Cscp.Victims.Public.Controllers
         private static string GetLineItemAnswer(Entity entity)
         {
             var yesNo = entity.GetAttributeValue<OptionSetValue>("vsd_yesno");
-            if (yesNo != null) return yesNo.Value.ToString();
+            if (yesNo != null) return yesNo.Value == (int)YesNo.Yes ? "Yes" : "No";
 
             var text = entity.GetAttributeValue<string>("vsd_textanswer");
             if (!string.IsNullOrEmpty(text)) return text;
 
-            var number = entity.GetAttributeValue<double?>("vsd_number");
+            var number = entity.GetAttributeValue<decimal?>("vsd_number");
             if (number.HasValue) return number.Value.ToString();
 
             return string.Empty;

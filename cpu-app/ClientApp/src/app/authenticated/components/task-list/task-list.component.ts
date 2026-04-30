@@ -213,22 +213,26 @@ export class TaskListComponent implements OnInit, OnDestroy {
     programName: string,
     contractNumber: string,
   ) {
+    const encodedContractNumber = encodeURIComponent(contractNumber);
+    const encodedProgramName = encodeURIComponent(programName);
+    const requestOptions: any = { responseType: "blob" };
+
     this.statusReportService
-      .getApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName(
+      .getApiStatusReportExportMonthlyReportContractIdProgramIdContractNumberProgramName<Blob>(
         contractId,
         programId,
-        contractNumber,
-        programName,
+        encodedContractNumber,
+        encodedProgramName,
+        requestOptions,
       )
-      .subscribe((response: any) => {
-        if (response == null) {
+      .subscribe((response: Blob) => {
+        if (response == null || response.size === 0) {
           this.notificationQueueService.addNotification(
             "There are no submitted reports for " + programName + " to export.",
             "danger",
           );
         } else {
-          const blob = new Blob([response], { type: "text/csv" });
-          const url = window.URL.createObjectURL(blob);
+          const url = window.URL.createObjectURL(response);
           const a = document.createElement("a");
           a.href = url;
           a.download =
@@ -242,6 +246,11 @@ export class TaskListComponent implements OnInit, OnDestroy {
             "success",
           );
         }
+      }, () => {
+        this.notificationQueueService.addNotification(
+          "Unable to download monthly statistics right now. Please try again later.",
+          "danger",
+        );
       });
   }
 }
