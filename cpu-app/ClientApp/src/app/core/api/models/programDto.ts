@@ -83,4 +83,8 @@ export interface ProgramDto {
   fortuneCookieEtag?: string | null;
   /** @nullable */
   vsd_Cpu_ProgramModelTypes?: string | null;
+  /** @nullable */
+  vsd_Cpu_ProgramEvaluationEfforts?: number | null;
+  /** @nullable */
+  vsd_Cpu_ProgramEvaluationEffortsDescription?: string | null;
 }

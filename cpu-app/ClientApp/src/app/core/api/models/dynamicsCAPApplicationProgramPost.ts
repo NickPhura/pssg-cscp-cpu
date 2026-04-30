@@ -16,6 +16,11 @@ export interface DynamicsCAPApplicationProgramPost {
    * @maximum 10000000
    */
   vsd_cpu_fundingamountrequested?: number;
+  /**
+   * @minimum 0
+   * @maximum 10000000
+   */
+  vsd_cpu_estimatedsubtotalcomponentvalue?: number;
   /** @nullable */
   vsd_cpu_programmodeltypes?: string | null;
   /** @nullable */
