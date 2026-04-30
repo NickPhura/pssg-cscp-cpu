@@ -158,7 +158,15 @@ namespace Gov.Cscp.Victims.Public.Models
                 Vsd_Cpu_Program_Location = entity.GetAttributeValue<string>("vsd_cpu_program_location"),
                 FortuneCookieType = entity.LogicalName,
                 FortuneCookieEtag = entity.GetAttributeValue<string>("versionnumber") ??
-                                   entity.RowVersion
+                                   entity.RowVersion,
+                Vsd_Cpu_CapProgramOperationsComments = entity.GetAttributeValue<string>("vsd_cpu_capprogramoperationscomments"),
+                vsd_Cpu_FoundingAmountRequested = entity.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("vsd_cpu_fundingamountrequested")?.Value,
+                Vsd_Cpu_ProgramModelTypes = entity.Contains("vsd_cpu_programmodeltypes") && entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>("vsd_cpu_programmodeltypes") != null
+                    ? string.Join(",", entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>("vsd_cpu_programmodeltypes").Select(v => v.Value))
+                    : null,
+                Vsd_Cpu_ProgramEvaluationEfforts = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("vsd_cpu_programevaluationefforts")?.Value,
+                Vsd_Cpu_ProgramEvaluationEffortsDescription = entity.GetAttributeValue<string>("vsd_cpu_programevaluationeffortsdescription")
+
             };
         }
 

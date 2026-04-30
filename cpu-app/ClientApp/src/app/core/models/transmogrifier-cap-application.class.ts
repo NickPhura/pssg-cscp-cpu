@@ -198,17 +198,19 @@ export class TransmogrifierCAPApplication {
         maxAmountMask: p.vsd_Cpu_EstimatedSubtotalComponentValue
           ? p.vsd_Cpu_EstimatedSubtotalComponentValue.toFixed(2)
           : "",
-        applicationAmount: null,
-        applicationAmountMask: "",
-        typesOfModels: null,
+        applicationAmount: p.vsd_Cpu_FoundingAmountRequested,
+        applicationAmountMask: p.vsd_Cpu_FoundingAmountRequested
+          ? p.vsd_Cpu_FoundingAmountRequested.toFixed(2)
+          : "",
+        typesOfModels: p.vsd_Cpu_ProgramModelTypes ?? "",
         otherModel: null,
         evaluation: null,
         evaluationDescription: null,
-        additionalComments: null,
         additionalStaff,
         removedStaff: [],
         programLocation: p.vsd_Cpu_Program_Location,
         programTypeName: programType?.vsd_Name ?? "",
+        additionalComments: p.vsd_Cpu_CapProgramOperationsComments ?? "",
       } as iCAPProgram;
 
       programs.push(temp);

@@ -95,6 +95,9 @@ export function convertCAPProgramToDynamics(
         ? program.programContact.personId
         : null,
       vsd_programid: program.programId,
+      vsd_cpu_estimatedsubtotalcomponentvalue: parseFloat(
+        program.maxAmountMask ? program.maxAmountMask : "0",
+      ),
       vsd_cpu_fundingamountrequested: parseFloat(
         program.applicationAmount ? program.applicationAmount.toString() : "0",
       ),
