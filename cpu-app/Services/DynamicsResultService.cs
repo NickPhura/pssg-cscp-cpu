@@ -43,11 +43,10 @@ namespace Gov.Cscp.Victims.Public.Services
 
         private async Task<HttpClientResult> DynamicsResultAsync(HttpMethod method, string endpointUrl, string requestJson)
         {
-            endpointUrl = _configuration["DYNAMICS_ODATA_URI"] + endpointUrl;
+            endpointUrl = _configuration["Dynamics:DynamicsApiEndpointUrl"] + endpointUrl;
             requestJson = requestJson.Replace("fortunecookie", "@odata.");
 
-            // Console.WriteLine(endpointUrl);
-            // Console.WriteLine(requestJson);
+            _logger.Debug("Calling Dynamics endpointUrl: {0}", endpointUrl);
 
             HttpRequestMessage _httpRequest = new HttpRequestMessage(method, endpointUrl);
             _httpRequest.Content = new StringContent(requestJson, System.Text.Encoding.UTF8, "application/json");

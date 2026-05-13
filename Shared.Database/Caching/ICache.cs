@@ -2,5 +2,6 @@ namespace Database;
 
 public interface ICache
 {
-    Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, TimeSpan expiration);
+    Task<T?> GetOrSet<T>(string key, Func<Task<T>> factory, TimeSpan expiration)
+        where T : class;
 }

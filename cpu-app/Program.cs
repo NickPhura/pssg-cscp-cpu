@@ -90,7 +90,6 @@ namespace Gov.Cscp.Victims.Public
             services.AddHandlers();
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<InvoiceHandlers>());
 
-            services.AddHttpClient<ICOASTAuthService, COASTAuthService>();
             services.AddHttpClient<IKeycloakAuthService, KeycloakAuthService>();
 
             services

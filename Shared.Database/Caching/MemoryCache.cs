@@ -4,24 +4,23 @@ namespace Database;
 
 public class MemoryCache : ICache
 {
-    private readonly IMemoryCache _memoryCache;
+    private readonly IMemoryCache memoryCache;
 
     public MemoryCache(IMemoryCache memoryCache)
     {
-        _memoryCache = memoryCache;
+        this.memoryCache = memoryCache;
     }
 
-    public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, TimeSpan expiration)
+    public async Task<T?> GetOrSet<T>(string key, Func<Task<T>> factory, TimeSpan expiration)
+        where T : class
     {
-        if (!_memoryCache.TryGetValue(key, out T cacheEntry))
+        if (memoryCache.TryGetValue(key, out T? cachedValue))
         {
-            cacheEntry = await factory();
-
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(expiration);
-
-            _memoryCache.Set(key, cacheEntry, cacheEntryOptions);
+            return cachedValue;
         }
 
-        return cacheEntry;
+        var value = await factory();
+        memoryCache.Set(key, value, expiration);
+        return value;
     }
 }

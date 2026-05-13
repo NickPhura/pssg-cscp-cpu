@@ -29,23 +29,14 @@ The back end runs in openshift and takes HTTP requests from the front end. It cl
 
 ## Running the Project for the first time
 
-1. To run code open a shell like `bash` or `zsh`.
-2. Change directories into the `cpu-app/ClientApp` folder in the project.
-3. Run the command `npm install` to build the `node_modules` folder from the dependencies listed in `package.json`. _(You may or may not need to `npm install -g @angular/cli` to install the Angular CLI tools.)_
-4. Set Dotnet Core developer secrets. These will need to be attained from a Dynamics admin or copied from another developer.
-
-```
-Windows location:
-C:\Users\<user account short name>\AppData\Roaming\Microsoft\UserSecrets\<guid that Dotnet generated for the project>
-Mac/Linux location:
-~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
-```
-
-### Secrets Template
+### Update secrets
 
 ```JSON
 {
   "BASE_PATH": "/coastcontracts",
+
+  "FEATURE_HIDE_REPORT_SAVE": "true",
+
   "Dynamics": {
     "AuthenticationType": "OnPremise",
     "DynamicsApiEndpointUrl": "http://dev-coast-dataverse-proxy.silver.devops.bcgov/api/data/v9.0/",
@@ -63,16 +54,46 @@ Mac/Linux location:
       "ClientSecret": "<cloud_client_secret>",
       "ResourceName": "https://cscp-dev.api.crm3.dynamics.com"
     }
-  }
+  },
+
+  "KEYCLOAK_CLIENT_ID": "coast",
+  "KEYCLOAK_CLIENT_SECRET": "<keycloak_secret>",
+  "KEYCLOAK_GRANT_TYPE": "client_credentials",
+  "KEYCLOAK_URL": "https://dev.common-sso.justice.gov.bc.ca/auth/realms/Services/protocol/openid-connect/token",
+
+  "JWT_TOKEN_KEY": "<jwt_token_key>",
+  "JWT_VALID_ISSUER": "https://cscp-vs.dev.jag.gov.bc.ca/",
+  "JWT_DISABLE_ISSUER_VALIDATION": "true",
+
+  "JAG_CLIENT_ID": "<jag_client_id>",
+  "JAG_CORRELATION_ID": "<jag_correlation_id>",
+  "JAG_DOCUMENT_MERGE_URL": "<jag_document_merge_url>",
+
+  "SITEMINDER_LOGOUT_URL": "https://logontest7.gov.bc.ca/clp-cgi/logoff.cgi"
 }
+```
 
-## Running the Project
+```bash
+# Windows secrets location:
+C:\Users\<user account short name>\AppData\Roaming\Microsoft\UserSecrets\<user_secrets_id>\secrets.json
 
-There are several ways to run this project. The simplest is from the command line because Visual Studio does a lot of additional behind-the-scenes configuration which can complicate running the development code.
+# Mac/Linux Secrets location:
+~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
+```
 
-1. To run code open a shell like `bash` or `zsh`.
+### Run the Angular app
+
+1. Open a shell like `bash` or `zsh`.
 2. Change directories into the `cpu-app/ClientApp` folder in the project.
-3. Run the code using `dotnet run` or `dotnet watch run`. Adding `watch` will automatically reload the project when a `.cs` or `.ts` files changes on disk. This is very handy for development.
+3. Run the command `npm install` to build the `node_modules` folder from the dependencies listed in `package.json`. _(You may or may not need to `npm install -g @angular/cli` to install the Angular CLI tools.)_
+4. Run `npm start` to start the Angular app.
+
+### Run the Dotnet API
+
+1. Set Dotnet Core developer secrets. These will need to be attained from a Dynamics admin, exported from OpenShift, or copied from another developer.
+2. Open a shell like `bash` or `zsh`.
+3. Change directories into the `cpu-app` folder in the project.
+4. Run the code using `dotnet run` or `dotnet watch run`. Adding `watch` will automatically reload the project when a `.cs` or `.ts` files changes on disk. This is very handy for development.
 
 ## Making Code Changes
 
@@ -83,4 +104,7 @@ VS Code is a good editor and comes with a built-in terminal that we can use for 
 1. Add the plugin "Angular Language Service" by **Angular** for front-end syntax help.
 2. Add "Manage User Secrets" by **Reptarsrage** for dotnet core secrets management.
 3. Add "C#" by **Microsoft** for dotnet core syntax highlighting.
+
+```
+
 ```

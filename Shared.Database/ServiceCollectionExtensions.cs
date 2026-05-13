@@ -14,17 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICache, MemoryCache>();
 
         // Add HTTP client factory for token providers
-        services.AddHttpClient(
-            "oauth_token"
-        // (sp, c) =>
-        // {
-        //     var options = sp.GetRequiredService<IOptions<DynamicsTokenProviderOptions>>().Value;
-        //     if (!string.IsNullOrWhiteSpace(options.ADFS.OAuth2TokenEndpoint))
-        //     {
-        //         c.BaseAddress = new Uri(options.ADFS.OAuth2TokenEndpoint);
-        //     }
-        // }
-        );
+        services.AddHttpClient("adfs_token");
 
         services.AddHttpClient("entraid_token");
 
