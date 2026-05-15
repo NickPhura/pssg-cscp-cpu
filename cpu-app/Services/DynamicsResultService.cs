@@ -1,11 +1,13 @@
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Gov.Cscp.Victims.Public.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Rest;
 using Serilog;
-using System.Net.Http;
-using System.Net;
-using System.Threading.Tasks;
-using System;
+using Microsoft.Extensions.Options;
+using Database;
 
 
 namespace Gov.Cscp.Victims.Public.Services
@@ -21,12 +23,14 @@ namespace Gov.Cscp.Victims.Public.Services
         private HttpClient _client;
         private IConfiguration _configuration;
         private readonly ILogger _logger;
+        private readonly DynamicsTokenProviderOptions _dynamicsOptions;
 
-        public DynamicsResultService(IConfiguration configuration, HttpClient httpClient)
+        public DynamicsResultService(IConfiguration configuration, HttpClient httpClient, IOptions<DynamicsTokenProviderOptions> dynamicsOptions)
         {
             _client = httpClient;
             _configuration = configuration;
             _logger = Log.Logger;
+            _dynamicsOptions = dynamicsOptions.Value;
         }
 
         public async Task<HttpClientResult> Get(string endpointUrl)
@@ -43,11 +47,10 @@ namespace Gov.Cscp.Victims.Public.Services
 
         private async Task<HttpClientResult> DynamicsResultAsync(HttpMethod method, string endpointUrl, string requestJson)
         {
-            endpointUrl = _configuration["DYNAMICS_ODATA_URI"] + endpointUrl;
+            endpointUrl = _dynamicsOptions.GetDynamicsApiEndpointUrl() + endpointUrl;
             requestJson = requestJson.Replace("fortunecookie", "@odata.");
 
-            // Console.WriteLine(endpointUrl);
-            // Console.WriteLine(requestJson);
+            _logger.Debug("Calling Dynamics endpointUrl: {0}", endpointUrl);
 
             HttpRequestMessage _httpRequest = new HttpRequestMessage(method, endpointUrl);
             _httpRequest.Content = new StringContent(requestJson, System.Text.Encoding.UTF8, "application/json");
