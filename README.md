@@ -29,18 +29,24 @@ The back end runs in openshift and takes HTTP requests from the front end. It cl
 
 ## Running the Project for the first time
 
-### Update secrets
+### User secrets
+
+[Setup secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-9.0&tabs=windows#secret-manager)
+
+### Secrets Template
 
 ```JSON
 {
   "BASE_PATH": "/coastcontracts",
 
-  "FEATURE_HIDE_REPORT_SAVE": "true",
+  "CONFIGURATION_OUTAGEINFORMATION_MESSAGE": "",
+  "CONFIGURATION_OUTAGEINFORMATION_STARTDATE": "",
+  "CONFIGURATION_OUTAGEINFORMATION_ENDDATE": "",
 
   "Dynamics": {
     "AuthenticationType": "OnPremise",
-    "DynamicsApiEndpointUrl": "http://dev-coast-dataverse-proxy.silver.devops.bcgov/api/data/v9.0/",
     "ADFS": {
+      "DynamicsApiEndpointUrl": "http://dev-coast-dataverse-proxy.silver.devops.bcgov/api/data/v9.0/",
       "OAuth2TokenEndpoint": "https://ststest.gov.bc.ca/adfs/oauth2/token",
       "ClientId": "<onpremise_client_id>",
       "ClientSecret": "<onpremise_client_secret>",
@@ -49,6 +55,7 @@ The back end runs in openshift and takes HTTP requests from the front end. It cl
       "ResourceName": "https://cscp-vs.dev.jag.gov.bc.ca/api/data/v9.0/"
     },
     "EntraId": {
+      "DynamicsApiEndpointUrl": "https://cscp-dev.api.crm3.dynamics.com/api/data/v9.2/",,
       "TenantId": "<cloud_tenant_id>",
       "ClientId": "<cloud_client_id>",
       "ClientSecret": "<cloud_client_secret>",
